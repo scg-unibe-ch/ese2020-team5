@@ -5,6 +5,10 @@ export interface UserAttributes {
     userId: number;
     userName: string;
     password: string;
+    email: string;
+    lastName: string;
+    firstName: string;
+    isAdmin: number;
 }
 
 export interface UserCreationAttributes extends Optional<UserAttributes, 'userId'> { }
@@ -13,6 +17,10 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     userId!: number;
     userName!: string;
     password!: string;
+    email: string;
+    lastName: string;
+    firstName: string;
+    isAdmin: number;
 
     public static initialize(sequelize: Sequelize) {
         User.init({
@@ -28,6 +36,21 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             password: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            lastName: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            firstName: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            isAdmin: {
+                type: DataTypes.INTEGER
             }
         },
             {
