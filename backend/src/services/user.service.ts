@@ -18,7 +18,7 @@ export class UserService {
             where: {
                 [Op.or]: [
                     {userName: loginRequestee.userName},
-                    {email: loginRequestee.email}]
+                    {email: loginRequestee.userNamel}]
             }
         })
         .then(user => {
