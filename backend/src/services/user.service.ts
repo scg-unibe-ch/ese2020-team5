@@ -2,6 +2,7 @@ import { UserAttributes, User } from '../models/user.model';
 import { LoginResponse, LoginRequest } from '../models/login.model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import {Op} from 'sequelize';
 
 export class UserService {
 
@@ -15,11 +16,13 @@ export class UserService {
         const secret = process.env.JWT_SECRET;
         return User.findOne({
             where: {
-                userName: loginRequestee.userName
+                [Op.or]: [
+                    {userName: loginRequestee.userName},
+                    {email: loginRequestee.email}]
             }
         })
         .then(user => {
-            if (bcrypt.compareSync(loginRequestee.password, user.password)) {// compares the hash with the password from the lognin request
+            if (bcrypt.compareSync(loginRequestee.password, user.password)) {// compares the hash with the password from the login request
                 const token: string = jwt.sign({ userName: user.userName, userId: user.userId }, secret, { expiresIn: '2h' });
                 return Promise.resolve({ user, token });
             } else {
