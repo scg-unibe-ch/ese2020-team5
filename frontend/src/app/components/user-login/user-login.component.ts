@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
@@ -8,6 +9,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
+  loginForm: FormGroup;
 
   userName = '';
   password = '';
@@ -17,7 +19,10 @@ export class UserLoginComponent implements OnInit {
 
   secureEndpointResponse = '';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private FormBuilder: FormBuilder,
+    private httpClient: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.checkUserStatus();
