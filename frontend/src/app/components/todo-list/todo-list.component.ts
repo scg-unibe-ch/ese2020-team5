@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { TodoList } from '../models/todo-list.model';
+import { TodoList } from '../../models/todo-list.model';
 import { HttpClient } from '@angular/common/http';
-import { TodoItem } from '../models/todo-item.model';
-import { environment } from '../../environments/environment';
+import { TodoItem } from '../../models/todo-item.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-todo-list',
