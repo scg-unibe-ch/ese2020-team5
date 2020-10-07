@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  userName = '';
+  userNameOrEmail = '';
   password = '';
 
   userToken: string;
@@ -31,7 +31,7 @@ export class UserLoginComponent implements OnInit {
   checkUserStatus(): void {
     // Get user data from local storage
     this.userToken = localStorage.getItem('userToken');
-    this.userName = localStorage.getItem('userName');
+    this.userNameOrEmail = localStorage.getItem('userNameOrEmail');
 
     // Set boolean whether a user is logged in or not
     this.loggedIn = !!(this.userToken);
@@ -39,12 +39,12 @@ export class UserLoginComponent implements OnInit {
 
   login(): void {
     this.httpClient.post(environment.endpointURL + 'user/login', {
-      userName: this.userName,
+      userNameOrEmail: this.userNameOrEmail,
       password: this.password
     }).subscribe((res: any) => {
       // Set user data in local storage
       localStorage.setItem('userToken', res.token);
-      localStorage.setItem('userName', res.user.userName);
+      localStorage.setItem('userNameOrEmail', res.user.userNameOrEmail);
 
       this.checkUserStatus();
     });

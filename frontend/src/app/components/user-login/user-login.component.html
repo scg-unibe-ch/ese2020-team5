@@ -5,7 +5,7 @@
       <hr>
       <div class="login-fields">
         <label><b>Username or email</b></label>
-        <input type="text" placeholder="Username or email" [(ngModel)]="userName" name="userNameOrEmail">
+        <input type="text" placeholder="Username or email" [(ngModel)]="userNameOrEmail" name="userNameOrEmail">
         <label><b>Password</b></label>
         <input type="password" placeholder="Password" [(ngModel)]="password" name="password" type="password">
       </div>
@@ -15,7 +15,7 @@
 
   <div *ngIf="loggedIn">
     <button type="submit" color="warn" (click)="logout()" class="logout-btn">Logout</button>
-    You are currently logged in as {{ userName }}
+    You are currently logged in as {{ userNameOrEmail }}
   </div>
 </div>
 <div class="accessSecureEndpoint">
