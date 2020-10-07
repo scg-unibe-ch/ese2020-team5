@@ -1,5 +1,5 @@
 .signup-form {
-  margin: 30px auto auto;
+  margin: 30px auto 30px;
   padding-bottom: 20px;
   width: 60%;
   min-width: 400px;
@@ -39,6 +39,19 @@
   width: 90%;
 }
 
+.signup-form a {
+  margin: 0 auto 5px;
+  display: block;
+  width: 90%;
+  color: red;
+}
+
+.signup-form select {
+  margin-top: 1px;
+  display: inline-block;
+  padding: 10px;
+}
+
 .signup-form-btn {
   background-color: #000000;
   color: white;
@@ -58,4 +71,37 @@
 .signup-form-btn:disabled {
   background-color: #626262;
   opacity: 1.0;
+  cursor: default;
+}
+
+.signup-optional-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+}
+
+.phone-nr {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.gender {
+  grid-column-start: 5;
+  grid-column-end: 6;
+}
+
+.country {
+  grid-column-start: 1;
+  grid-column-end: 6;
+}
+
+.city {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.pin-code {
+  grid-column-start: 4;
+  grid-column-end: 6;
+  width: 82%;
 }

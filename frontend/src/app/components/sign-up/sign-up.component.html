@@ -3,19 +3,64 @@
     <h1>Sign Up</h1>
     <hr>
     <div class="signup-fields">
-      <label><b>First Name</b></label>
+      <label><b>First Name *</b></label>
       <input type="text" placeholder="First Name" formControlName="firstName">
-      <label><b>Last Name</b></label>
+      <div *ngIf="signUpForm.get('firstName').invalid && (signUpForm.get('firstName').dirty || signUpForm.get('firstName').touched)">
+        <a *ngIf="signUpForm.get('firstName').errors.required">First Name is required!</a>
+      </div>
+      <label><b>Last Name *</b></label>
       <input type="text" placeholder="Last Name" formControlName="lastName">
-      <label><b>Email</b></label>
+      <div *ngIf="signUpForm.get('lastName').invalid && (signUpForm.get('lastName').dirty || signUpForm.get('lastName').touched)">
+        <a *ngIf="signUpForm.get('lastName').errors.required">Last Name is required!</a>
+      </div>
+      <label><b>Email *</b></label>
       <input type="email" placeholder="Email" formControlName="email">
-      <br><br><br>
-      <label><b>Username</b></label>
+      <div *ngIf="signUpForm.get('email').invalid && (signUpForm.get('email').dirty || signUpForm.get('email').touched)">
+        <a *ngIf="signUpForm.get('email').errors.required">Email is required!</a>
+      </div>
+      <div class="signup-optional-fields">
+        <div class="phone-nr">
+          <label><b>Phone Nr.</b></label>
+          <input type="number" placeholder="Phone Nr." formControlName="phoneNr">
+        </div>
+        <div class="gender">
+          <label><b>Gender</b></label>
+          <select formControlName="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="country">
+          <label><b>Country</b></label>
+          <input type="text" placeholder="Country" formControlName="country">
+        </div>
+        <div class="city">
+          <label><b>City</b></label>
+          <input type="text" placeholder="City" formControlName="city">
+        </div>
+        <div class="pin-code">
+          <label><b>PIN</b></label>
+          <input type="text" placeholder="PIN" formControlName="pinCode">
+        </div>
+      </div>
+      <br>
+      <label><b>Username *</b></label>
       <input type="text" placeholder="Username" formControlName="userName">
-      <label><b>Password</b></label>
-      <input type="password" placeholder="Password" formControlName="password">
-      <label><b>Confirm Password</b></label>
+      <div *ngIf="signUpForm.get('userName').invalid && (signUpForm.get('userName').dirty || signUpForm.get('userName').touched)">
+        <a *ngIf="signUpForm.get('userName').errors.required">Username is required!</a>
+      </div>
+      <label><b>Password *</b></label>
+      <input type="password" placeholder="Password" formControlName="password" (ngModelChange)="validateConfirmPW()">
+      <div *ngIf="signUpForm.get('password').invalid && (signUpForm.get('password').dirty || signUpForm.get('password').touched)">
+        <a *ngIf="signUpForm.get('password').errors.required">Password is required!</a>
+        <a *ngIf="signUpForm.get('password').errors.pattern">Password requires a capital letter, a number, a special character and at least 8 characters!</a>
+      </div>
+      <label><b>Confirm Password *</b></label>
       <input type="password" placeholder="Confirm Password" formControlName="c_password">
+      <div *ngIf="signUpForm.get('c_password').invalid && (signUpForm.get('c_password').dirty || signUpForm.get('c_password').touched)">
+        <a *ngIf="signUpForm.get('c_password').errors.pattern">Password doesn't match!</a>
+      </div>
     </div>
     <button type="submit" [disabled]="signUpForm.invalid" class="signup-form-btn">Sign Up</button>
   </form>
