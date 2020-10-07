@@ -14,8 +14,9 @@
   </div>
 
   <div *ngIf="loggedIn">
+    <h1>You are currently logged in as {{ userNameOrEmail }}</h1>
+    <br>
     <button type="submit" color="warn" (click)="logout()" class="logout-btn">Logout</button>
-    You are currently logged in as {{ userNameOrEmail }}
   </div>
 </div>
 <div class="accessSecureEndpoint">
