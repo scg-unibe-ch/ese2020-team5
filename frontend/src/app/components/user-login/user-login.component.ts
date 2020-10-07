@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -8,8 +10,9 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
+  loginForm: FormGroup;
 
-  userName = '';
+  userNameOrEmail = '';
   password = '';
 
   userToken: string;
@@ -17,16 +20,25 @@ export class UserLoginComponent implements OnInit {
 
   secureEndpointResponse = '';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.checkUserStatus();
+    this.loginForm = this.formBuilder.group({
+      userNameOrEmail: [''],
+      password: ['']
+
+    });
   }
 
   checkUserStatus(): void {
     // Get user data from local storage
     this.userToken = localStorage.getItem('userToken');
-    this.userName = localStorage.getItem('userName');
+    this.userNameOrEmail = localStorage.getItem('userNameOrEmail');
 
     // Set boolean whether a user is logged in or not
     this.loggedIn = !!(this.userToken);
@@ -34,12 +46,12 @@ export class UserLoginComponent implements OnInit {
 
   login(): void {
     this.httpClient.post(environment.endpointURL + 'user/login', {
-      userName: this.userName,
-      password: this.password
+      userNameOrEmail: this.loginForm.value.userNameOrEmail,
+      password: this.loginForm.value.password
     }).subscribe((res: any) => {
       // Set user data in local storage
       localStorage.setItem('userToken', res.token);
-      localStorage.setItem('userName', res.user.userName);
+      localStorage.setItem('userNameOrEmail', res.user.userName);
 
       this.checkUserStatus();
     });
@@ -48,7 +60,7 @@ export class UserLoginComponent implements OnInit {
   logout(): void {
     // Remove user data from local storage
     localStorage.removeItem('userToken');
-    localStorage.removeItem('userName');
+    localStorage.removeItem('userNameOrEmail');
 
     this.checkUserStatus();
   }

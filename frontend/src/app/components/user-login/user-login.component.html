@@ -1,0 +1,24 @@
+<div class="login-form">
+  <div *ngIf="!loggedIn">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <h1>Login</h1>
+      <hr>
+      <div class="login-fields">
+        <label><b>Username or email</b></label>
+        <input type="text" placeholder="Username or email" formControlName = "userNameOrEmail" [(ngModel)]="userNameOrEmail" name="userNameOrEmail">
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Password" formControlName = "password" [(ngModel)]="password" name="password" type="password">
+      </div>
+      <button type="submit" color="primary" (click)="login()" class="login-form-btn">Login</button>
+    </form>
+  </div>
+
+  <div *ngIf="loggedIn">
+    <button type="submit" color="warn" (click)="logout()" class="logout-btn">Logout</button>
+    You are currently logged in as {{ userNameOrEmail }}
+  </div>
+</div>
+<div class="accessSecureEndpoint">
+  <button type="submit" color="primary" (click)="accessSecuredEndpoint()" class="accessSecureEndpoint-btn">Access Secure Endpoint (only for logged in users)</button>
+  {{ secureEndpointResponse }}
+</div>
