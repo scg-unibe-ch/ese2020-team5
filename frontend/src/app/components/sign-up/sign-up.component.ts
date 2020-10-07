@@ -31,16 +31,18 @@ export class SignUpComponent implements OnInit {
       userName: ['', [Validators.required]],
       password: ['', [
         Validators.required,
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-      ]],
-      c_password: ['']
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')
+      ]]
+     // c_password: ['']
     });
   }
+
 
   validateConfirmPW(): void {
     this.signUpForm.controls.c_password.setValidators([Validators.pattern(this.signUpForm.value.password)]);
     this.signUpForm.controls.c_password.updateValueAndValidity();
   }
+
 
   signUp(): void {
     this.http.post(environment.endpointURL + 'user/register', this.signUpForm.value).subscribe((data: any) => {

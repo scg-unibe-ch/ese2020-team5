@@ -54,13 +54,15 @@
       <input type="password" placeholder="Password" formControlName="password" (ngModelChange)="validateConfirmPW()">
       <div *ngIf="signUpForm.get('password').invalid && (signUpForm.get('password').dirty || signUpForm.get('password').touched)">
         <a *ngIf="signUpForm.get('password').errors.required">Password is required!</a>
-        <a *ngIf="signUpForm.get('password').errors.pattern">Password requires a capital letter, a number, a special character and at least 8 characters!</a>
+        <a *ngIf="signUpForm.get('password').errors.pattern">Password requires a capital letter, a number, a special character and at least 7 characters!</a>
       </div>
+      <!--
       <label><b>Confirm Password *</b></label>
       <input type="password" placeholder="Confirm Password" formControlName="c_password">
       <div *ngIf="signUpForm.get('c_password').invalid && (signUpForm.get('c_password').dirty || signUpForm.get('c_password').touched)">
         <a *ngIf="signUpForm.get('c_password').errors.pattern">Password doesn't match!</a>
       </div>
+      -->
     </div>
     <button type="submit" [disabled]="signUpForm.invalid" class="signup-form-btn">Sign Up</button>
   </form>
