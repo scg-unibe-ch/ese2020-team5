@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,8 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -21,23 +23,29 @@ export class SignUpComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      phoneNr: [''],
+      gender: [''],
+      country: [''],
+      city: [''],
+      pinCode: [''],
       userName: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      c_password: ['', [Validators.required]]
+      password: ['', [
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]],
+      c_password: ['']
     });
   }
 
+  validateConfirmPW(): void {
+    this.signUpForm.controls.c_password.setValidators([Validators.pattern(this.signUpForm.value.password)]);
+    this.signUpForm.controls.c_password.updateValueAndValidity();
+  }
+
   signUp(): void {
-    const form = {
-      firstName: this.signUpForm.value.firstName,
-      lastName: this.signUpForm.value.lastName,
-      email: this.signUpForm.value.email,
-      userName: this.signUpForm.value.userName,
-      password: this.signUpForm.value.password
-    };
-    console.log(form);
-    this.http.post(environment.endpointURL + 'user/register', form).subscribe((data: any) => {
+    this.http.post(environment.endpointURL + 'user/register', this.signUpForm.value).subscribe((data: any) => {
       console.log(data);
+      this.router.navigate(['/login']);
     }, (error: any) => {
       console.log(error);
     });
