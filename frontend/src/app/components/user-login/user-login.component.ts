@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -20,12 +21,18 @@ export class UserLoginComponent implements OnInit {
   secureEndpointResponse = '';
 
   constructor(
-    private FormBuilder: FormBuilder,
-    private httpClient: HttpClient
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.checkUserStatus();
+    this.loginForm = this.formBuilder.group({
+      userNameOrEmail: [''],
+      password: ['']
+
+    });
   }
 
   checkUserStatus(): void {
@@ -39,12 +46,12 @@ export class UserLoginComponent implements OnInit {
 
   login(): void {
     this.httpClient.post(environment.endpointURL + 'user/login', {
-      userNameOrEmail: this.userNameOrEmail,
-      password: this.password
+      userNameOrEmail: this.loginForm.value.userNameOrEmail,
+      password: this.loginForm.value.password
     }).subscribe((res: any) => {
       // Set user data in local storage
       localStorage.setItem('userToken', res.token);
-      localStorage.setItem('userNameOrEmail', res.user.userNameOrEmail);
+      localStorage.setItem('userNameOrEmail', res.user.userName);
 
       this.checkUserStatus();
     });
@@ -53,7 +60,7 @@ export class UserLoginComponent implements OnInit {
   logout(): void {
     // Remove user data from local storage
     localStorage.removeItem('userToken');
-    localStorage.removeItem('userName');
+    localStorage.removeItem('userNameOrEmail');
 
     this.checkUserStatus();
   }

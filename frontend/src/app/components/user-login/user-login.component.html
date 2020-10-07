@@ -5,9 +5,9 @@
       <hr>
       <div class="login-fields">
         <label><b>Username or email</b></label>
-        <input type="text" placeholder="Username or email" [(ngModel)]="userNameOrEmail" name="userNameOrEmail">
+        <input type="text" placeholder="Username or email" formControlName = "userNameOrEmail" [(ngModel)]="userNameOrEmail" name="userNameOrEmail">
         <label><b>Password</b></label>
-        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" type="password">
+        <input type="password" placeholder="Password" formControlName = "password" [(ngModel)]="password" name="password" type="password">
       </div>
       <button type="submit" color="primary" (click)="login()" class="login-form-btn">Login</button>
     </form>
