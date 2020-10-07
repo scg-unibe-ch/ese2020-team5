@@ -9,23 +9,7 @@ export class UserService {
     public register(user: UserAttributes): Promise<UserAttributes> {
         const saltRounds = 12;
         user.password = bcrypt.hashSync(user.password, saltRounds); // hashes the password, never store passwords as plaintext
-        return User.findOne( {
-            where: {
-                [Op.or]: [
-                    {userName: user.userName},
-                    {email: user.email}]
-                }
-        }).then((userp) => {
-            if (userp) {
-                if (userp.userName === user.userName) {
-                    return Promise.reject({message: 'Username ' + userp.userName + ' already exists'});
-                } else if (userp.email === user.email) {
-                    return Promise.reject({message: 'Email ' + userp.email + ' already exists'});
-                }
-            }
-            return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
-        }).catch((err) => Promise.reject({ message: err}));
-        // return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
+        return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
     }
 
     public login(loginRequestee: LoginRequest): Promise<User | LoginResponse> {
