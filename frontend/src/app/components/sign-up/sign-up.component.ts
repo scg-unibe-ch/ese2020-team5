@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +15,8 @@ export class SignUpComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -27,29 +28,51 @@ export class SignUpComponent implements OnInit {
       gender: [''],
       country: [''],
       city: [''],
-      pinCode: [''],
+      zipCode: [''],
+      address: [''],
       userName: ['', [Validators.required]],
       password: ['', [
         Validators.required,
         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')
-      ]]
-     // c_password: ['']
+      ]],
+      cPassword: ['']
+    });
+    this.signUpForm.get('password').valueChanges.subscribe(x => {
+      this.checkConfirmPassword(x, this.signUpForm.value.cPassword);
+    });
+    this.signUpForm.get('cPassword').valueChanges.subscribe(x => {
+      this.checkConfirmPassword(this.signUpForm.value.password, x);
     });
   }
 
-
-  validateConfirmPW(): void {
-    this.signUpForm.controls.c_password.setValidators([Validators.pattern(this.signUpForm.value.password)]);
-    this.signUpForm.controls.c_password.updateValueAndValidity();
+  checkConfirmPassword(password: string, cPassword: string): void {
+    if (password === cPassword) {
+      this.signUpForm.controls.cPassword.setErrors(null);
+    } else {
+      this.signUpForm.controls.cPassword.setErrors({notEquivalent: true});
+    }
   }
 
+  userNameAlreadyInUse(): void {
+    this.signUpForm.controls.userName.setErrors({inUse: true});
+  }
+
+  emailAlreadyInUse(): void {
+    this.signUpForm.controls.email.setErrors({inUse: true});
+  }
 
   signUp(): void {
-    this.http.post(environment.endpointURL + 'user/register', this.signUpForm.value).subscribe((data: any) => {
+    this.authService.signUp(this.signUpForm.value).then((data: any) => {
       console.log(data);
       this.router.navigate(['/login']);
-    }, (error: any) => {
-      console.log(error);
+    }).catch((error: any) => {
+      if (error.error.message.message.indexOf('Email') > -1) {
+        this.emailAlreadyInUse();
+      } else if (error.error.message.message.indexOf('Username') > -1) {
+        this.userNameAlreadyInUse();
+      } else {
+        console.log(error);
+      }
     });
   }
 }

@@ -1,69 +1,72 @@
 <div class="signup-form">
-  <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
-    <h1>Sign Up</h1>
-    <hr>
-    <div class="signup-fields">
-      <label><b>First Name *</b></label>
-      <input type="text" placeholder="First Name" formControlName="firstName">
-      <div *ngIf="signUpForm.get('firstName').invalid && (signUpForm.get('firstName').dirty || signUpForm.get('firstName').touched)">
-        <a *ngIf="signUpForm.get('firstName').errors.required">First Name is required!</a>
-      </div>
-      <label><b>Last Name *</b></label>
-      <input type="text" placeholder="Last Name" formControlName="lastName">
-      <div *ngIf="signUpForm.get('lastName').invalid && (signUpForm.get('lastName').dirty || signUpForm.get('lastName').touched)">
-        <a *ngIf="signUpForm.get('lastName').errors.required">Last Name is required!</a>
-      </div>
-      <label><b>Email *</b></label>
-      <input type="email" placeholder="Email" formControlName="email">
-      <div *ngIf="signUpForm.get('email').invalid && (signUpForm.get('email').dirty || signUpForm.get('email').touched)">
-        <a *ngIf="signUpForm.get('email').errors.required">Email is required!</a>
-      </div>
-      <div class="signup-optional-fields">
-        <div class="phone-nr">
-          <label><b>Phone Nr.</b></label>
-          <input type="number" placeholder="Phone Nr." formControlName="phoneNr">
-        </div>
-        <div class="gender">
-          <label><b>Gender</b></label>
-          <select formControlName="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="country">
-          <label><b>Country</b></label>
-          <input type="text" placeholder="Country" formControlName="country">
-        </div>
-        <div class="city">
-          <label><b>City</b></label>
-          <input type="text" placeholder="City" formControlName="city">
-        </div>
-        <div class="pin-code">
-          <label><b>PIN</b></label>
-          <input type="text" placeholder="PIN" formControlName="pinCode">
-        </div>
-      </div>
-      <br>
-      <label><b>Username *</b></label>
-      <input type="text" placeholder="Username" formControlName="userName">
-      <div *ngIf="signUpForm.get('userName').invalid && (signUpForm.get('userName').dirty || signUpForm.get('userName').touched)">
-        <a *ngIf="signUpForm.get('userName').errors.required">Username is required!</a>
-      </div>
-      <label><b>Password *</b></label>
-      <input type="password" placeholder="Password" formControlName="password" (ngModelChange)="validateConfirmPW()">
-      <div *ngIf="signUpForm.get('password').invalid && (signUpForm.get('password').dirty || signUpForm.get('password').touched)">
-        <a *ngIf="signUpForm.get('password').errors.required">Password is required!</a>
-        <a *ngIf="signUpForm.get('password').errors.pattern">Password requires a capital letter, a number, a special character and at least 7 characters!</a>
-      </div>
-      <!--
-      <label><b>Confirm Password *</b></label>
-      <input type="password" placeholder="Confirm Password" formControlName="c_password">
-      <div *ngIf="signUpForm.get('c_password').invalid && (signUpForm.get('c_password').dirty || signUpForm.get('c_password').touched)">
-        <a *ngIf="signUpForm.get('c_password').errors.pattern">Password doesn't match!</a>
-      </div>
-      -->
-    </div>
-    <button type="submit" [disabled]="signUpForm.invalid" class="signup-form-btn">Sign Up</button>
+  <h1>Sign Up</h1>
+  <hr>
+  <form [formGroup]="signUpForm" (ngSubmit)="signUp()" class="signup-form-fields">
+    <mat-form-field appearance="outline" class="first-name">
+      <mat-label>First Name*</mat-label>
+      <input matInput type="text" formControlName="firstName">
+      <mat-error *ngIf="signUpForm.controls.firstName.hasError('required')">First Name required!</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="last-name">
+      <mat-label>Last Name*</mat-label>
+      <input matInput type="text" formControlName="lastName">
+      <mat-error *ngIf="signUpForm.controls.lastName.hasError('required')">Last Name required!</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="email">
+      <mat-label>Email*</mat-label>
+      <input matInput type="email" formControlName="email">
+      <mat-error *ngIf="signUpForm.controls.email.hasError('required')">Email required!</mat-error>
+      <mat-error *ngIf="signUpForm.controls.email.hasError('email')">Invalid email!</mat-error>
+      <mat-error *ngIf="signUpForm.controls.email.hasError('inUse')">Email is already in use!</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="phone-nr">
+      <mat-label>Phone Nr.</mat-label>
+      <input matInput type="tel" formControlName="phoneNr">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="gender">
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+        <mat-option value="other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="country">
+      <mat-label>Country</mat-label>
+      <input matInput type="text" formControlName="country">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="city">
+      <mat-label>City</mat-label>
+      <input matInput type="text" formControlName="city">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="zip-code">
+      <mat-label>ZIP Code</mat-label>
+      <input matInput type="number" formControlName="zipCode">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="address">
+      <mat-label>Address</mat-label>
+      <input matInput type="text" formControlName="address">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="username">
+      <mat-label>Username*</mat-label>
+      <input matInput type="text" formControlName="userName">
+      <mat-error *ngIf="signUpForm.controls.userName.hasError('required')">Username required!</mat-error>
+      <mat-error *ngIf="signUpForm.controls.userName.hasError('inUse')">Username is already in use!</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="password">
+      <mat-label>Password*</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="signUpForm.controls.password.hasError('required')">Password required!</mat-error>
+      <mat-error *ngIf="signUpForm.controls.password.hasError('pattern')">
+        Password requires a capital letter, a number, a special character and at least 7 characters!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="password">
+      <mat-label>Confirm Password*</mat-label>
+      <input matInput type="password" formControlName="cPassword">
+      <mat-error *ngIf="signUpForm.controls.cPassword.hasError('notEquivalent')">Passwords do not match!</mat-error>
+    </mat-form-field>
+    <button mat-stroked-button type="submit" class="signup-form-btn" color="black" [disabled]="signUpForm.invalid">Sign Up</button>
   </form>
 </div>
