@@ -88,7 +88,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     }
 
     public static createDefaultUsers() {
-       User.create ({
+       User.create ({ // Create admin user with username: admin and password: notSecure12
             userName: 'admin',
             password: '$2b$12$Zkd6EiRtkKXtTjn4Xgfnb.cApkCsUL/Si9J46O9PmlTmDf9ofDJsu',
             email: 'admin@example.com',
@@ -102,7 +102,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             isAdmin: 1
         }).then(admin => Promise.resolve(admin)).catch(err => Promise.reject(err));
 
-        User.create ({
+        User.create ({ // Create user with username: user and password: notSecure12
             userName: 'user',
             password: '$2b$12$Zkd6EiRtkKXtTjn4Xgfnb.cApkCsUL/Si9J46O9PmlTmDf9ofDJsu',
             email: 'user@example.com',
