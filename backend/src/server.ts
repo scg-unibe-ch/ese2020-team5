@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import { TodoItemController } from './controllers/todoitem.controller';
 import { TodoListController } from './controllers/todolist.controller';
 import { UserController } from './controllers/user.controller';
+import { AdminController } from './controllers/admin.controller';
 import { SecuredController } from './controllers/secured.controller';
 import { Sequelize } from 'sequelize';
 import { TodoList } from './models/todolist.model';
@@ -26,6 +27,7 @@ export class Server {
         TodoList.createAssociations();
         User.initialize(this.sequelize);
 
+        // alter : true or force : true
         this.sequelize.sync().then(() => {                           // create connection to the database
             this.server.listen(this.port, () => {                                   // start server on specified port
                 console.log(`server listening at http://localhost:${this.port}`);   // indicate that the server has started
@@ -56,6 +58,7 @@ export class Server {
             .use('/todoitem', TodoItemController)   // any request on this path is forwarded to the TodoItemController
             .use('/todolist', TodoListController)
             .use('/user', UserController)
+            .use('/admin', AdminController)
             .use('/secured', SecuredController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
