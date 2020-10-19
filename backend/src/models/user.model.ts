@@ -100,14 +100,12 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
                 tableName: 'users'
             }
         );
-
-
     }
 
     public static createAssociations() {
         User.hasMany(Product, {
             as: 'products',
-            foreignKey: 'productId'
+            foreignKey: 'userId'
         });
     }
 
