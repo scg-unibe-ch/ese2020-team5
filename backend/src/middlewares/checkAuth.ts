@@ -19,3 +19,9 @@ export function verifyToken(req: Request, res: Response, next: any) {
         res.status(403).send({ message: 'Unauthorized' });
     }
 }
+
+export function getUserId(req: Request): number {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.decode(token, {json: true});
+    return decoded.userId;
+}

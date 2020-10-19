@@ -28,9 +28,12 @@ export class Server {
         TodoList.createAssociations();
         User.initialize(this.sequelize);
         Product.initialize(this.sequelize);
+        Product.createAssociations();
+        User.createAssociations();
 
         this.sequelize.sync({force: true}).then(() => {                // create connection to the database
-            User.createDefaultUsers();                            // create a default admin user and a default normal user
+            User.createDefaultUsers();                           // create a default admin user and a default normal user
+            Product.createDefaultProduct();
         }).then(() => {
             this.server.listen(this.port, () => {                                   // start server on specified port
                 console.log(`server listening at http://localhost:${this.port}`);   // indicate that the server has started
