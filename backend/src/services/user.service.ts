@@ -71,6 +71,13 @@ export class UserService {
 
 export class AdminService extends  UserService {
     protected preconditionsDelete(deleterId: number, userToDeleteId: number): boolean {
-        return true;
+        User.findByPk(deleterId).then(usr => {
+            if (usr.isAdmin === 1) {
+                return true;
+            } else {
+                return super.preconditionsDelete(deleterId, userToDeleteId);
+            }
+        });
+        return super.preconditionsDelete(deleterId, userToDeleteId);
     }
 }
