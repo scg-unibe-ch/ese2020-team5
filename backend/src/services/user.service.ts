@@ -1,9 +1,9 @@
 import { UserAttributes, User } from '../models/user.model';
 import { LoginResponse, LoginRequest } from '../models/login.model';
-import { DeleteRequest } from '../models/delete.model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {Op} from 'sequelize';
+import {Request} from 'express';
 
 export class UserService {
 
@@ -53,12 +53,12 @@ export class UserService {
         return User.findAll();
     }
 
-    public delete(del: DeleteRequest): Promise<number> {
-        if (!this.preconditionsDelete(del.deleterId, del.userToDeleteId)) {
+    public delete(req: Request, userId: number): Promise<number> {
+        if (!this.preconditionsDelete(parseInt(req.params.id, 10), userId)) {
             return Promise.reject({message : 'You are not authorized'});
         } else {
             return User.destroy({
-                where : {userId : del.userToDeleteId}
+                where : {userId : userId}
             }).then(num => {
                 return Promise.resolve(num);
             }).catch(err => Promise.reject({message: err}));
