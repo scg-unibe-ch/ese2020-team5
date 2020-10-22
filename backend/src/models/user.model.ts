@@ -1,5 +1,13 @@
-import { TodoItem, TodoItemAttributes, TodoItemCreationAttributes } from './todoitem.model';
-import { Optional, Model, Sequelize, DataTypes } from 'sequelize';
+import {
+    Optional,
+    Model,
+    Sequelize,
+    DataTypes,
+    Association,
+    HasManyGetAssociationsMixin,
+    HasManyAddAssociationMixin
+} from 'sequelize';
+import {Product} from './product.model';
 
 export interface UserAttributes {
     userId: number;
@@ -19,6 +27,15 @@ export interface UserAttributes {
 export interface UserCreationAttributes extends Optional<UserAttributes, 'userId'> { }
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+    public static associations: {
+        products: Association<User, Product>;
+    };
+
+    public getProducts!: HasManyGetAssociationsMixin<Product>;
+    public addProduct!: HasManyAddAssociationMixin<Product, number>;
+
+    public readonly products?: Product[];
+
     userId!: number;
     userName!: string;
     password!: string;
@@ -83,8 +100,13 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
                 tableName: 'users'
             }
         );
+    }
 
-
+    public static createAssociations() {
+        User.hasMany(Product, {
+            as: 'products',
+            foreignKey: 'userId'
+        });
     }
 
     public static createDefaultUsers() {

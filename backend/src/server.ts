@@ -4,10 +4,12 @@ import { TodoItemController } from './controllers/todoitem.controller';
 import { TodoListController } from './controllers/todolist.controller';
 import { UserController } from './controllers/user.controller';
 import { SecuredController } from './controllers/secured.controller';
+import { ProductController } from './controllers/product.controller';
 import { Sequelize } from 'sequelize';
 import { TodoList } from './models/todolist.model';
 import { TodoItem } from './models/todoitem.model';
 import { User } from './models/user.model';
+import { Product } from './models/product.model';
 
 import cors from 'cors';
 
@@ -25,9 +27,13 @@ export class Server {
         TodoItem.createAssociations();
         TodoList.createAssociations();
         User.initialize(this.sequelize);
+        Product.initialize(this.sequelize);
+        Product.createAssociations();
+        User.createAssociations();
 
         this.sequelize.sync({force: true}).then(() => {                // create connection to the database
-            User.createDefaultUsers();                            // create a default admin user and a default normal user
+            User.createDefaultUsers();                           // create a default admin user and a default normal user
+            Product.createDefaultProduct();
         }).then(() => {
             this.server.listen(this.port, () => {                                   // start server on specified port
                 console.log(`server listening at http://localhost:${this.port}`);   // indicate that the server has started
@@ -59,6 +65,7 @@ export class Server {
             .use('/todolist', TodoListController)
             .use('/user', UserController)
             .use('/secured', SecuredController)
+            .use('/products', ProductController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
             // this is the message you get if you open http://localhost:3000/ when the server is running
