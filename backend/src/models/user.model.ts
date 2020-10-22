@@ -21,6 +21,7 @@ export interface UserAttributes {
     city: string;
     zipCode: string;
     phoneNr: string;
+    token: string;
     isAdmin: number;
 }
 
@@ -47,6 +48,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     city: string;
     zipCode: string;
     phoneNr: string;
+    token: string;
     isAdmin: number;
 
     public static initialize(sequelize: Sequelize) {
@@ -93,6 +95,9 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             },
             isAdmin: {
                 type: DataTypes.INTEGER
+            },
+            token: {
+                type: DataTypes.STRING
             }
         },
             {
@@ -121,6 +126,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             city: 'Bern',
             zipCode: '3000',
             phoneNr: '123 123 12 12',
+            token: 'exampleToken',
             isAdmin: 1
         }).then(admin => Promise.resolve(admin)).catch(err => Promise.reject(err));
 
@@ -135,6 +141,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             city: 'Fribourg',
             zipCode: '1700',
             phoneNr: '123 456 78 90',
+            token: 'exampleToken',
             isAdmin: 0
         }).then(admin => Promise.resolve(admin)).catch(err => Promise.reject(err));
     }

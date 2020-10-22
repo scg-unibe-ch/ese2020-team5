@@ -40,12 +40,21 @@ export class UserService {
         .then(user => {
             if (bcrypt.compareSync(loginRequestee.password, user.password)) {// compares the hash with the password from the login request
                 const token: string = jwt.sign({ userName: user.userName, userId: user.userId }, secret, { expiresIn: '2h' });
+                user.token = token;
                 return Promise.resolve({ user, token });
             } else {
                 return Promise.reject({ message: 'not authorized' });
             }
         })
         .catch(err => Promise.reject({ message: err }));
+    }
+
+    public logout(userId: number) {
+        return User.findByPk(userId).then(usr => {
+            usr.token = null;
+        }).catch(err => {
+            return Promise.reject({message: err});
+        });
     }
 
     public getAll(): Promise<User[]> {
