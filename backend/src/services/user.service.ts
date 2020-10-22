@@ -3,7 +3,6 @@ import { LoginResponse, LoginRequest } from '../models/login.model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {Op} from 'sequelize';
-import {Request} from 'express';
 
 export class UserService {
 
@@ -51,33 +50,5 @@ export class UserService {
 
     public getAll(): Promise<User[]> {
         return User.findAll();
-    }
-
-    public delete(req: Request, userId: number): Promise<number> {
-        if (!this.preconditionsDelete(parseInt(req.params.id, 10), userId)) {
-            return Promise.reject({message : 'You are not authorized'});
-        } else {
-            return User.destroy({
-                where : {userId : userId}
-            }).then(num => {
-                return Promise.resolve(num);
-            }).catch(err => Promise.reject({message: err}));
-        }
-    }
-    protected preconditionsDelete(deleterId: number, userToDeleteId: number): boolean {
-        return deleterId === userToDeleteId;
-    }
-}
-
-export class AdminService extends  UserService {
-    protected preconditionsDelete(deleterId: number, userToDeleteId: number): boolean {
-        User.findByPk(deleterId).then(usr => {
-            if (usr.isAdmin === 1) {
-                return true;
-            } else {
-                return super.preconditionsDelete(deleterId, userToDeleteId);
-            }
-        });
-        return super.preconditionsDelete(deleterId, userToDeleteId);
     }
 }
