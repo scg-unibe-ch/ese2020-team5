@@ -1,0 +1,28 @@
+.home-page-component {
+  animation-name: home-page-content-animation;
+  animation-duration: 3.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@keyframes home-page-content-animation {
+  0% {
+    opacity: 0;
+    transform: translate(0, 15);
+  }
+  12% {
+    opacity: 0;
+    transform: translate(0, 15);
+  }
+
+  75.2% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  }
+
