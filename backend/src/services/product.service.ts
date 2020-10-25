@@ -49,13 +49,13 @@ export class ProductService {
     }
 
     public getAll(userId: number): Promise<Product[]> {
-        return Product.findAll({where: { userId: userId }})
+        return Product.findAll({where: { userId: userId }, include: [Product.associations.reviews]})
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
 
     public getCatalog(): Promise<Product[]> {
-        return Product.findAll({where: { approved: 1 }})
+        return Product.findAll({where: { approved: 1 }, include: [Product.associations.reviews]})
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
