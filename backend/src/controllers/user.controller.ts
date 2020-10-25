@@ -28,7 +28,7 @@ userController.get('/', verifyToken, // you can add middleware on specific reque
 
 userController.delete('/:id', verifyToken, (req: Request, res: Response) => {
         const deleterId: number = parseInt(req.params.id, 10);
-        adminService.delete(deleterId, getUserId(req))
+        adminService.delete(getUserId(req), deleterId)
             .then(deleted => res.send(deleted))
             .catch(err => res.status(500).send(err));
     }
