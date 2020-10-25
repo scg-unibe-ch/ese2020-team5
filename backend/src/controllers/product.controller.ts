@@ -22,4 +22,12 @@ productController.get('/', verifyToken, (req: Request, res: Response) => {
     productService.getAll(getUserId(req)).then(products => res.send(products)).catch(err => res.status(500).send(err));
 });
 
+productController.get('/catalog', verifyToken, (req: Request, res: Response) => {
+   productService.getCatalog().then(products => res.send(products)).catch(err => res.status(500).send(err));
+});
+
+productController.get('/admin-catalog', verifyToken, (req: Request, res: Response) => {
+    productService.getAdminCatalog(getUserId(req)).then(products => res.send(products)).catch(err => res.status(500).send(err));
+});
+
 export const ProductController: Router = productController;

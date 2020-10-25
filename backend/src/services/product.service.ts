@@ -53,4 +53,24 @@ export class ProductService {
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
+
+    public getCatalog(): Promise<Product[]> {
+        return Product.findAll({where: { approved: 1 }})
+            .then(list => Promise.resolve(list))
+            .catch(err => Promise.reject(err));
+    }
+
+    public getAdminCatalog(userId: number): Promise<Product[]> {
+        return Product.findAll({where: { approved: 0 }})
+            .then(list => {
+                return User.findByPk(userId).then(user => {
+                    if (user.isAdmin !== 1) {
+                        return Promise.reject('You are not authorized to do this!');
+                    } else {
+                        return Promise.resolve(list);
+                    }
+                });
+            })
+            .catch(err => Promise.reject(err));
+    }
 }
