@@ -1,2 +1,4 @@
 .idea
 backend/db.sqlite
+backend/db.sqlite
+*.sqlite
