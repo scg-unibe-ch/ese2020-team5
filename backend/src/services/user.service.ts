@@ -53,31 +53,39 @@ export class UserService {
         return User.findAll();
     }
 
-    public delete(req: Request, userId: number): Promise<number> {
-        if (!this.preconditionsDelete(parseInt(req.params.id, 10), userId)) {
-            return Promise.reject({message : 'You are not authorized'});
-        } else {
-            return User.destroy({
-                where : {userId : userId}
-            }).then(num => {
-                return Promise.resolve(num);
-            }).catch(err => Promise.reject({message: err}));
-        }
+    public delete(deleterId: number, userId: number): Promise<number> {
+        return User.findByPk(deleterId)
+            .then(deleter => {
+                if (this.preconditionsDelete(deleter, userId)) {
+                    return Promise.resolve();
+                } else {
+                    return Promise.reject('You are not authorized');
+                }
+            }).then(() => {
+                return User.destroy({
+                    where: {userId: userId}
+                });
+            }).then(() => {
+                    return Promise.resolve(200);
+            }).catch(err => {
+                return Promise.reject({message: err});
+            });
     }
-    protected preconditionsDelete(deleterId: number, userToDeleteId: number): boolean {
-        return deleterId === userToDeleteId;
+    protected preconditionsDelete(deleter: UserAttributes, userToDeleteId: number): boolean {
+        if (deleter.userId === userToDeleteId) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
 export class AdminService extends  UserService {
-    protected preconditionsDelete(deleterId: number, userToDeleteId: number): boolean {
-        User.findByPk(deleterId).then(usr => {
-            if (usr.isAdmin === 1) {
-                return true;
-            } else {
-                return super.preconditionsDelete(deleterId, userToDeleteId);
-            }
-        });
-        return super.preconditionsDelete(deleterId, userToDeleteId);
+    protected preconditionsDelete(deleter: UserAttributes, userToDeleteId: number): boolean {
+        if (deleter.isAdmin === 1) {
+            return true;
+        } else {
+            return super.preconditionsDelete(deleter, userToDeleteId);
+        }
     }
 }

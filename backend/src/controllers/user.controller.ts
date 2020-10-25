@@ -2,6 +2,7 @@
 import express, { Router, Request, Response } from 'express';
 import { UserService, AdminService } from '../services/user.service';
 import {getUserId, verifyToken} from '../middlewares/checkAuth';
+import {isNumber} from 'util';
 
 const userController: Router = express.Router();
 const userService = new UserService();
@@ -26,7 +27,10 @@ userController.get('/', verifyToken, // you can add middleware on specific reque
 );
 
 userController.delete('/:id', verifyToken, (req: Request, res: Response) => {
-        adminService.delete(req, getUserId(req)).then(deleted => res.send(deleted)).catch(err => res.status(500).send(err));
+        const deleterId: number = parseInt(req.params.id, 10);
+        adminService.delete(deleterId, getUserId(req))
+            .then(deleted => res.send(deleted))
+            .catch(err => res.status(500).send(err));
     }
 );
 
