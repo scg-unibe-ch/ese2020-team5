@@ -48,6 +48,14 @@ export class UserService {
         .catch(err => Promise.reject({ message: err }));
     }
 
+    public update(userId: number, newAttributes: UserAttributes): Promise<[number, User[]]> {
+        return User.update(newAttributes, {
+            where: {userId: userId}
+        }).catch(err => {
+            return Promise.reject({message: err});
+        });
+    }
+
     public getAll(): Promise<User[]> {
         return User.findAll();
     }
