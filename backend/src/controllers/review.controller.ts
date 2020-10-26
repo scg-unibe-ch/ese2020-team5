@@ -1,11 +1,12 @@
 import express from 'express';
 import { Router, Request, Response } from 'express';
 import { Review } from '../models/review.model';
-import {verifyToken} from '../middlewares/checkAuth';
+import {getUserId, verifyToken} from '../middlewares/checkAuth';
 
 const reviewController: Router = express.Router();
 
 reviewController.post('/', verifyToken, (req: Request, res: Response) => {
+    req.body.userId = getUserId(req);
     Review.create(req.body)
         .then(inserted => res.send(inserted))
         .catch(err => res.status(500).send(err));
