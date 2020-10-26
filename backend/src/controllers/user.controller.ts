@@ -1,7 +1,7 @@
 
 import express, { Router, Request, Response } from 'express';
 import { UserService } from '../services/user.service';
-import {getUserId, verifyToken} from '../middlewares/checkAuth';
+import { verifyToken } from '../middlewares/checkAuth';
 
 const userController: Router = express.Router();
 const userService = new UserService();
@@ -18,15 +18,9 @@ userController.post('/login',
     }
 );
 
-userController.get('/all', verifyToken, // you can add middleware on specific requests like that
-    (req: Request, res: Response) => {
-        userService.getAll().then(users => res.send(users)).catch(err => res.status(500).send(err));
-    }
-);
-
 userController.get('/', verifyToken, // you can add middleware on specific requests like that
     (req: Request, res: Response) => {
-        userService.getUser(getUserId(req)).then(usr => res.send(usr)).catch(err => res.status(500).send(err));
+        userService.getAll().then(users => res.send(users)).catch(err => res.status(500).send(err));
     }
 );
 

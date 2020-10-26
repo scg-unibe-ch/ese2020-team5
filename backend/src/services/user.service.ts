@@ -51,13 +51,4 @@ export class UserService {
     public getAll(): Promise<User[]> {
         return User.findAll();
     }
-
-    getUser(userId: number): Promise<UserAttributes> {
-        return User.findByPk(userId)
-            .then(usr => {
-                return Promise.resolve(usr);
-            }).catch(err => {
-                return Promise.reject({message: err});
-            });
-    }
 }
