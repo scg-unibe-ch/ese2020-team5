@@ -21,6 +21,10 @@ export class AppComponent implements OnInit {
         {
           name: 'Home',
           url: 'home'
+        },
+        {
+          name: 'Create Listing',
+          url: 'create-listing'
         }
       ];
     } else {

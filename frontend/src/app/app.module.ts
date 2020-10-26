@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import {MatIconModule} from "@angular/material/icon";
+import { CreateListingComponent } from './components/create-listing/create-listing.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatIconModule} from "@angular/material/icon";
     HomeComponent,
     SignUpComponent,
     ProfileComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CreateListingComponent
   ],
     imports: [
         BrowserModule,
