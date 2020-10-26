@@ -1,0 +1,59 @@
+.login-form {
+  margin: 7% auto 0;
+  padding: 25px;
+  width: 50%;
+  min-width: 431px;
+  border: 1px solid #a7a7a7;
+}
+
+.login-form > h1 {
+  text-align: center;
+}
+
+.login-form mat-form-field {
+  display: block;
+  min-width: 0;
+}
+
+:host ::ng-deep .login-form .mat-form-field-wrapper{
+  margin: 10px 0 !important;
+}
+
+.login-form-fields {
+  width: 95%;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.login-form-links {
+  margin-top: 20px;
+}
+
+.login-form a {
+  margin-top: 5px;
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
+
+.login-form-btn {
+  margin-top: 30px;
+  width: 50%;
+  background-color: #1a1a1a;
+  color: white;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.login-form-btn:hover {
+  background-color: #101010;
+}
+
+.login-form-btn:disabled {
+  background-color: #353535;
+  color: white;
+}

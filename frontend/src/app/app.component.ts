@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,23 +7,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  navList = [
-    {
-      name: 'Sign Up',
-      url: 'signup'
-    },
-    {
-      name: 'Login',
-      url: 'login'
-    },
-    {
-      name: 'Home',
-      url: 'home'
-    }
-  ];
+  navList;
 
-  constructor() {}
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.navList = [
+        {
+          name: 'Profile',
+          url: 'profile'
+        },
+        {
+          name: 'Home',
+          url: 'home'
+        }
+      ];
+    } else {
+      this.navList = [
+        {
+          name: 'Sign Up',
+          url: 'signup'
+        },
+        {
+          name: 'Login',
+          url: 'login'
+        },
+        {
+          name: 'Home',
+          url: 'home'
+        }
+      ];
+    }
   }
 }

@@ -3,31 +3,33 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
-import { TodoItemComponent } from './components/todo-list/todo-item/todo-item.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { UserLoginComponent } from './components/user-login/user-login.component';
+import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoListComponent,
-    TodoItemComponent,
-    UserLoginComponent,
+    LoginComponent,
     HomeComponent,
-    SignUpComponent
+    SignUpComponent,
+    ProfileComponent,
+    ForgotPasswordComponent
   ],
     imports: [
         BrowserModule,
@@ -42,7 +44,9 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
         MatTabsModule,
         MatToolbarModule,
         AppRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatIconModule
     ],
   providers: [
     {
