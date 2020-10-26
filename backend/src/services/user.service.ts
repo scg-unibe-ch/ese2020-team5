@@ -49,8 +49,28 @@ export class UserService {
         .catch(err => Promise.reject({ message: err }));
     }
 
-    public getAll(): Promise<User[]> {
-        return User.findAll();
+    public getAll(userId: number): Promise<User[]> {
+        return User.findByPk(userId)
+            .then(usr => {
+                if (usr.isAdmin === 0) {
+                    return Promise.reject({message: 'You are not authorized'});
+                } else {
+                    return User.findAll();
+                }
+            }).then(allUsers => {
+                return Promise.resolve(allUsers);
+            }).catch(err => {
+                return Promise.reject({message: err});
+            });
+    }
+
+    public getUser(userId: number): Promise<UserAttributes> {
+        return User.findByPk(userId)
+            .then(usr => {
+                return Promise.resolve(usr);
+            }).catch(err => {
+                return Promise.reject({message: err});
+            });
     }
 
     public delete(deleterId: number, userId: number): Promise<number> {
