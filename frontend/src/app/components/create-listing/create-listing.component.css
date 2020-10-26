@@ -1,0 +1,54 @@
+.createListing-form {
+    margin: 20px auto 0;
+    padding: 25px;
+    width: 50%;
+    min-width: 431px;
+    border: 1px solid #a7a7a7;
+  }
+  
+  .createListing-form > h1 {
+    text-align: center;
+  }
+  
+  .createListing-form mat-form-field {
+    display: block;
+    min-width: 0;
+  }
+  
+  :host ::ng-deep .createListing-form .mat-form-field-wrapper{
+    margin: 3px 0 !important;
+  }
+  
+  .createListing-form-fields {
+    width: 95%;
+    margin: 30px auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+  }
+   
+  .createListing-form-btn {
+    background-color: #1a1a1a;
+    color: white;
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+  
+  .createListing-form-btn:hover {
+    background-color: #101010;
+  }
+  
+  .createListing-form-btn:disabled {
+    background-color: #353535;
+    color: white;
+  }
+    
+  .title {
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+  
+  .listingType {
+    grid-column-start: 4;
+    grid-column-end: 5;
+  }
+  

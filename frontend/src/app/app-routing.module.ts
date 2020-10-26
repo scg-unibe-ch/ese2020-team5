@@ -13,11 +13,12 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'create-listing', component: CreateListingComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
   { path: 'signup', component: SignUpComponent, canActivate: [NotAuthGuard] },
-  { path: '**', redirectTo: '/home' },
-  { path: 'create-listing', component: CreateListingComponent, canActivate: [AuthGuard] }
+  { path: '**', redirectTo: '/home' }
+  
 ];
 
 @NgModule({

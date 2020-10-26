@@ -1,1 +1,57 @@
-<p>create-listing works!</p>
+<div class="createListing-form">
+    <h1>Create Listing</h1>
+    <hr>
+    <form [formGroup]="createListingForm" (ngSubmit)="createListing()" class="createListing-form-fields">
+      <mat-form-field appearance="outline" class="title">
+        <mat-label>Title*</mat-label>
+        <input matInput type="text" formControlName="title">
+        <mat-error *ngIf="createListingForm.controls.title.hasError('required')">Title required!</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="listingType">
+        <mat-label>Listing Type*</mat-label>
+        <mat-select formControlName="listingType">
+          <mat-option value="product">Product</mat-option>
+          <mat-option value="service">Service</mat-option>
+          <mat-error *ngIf="createListingForm.controls.listingType.hasError('required')">Listing type required!</mat-error>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="description">
+        <mat-label>Description</mat-label>
+        <textarea matInput type="text" formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="priceKind">
+        <mat-label>Pricing*</mat-label>
+        <mat-select formControlName="priceKind">
+          <mat-option value="fixed">Fixed</mat-option>
+          <mat-option value="per hour">Price per hour</mat-option>
+          <mat-option value="per week">Price per week</mat-option>
+          <mat-error *ngIf="createListingForm.controls.priceKind.hasError('required')">Pricing required!</mat-error>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="sellOrLend">
+        <mat-label>Sell or Lend*</mat-label>
+        <mat-select formControlName="sellOrLend">
+          <mat-option value="sell">Sell</mat-option>
+          <mat-option value="lend">Lend</mat-option>
+          <mat-error *ngIf="createListingForm.controls.sellOrLend.hasError('required')">Pricing required!</mat-error>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="price">
+        <mat-label>Price*</mat-label>
+        <input matInput type="number" formControlName="price">
+        <span matPrefix>CHF&nbsp;</span>
+        <span matSuffix>.00</span>
+        <mat-error *ngIf="createListingForm.controls.price.hasError('required')">Price required!</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="deliverable">
+        <mat-label>Delivery Available*</mat-label>
+        <mat-select formControlName="deliverable">
+          <mat-option value="yes">Yes, can be delivered</mat-option>
+          <mat-option value="no">No, can't be delivered</mat-option>
+          <mat-error *ngIf="createListingForm.controls.deliverable.hasError('required')">required!</mat-error>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <button mat-stroked-button type="submit" class="createListing-form-btn" color="black" [disabled]="createListingForm.invalid">Next</button>
+    </form>
+  </div>
