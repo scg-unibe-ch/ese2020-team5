@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showErrorMessage = false;
+  hide = true;
 
   constructor(
     private formBuilder: FormBuilder,
