@@ -34,4 +34,10 @@ userController.delete('/:id', verifyToken, (req: Request, res: Response) => {
     }
 );
 
+userController.get('/reviews', verifyToken, // you can add middleware on specific requests like that
+    (req: Request, res: Response) => {
+        userService.getReviews(getUserId(req)).then(reviews => res.send(reviews)).catch(err => res.status(500).send(err));
+    }
+);
+
 export const UserController: Router = userController;
