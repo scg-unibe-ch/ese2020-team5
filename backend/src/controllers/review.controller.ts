@@ -1,16 +1,17 @@
 import express from 'express';
 import { Router, Request, Response } from 'express';
 import { Review } from '../models/review.model';
+import {verifyToken} from '../middlewares/checkAuth';
 
 const reviewController: Router = express.Router();
 
-reviewController.post('/', (req: Request, res: Response) => {
+reviewController.post('/', verifyToken, (req: Request, res: Response) => {
     Review.create(req.body)
         .then(inserted => res.send(inserted))
         .catch(err => res.status(500).send(err));
 });
 
-reviewController.put('/:id', (req: Request, res: Response) => {
+reviewController.put('/:id', verifyToken, (req: Request, res: Response) => {
     Review.findByPk(req.params.id)
         .then(found => {
             if (found != null) {
@@ -25,7 +26,7 @@ reviewController.put('/:id', (req: Request, res: Response) => {
 
 });
 
-reviewController.delete('/:id', (req: Request, res: Response) => {
+reviewController.delete('/:id', verifyToken, (req: Request, res: Response) => {
     Review.findByPk(req.params.id)
         .then(found => {
             if (found != null) {
