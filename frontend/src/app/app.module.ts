@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { MatIconModule } from '@angular/material/icon';
+import { LogoutComponent } from './components/logout/logout.component';
 import { MyProductsComponent } from './components/my-products/my-products.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DeleteProductComponent } from './components/custom/dialog/delete-product/delete-product.component';
@@ -36,6 +37,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SignUpComponent,
     ProfileComponent,
     ForgotPasswordComponent,
+    LogoutComponent
     MyProductsComponent,
     DeleteProductComponent,
     EditProductComponent

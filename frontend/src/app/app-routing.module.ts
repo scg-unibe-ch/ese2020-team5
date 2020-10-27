@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/not-auth.guard';
+import { LogoutComponent } from './components/logout/logout.component';
 import { MyProductsComponent } from './components/my-products/my-products.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
   { path: 'signup', component: SignUpComponent, canActivate: [NotAuthGuard] },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'my-products', component: MyProductsComponent, canActivate: [AuthGuard] },
   { path: 'product/:id/edit', component: EditProductComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home' }
