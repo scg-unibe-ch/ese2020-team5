@@ -8,6 +8,7 @@ import {
     HasManyAddAssociationMixin
 } from 'sequelize';
 import {Product} from './product.model';
+import {Review} from './review.model';
 
 export interface UserAttributes {
     userId: number;
@@ -29,6 +30,7 @@ export interface UserCreationAttributes extends Optional<UserAttributes, 'userId
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public static associations: {
         products: Association<User, Product>;
+        reviews: Association<User, Review>;
     };
 
     public getProducts!: HasManyGetAssociationsMixin<Product>;
@@ -105,6 +107,10 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public static createAssociations() {
         User.hasMany(Product, {
             as: 'products',
+            foreignKey: 'userId'
+        }),
+        User.hasMany(Review, {
+            as: 'reviews',
             foreignKey: 'userId'
         });
     }
