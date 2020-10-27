@@ -1,0 +1,163 @@
+.my-products {
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  background-color: #f6f6f6;
+}
+
+.no-products {
+  padding-top: 15%;
+  text-align: center;
+}
+
+.create-product-btn {
+  width: 300px;
+}
+
+.my-products-content {
+  width: 70%;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.container {
+  display: block;
+  padding-left: 10px;
+}
+
+.search {
+  display: inline;
+  padding: 5px;
+  background-color: unset;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.container mat-icon {
+  position: relative;
+  top: 9px;
+  cursor: pointer;
+  user-select: none;
+  color: #777777;
+}
+
+.container mat-icon:hover {
+  color: #131313;
+}
+
+.create-btn {
+  display: inline;
+  position: relative;
+  top: 35px;
+  left: calc(100% - 139px);
+}
+
+.my-products-content mat-card {
+  margin: 30px auto 0;
+}
+
+.my-products-content mat-card-title > a{
+  color: black;
+  text-decoration: none;
+}
+
+.my-products-content mat-card-title > a:hover {
+  text-decoration: underline;
+}
+
+.my-products-content mat-card-subtitle div {
+  display: inline;
+}
+
+.my-products-content mat-card-content {
+  white-space: pre-wrap;
+}
+
+.product-image {
+  height: 300px;
+  width: 80%;
+  margin: 0 auto;
+  display: none;
+  text-align: center;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: relative;
+  top: -170px;
+  width: auto;
+  padding: 16px;
+  color: #000000;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  left: calc(100% - 85px);
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.dots-container {
+  text-align:center;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.dot-active, .dot:hover {
+  background-color: #717171;
+}
+
+.card-info {
+  color: #7a7a7a;
+}
+
+.card-info > span {
+  margin-left: 3.5px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .my-products-content {
+    width: 90%;
+  }
+
+  .no-products h1 {
+    padding: 70px;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .my-products-content {
+    width: 98%;
+  }
+
+  .content-cards {
+    margin-top: 40px;
+  }
+
+  .create-btn {
+    display: block;
+    top: 10px;
+    left: calc(50% - 70px);
+  }
+}
