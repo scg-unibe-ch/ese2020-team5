@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,41 +8,72 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  navList;
+  searchFilter = '';
+  myAccountArrow = 'expand_more';
+  myAccountModalShown = false;
+  myAccount = 'My Account';
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      this.navList = [
-        {
-          name: 'Profile',
-          url: 'profile'
-        },
-        {
-          name: 'Home',
-          url: 'home'
-        },
-        {
-          name: 'Create Listing',
-          url: 'create-listing'
+      this.userService.getUser().then(user => {
+        this.myAccount = user.userName;
+        if (this.myAccount.length > 12) {
+          this.myAccount = this.myAccount.substring(0, 10) + '..';
         }
-      ];
+      }).catch(() => {
+        this.authService.logout();
+        this.myAccount = 'My Account';
+      });
     } else {
-      this.navList = [
-        {
-          name: 'Sign Up',
-          url: 'signup'
-        },
-        {
-          name: 'Login',
-          url: 'login'
-        },
-        {
-          name: 'Home',
-          url: 'home'
-        }
-      ];
+      this.myAccount = 'My Account';
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    if (this.myAccountModalShown) {
+      this.openCloseAccountModal();
+    }
+  }
+
+  modifyAccountContentPos(): void {
+    const navEntries = document.getElementById('nav-entries');
+    const navEntriesRight = window.getComputedStyle(navEntries).right;
+    const navEntriesWidth = window.getComputedStyle(navEntries).width;
+    const myAccountWidth = document.getElementById('my-account').offsetWidth;
+    const myAccountContentWidth = document.getElementById('my-account-content').offsetWidth;
+    const elmCenterPosition = parseInt(navEntriesRight, 10) + parseInt(navEntriesWidth, 10)
+      - (myAccountWidth / 2) - (myAccountContentWidth / 2);
+    document.getElementById('my-account-content').style.right =
+      (elmCenterPosition >= 0) ? (elmCenterPosition + 'px') : (0 + 'px');
+  }
+
+  searchItem(): void {}
+
+  openCloseAccountModal(): void {
+    this.myAccountModalShown = !this.myAccountModalShown;
+    if (this.myAccountModalShown) {
+      this.modifyAccountContentPos();
+      this.myAccountArrow = 'expand_less';
+      document.getElementById('my-account-bg').style.display = 'block';
+      document.getElementById('my-account-content').style.visibility = 'visible';
+    } else {
+      this.myAccountArrow = 'expand_more';
+      document.getElementById('my-account-bg').style.display = 'none';
+      document.getElementById('my-account-content').style.visibility = 'hidden';
+    }
+  }
+
+  navigateTo(page: string): void {
+    location.assign(page);
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 }
