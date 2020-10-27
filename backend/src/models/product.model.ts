@@ -1,5 +1,14 @@
-import { Optional, Model, Sequelize, DataTypes } from 'sequelize';
+import {
+    Optional,
+    Model,
+    Sequelize,
+    DataTypes,
+    Association,
+    HasManyGetAssociationsMixin,
+    HasManyAddAssociationMixin
+} from 'sequelize';
 import {User} from './user.model';
+import {Review} from './review.model';
 
 export interface ProductAttributes {
     productId: number;
@@ -19,6 +28,10 @@ export interface ProductAttributes {
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'productId'> { }
 
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
+    public static associations: {
+        reviews: Association<Product, Review>;
+    };
+
     productId!: number;
     title!: string;
     type!: number; // type == 0: product, type == 1: service
@@ -31,6 +44,9 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     deliverable!: number; // deliverable == 1: yes, deliverable == 0: no
     approved!: number; // approved == 0: not yet approved from an admin, approved == 1: product approved by an admin
     userId!: number; // FK of user table
+
+    public getReviews!: HasManyGetAssociationsMixin<Review>;
+    public addReview!: HasManyAddAssociationMixin<Review, number>;
 
     public static initialize(sequelize: Sequelize) {
         Product.init({
@@ -97,6 +113,10 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             as: 'user',
             onDelete: 'cascade',
             foreignKey: 'userId'
+        }),
+        Product.hasMany(Review, {
+            as: 'reviews',
+            foreignKey: 'productId'
         });
     }
 
