@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
+import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+
 
 
 
@@ -16,18 +18,19 @@ import { Router } from '@angular/router';
 export class CreateListingComponent implements OnInit {
   createListingForm: FormGroup;
   showErrorMessage = false;
-
+  userId: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-    private productService: ProductService
+    private productService: ProductService,
+    private userService: UserService
     ) { }
 
   ngOnInit(): void {
-    this.createListingForm = this.formBuilder.group({
+      this.createListingForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       type: ['', [Validators.required]],
       description: [''],
@@ -36,11 +39,12 @@ export class CreateListingComponent implements OnInit {
       priceKind: ['', [Validators.required]],
       location: ['', [Validators.required]],
       deliverable: ['', [Validators.required]],
-      images: [''],
-      productId: [''],
-      userId: [''],
       status: [''],
-      approved: [''],
+      userId: ['']
+    });
+    this.userService.getUser().then(user => {
+      this.userId = user.userId;
+      this.createListingForm.get('userId').setValue(this.userId);
     });
   }
 
