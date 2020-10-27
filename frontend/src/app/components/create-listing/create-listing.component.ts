@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { ProductService } from '../../services/product.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ProductService } from '../../../../../backend/src/services/product.service';
 
 
 
@@ -29,21 +29,26 @@ export class CreateListingComponent implements OnInit {
   ngOnInit(): void {
     this.createListingForm = this.formBuilder.group({
       title: ['', [Validators.required]],
-      listingType: ['', [Validators.required]],
+      type: ['', [Validators.required]],
       description: [''],
       price: ['', [Validators.required]],
       sellOrLend: ['', [Validators.required]],
       priceKind: ['', [Validators.required]],
       location: ['', [Validators.required]],
       deliverable: ['', [Validators.required]],
-      pictures: ['']
+      images: [''],
+      productId: [''],
+      userId: [''],
+      status: [''],
+      approved: [''],
     });
   }
 
   createListing(): void {
-    this.productService.create(this.createListingForm.value).then((data: any) => {
+    this.productService.createProduct(this.createListingForm.value).then((data: any) => {
       this.showErrorMessage = false;
-      
+      console.log(data);
+      location.assign('home');
     }).catch((error: any) => {
       console.log(error);
       this.showErrorMessage = true;
