@@ -49,6 +49,17 @@ export class UserService {
         .catch(err => Promise.reject({ message: err }));
     }
 
+    public update(userId: number, newAttributes: UserAttributes): Promise<UserAttributes> {
+        return User.findByPk(userId)
+            .then(usr => {
+            return usr.update(newAttributes);
+        }).then(usr => {
+            return Promise.resolve(usr);
+        }).catch(err => {
+            return Promise.reject({message: err});
+        });
+    }
+
     public getReviews(userId: number) {
         return User.findByPk(userId, { include: [User.associations.reviews]})
             .then(user => {
