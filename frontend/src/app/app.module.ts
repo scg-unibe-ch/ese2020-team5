@@ -25,6 +25,8 @@ import { MyProductsComponent } from './components/my-products/my-products.compon
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DeleteProductComponent } from './components/custom/dialog/delete-product/delete-product.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ProfileComponent,
     ForgotPasswordComponent,
     MyProductsComponent,
-    DeleteProductComponent
+    DeleteProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatIconModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
