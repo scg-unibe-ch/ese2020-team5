@@ -49,9 +49,12 @@ export class UserService {
         .catch(err => Promise.reject({ message: err }));
     }
 
-    public update(userId: number, newAttributes: UserAttributes): Promise<[number, User[]]> {
-        return User.update(newAttributes, {
-            where: {userId: userId}
+    public update(userId: number, newAttributes: UserAttributes): Promise<UserAttributes> {
+        return User.findByPk(userId)
+            .then(usr => {
+            return usr.update(newAttributes);
+        }).then(usr => {
+            return Promise.resolve(usr);
         }).catch(err => {
             return Promise.reject({message: err});
         });
