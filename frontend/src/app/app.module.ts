@@ -23,6 +23,8 @@ import { ForgotPasswordComponent } from './components/login/forgot-password/forg
 import { MatIconModule } from '@angular/material/icon';
 import { MyProductsComponent } from './components/my-products/my-products.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DeleteProductComponent } from './components/custom/dialog/delete-product/delete-product.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     SignUpComponent,
     ProfileComponent,
     ForgotPasswordComponent,
-    MyProductsComponent
+    MyProductsComponent,
+    DeleteProductComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ReactiveFormsModule,
     MatSelectModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   providers: [
     {

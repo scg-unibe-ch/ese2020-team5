@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteProductComponent } from '../custom/dialog/delete-product/delete-product.component';
 
 @Component({
   selector: 'app-my-products',
@@ -14,7 +16,8 @@ export class MyProductsComponent implements OnInit {
   imageIndex = [];
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -78,5 +81,9 @@ export class MyProductsComponent implements OnInit {
 
   editProduct(id: number): void {}
 
-  deleteProduct(product: Product): void {}
+  deleteProduct(product: Product): void {
+    this.dialog.open(DeleteProductComponent, {
+      data: product
+    });
+  }
 }
