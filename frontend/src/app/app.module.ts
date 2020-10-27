@@ -22,6 +22,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LogoutComponent } from './components/logout/logout.component';
+import { MyProductsComponent } from './components/my-products/my-products.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { DeleteProductComponent } from './components/custom/dialog/delete-product/delete-product.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -32,6 +38,9 @@ import { LogoutComponent } from './components/logout/logout.component';
     ProfileComponent,
     ForgotPasswordComponent,
     LogoutComponent
+    MyProductsComponent,
+    DeleteProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +57,10 @@ import { LogoutComponent } from './components/logout/logout.component';
     AppRoutingModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
