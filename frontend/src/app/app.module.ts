@@ -37,7 +37,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SignUpComponent,
     ProfileComponent,
     ForgotPasswordComponent,
-    LogoutComponent
+    LogoutComponent,
     MyProductsComponent,
     DeleteProductComponent,
     EditProductComponent
