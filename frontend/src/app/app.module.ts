@@ -20,6 +20,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
+import { CreateProductComponent } from './components/create-product/create-product.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LogoutComponent } from './components/logout/logout.component';
 import { MyProductsComponent } from './components/my-products/my-products.component';
@@ -37,6 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SignUpComponent,
     ProfileComponent,
     ForgotPasswordComponent,
+    CreateProductComponent,
     LogoutComponent,
     MyProductsComponent,
     DeleteProductComponent,
