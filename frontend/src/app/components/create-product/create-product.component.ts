@@ -33,7 +33,7 @@ export class CreateProductComponent implements OnInit {
     this.createListingForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      description: [''],
+      description: ['', [Validators.required]],
       price: ['', [Validators.required]],
       sellOrLend: ['', [Validators.required]],
       priceKind: ['', [Validators.required]],
