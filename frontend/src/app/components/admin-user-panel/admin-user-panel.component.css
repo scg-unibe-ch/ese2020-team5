@@ -1,0 +1,20 @@
+.user-panel-bg {
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  background-color: #f6f6f6;
+}
+
+.user-panel {
+  margin: 0 auto;
+  padding-top: 3%;
+  width: 55%;
+  text-align: center;
+}
+
+.user-panel a {
+  color: black;
+}
+
+.delete-btn {
+  float: right;
+}

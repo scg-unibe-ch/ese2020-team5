@@ -26,10 +26,10 @@ export class CreateProductComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-      this.createListingForm = this.formBuilder.group({
+    this.createListingForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      description: [''],
+      description: ['', [Validators.required]],
       price: ['', [Validators.required]],
       sellOrLend: ['', [Validators.required]],
       priceKind: ['', [Validators.required]],
@@ -39,8 +39,7 @@ export class CreateProductComponent implements OnInit {
       userId: ['']
     });
     this.userService.getUser().then(user => {
-      this.userId = user.userId;
-      this.createListingForm.get('userId').setValue(this.userId);
+      this.createListingForm.get('userId').setValue(user.userId);
     });
   }
 
@@ -54,6 +53,5 @@ export class CreateProductComponent implements OnInit {
       this.showErrorMessage = true;
     });
   }
-
-
 }
+

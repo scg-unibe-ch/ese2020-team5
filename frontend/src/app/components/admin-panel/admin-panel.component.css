@@ -1,0 +1,43 @@
+.admin-panel-bg {
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  background-color: #f6f6f6;
+}
+
+.admin-panel-bg > h1 {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.admin-panel {
+  margin: 0 auto;
+  padding-top: 40px;
+  display: block;
+  text-align: center;
+  user-select: none;
+}
+
+.admin-panel mat-card {
+  margin: 10px 20px;
+  padding: 70px;
+  display: inline-block;
+  width: 20%;
+  min-width: 300px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.admin-panel mat-card:hover {
+  color: #000000;
+  background-color: #e5e5e5;
+}
+
+.admin-panel mat-card:active {
+  color: #000000;
+  background-color: #b1b1b1;
+}
+
+.icon {
+  font-size: 100px;
+  padding: 30px;
+}

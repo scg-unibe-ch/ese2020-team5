@@ -1,0 +1,49 @@
+.product-panel-bg {
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  background-color: #f6f6f6;
+}
+
+.product-panel {
+  margin: 0 auto;
+  padding-top: 3%;
+  width: 55%;
+}
+
+.product-panel h1 {
+  text-align: center;
+}
+
+.product-panel a {
+  color: black;
+}
+
+.filter-container {
+  display: block;
+}
+
+.filter-container p {
+  display: inline;
+}
+
+.filter-container mat-form-field {
+  display: inline-block;
+  width: 125px;
+}
+
+.product-panel mat-card {
+  margin: 10px auto 20px;
+}
+
+.product-panel mat-card-title > a{
+  color: black;
+  text-decoration: none;
+}
+
+.product-panel mat-card-title > a:hover {
+  text-decoration: underline;
+}
+
+.product-panel mat-card-content {
+  white-space: pre-wrap;
+}

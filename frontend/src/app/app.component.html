@@ -31,7 +31,7 @@
     <div class="my-account-content-section">
       <a href="profile"><mat-icon>account_circle</mat-icon>Profile</a>
     </div>
-    <div class="my-account-content-section">
+    <div class="my-account-content-section" *ngIf="isAdmin()">
       <a href="admin/dashboard"><mat-icon>admin_panel_settings</mat-icon>Admin Dashboard</a>
     </div>
     <div class="my-account-content-section">
