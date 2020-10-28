@@ -31,6 +31,7 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AdminUserPanelComponent } from './components/admin-user-panel/admin-user-panel.component';
+import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AdminUserPanelComponent } from './components/admin-user-panel/admin-use
     DeleteProductComponent,
     EditProductComponent,
     AdminPanelComponent,
-    AdminUserPanelComponent
+    AdminUserPanelComponent,
+    AdminProductPanelComponent
   ],
   imports: [
     BrowserModule,
