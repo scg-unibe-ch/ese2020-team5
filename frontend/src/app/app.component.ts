@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   searchFilter = '';
   myAccountArrow = 'expand_more';
   myAccountModalShown = false;
-  myAccount = 'My Account';
+  myAccount = '';
 
   constructor(
     private authService: AuthService,
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userService.loadUser();
     if (this.authService.isLoggedIn()) {
       this.userService.getUser().then(user => {
         this.myAccount = user.userName;
@@ -71,6 +72,10 @@ export class AppComponent implements OnInit {
 
   navigateTo(page: string): void {
     location.assign(page);
+  }
+
+  isAdmin(): boolean {
+    return this.userService.isAdmin();
   }
 
   isLoggedIn(): boolean {
