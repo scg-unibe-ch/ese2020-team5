@@ -6,12 +6,8 @@ import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
-
-
-
 @Component({
-  selector: 'app-create-listing',
+  selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
@@ -58,3 +54,4 @@ export class CreateProductComponent implements OnInit {
     });
   }
 }
+
