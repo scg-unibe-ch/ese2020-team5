@@ -7,11 +7,11 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-listing',
-  templateUrl: './create-listing.component.html',
-  styleUrls: ['./create-listing.component.css']
+  selector: 'app-create-product',
+  templateUrl: './create-product.component.html',
+  styleUrls: ['./create-product.component.css']
 })
-export class CreateListingComponent implements OnInit {
+export class CreateProductComponent implements OnInit {
   createListingForm: FormGroup;
   showErrorMessage = false;
   userId: number;
