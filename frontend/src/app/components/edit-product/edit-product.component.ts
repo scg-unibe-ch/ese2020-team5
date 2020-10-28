@@ -45,6 +45,9 @@ export class EditProductComponent implements OnInit {
       status: [this.product.status, [Validators.required]],
       deliverable: [this.product.deliverable, [Validators.required]]
     });
+    if (!this.product.status) {
+      this.productForm.get('status').setValue(0);
+    }
     this.productForm.get('type').valueChanges.subscribe(x => {
       if (x === 1) {
         this.productForm.get('sellOrLend').setValue(0);
