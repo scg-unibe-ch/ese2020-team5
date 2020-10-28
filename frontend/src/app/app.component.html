@@ -1,18 +1,22 @@
 <div class="nav-bar">
   <div class="logo">
-    <mat-icon (click)="navigateTo('home')">home</mat-icon><a href="home">ESE20</a>
+    <mat-icon (click)="navigateTo('home')">home</mat-icon><a href="home"><strong>TEAM5</strong></a>
   </div>
+  <!--
   <div class="search-container">
     <input type="text" placeholder="Search..." name="search" [(ngModel)]="searchFilter" (keydown.enter)="searchItem()">
     <button (click)="searchItem()"><mat-icon>search</mat-icon></button>
   </div>
+-->
   <div id="nav-entries" class="nav-entries">
+    <button mat-stroked-button class="createListing-btn" (click)="navigateTo('create-listing')">+ Create new Listing</button>
+    <a class="shopping-cart" href="shopping-cart"><mat-icon>shopping_cart</mat-icon><h3></h3></a>
     <div id="my-account" class="my-account" (click)="openCloseAccountModal()">
-      <mat-icon class="person-outline">person_outline</mat-icon><h3>{{myAccount}}</h3><mat-icon>{{myAccountArrow}}</mat-icon>
+      <mat-icon class="person-outline">person</mat-icon><h3>{{myAccount}}</h3><mat-icon>{{myAccountArrow}}</mat-icon>
     </div>
-    <a class="shopping-cart" href="shopping-cart"><mat-icon>shopping_cart</mat-icon><h3>Shopping cart</h3></a>
   </div>
 </div>
+<mat-divider class="nav-divider"></mat-divider>
 <div id="my-account-bg" class="my-account-bg" (click)="openCloseAccountModal()"></div>
 <div id="my-account-content" class="my-account-content">
   <div *ngIf="!isLoggedIn()">
@@ -32,6 +36,9 @@
     </div>
     <div class="my-account-content-section">
       <a href="my-products"><mat-icon>store</mat-icon>My Products</a>
+    </div>
+    <div class="my-account-content-section">
+      <a href="create-listing"><mat-icon>plus</mat-icon>Create Listing</a>
     </div>
     <div class="my-account-content-section">
       <a href="logout"><mat-icon>exit_to_app</mat-icon>Log Out</a>

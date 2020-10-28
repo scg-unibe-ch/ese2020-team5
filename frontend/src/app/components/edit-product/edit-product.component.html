@@ -3,12 +3,11 @@
 </div>
 <div *ngIf="product">
   <form [formGroup]="productForm" (ngSubmit)="updateProduct()" class="edit-component-content">
-    <h1>Edit Product '{{product.title}} #{{product.productId}}'</h1>
-    <hr>
+    <h1><strong>Edit:</strong> '{{product.title}} #{{product.productId}}'</h1>
     <mat-form-field appearance="outline" class="product-type">
       <mat-label>Product Type*</mat-label>
       <mat-select formControlName="type">
-        <mat-option [value]=0>Item</mat-option>
+        <mat-option [value]=0>Product</mat-option>
         <mat-option [value]=1>Service</mat-option>
       </mat-select>
     </mat-form-field>
@@ -24,13 +23,15 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="price">
       <mat-label>Price*</mat-label>
-      <input matInput type="text" formControlName="price">
+      <input matInput type="number" formControlName="price">
+      <span matPrefix>CHF&nbsp;</span>
+      <span matSuffix>.00</span>
       <mat-error *ngIf="productForm.controls.price.hasError('required')">Price required!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="price-type">
       <mat-label>Price Type*</mat-label>
       <mat-select formControlName="priceKind">
-        <mat-option [value]=0>-</mat-option>
+        <mat-option [value]=0>Fixed</mat-option>
         <mat-option [value]=1>per hour</mat-option>
         <mat-option [value]=2>per day</mat-option>
       </mat-select>

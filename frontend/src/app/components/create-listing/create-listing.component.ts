@@ -6,10 +6,6 @@ import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
-
-
-
 @Component({
   selector: 'app-create-listing',
   templateUrl: './create-listing.component.html',
@@ -52,7 +48,7 @@ export class CreateListingComponent implements OnInit {
     this.productService.createProduct(this.createListingForm.value).then((data: any) => {
       this.showErrorMessage = false;
       console.log(data);
-      location.assign('home');
+      location.assign('my-products');
     }).catch((error: any) => {
       console.log(error);
       this.showErrorMessage = true;
