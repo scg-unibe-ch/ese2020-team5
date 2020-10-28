@@ -1,16 +1,19 @@
 .createListing-form {
   margin: 4% auto 40px;
   width: 60%;
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-column-gap: 15px;
   padding: 25px;
   }
 
 
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-column-gap: 15px;
+  }
+
   .createListing-form > h1 {
     font-size: 3em;
-    margin-bottom: 1em;
+    margin-bottom: 0.7em;
     text-align: left;
     grid-column-start: 1;
     grid-column-end: 7;
@@ -37,13 +40,13 @@
   .createListing-form-btn {
     text-align: center;
     display: inline-block;
-    margin-top: 4em;
+    margin-top: 2em;
     background-color:#FBB03B;
     color: white;
     border-radius: 20px;
-    width: 300px;
-    grid-column-start: 2;
-    grid-column-end: 4;
+    width: auto;
+    grid-column-start: 3;
+    grid-column-end: 5;
   }
   
   .createListing-form-btn:hover {
@@ -51,12 +54,12 @@
   }
   
   .createListing-form-btn:disabled {
-    background-color: #353535;
+    background-color: #818181;
     color: white;
   }
     
   .title {
-    grid-column-start: 3;
+    grid-column-start: 2;
     grid-column-end: 7;
   }
   
@@ -80,13 +83,17 @@
     grid-column-end: 5;
   }
   
-  .sellOrlend {
+  .sellOrLend {
     grid-column-start: 5;
     grid-column-end: 7;
   }
   
   .location {
     grid-column-start: 1;
-    grid-column-end: 7;
+    grid-column-end: 4;
   }
  
+  .deliverable {
+    grid-column-start: 4;
+    grid-column-end: 7;
+  }

@@ -1,10 +1,11 @@
 <div class="createListing-form">
     <h1><strong>Create Listing</strong></h1>
-    <form [formGroup]="createListingForm" (ngSubmit)="createListing()" class="createListing-form-fields">
+    <form [formGroup]="createListingForm" (ngSubmit)="createProduct()" class="createListing-form-fields">
+      <div class="grid-container">
       <mat-form-field appearance="outline" class="ListingType">
         <mat-label>Listing Type*</mat-label>
         <mat-select formControlName="type">
-          <mat-option value="0">Product</mat-option>
+          <mat-option value="0">Item</mat-option>
           <mat-option value="1">Service</mat-option>
           <mat-error *ngIf="createListingForm.controls.type.hasError('required')">Listing type required!</mat-error>
         </mat-select>
@@ -15,7 +16,7 @@
         <mat-error *ngIf="createListingForm.controls.title.hasError('required')">Title required!</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="description">
-        <mat-label>Description</mat-label>
+        <mat-label>Description*</mat-label>
         <textarea matInput type="text" formControlName="description" style="resize: none"></textarea>
         <mat-error *ngIf="createListingForm.controls.description.hasError('required')">Description required!</mat-error>
       </mat-form-field>
@@ -31,7 +32,7 @@
         <mat-select formControlName="priceKind">
           <mat-option value="0">Fixed</mat-option>
           <mat-option value="1">Price per hour</mat-option>
-          <mat-option value="2">Price per week</mat-option>
+          <mat-option value="2">Price per day</mat-option>
           <mat-error *ngIf="createListingForm.controls.priceKind.hasError('required')">Pricing required!</mat-error>
         </mat-select>
       </mat-form-field>
@@ -57,6 +58,7 @@
         </mat-select>
       </mat-form-field>
       <br>
-      <button mat-stroked-button type="submit" class="createListing-form-btn" color="orange" >Next</button>
+      <button mat-stroked-button type="submit" class="createListing-form-btn" [disabled]="createListingForm.invalid" >Create Product</button>
+    </div>
     </form>
   </div>

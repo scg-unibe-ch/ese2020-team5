@@ -7,7 +7,7 @@
     <mat-form-field appearance="outline" class="product-type">
       <mat-label>Product Type*</mat-label>
       <mat-select formControlName="type">
-        <mat-option [value]=0>Product</mat-option>
+        <mat-option [value]=0>Item</mat-option>
         <mat-option [value]=1>Service</mat-option>
       </mat-select>
     </mat-form-field>
@@ -38,7 +38,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="sell-or-lend">
       <mat-label>Sell or Lend?</mat-label>
-      <mat-select formControlName="sellOrLend" [disabled]="productForm.value.type == 1 || productForm.value.priceKind == 1 || productForm.value.priceKind == 2">
+      <mat-select formControlName="sellOrLend" [disabled]="productForm.value.type == 1 ">
         <mat-option [value]=0>To Sell</mat-option>
         <mat-option [value]=1>To Lend</mat-option>
       </mat-select>
@@ -50,10 +50,10 @@
     </mat-form-field>
     <div class="checkbox-container">
       <mat-checkbox labelPosition="before" formControlName="status" class="black-checkbox available">Available</mat-checkbox>
-      <mat-checkbox labelPosition="before" formControlName="deliverable" class="black-checkbox deliverable">Deliverable</mat-checkbox>
+      <mat-checkbox labelPosition="before" formControlName="deliverable" class="black-checkbox deliverable" [disabled]="productForm.value.type == 1 ">Deliverable</mat-checkbox>
     </div>
     <div class="btn-container">
-      <button mat-stroked-button type="submit" class="black-btn edit-product-btn" [disabled]="this.productForm.invalid">Update</button>
+      <button mat-stroked-button type="submit" class="black-btn edit-product-btn" [disabled]="this.productForm.invalid" >Update</button>
       <button mat-stroked-button class="black-btn edit-product-btn" (click)="cancelUpdate()">Cancel</button>
     </div>
   </form>
