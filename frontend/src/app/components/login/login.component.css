@@ -15,8 +15,8 @@
   min-width: 0;
 }
 
-:host ::ng-deep .login-form .mat-form-field-wrapper{
-  margin: 10px 0 !important;
+.login-form mat-icon:hover {
+  cursor: pointer;
 }
 
 .login-form-fields {
