@@ -1,14 +1,13 @@
 <div class="nav-bar">
   <div class="logo">
-    <mat-icon (click)="navigateTo('home')">home</mat-icon><a href="home"><strong>TEAM5</strong></a>
+    <mat-icon (click)="navigateTo('home')">home</mat-icon><a href="home">ESE20</a>
   </div>
-  <!--
   <div class="search-container">
     <input type="text" placeholder="Search..." name="search" [(ngModel)]="searchFilter" (keydown.enter)="searchItem()">
     <button (click)="searchItem()"><mat-icon>search</mat-icon></button>
   </div>
--->
   <div id="nav-entries" class="nav-entries">
+
     <button mat-stroked-button class="createListing-btn" (click)="navigateTo('my-products/new')">+ Create new Listing</button>
     
     <button mat-icon-button class="my-account" (click)="navigateTo('shopping-cart')">
@@ -52,7 +51,7 @@
 
   <!--
     <div id="my-account" class="my-account" (click)="openCloseAccountModal()">
-      <mat-icon class="person-outline">person</mat-icon><h3>{{myAccount}}</h3><mat-icon>{{myAccountArrow}}</mat-icon>
+      <mat-icon class="person-outline">person_outline</mat-icon><h3>{{myAccount}}</h3><mat-icon>{{myAccountArrow}}</mat-icon>
     </div>
   -->
   </div>

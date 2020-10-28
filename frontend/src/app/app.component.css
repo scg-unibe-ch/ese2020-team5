@@ -3,45 +3,39 @@
   position: relative;
   top: 0;
   left: 0;
+
   z-index: 1;
   height: 3em;
   padding: 2em;
   background-color: #ffffff;
   user-select: none;
-
-}
-
-
-.nav-divider {
-  margin-left: auto;
-  margin-right: auto;
-  width: 95%;
 }
 
 .logo {
-  display: inline-block;
+  display: inline;
   position: relative;
+  top: 12px;
   left: 8%;
-  margin-top: 0.7em;
 }
 
 .logo a {
-  color: #000000;
-  font-size: 30px;
+  color: #ffffff;
+  font-size: 25px;
   text-decoration: none;
-  text-align: -webkit-match-parent;
 }
 
 .logo mat-icon {
   cursor: pointer;
   position: relative;
-  color: #000000;
+  top: 2px;
+  color: #ffffff;
   display: none;
 }
 
 .search-container {
   display: inline-grid;
   position: relative;
+  top: 8px;
   left: calc(30% - 71px);
   width: 40%;
   grid-template-columns: 12fr;
@@ -67,6 +61,7 @@
   float: right;
   display: inline;
   position: relative;
+  top: 4px;
   right: 7%;
 }
 
@@ -75,14 +70,17 @@
 }
 
 .my-account {
-  color: #303030;
+  color: #d7d7d7;
   cursor: pointer;
 }
 
 .my-account:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
+.person-outline {
+  display: none;
+}
 
 .my-account h3 {
   display: inline;
@@ -93,6 +91,7 @@
   position: relative;
   top: 7px;
 }
+
 
 .person-outline {
   display: inline;
@@ -105,7 +104,6 @@
   border-radius: 4px;
   margin-right: 25px;
 }
-
 
 @media only screen and (max-width: 1400px) {
   .nav-entries {
