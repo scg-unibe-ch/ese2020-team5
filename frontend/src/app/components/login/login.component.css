@@ -43,17 +43,6 @@
 .login-form-btn {
   margin-top: 30px;
   width: 50%;
-  background-color: #1a1a1a;
-  color: white;
   grid-column-start: 2;
   grid-column-end: 4;
-}
-
-.login-form-btn:hover {
-  background-color: #101010;
-}
-
-.login-form-btn:disabled {
-  background-color: #353535;
-  color: white;
 }
