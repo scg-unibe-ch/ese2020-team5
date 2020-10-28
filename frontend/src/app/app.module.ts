@@ -29,6 +29,7 @@ import { DeleteProductComponent } from './components/custom/dialog/delete-produc
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     LogoutComponent,
     MyProductsComponent,
     DeleteProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
