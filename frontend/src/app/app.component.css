@@ -4,44 +4,36 @@
   top: 0;
   left: 0;
   z-index: 2;
-  height: 3em;
-  padding: 2em;
-  background-color: #ffffff;
+  height: 50px;
+  background-color: #131313;
   user-select: none;
-
-}
-
-
-.nav-divider {
-  margin-left: auto;
-  margin-right: auto;
-  width: 95%;
 }
 
 .logo {
-  display: inline-block;
+  display: inline;
   position: relative;
+  top: 12px;
   left: 8%;
-  margin-top: 0.7em;
 }
 
 .logo a {
-  color: #000000;
-  font-size: 30px;
+  color: #ffffff;
+  font-size: 25px;
   text-decoration: none;
-  text-align: -webkit-match-parent;
 }
 
 .logo mat-icon {
   cursor: pointer;
   position: relative;
-  color: #000000;
+  top: 2px;
+  color: #ffffff;
   display: none;
 }
 
 .search-container {
   display: inline-grid;
   position: relative;
+  top: 8px;
   left: calc(30% - 71px);
   width: 40%;
   grid-template-columns: 12fr;
@@ -67,6 +59,7 @@
   float: right;
   display: inline;
   position: relative;
+  top: 4px;
   right: 7%;
 }
 
@@ -75,14 +68,17 @@
 }
 
 .my-account {
-  color: #303030;
+  color: #d7d7d7;
   cursor: pointer;
 }
 
 .my-account:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
+.person-outline {
+  display: none;
+}
 
 .my-account h3 {
   display: inline;
@@ -95,14 +91,13 @@
 }
 
 .shopping-cart {
-  margin-right: 20px;
   margin-left: 20px;
-  color: #303030;
+  color: #d7d7d7;
   text-decoration: none;
 }
 
 .shopping-cart:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
 .shopping-cart h3 {
@@ -115,19 +110,15 @@
   top: 7px;
 }
 
-.person-outline {
-  display: inline;
-}
-
 .my-account-bg {
   display: none;
   position: fixed;
-  z-index: 0;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(0,0,0,0.5);
 }
 
 .my-account-content {
@@ -135,12 +126,12 @@
   visibility: hidden;
   position: absolute;
   float: right;
-  z-index: 0;
+  z-index: 2;
   top: 50px;
   min-width: 200px;
   margin: 0;
   background-image: radial-gradient(ellipse farthest-side at center top, #2f2f2f 0%, #131313 100%);
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 .my-account-content-section {
@@ -169,13 +160,6 @@
   top: 7px;
   margin-right: 8px;
 }
-
-.createListing-btn {
-  border: 1px solid #0000001F;
-  border-radius: 4px;
-  margin-right: 8px;
-}
-
 
 @media only screen and (max-width: 1400px) {
   .nav-entries {
