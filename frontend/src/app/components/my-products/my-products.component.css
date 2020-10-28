@@ -1,12 +1,29 @@
 .my-products {
   min-height: calc(100vh - 50px);
-  width: 100%;
-  background-color: #f6f6f6;
+  margin: 4% auto 40px;
+  width: 60%;
+  padding: 25px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-column-gap: 15px;
+}
+
+.my-products > h1 {
+  font-size: 3em; 
+  margin-bottom: 1em;
+  text-align: left;
+  grid-column-start: 1;
+  grid-column-end: 7;
 }
 
 .no-products {
   padding-top: 15%;
   text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 7;
 }
 
 .create-product-btn {
@@ -14,9 +31,8 @@
 }
 
 .my-products-content {
-  width: 70%;
-  margin: 0 auto;
-  padding: 20px 0;
+  grid-column-start: 1;
+  grid-column-end: 7;
 }
 
 .container {

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
@@ -55,6 +56,7 @@ import { AdminProductPanelComponent } from './components/admin-product-panel/adm
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    MatMenuModule,
     MatButtonModule,
     MatListModule,
     MatInputModule,

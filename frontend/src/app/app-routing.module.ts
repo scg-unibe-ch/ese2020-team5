@@ -27,9 +27,9 @@ const routes: Routes = [
   { path: 'my-products', component: MyProductsComponent, canActivate: [AuthGuard] },
   { path: 'my-products/new', component: CreateProductComponent, canActivate: [AuthGuard] },
   { path: 'product/:id/edit', component: EditProductComponent, canActivate: [AuthGuard] },
-  { path: 'admin/dashboard', component: AdminPanelComponent, canActivate: [AdminGuard] },
+  { path: 'admin/dashboard', component: AdminPanelComponent, canActivate: [AdminGuard]  },
   { path: 'admin/dashboard/users', component: AdminUserPanelComponent, canActivate: [AdminGuard] },
-  { path: 'admin/dashboard/products', component: AdminProductPanelComponent, canActivate: [AdminGuard] },
+  { path: 'admin/dashboard/products', component: AdminProductPanelComponent, canActivate: [AdminGuard]  },
   { path: '**', redirectTo: '/home' }
 ];
 
