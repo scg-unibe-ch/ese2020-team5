@@ -25,6 +25,10 @@
   text-align: center;
 }
 
+.login-form mat-icon {
+  user-select: none;
+}
+
 .login-form-links {
   margin-top: 20px;
 }
