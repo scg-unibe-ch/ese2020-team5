@@ -157,6 +157,20 @@
 				},
 				{
 					"name": "user registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "417b6180-b8ba-4809-ba0c-26fca939ad44",
+								"exec": [
+									"pm.test(\"Registration should be possible\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -170,12 +184,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/register",
+							"raw": "http://{{uri}}/user/register",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{uri}}"
 							],
-							"port": "3000",
 							"path": [
 								"user",
 								"register"
@@ -297,12 +310,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/register",
+							"raw": "http://{{uri}}/user/register",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{uri}}"
 							],
-							"port": "3000",
 							"path": [
 								"user",
 								"register"
@@ -622,7 +634,7 @@
 								"id": "5bde6bb5-2208-4f87-ad7c-f0e54aa6de74",
 								"exec": [
 									"const echoPostRequest = {",
-									"  url: 'http://' + pm.globals.get('uri') + '/products',",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/products',",
 									"  method: 'POST',",
 									"  header: 'Content-Type:application/json',",
 									"  body: {",
@@ -895,7 +907,7 @@
 								"id": "77f82153-0e1b-4925-a5eb-b938d541f338",
 								"exec": [
 									"const echoPostRequest = {",
-									"  url: 'http://' + pm.globals.get('uri') + '/products',",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/products',",
 									"  method: 'POST',",
 									"  header: 'Content-Type:application/json',",
 									"  body: {",
@@ -1120,7 +1132,7 @@
 								"id": "a516a444-a569-4673-94e9-47926785d59e",
 								"exec": [
 									"const echoPostRequest = {",
-									"  url: 'http://' + pm.globals.get('uri') + '/user/register',",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
 									"  method: 'POST',",
 									"  header: 'Content-Type:application/json',",
 									"  body: {",
@@ -1189,7 +1201,7 @@
 								"id": "e5355b61-1c2d-4b27-906a-19e6f8f0ef5c",
 								"exec": [
 									"const echoPostRequest = {",
-									"  url: 'http://' + pm.globals.get('uri') + '/user/register',",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
 									"  method: 'POST',",
 									"  header: 'Content-Type:application/json',",
 									"  body: {",
@@ -1207,7 +1219,7 @@
 									"};",
 									"",
 									"const echoPostRequest2 = {",
-									"  url: 'http://' + pm.globals.get('uri') + '/user/register',",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
 									"  method: 'POST',",
 									"  header: 'Content-Type:application/json',",
 									"  body: {",
@@ -1225,7 +1237,7 @@
 									"};",
 									"",
 									"const echoPostRequest3 = {",
-									"  url: 'http://' + pm.globals.get('uri') + '/user/register',",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
 									"  method: 'POST',",
 									"  header: 'Content-Type:application/json',",
 									"  body: {",
@@ -1315,7 +1327,7 @@
 				"type": "text/javascript",
 				"exec": [
 					"const echoPostRequest = {",
-					"  url: 'http://' + pm.globals.get('uri') + '/user/login',",
+					"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/login',",
 					"  method: 'POST',",
 					"  header: 'Content-Type:application/json',",
 					"  body: {",
@@ -1352,9 +1364,14 @@
 	],
 	"variable": [
 		{
-			"id": "952474c2-1365-420f-bc3b-5af634e68cc1",
+			"id": "025a9d47-ad01-4ea8-8e24-cd77b8c54499",
 			"key": "currentAccessToken",
 			"value": ""
+		},
+		{
+			"id": "fd2e4a6c-67c4-4158-af2d-da425f648988",
+			"key": "uri",
+			"value": "localhost:3000"
 		}
 	],
 	"protocolProfileBehavior": {}
