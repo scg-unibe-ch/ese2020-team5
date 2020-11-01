@@ -41,14 +41,18 @@
               </mat-expansion-panel-header>
               <p>{{product.description}}</p>
             </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                Additional Info:
+              </mat-expansion-panel-header>
+              <p>
+                Location: {{product.location}}<br>
+                Status: {{(product.status) ? 'Available' : 'Not Available'}}<br>
+                Deliverable: {{(product.deliverable) ? 'yes' : 'no'}}<br>
+                {{(product.type == 0) ? ((product.sellOrLend == 0) ? 'To sell' : 'To lend') : ''}}
+              </p>
+            </mat-expansion-panel>
           </mat-accordion>
-          <p class="card-info">
-            <br>
-            Location: {{product.location}}<br>
-            Status: {{(product.status) ? 'available' : 'not available'}}<br>
-            Deliverable: {{(product.deliverable) ? 'yes' : 'no'}}<br>
-            <span *ngIf="product.type == 0">{{(product.sellOrLend === 0) ? 'to sell' : 'to lend'}}</span>
-          </p>
         </mat-card-content>
         <mat-card-actions>
           <button mat-stroked-button class="black-btn" (click)="editProduct(product.productId)">EDIT</button>
