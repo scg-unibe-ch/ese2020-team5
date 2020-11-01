@@ -1,5 +1,5 @@
 <div class="catalog">
-  <div class="catalog-panel" *ngIf="type === 'all'">
+  <div class="catalog-panel" *ngIf="type === 'all' && !this.searchFilter">
     <mat-card>
       <mat-card-content>
         <h1><strong>Items</strong></h1>

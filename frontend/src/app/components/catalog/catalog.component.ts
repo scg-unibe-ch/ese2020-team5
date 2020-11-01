@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CatalogComponent implements OnInit {
   type = 'all';
+  searchFilter: string;
   products: Product[];
 
   constructor(
@@ -26,6 +27,13 @@ export class CatalogComponent implements OnInit {
         this.products = products.filter(product => product.type === 1);
       } else {
         this.products = products;
+      }
+      this.searchFilter = this.route.snapshot.queryParams.q;
+      if (this.searchFilter) {
+        this.products = this.products.filter(product =>
+          product.title.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1
+          || product.description.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1
+        );
       }
     });
   }
