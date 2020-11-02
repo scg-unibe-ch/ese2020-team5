@@ -34,6 +34,10 @@ These are links to some of the files that we have implemented/modified when deve
 - [routing](./src/controllers)
 - [API construction](./src/server.ts)
 
+## Database Diagram
+
+![database_diagram](../documentation/Database-v1.3.jpg)
+
 ## Endpoints
 Some endpoints can be called in a [browser](http://localhost:3000), others have to be called by a REST Client. [Here](./postman_collection) you can find a collection that contains all requests, which you can import into Postman. [Postman](https://www.postman.com/) is a REST Client.
 
