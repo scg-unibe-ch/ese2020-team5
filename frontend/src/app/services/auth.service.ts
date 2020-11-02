@@ -22,6 +22,8 @@ export class AuthService {
   login(form: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.httpClient.post(environment.endpointURL + 'user/login', form).subscribe((res: any) => {
+        localStorage.setItem('userToken', res.token);
+        localStorage.setItem('userName', res.user.userName);
         resolve(res);
       }, (error: any) => {
         reject(error);
@@ -31,7 +33,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('userToken');
-    localStorage.removeItem('userNameOrEmail');
+    localStorage.removeItem('userName');
   }
 
   isLoggedIn(): boolean {

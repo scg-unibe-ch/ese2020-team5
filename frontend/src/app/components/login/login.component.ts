@@ -30,13 +30,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.login(this.loginForm.value).then((data: any) => {
+    this.authService.login(this.loginForm.value).then(() => {
       this.showErrorMessage = false;
-      localStorage.setItem('userToken', data.token);
-      localStorage.setItem('userNameOrEmail', data.user.userName);
       location.assign((this.returnURL) ? this.returnURL : 'home');
-    }).catch((error: any) => {
-      console.log(error);
+    }).catch(() => {
       this.showErrorMessage = true;
     });
   }

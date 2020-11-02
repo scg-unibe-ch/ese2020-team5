@@ -19,17 +19,25 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.loadUser();
     if (this.authService.isLoggedIn()) {
-      this.userService.getUser().then(user => {
-        this.myAccount = user.userName;
+      this.userService.loadUser();
+      if (localStorage.getItem('userName')) {
+        this.myAccount = localStorage.getItem('userName');
         if (this.myAccount.length > 12) {
           this.myAccount = this.myAccount.substring(0, 10) + '..';
         }
-      }).catch(() => {
-        this.authService.logout();
-        this.myAccount = 'My Account';
-      });
+      } else {
+        this.userService.getUser().then(user => {
+          localStorage.setItem('userName', user.userName);
+          this.myAccount = localStorage.getItem('userName');
+          if (this.myAccount.length > 12) {
+            this.myAccount = this.myAccount.substring(0, 10) + '..';
+          }
+        }).catch(() => {
+          this.authService.logout();
+          this.myAccount = 'My Account';
+        });
+      }
     } else {
       this.myAccount = 'My Account';
     }

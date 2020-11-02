@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   secureEndpointResponse = '';
-  userNameOrEmail = '';
+  userName = '';
 
   constructor(
     private authService: AuthService,
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userNameOrEmail = localStorage.getItem('userNameOrEmail');
+    this.userName = localStorage.getItem('userName');
   }
 
   logout(): void {
