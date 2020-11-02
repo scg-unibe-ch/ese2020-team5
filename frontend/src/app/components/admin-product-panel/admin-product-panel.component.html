@@ -14,10 +14,10 @@
     <div *ngIf="!products" class="loading">
       <mat-spinner></mat-spinner>
     </div>
-    <div *ngIf="!products[0]" class="no-products">
+    <div *ngIf="products && !products[0]" class="no-products">
       <h1>No Products found!</h1>
     </div>
-    <div *ngIf="products[0]">
+    <div *ngIf="products && products[0]">
       <div *ngFor="let product of products">
         <mat-card>
           <mat-card-header>
