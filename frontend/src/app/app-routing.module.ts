@@ -19,7 +19,7 @@ import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full'},
+  { path: '', redirectTo: '/catalog', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
@@ -31,10 +31,10 @@ const routes: Routes = [
   { path: 'my-products/new', component: CreateProductComponent, canActivate: [AuthGuard] },
   { path: 'product/:id', component: ProductComponent },
   { path: 'product/:id/edit', component: EditProductComponent, canActivate: [AuthGuard] },
-  { path: 'admin/dashboard', component: AdminPanelComponent, canActivate: [AdminGuard]  },
+  { path: 'admin/dashboard', component: AdminPanelComponent, canActivate: [AdminGuard] },
   { path: 'admin/dashboard/users', component: AdminUserPanelComponent, canActivate: [AdminGuard] },
-  { path: 'admin/dashboard/products', component: AdminProductPanelComponent, canActivate: [AdminGuard]  },
-  { path: '**', redirectTo: '/home' }
+  { path: 'admin/dashboard/products', component: AdminProductPanelComponent, canActivate: [AdminGuard] },
+  { path: '**', redirectTo: '/catalog' }
 ];
 
 @NgModule({
