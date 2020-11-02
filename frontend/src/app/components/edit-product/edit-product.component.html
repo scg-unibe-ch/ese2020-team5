@@ -38,7 +38,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="sell-or-lend">
       <mat-label>Sell or Lend?</mat-label>
-      <mat-select formControlName="sellOrLend" [disabled]="productForm.value.type == 1 ">
+      <mat-select formControlName="sellOrLend" [disabled]="productForm.value.type == 1 || productForm.value.priceKind == 1 || productForm.value.priceKind == 2">
         <mat-option [value]=0>To Sell</mat-option>
         <mat-option [value]=1>To Lend</mat-option>
       </mat-select>

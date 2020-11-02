@@ -1,4 +1,4 @@
-.createListing-form {
+.createProduct-form {
   margin: 4% auto 40px;
   width: 60%;
   padding: 25px;
@@ -11,7 +11,7 @@
     grid-column-gap: 15px;
   }
 
-  .createListing-form > h1 {
+  .createProduct-form > h1 {
     font-size: 3em;
     margin-bottom: 0.7em;
     text-align: left;
@@ -19,16 +19,16 @@
     grid-column-end: 7;
   }
   
-  .createListing-form mat-form-field {
+  .createProduct-form mat-form-field {
     display: block;
     min-width: 0;
   }
   
-  :host ::ng-deep .createListing-form .mat-form-field-wrapper{
+  :host ::ng-deep .createProduct-form .mat-form-field-wrapper{
     margin: 3px 0 !important;
   }
   
-  .createListing-form-fields {
+  .createProduct-form-fields {
     display: block;
     min-width: 0;
   }
@@ -37,7 +37,7 @@
     min-height: 150px;
   }
 
-  .createListing-form-btn {
+  .createProduct-form-btn {
     text-align: center;
     display: inline-block;
     margin-top: 2em;
@@ -49,11 +49,11 @@
     grid-column-end: 5;
   }
   
-  .createListing-form-btn:hover {
+  .createProduct-form-btn:hover {
     background-color:#f78400;
   }
   
-  .createListing-form-btn:disabled {
+  .createProduct-form-btn:disabled {
     background-color: #818181;
     color: white;
   }
@@ -63,9 +63,9 @@
     grid-column-end: 7;
   }
   
-  .listingType {
+  .ProductType {
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 2;
   }
 
   .description {
