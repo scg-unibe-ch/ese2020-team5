@@ -33,6 +33,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AdminUserPanelComponent } from './components/admin-user-panel/admin-user-panel.component';
 import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
+import { ProductComponent } from './components/product/product.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { AdminProductPanelComponent } from './components/admin-product-panel/adm
     EditProductComponent,
     AdminPanelComponent,
     AdminUserPanelComponent,
-    AdminProductPanelComponent
+    AdminProductPanelComponent,
+    ProductComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,

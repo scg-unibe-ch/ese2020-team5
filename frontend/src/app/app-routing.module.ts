@@ -15,6 +15,8 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { AdminGuard } from './guards/admin.guard';
 import { AdminUserPanelComponent } from './components/admin-user-panel/admin-user-panel.component';
 import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
+import { ProductComponent } from './components/product/product.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -24,8 +26,10 @@ const routes: Routes = [
   { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
   { path: 'signup', component: SignUpComponent, canActivate: [NotAuthGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
+  { path: 'catalog', component: CatalogComponent },
   { path: 'my-products', component: MyProductsComponent, canActivate: [AuthGuard] },
   { path: 'my-products/new', component: CreateProductComponent, canActivate: [AuthGuard] },
+  { path: 'product/:id', component: ProductComponent },
   { path: 'product/:id/edit', component: EditProductComponent, canActivate: [AuthGuard] },
   { path: 'admin/dashboard', component: AdminPanelComponent, canActivate: [AdminGuard]  },
   { path: 'admin/dashboard/users', component: AdminUserPanelComponent, canActivate: [AdminGuard] },
