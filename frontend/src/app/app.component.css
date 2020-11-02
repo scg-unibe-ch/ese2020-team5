@@ -60,7 +60,7 @@
   display: inline;
   position: relative;
   top: 4px;
-  right: 7%;
+  right: 5%;
 }
 
 .nav-entries div {
@@ -162,13 +162,23 @@
   margin-right: 8px;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1600px) {
   .nav-entries {
     right: 20px;
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1500px) {
+  .my-account h3 {
+    display: none;
+  }
+
+  .person-outline {
+    display: inline;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
   .logo {
     left: 20px;
   }
@@ -185,16 +195,8 @@
     display: inline;
   }
 
-  .my-account h3 {
-    display: none!important;
-  }
-
   .nav-entry h3 {
-    display: none!important;
-  }
-
-  .person-outline {
-    display: inline;
+    display: none;
   }
 }
 
