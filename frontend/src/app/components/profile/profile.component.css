@@ -19,3 +19,57 @@
     grid-column-start: 1;
     grid-column-end: 7;
   }
+  
+  .profile-form mat-form-field {
+    display: block;
+    min-width: 0;
+  }
+  
+  .profile-form-fields {
+    width: 95%;
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+  }
+  
+  .profile-form-btn {
+    background-color: #1a1a1a;
+    color: white;
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+  
+  .profile-form-btn:hover {
+    background-color: #101010;
+  }
+  
+  .profile-form-btn:disabled {
+    background-color: #353535;
+    color: white;
+  }
+  
+  .first-name {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  
+  .last-name {
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
+  
+  .email, .country, .address, .username, .password{
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+  
+  .phone-nr, .city {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+  
+  .gender, .zip-code {
+    grid-column-start: 4;
+    grid-column-end: 5;
+  }
+  

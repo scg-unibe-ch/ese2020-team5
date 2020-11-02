@@ -8,7 +8,6 @@
   padding: 2em;
   background-color: #ffffff;
   user-select: none;
-
 }
 
 
@@ -43,16 +42,13 @@
 
 .search-container {
   display: inline-grid;
-  position: relative;
-  left: calc(30% - 71px);
-  width: 40%;
+  margin-right: 25px;
+  width: 20%;
   grid-template-columns: 12fr;
 }
 
 .search-container > input {
-  height: 27px;
-  grid-column-start: 1;
-  grid-column-end: 12;
+  height: 30px;
 }
 
 .search-container > input:focus {
@@ -61,8 +57,6 @@
 
 .search-container > button {
   height: 33px;
-  grid-column-start: 12;
-  grid-column-end: 13;
 }
 
 .nav-entries {
