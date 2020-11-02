@@ -20,7 +20,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/catalog', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: CatalogComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
