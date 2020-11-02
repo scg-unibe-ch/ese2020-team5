@@ -13,9 +13,11 @@ export class ProductService {
             .then(found => {
                 if (found != null) {
                     return User.findByPk(userId).then(user => {
-                        if (user.isAdmin !== 1 && found.userId !== userId) {
+                        if (user.isAdmin !== 1 && (found.userId !== userId || req.body.hasOwnProperty('approved'))) {
                             return Promise.reject('You are not authorized to do this!');
                         } else {
+                            // if (found.userId == userId && req.body.has('approved')) {
+                            //      return Promise.reject('You are not auth
                             return found.update(req.body).then(() => {
                                 return Promise.resolve(found);
                             }).catch(err => Promise.reject(err));
