@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteUserComponent } from '../custom/dialog/delete-user/delete-user.component';
 
 @Component({
   selector: 'app-admin-user-panel',
@@ -10,7 +12,10 @@ import { User } from '../../models/user.model';
 export class AdminUserPanelComponent implements OnInit {
   users: User[];
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.userService.getAllUsers().then(users => {
@@ -19,8 +24,9 @@ export class AdminUserPanelComponent implements OnInit {
     });
   }
 
-  deleteUser(id: number): void {
-    this.userService.deleteUser(id);
-    location.reload();
+  deleteUser(user: User): void {
+    this.dialog.open(DeleteUserComponent, {
+      data: user
+    });
   }
 }
