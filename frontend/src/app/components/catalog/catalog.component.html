@@ -1,4 +1,7 @@
-<div class="catalog">
+<div *ngIf="!products" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="catalog" *ngIf="products">
   <div class="catalog-panel" *ngIf="type === 'all' && !this.searchFilter">
     <mat-card>
       <mat-card-content>
@@ -13,32 +16,37 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="product-list">
-    <mat-card *ngFor="let product of products; let i = index;" class="product-card">
-      <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
-        <div class="product-image">
-          <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
-          <div *ngIf="!product.images || !product.images[0]" class="default-image">
-            <mat-icon [inline]="true">category</mat-icon>
+  <div *ngIf="!products[0]" class="no-products">
+    <h1>No products found!</h1>
+  </div>
+  <div *ngIf="products[0]">
+    <div class="product-list">
+      <mat-card *ngFor="let product of products; let i = index;" class="product-card">
+        <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
+          <div class="product-image">
+            <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
+            <div *ngIf="!product.images || !product.images[0]" class="default-image">
+              <mat-icon [inline]="true">category</mat-icon>
+            </div>
+          </div>
+          <div class="product-description" id="product-description-{{i}}">
+            <p>
+              Description:<br>
+              {{product.description}}
+            </p>
           </div>
         </div>
-        <div class="product-description" id="product-description-{{i}}">
+        <mat-card-content>
           <p>
-            Description:<br>
-            {{product.description}}
+            <span class="green">
+              <strong>{{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
+            </span><br>
+            <a class="product-title" href="product/{{product.productId}}">
+              <strong>{{(product.title.length > 72) ? product.title.substring(0, 70) + '..' : product.title}}</strong>
+            </a>
           </p>
-        </div>
-      </div>
-      <mat-card-content>
-        <p>
-          <span class="green">
-            <strong>{{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
-          </span><br>
-          <a class="product-title" href="product/{{product.productId}}">
-            <strong>{{(product.title.length > 72) ? product.title.substring(0, 70) + '..' : product.title}}</strong>
-          </a>
-        </p>
-      </mat-card-content>
-    </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

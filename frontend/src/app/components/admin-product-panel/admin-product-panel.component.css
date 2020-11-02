@@ -31,6 +31,15 @@
   width: 125px;
 }
 
+.loading mat-spinner{
+  margin: 5% auto;
+}
+
+.no-products {
+  padding-top: 15%;
+  text-align: center;
+}
+
 .product-panel mat-card {
   margin: 10px auto 20px;
 }
@@ -46,4 +55,10 @@
 
 .product-panel mat-card-content {
   white-space: pre-wrap;
+}
+
+@media only screen and (max-width: 1000px) {
+  .product-panel {
+    width: 95%;
+  }
 }

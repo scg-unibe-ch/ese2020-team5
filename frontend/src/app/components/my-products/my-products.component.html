@@ -1,4 +1,7 @@
-<div class="my-products">
+<div *ngIf="!myProducts" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="my-products" *ngIf="myProducts">
   <div *ngIf="!myProducts[0]" class="no-products">
     <h1>You currently offer no products!</h1>
     <button mat-stroked-button class="create-product-btn black-btn" (click)="navigateTo('my-products/new')">Create new Product</button>

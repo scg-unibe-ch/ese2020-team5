@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-products.component.css']
 })
 export class MyProductsComponent implements OnInit {
-  myProducts: Product[] = [];
+  myProducts: Product[];
   filteredProducts: Product[];
   filter = '';
   imageIndex = [];
