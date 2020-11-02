@@ -13,6 +13,7 @@
   
   .profile > h1 {
     font-size: 3em; 
+    line-height: 110%;
     margin-bottom: 1em;
     text-align: center;
     grid-column-start: 1;

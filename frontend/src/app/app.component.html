@@ -1,11 +1,13 @@
 <div class="nav-bar">
   <div class="logo">
-    <mat-icon (click)="navigateTo('home')">home</mat-icon><a href="home">ESE20</a>
+    <mat-icon (click)="navigateTo('home')">home</mat-icon><a href="home"><strong>TEAM5</strong></a>
   </div>
+  <!--
   <div class="search-container">
     <input type="text" placeholder="Search..." name="search" [(ngModel)]="searchFilter" (keydown.enter)="searchItem()">
     <button (click)="searchItem()"><mat-icon>search</mat-icon></button>
   </div>
+-->
   <div id="nav-entries" class="nav-entries">
 
     <button mat-stroked-button class="createListing-btn" (click)="navigateTo('my-products/new')">+ Create new Listing</button>
@@ -30,7 +32,7 @@
         <span>Profile</span>
       </button>
       <button *ngIf="isLoggedIn() && isAdmin()" mat-menu-item (click)="navigateTo('admin/dashboard')">
-        <mat-icon>admin-panel-settings</mat-icon>
+        <mat-icon>admin_panel_settings</mat-icon>
         <span>Admin Dashboard</span>
       </button>
       <button *ngIf="isLoggedIn()" mat-menu-item (click)="navigateTo('my-products')">
@@ -50,12 +52,14 @@
     </mat-menu>
 
   <!--
+  <div>
     <div id="my-account" class="my-account" (click)="openCloseAccountModal()">
       <mat-icon class="person-outline">person_outline</mat-icon><h3>{{myAccount}}</h3><mat-icon>{{myAccountArrow}}</mat-icon>
     </div>
     <a class="nav-entry" href="catalog"><mat-icon>storefront</mat-icon><h3>Catalog</h3></a>
     <a class="nav-entry" href="shopping-cart"><mat-icon>shopping_cart</mat-icon><h3>Shopping cart</h3></a>
   </div>
+  -->
 </div>
 <mat-divider class="nav-divider"></mat-divider>
 <!--
