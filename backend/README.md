@@ -1,4 +1,4 @@
-# ESE2020 Scaffolding Backend
+# ESE2020 Team 5 Backend
 
 ## Prerequisite
 You should have installed [NodeJS and npm](https://nodejs.org/en/download/) (they come as one) in order to start the backend server.
@@ -11,23 +11,12 @@ You should have installed [NodeJS and npm](https://nodejs.org/en/download/) (the
 - open your browser with the url [http://localhost:3000](http://localhost:3000/)
 
 ## About
-This part of the repository serves as a template for common problems you will face as a backend developer during your project. It is by no means complete but should give you a broad overview over the frameworks, libraries and technologies used. Please refer to the [reading list](https://github.com/scg-unibe-ch/ese2020/wiki/Reading-list) for links and tutorials.
-
-We tried to show you different approaches how your backend may be structured, however you are free to follow your own principles.
-Notice the differences between the [UserController](./src/controllers/user.controller.ts) and e.g. [TodoItemController](./src/controllers/todoitem.controller.ts). 
 
 1. The logic is split up:
 	- authorizing a request is done via middleware
 	- logic e.g. creating/authentication is done via [UserService](./src/services/user.service.ts)
 2. The controller itself is structured as a class.
 
-Note that the `UserController`-approach is more suited for bigger architectures and for typescript applications. You may choose any aproach you wish, but make sure your code is well structured.
-
-Here are more resources you can read: 
-
-- [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
-- [alternative example repo](https://github.com/maximegris/typescript-express-sequelize)
-- [alternative example repo](https://developer.okta.com/blog/2018/11/15/node-express-typescript)
 
 ## Quick Links
 These are links to some of the files that we have implemented/modified when developing the backend:
@@ -41,7 +30,6 @@ These are links to some of the files that we have implemented/modified when deve
 - Registration:
 	- [service](./src/services/user.service.ts)
 	- [controller](./src/controllers/user.controller.ts)
-- [crud](./src/controllers/todolist.controller.ts)
 - [typescript config](./src/tsconfig.json)
 - [routing](./src/controllers)
 - [API construction](./src/server.ts)
@@ -49,7 +37,9 @@ These are links to some of the files that we have implemented/modified when deve
 ## Endpoints
 Some endpoints can be called in a [browser](http://localhost:3000), others have to be called by a REST Client. [Here](./postman_collection) you can find a collection that contains all requests, which you can import into Postman. [Postman](https://www.postman.com/) is a REST Client.
 
-### `/todoitem`
+*TODO:* Finish the requests
+
+### `/products`
 - POST
 
 	<details>
@@ -57,9 +47,17 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 
 	```json
 		{
-			"name": "string",
-			"done": "boolean",
-			"todoListId":"number"
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "status": "number",
+      "deliverable": "number",
+      "approved": "number",
+      "userId": "number"
 		}
 	```
 
@@ -74,10 +72,18 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 
 	```json
 	{
-		"todoItemId": "number",
-		"name": "string",
-		"done": "boolean",
-		"todoListId":"number"
+		"productId": "number",
+    "title": "string",
+    "type": "number",
+    "description": "string",
+    "location": "string",
+    "sellOrLend": "number",
+    "price": "number",
+    "priceKind": "number",
+    "status": "number",
+    "deliverable": "number",
+    "approved": "number",
+    "userId": "number"
 	}
 	```
 </details>
@@ -89,9 +95,15 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 
 	```json
 		{
-			"name": "string",
-			"done": "boolean",
-			"todoListId":"number"
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "status": "number",
+      "deliverable": "number",
 		}
 	```
 
@@ -106,10 +118,18 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 
 	```json
 	{
-		"todoItemId": "number",
-		"name": "string",
-		"done": "boolean",
-		"todoListId":"number"
+		"productId": "number",
+    "title": "string",
+    "type": "number",
+    "description": "string",
+    "location": "string",
+    "sellOrLend": "number",
+    "price": "number",
+    "priceKind": "number",
+    "status": "number",
+    "deliverable": "number",
+    "approved": "number",
+    "userId": "number"
 	}
 	```
 </details>
@@ -117,7 +137,32 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 - DELETE `/:id`<br/>
 	Response: Status: 200
 
-### `/todolist`
+- GET
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+		"productId": "number",
+    "title": "string",
+    "type": "number",
+    "description": "string",
+    "location": "string",
+    "sellOrLend": "number",
+    "price": "number",
+    "priceKind": "number",
+    "status": "number",
+    "deliverable": "number",
+    "approved": "number",
+    "userId": "number",
+    "reviews": "Review[]"
+	}
+	```
+	</details>
+
+### `/review`
 - POST
 	<details>
 		<summary>Request</summary>
@@ -126,11 +171,13 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		Body:
 	```json
 	{
-		"name":"string"
+    "review": "string",
+    "productId": "number"
 	}
 
 	```
 	</details>
+
 	<details>
 		<summary>Response</summary>
 
@@ -138,8 +185,10 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		Body:
 	```json
 	{
-		"todoListId": "number",
-		"name":"string"
+		"reviewId": "number",
+    "review": "string",
+    "productId": "number",
+    "userId": "number"
 	}
 
 	```
@@ -153,7 +202,7 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		Body:
 	```json
 	{
-		"name":"string"
+    "review": "string",
 	}
 
 	```
@@ -165,8 +214,10 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		Body:
 	```json
 	{
-		"todoListId": "number",
-		"name":"string"
+		"reviewId": "number",
+    "review": "string",
+    "productId": "number",
+    "userId": "number"
 	}
 
 	```
@@ -199,8 +250,12 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		Body:
 	```json
 	{
-		"userName":"string",
-		"password":"stiring"
+    "userName": "string",
+    "password": "string",
+    "email":"string",
+    "lastName":"string",
+    "firstName":"string",
+    "isAdmin": "number"
 	}
 
 	```
@@ -215,6 +270,10 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		"userId": "number",
 		"userName":"string",
 		"password":"string(hashed)"
+    "email":"string",
+    "lastName":"string",
+    "firstName":"string",
+    "isAdmin": "number"
 	}
 
 	```
@@ -228,7 +287,7 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		Body:
 	```json
 	{
-		"userName":"string",
+		"userNameOrEmail":"string",
 		"password":"string"
 	}
 
@@ -245,6 +304,10 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 			"userId":"string",
 			"userName":"string",
 			"password":"stirng(hashed)"
+      "email":"string",
+      "lastName":"string",
+      "firstName":"string",
+      "isAdmin": "number"
 		},
 		"token":"string"
 	}
@@ -264,36 +327,22 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 			"userId":"string",
 			"userName":"string",
 			"password":"stirng(hashed)"
+      "email":"string",
+      "lastName":"string",
+      "firstName":"string",
+      "isAdmin": "number"
 		},
 		{
 			"userId":"string",
 			"userName":"string",
 			"password":"stirng(hashed)"
+      "email":"string",
+      "lastName":"string",
+      "firstName":"string",
+      "isAdmin": "number"
 		},
 		...
 	]
-
-	```
-	</details>
-
-### `/secured`
-- GET
-	<details>
-		<summary>Request</summary>
-
-
-	Header: Authorization: Bearer  + `token`
-	</details>
-
-	<details>
-		<summary>Response</summary>
-
-		Code: 200 | 403
-		Body:
-	```json
-	{
-		"message":"string"
-	}
 
 	```
 	</details>
