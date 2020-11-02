@@ -59,7 +59,7 @@
       <input matInput type="password" formControlName="password">
       <mat-error *ngIf="signUpForm.controls.password.hasError('required')">Password required!</mat-error>
       <mat-error *ngIf="signUpForm.controls.password.hasError('pattern')">
-        Password requires a capital letter, a number, a special character and at least 7 characters!
+        Password requires a capital letter, a number, a special character(@ $ ! % * ? & + # - : ;) and at least 7 characters!
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="password">
