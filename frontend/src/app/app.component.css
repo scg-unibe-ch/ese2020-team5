@@ -3,39 +3,45 @@
   position: relative;
   top: 0;
   left: 0;
-
   z-index: 1;
   height: 3em;
   padding: 2em;
   background-color: #ffffff;
   user-select: none;
+
+}
+
+
+.nav-divider {
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
 }
 
 .logo {
-  display: inline;
+  display: inline-block;
   position: relative;
-  top: 12px;
   left: 8%;
+  margin-top: 0.7em;
 }
 
 .logo a {
-  color: #3d3d3d;
-  font-size: 25px;
+  color: #000000;
+  font-size: 30px;
   text-decoration: none;
+  text-align: -webkit-match-parent;
 }
 
 .logo mat-icon {
   cursor: pointer;
   position: relative;
-  top: 2px;
-  color: #ffffff;
+  color: #000000;
   display: none;
 }
 
 .search-container {
   display: inline-grid;
   position: relative;
-  top: 8px;
   left: calc(30% - 71px);
   width: 40%;
   grid-template-columns: 12fr;
@@ -61,7 +67,6 @@
   float: right;
   display: inline;
   position: relative;
-  top: 4px;
   right: 7%;
 }
 
@@ -70,17 +75,14 @@
 }
 
 .my-account {
-  color: #d7d7d7;
+  color: #303030;
   cursor: pointer;
 }
 
 .my-account:hover {
-  color: #3b3b3b;
+  color: #000000;
 }
 
-.person-outline {
-  display: none;
-}
 
 .my-account h3 {
   display: inline;
@@ -107,6 +109,11 @@
   padding-left: 4px;
   text-decoration: none;
 }
+.person-outline {
+  display: inline;
+  padding-left: 4px;
+  text-decoration: none;
+}
 
 .nav-entry mat-icon {
   position: relative;
@@ -119,6 +126,7 @@
   border-radius: 4px;
   margin-right: 25px;
 }
+
 
 @media only screen and (max-width: 1400px) {
   .nav-entries {
