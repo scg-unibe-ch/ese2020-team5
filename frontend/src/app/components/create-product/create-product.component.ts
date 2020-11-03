@@ -6,17 +6,13 @@ import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
-
-
-
 @Component({
-  selector: 'app-create-listing',
+  selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent implements OnInit {
-  createListingForm: FormGroup;
+  createProductForm: FormGroup;
   showErrorMessage = false;
   userId: number;
 
@@ -30,7 +26,7 @@ export class CreateProductComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.createListingForm = this.formBuilder.group({
+    this.createProductForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       type: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -43,12 +39,12 @@ export class CreateProductComponent implements OnInit {
       userId: ['']
     });
     this.userService.getUser().then(user => {
-      this.createListingForm.get('userId').setValue(user.userId);
+      this.createProductForm.get('userId').setValue(user.userId);
     });
   }
 
-  createListing(): void {
-    this.productService.createProduct(this.createListingForm.value).then((data: any) => {
+  createProduct(): void {
+    this.productService.createProduct(this.createProductForm.value).then((data: any) => {
       this.showErrorMessage = false;
       console.log(data);
       location.assign('my-products');
@@ -58,3 +54,4 @@ export class CreateProductComponent implements OnInit {
     });
   }
 }
+

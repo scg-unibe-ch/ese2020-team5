@@ -1,56 +1,99 @@
-.createListing-form {
-    margin: 20px auto 0;
-    padding: 25px;
-    width: 50%;
-    min-width: 431px;
-    border: 1px solid #a7a7a7;
-}
+.createProduct-form {
+  margin: 4% auto 40px;
+  width: 60%;
+  padding: 25px;
+  }
 
-.createListing-form > h1 {
-  text-align: center;
-}
 
-.createListing-form mat-form-field {
-  display: block;
-  min-width: 0;
-}
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-column-gap: 15px;
+  }
 
-:host ::ng-deep .createListing-form .mat-form-field-wrapper{
-  margin: 3px 0 !important;
-}
+  .createProduct-form > h1 {
+    font-size: 3em;
+    margin-bottom: 0.7em;
+    text-align: left;
+    grid-column-start: 1;
+    grid-column-end: 7;
+  }
+  
+  .createProduct-form mat-form-field {
+    display: block;
+    min-width: 0;
+  }
+  
+  :host ::ng-deep .createProduct-form .mat-form-field-wrapper{
+    margin: 3px 0 !important;
+  }
+  
+  .createProduct-form-fields {
+    display: block;
+    min-width: 0;
+  }
+   
+  .description textarea {
+    min-height: 150px;
+  }
 
-.createListing-form-fields {
-  width: 95%;
-  margin: 30px auto;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 15px;
-}
+  .createProduct-form-btn {
+    text-align: center;
+    display: inline-block;
+    margin-top: 2em;
+    background-color:#FBB03B;
+    color: white;
+    border-radius: 20px;
+    width: auto;
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
+  
+  .createProduct-form-btn:hover {
+    background-color:#f78400;
+  }
+  
+  .createProduct-form-btn:disabled {
+    background-color: #818181;
+    color: white;
+  }
+    
+  .title {
+    grid-column-start: 2;
+    grid-column-end: 7;
+  }
+  
+  .ProductType {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
 
-.createListing-form-btn {
-  margin-top: 4em;
-  background-color: #1a1a1a;
-  color: white;
-  grid-column-start: 2;
-  grid-column-end: 4;
-}
-
-.createListing-form-btn:hover {
-  background-color: #101010;
-}
-
-.createListing-form-btn:disabled {
-  background-color: #353535;
-  color: white;
-}
-
-.title {
-  grid-column-start: 1;
-  grid-column-end: 5;
-}
-
-.listingType {
-  grid-column-start: 4;
-  grid-column-end: 5;
-}
+  .description {
+    grid-column-start: 1;
+    grid-column-end: 7;
+  }
+  
+  .price {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  
+  .priceKind {
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
+  
+  .sellOrLend {
+    grid-column-start: 5;
+    grid-column-end: 7;
+  }
+  
+  .location {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+ 
+  .deliverable {
+    grid-column-start: 4;
+    grid-column-end: 7;
+  }
