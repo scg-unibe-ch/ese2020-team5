@@ -2,14 +2,12 @@
   <div class="logo">
     <mat-icon (click)="navigateTo('catalog')">home</mat-icon><a href="catalog"><strong>TEAM5</strong></a>
   </div>
-
+  <div class="search-container">
+    <input type="text" placeholder="Search..." name="search" [(ngModel)]="searchFilter" (keydown.enter)="searchItem()">
+    <button (click)="searchItem()"><mat-icon>search</mat-icon></button>
+  </div>
   <div id="nav-entries" class="nav-entries">
-    <div class="search-container">
-      <input type="text" placeholder="Search..." name="search" [(ngModel)]="searchFilter" (keydown.enter)="searchItem()">
-      <button (click)="searchItem()"><mat-icon>search</mat-icon></button>
-    </div>
     <button mat-stroked-button class="createListing-btn" (click)="navigateTo('my-products/new')">+ Create new Listing</button>
-    
     <button mat-icon-button class="my-account" (click)="navigateTo('shopping-cart')">
       <span><mat-icon>shopping_cart</mat-icon></span>
     </button>

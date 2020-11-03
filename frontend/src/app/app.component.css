@@ -40,25 +40,6 @@
   display: none;
 }
 
-.search-container {
-  display: inline-grid;
-  margin-right: 25px;
-  width: 20%;
-  grid-template-columns: 12fr;
-}
-
-.search-container > input {
-  height: 30px;
-}
-
-.search-container > input:focus {
-  outline: none;
-}
-
-.search-container > button {
-  height: 33px;
-}
-
 .nav-entries {
   float: right;
   display: inline;
@@ -68,6 +49,30 @@
 
 .nav-entries div {
   display: inline;
+}
+
+.search-container {
+  display: inline-grid;
+  position: relative;
+  left: calc(30% - 71px);
+  width: 35%;
+  grid-template-columns: 12fr;
+}
+
+.search-container > input {
+  height: 27px;
+  grid-column-start: 1;
+  grid-column-end: 12;
+}
+
+.search-container > input:focus {
+  outline: none;
+}
+
+.search-container > button {
+  height: 33px;
+  grid-column-start: 12;
+  grid-column-end: 13;
 }
 
 .my-account {
@@ -140,7 +145,7 @@
   }
 
   .search-container {
-    left: calc(30% - 25px);
+    left: calc(20% - 25px);
   }
 
   .logo mat-icon {
@@ -160,8 +165,9 @@
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 700px) {
   .search-container {
     left: calc(20% - 25px);
   }
+
 }
