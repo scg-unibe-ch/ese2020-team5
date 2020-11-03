@@ -11,8 +11,8 @@
   
     <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="profile-form-fields">
       <mat-form-field appearance="outline" class="first-name">
-        <mat-label>First Name*</mat-label>
-        <input matInput type="text" formControlName="firstName">
+        <mat-label>{{user.firstName}}</mat-label>
+        <input matInput type="text" formControlName="firstName" [(ngModel)]="user.firstName" name="firstName">
         <mat-error *ngIf="profileForm.controls.firstName.hasError('required')">First Name required!</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="last-name">
@@ -41,7 +41,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="country">
         <mat-label>Country</mat-label>
-        <input matInput type="text" formControlName="country">
+        <input matInput type="text" formControlName="country" [(ngModel)]="user.country" name="country">
       </mat-form-field>
       <mat-form-field appearance="outline" class="city">
         <mat-label>City</mat-label>
@@ -64,8 +64,5 @@
       </mat-form-field>
       <button mat-stroked-button type="submit" class="profile-form-btn" color="black" [disabled]="profileForm.invalid">Update</button>
     </form>
-
-
-
   </div>
 </div>

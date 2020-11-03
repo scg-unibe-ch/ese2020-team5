@@ -31,13 +31,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userNameOrEmail = localStorage.getItem('userNameOrEmail');
     this.route.params.subscribe(params => {
-      this.userService.getLoadedUser().then(user => {
-        this.id = params.id;
-        this.user = (user.filter(entry => entry.userId === parseInt(params.id, 10)))[0];
+        this.userService.getUser().then(user => this.user = user);
         if (this.user) {
           this.initialize();
         }
-      });
     });
   }
 
@@ -55,6 +52,7 @@ export class ProfileComponent implements OnInit {
       phoneNr: [this.user.phoneNr, [Validators.required]]
     });
   }
+  
 
   logout(): void {
     this.authService.logout();
