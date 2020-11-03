@@ -54,7 +54,9 @@ export class AppComponent implements OnInit {
       (elmCenterPosition >= 0) ? (elmCenterPosition + 'px') : (0 + 'px');
   }
 
-  searchItem(): void {}
+  searchItem(): void {
+    location.assign('catalog?q=' + this.searchFilter);
+  }
 
   openCloseAccountModal(): void {
     this.myAccountModalShown = !this.myAccountModalShown;

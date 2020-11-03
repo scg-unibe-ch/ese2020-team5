@@ -1,0 +1,33 @@
+<div class="product-notification">
+  <p>This page is still in progress. Content will be added later on.<span class="close" (click)="closeNotification()">&times;</span></p>
+</div>
+<!--<div *ngIf="!product.approved" class="product-notification">
+  <p>Since the product is unapproved this page can only be seen by admins and the product owner!<span class="close" (click)="closeNotification()">&times;</span></p>
+</div>-->
+<div *ngIf="!product" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="product-container">
+  <div *ngIf="product" class="product-content">
+    <h1>
+      <strong>{{product.title}} ({{(product.type == 0 ? 'Item' : 'Service')}})</strong><br>
+      {{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}
+      {{(product.priceKind != 0) ? ((product.priceKind == 1) ? 'per hour' : 'per day') : ''}}
+    </h1>
+    <hr>
+    <div class="product-description">
+      <p>
+        <strong>Description:</strong><br>
+        {{product.description}}
+      </p>
+    </div>
+    <div class="product-info">
+      <p>Location: {{product.location}}</p>
+      <p>Status: <span class="{{(product.status) ? 'green' : 'red'}}">{{product.status ? 'Available' : 'Not Available'}}</span></p>
+      <p class="{{(product.deliverable) ? 'green' : 'red'}}">{{product.deliverable ? 'Deliverable' : 'Not Deliverable'}}</p>
+    </div>
+    <div class="btn-container">
+      <button mat-stroked-button class="add-btn black-btn" [disabled]="!product.approved" (click)="addToCart()">Add to Cart</button>
+    </div>
+  </div>
+</div>
