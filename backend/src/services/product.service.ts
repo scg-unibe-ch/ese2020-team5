@@ -5,10 +5,23 @@ import {Request} from 'express';
 export class ProductService {
 
     public create(product: ProductAttributes): Promise<ProductAttributes> {
-        return Product.create(product).then(created => Promise.resolve(created)).catch(err => Promise.reject(err));
+        return User.findByPk(product.userId)
+            .then(usr => {
+                if (!this.userExists(usr)) {
+                    return Promise.reject({message: 'The User does not exist'});
+                 } else if (this.productIsApproved(product)) {
+                    return Promise.reject({message: 'The product should not be approved upon creation'});
+                }
+                return Product.create(product);
+            }).then(prd => {
+                return Promise.resolve(prd);
+            }).catch(err => Promise.reject({message: err}) );
     }
 
-    public update(req: Request, userId: number ): Promise<ProductAttributes> {
+    protected userExists = (usr: User | null) => !!usr;
+    protected productIsApproved = (prd: Product | ProductAttributes) => prd.approved;
+
+    /*public update(req: Request, userId: number ): Promise<ProductAttributes> {
        return Product.findByPk(req.params.id)
             .then(found => {
                 if (found != null) {
@@ -26,7 +39,35 @@ export class ProductService {
                 }
             })
             .catch(err => Promise.reject(err));
+    }*/
+
+    public update(productId: number, product: ProductAttributes, userId: number ): Promise<ProductAttributes> {
+        let prd: Product;
+        return Product.findByPk(productId)
+            .then(found => {
+                prd = found;
+                if (this.productExists(found)) {
+                    return User.findByPk(userId);
+                } else {
+                    return Promise.reject('Product not found');
+                }
+            }).then(usr => {
+                if (this.userExists(usr)
+                    && !this.userIsAdmin(usr)
+                    && !this.userHasId(usr, userId)) {
+                    return Promise.reject('You are not authorized to do this!');
+                } else {
+                    return prd.update(product).then(() => {
+                        return Promise.resolve(prd);
+                    }).catch(err => Promise.reject(err));
+                }
+            });
+            .catch(err => Promise.reject(err));
     }
+
+    protected productExists = (prd: Product | null) => !!prd;
+    protected userIsAdmin = (usr: User) => usr.isAdmin === 1;
+    protected userHasId = (usr: User, id: number) => usr.userId === id;
 
     public delete(req: Request, userId: number): Promise<ProductAttributes> {
         return Product.findByPk(req.params.id)
