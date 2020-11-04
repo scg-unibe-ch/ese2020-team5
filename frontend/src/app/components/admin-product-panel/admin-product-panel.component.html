@@ -18,7 +18,7 @@
             <a href="product/{{product.productId}}">{{product.title}} ({{(product.type == 0 ? 'Item' : 'Service')}})</a>
           </mat-card-title>
           <mat-card-subtitle>
-            {{product.price.toLocaleString('en-US', { style: 'currency', currency: 'CHF' })}}
+            {{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}
             <div *ngIf="product.priceKind !== 0">{{(product.priceKind == 1) ? 'per hour' : 'per day'}}</div><br>
             <p>{{product.approved ? 'Approved' : 'Not Approved'}}</p>
           </mat-card-subtitle>
