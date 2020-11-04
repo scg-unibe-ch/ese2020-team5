@@ -11,8 +11,7 @@ productController.post('/', verifyToken, (req: Request, res: Response) => {
 });
 
 productController.put('/:id', verifyToken, (req: Request, res: Response) => {
-    const productId: number = parseInt(req.params.id, 10);
-    productService.update(productId, req.body, getUserId(req)).then(updated => res.send(updated)).catch(err => res.status(500).send(err));
+    productService.update(req, getUserId(req)).then(updated => res.send(updated)).catch(err => res.status(500).send(err));
 });
 
 productController.delete('/:id', verifyToken, (req: Request, res: Response) => {

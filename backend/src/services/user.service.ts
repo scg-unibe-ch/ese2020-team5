@@ -7,21 +7,26 @@ import {Request} from 'express';
 
 export class UserService {
 
-    public register(userToReg: UserAttributes): Promise<UserAttributes> {
+    public register(user: UserAttributes): Promise<UserAttributes> {
         const saltRounds = 12;
-        userToReg.password = bcrypt.hashSync(userToReg.password, saltRounds); // hashes the password, never store passwords as plaintext
+        user.password = bcrypt.hashSync(user.password, saltRounds); // hashes the password, never store passwords as plaintext
         return User.findOne( {
             where: {
                 [Op.or]: [
-                    {userName: userToReg.userName},
-                    {email: userToReg.email}]
+                    {userName: user.userName},
+                    {email: user.email}]
                 }
-        }).then((usr) => {
-            if (this.userExists(usr)) { return this.rejectUser(usr, userToReg); }
-            return User.create(userToReg);
-        }).then(inserted => {
-            return Promise.resolve(inserted);
+        }).then((userp) => {
+            if (userp) {
+                if (userp.userName === user.userName) {
+                    return Promise.reject({message: 'Username ' + userp.userName + ' already exists'});
+                } else if (userp.email === user.email) {
+                    return Promise.reject({message: 'Email ' + userp.email + ' already exists'});
+                }
+            }
+            return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
         }).catch((err) => Promise.reject({ message: err}));
+        // return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
     }
 
     public login(loginRequestee: LoginRequest): Promise<User | LoginResponse> {
@@ -46,8 +51,8 @@ export class UserService {
 
     public getAll(userId: number): Promise<User[]> {
         return User.findByPk(userId)
-            .then((usr) => {
-                if (!this.isAdmin(usr)) {
+            .then(usr => {
+                if (usr.isAdmin === 0) {
                     return Promise.reject({message: 'You are not authorized'});
                 } else {
                     return User.findAll();
@@ -86,29 +91,18 @@ export class UserService {
                 return Promise.reject({message: err});
             });
     }
-    protected preconditionsDelete(deleter: User, userToDeleteId: number): boolean {
-        if (this.userHasSameId(deleter, userToDeleteId)) {
+    protected preconditionsDelete(deleter: UserAttributes, userToDeleteId: number): boolean {
+        if (deleter.userId === userToDeleteId) {
             return true;
         } else {
             return false;
         }
     }
-
-    protected userExists = (usr: User | null) => !!usr;
-    protected rejectUser = (usr: User, userToReg: UserAttributes) => {
-        if (usr.userName === userToReg.userName) {
-            return Promise.reject({message: 'Username ' + usr.userName + ' already exists'});
-        } else if (usr.email === userToReg.email) {
-            return Promise.reject({message: 'Email ' + usr.email + ' already exists'});
-        }
-    }
-    protected userHasSameId = (usr: User, id: number) => !!usr && usr.userId === id;
-    protected isAdmin = (usr: User | null) => !!usr && usr.isAdmin === 0;
 }
 
 export class AdminService extends  UserService {
-    protected preconditionsDelete(deleter: User, userToDeleteId: number): boolean {
-        if (this.isAdmin(deleter)) {
+    protected preconditionsDelete(deleter: UserAttributes, userToDeleteId: number): boolean {
+        if (deleter.isAdmin === 1) {
             return true;
         } else {
             return super.preconditionsDelete(deleter, userToDeleteId);
