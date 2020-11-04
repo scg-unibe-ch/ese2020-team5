@@ -13,12 +13,19 @@
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-column-gap: 15px;
   padding: 25px;
+  border: 1px solid #a7a7a7;
 }
 
 .edit-component-content h1 {
-  font-size: 3em;
-  margin-bottom: 1em;
-  text-align: left;
+  margin-bottom: 0;
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 7;
+}
+
+.edit-component-content hr {
+  margin: 10px 0 25px;
+  width: 100%;
   grid-column-start: 1;
   grid-column-end: 7;
 }
