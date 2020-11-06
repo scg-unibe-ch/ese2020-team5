@@ -4,15 +4,17 @@ import { Request } from 'express';
 
 export class TransactionService {
 
+    // TODO: A transaction is also responsible to add money from one user to another user
     public create(req: Request, buyerId: number): Promise<TransactionAttributes> {
-        const amount = req.body.amount;
-        const transaction = new Transaction();
+        const transaction = req.body;
         transaction.buyerId = buyerId;
+        transaction.productId = parseInt(req.params.id, 10);
 
-        return Product.findByPk(req.params.id)
+        return Product.findByPk(transaction.productId)
             .then(found => {
                 transaction.sellerId = found.userId;
-                transaction.price = found.price * amount;
+                transaction.pricePerUnit = found.price;
+                transaction.priceTotal = found.price * transaction.amount;
                 transaction.productName = found.title;
 
                 return Transaction.create(transaction)

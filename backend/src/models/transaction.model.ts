@@ -1,13 +1,16 @@
-import { Optional, Model, HasManyGetAssociationsMixin, HasManyAddAssociationMixin, DataTypes, Sequelize, Association } from 'sequelize';
+import { Optional, Model, DataTypes, Sequelize } from 'sequelize';
 import { User } from './user.model';
+import { Product } from './product.model';
 
 export interface TransactionAttributes {
     transactionId: number;
     buyerId: number;
     sellerId: number;
-    price: number;
+    pricePerUnit: number;
+    priceTotal: number;
     amount: number;
     productName: string;
+    productId: number;
 }
 
 export interface TransactionCreationAttributes extends Optional<TransactionAttributes, 'transactionId'> { }
@@ -17,9 +20,11 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
     transactionId!: number;
     buyerId!: number;
     sellerId!: number;
-    price!: number;
-    amount: number;
-    productName: string;
+    pricePerUnit!: number;
+    priceTotal!: number;
+    amount!: number;
+    productName!: string;
+    productId!: number;
 
     public static initialize(sequelize: Sequelize) {
         Transaction.init(
@@ -37,11 +42,19 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
                     type: DataTypes.INTEGER,
                     allowNull: false
                 },
-                price: {
+                pricePerUnit: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
+                },
+                priceTotal: {
                     type: DataTypes.INTEGER,
                     allowNull: false
                 },
                 amount: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
+                },
+                productId: {
                     type: DataTypes.INTEGER,
                     allowNull: false
                 },
@@ -63,6 +76,11 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
             as: 'seller',
             onDelete: 'SET NULL',
             foreignKey: 'sellerId'
+        });
+        Transaction.belongsTo(Product, {
+            as: 'product',
+            onDelete: 'SET NULL',
+            foreignKey: 'productId'
         });
     }
 }

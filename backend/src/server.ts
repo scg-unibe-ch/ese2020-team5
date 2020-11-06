@@ -75,7 +75,7 @@ export class Server {
             .use('/secured', SecuredController)
             .use('/products', ProductController)
             .use('/review', ReviewController)
-            .use('transaction', TransactionController)
+            .use('/transaction', TransactionController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
             // this is the message you get if you open http://localhost:3000/ when the server is running
