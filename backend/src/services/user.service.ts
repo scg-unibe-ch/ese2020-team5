@@ -7,26 +7,25 @@ import {Request} from 'express';
 
 export class UserService {
 
-    public register(user: UserAttributes): Promise<UserAttributes> {
+    public register(new_user: UserAttributes): Promise<UserAttributes> {
         const saltRounds = 12;
-        user.password = bcrypt.hashSync(user.password, saltRounds); // hashes the password, never store passwords as plaintext
-        return User.findOne( {
+        new_user.password = bcrypt.hashSync(new_user.password, saltRounds); // hashes the password, never store passwords as plaintext
+        const userName = new_user.userName;
+        const email = new_user.email;
+        return User.findOne({
             where: {
                 [Op.or]: [
-                    {userName: user.userName},
-                    {email: user.email}]
-                }
-        }).then((userp) => {
-            if (userp) {
-                if (userp.userName === user.userName) {
-                    return Promise.reject({message: 'Username ' + userp.userName + ' already exists'});
-                } else if (userp.email === user.email) {
-                    return Promise.reject({message: 'Email ' + userp.email + ' already exists'});
-                }
+                    {userName: userName},
+                    {email: email}]
             }
-            return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
-        }).catch((err) => Promise.reject({ message: err}));
-        // return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
+        }).then((old_user) => {
+            if (this.userExists(old_user)) { return this.rejectUser(new_user, userName, email); }
+            return User.create(new_user);
+        }).then(inserted => {
+            return Promise.resolve(inserted);
+        }).catch(err => {
+            return Promise.reject({message: err});
+        });
     }
 
     public login(loginRequestee: LoginRequest): Promise<User | LoginResponse> {
@@ -36,23 +35,22 @@ export class UserService {
                 [Op.or]: [
                     {userName: loginRequestee.userNameOrEmail},
                     {email: loginRequestee.userNameOrEmail}]
-            }
-        })
-        .then(user => {
-            if (bcrypt.compareSync(loginRequestee.password, user.password)) {// compares the hash with the password from the login request
-                const token: string = jwt.sign({ userName: user.userName, userId: user.userId }, secret, { expiresIn: '2h' });
-                return Promise.resolve({ user, token });
-            } else {
-                return Promise.reject({ message: 'not authorized' });
-            }
-        })
-        .catch(err => Promise.reject({ message: err }));
+                }
+            }).then((usr) => {
+                // compares the hash with the password from the login request
+                if (bcrypt.compareSync(loginRequestee.password, usr.password)) {
+                    const token: string = jwt.sign({ userName: usr.userName, userId: usr.userId }, secret, { expiresIn: '2h' });
+                    return Promise.resolve({ usr, token });
+                } else {
+                    return Promise.reject({ message: 'not authorized' });
+                }
+            }).catch((err) => Promise.reject({ message: err }));
     }
 
     public getAll(userId: number): Promise<User[]> {
         return User.findByPk(userId)
-            .then(usr => {
-                if (usr.isAdmin === 0) {
+            .then((usr) => {
+                if (this.userExists(usr) && this.isAdmin(usr)) {
                     return Promise.reject({message: 'You are not authorized'});
                 } else {
                     return User.findAll();
@@ -66,7 +64,7 @@ export class UserService {
 
     public getUser(userId: number): Promise<UserAttributes> {
         return User.findByPk(userId)
-            .then(usr => {
+            .then((usr) => {
                 return Promise.resolve(usr);
             }).catch(err => {
                 return Promise.reject({message: err});
@@ -86,23 +84,30 @@ export class UserService {
                     where: {userId: userId}
                 });
             }).then(() => {
-                    return Promise.resolve(200);
+                return Promise.resolve(200);
             }).catch(err => {
                 return Promise.reject({message: err});
             });
     }
-    protected preconditionsDelete(deleter: UserAttributes, userToDeleteId: number): boolean {
-        if (deleter.userId === userToDeleteId) {
-            return true;
-        } else {
-            return false;
+
+    protected preconditionsDelete(deleter: User | null, userToDeleteId: number): boolean {
+        return this.hasSameId(deleter, userToDeleteId);
+    }
+    protected isAdmin(usr: User): boolean { return usr.isAdmin === 1; }
+    protected hasSameId(usr: User, id: number): boolean { return usr.userId === id; }
+    protected userExists(usr: User | null): boolean { return !!usr; }
+    protected rejectUser(usr: UserAttributes, userName: String, email: String) {
+        if (usr.userName === userName) {
+            return Promise.reject({message: 'Username ' + userName + ' already exists'});
+        } else if (usr.email === email) {
+            return Promise.reject({message: 'Email ' + email + ' already exists'});
         }
     }
 }
 
-export class AdminService extends  UserService {
-    protected preconditionsDelete(deleter: UserAttributes, userToDeleteId: number): boolean {
-        if (deleter.isAdmin === 1) {
+export class AdminService extends UserService {
+    protected preconditionsDelete(deleter: User | null, userToDeleteId: number): boolean {
+        if (this.userExists(deleter) && this.isAdmin(deleter)) {
             return true;
         } else {
             return super.preconditionsDelete(deleter, userToDeleteId);
