@@ -40,4 +40,10 @@ userController.delete('/:id', verifyToken, (req: Request, res: Response) => {
     }
 );
 
+userController.put('/update', verifyToken, // you can add middleware on specific requests like that
+    (req: Request, res: Response) => {
+        userService.update(getUserId(req), req.body).then(users => res.send(users)).catch(err => res.status(500).send(err));
+    }
+);
+
 export const UserController: Router = userController;

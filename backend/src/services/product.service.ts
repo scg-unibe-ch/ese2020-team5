@@ -104,7 +104,7 @@ export class ProductService {
                 if (this.productExists(found)) {
                     return Promise.resolve(found);
                 } else {
-                    return Promise.reject('Product with id ${id} not found');
+                    return Promise.reject('Product with id ' + id + ' not found');
                 }
             });
     }
@@ -114,7 +114,7 @@ export class ProductService {
                 if (this.userExists(found)) {
                     return Promise.resolve(found);
                 } else {
-                    return Promise.reject('User with id ${id} not found');
+                    return Promise.reject('User with id ' + id + ' not found');
                 }
             });
     }
