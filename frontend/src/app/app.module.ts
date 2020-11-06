@@ -34,6 +34,8 @@ import { AdminUserPanelComponent } from './components/admin-user-panel/admin-use
 import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
 import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -54,26 +56,28 @@ import { CatalogComponent } from './components/catalog/catalog.component';
     ProductComponent,
     CatalogComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatListModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatTabsModule,
-    MatToolbarModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatProgressSpinnerModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        MatButtonModule,
+        MatListModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatTabsModule,
+        MatToolbarModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+        MatRippleModule,
+        MatRadioModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
