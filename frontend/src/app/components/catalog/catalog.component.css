@@ -1,8 +1,3 @@
-.catalog {
-  min-height: calc(100vh - 50px);
-  width: 100%;
-}
-
 .catalog-panel {
   margin: 0 auto;
   padding-top: 20px;
@@ -105,6 +100,14 @@
   margin: 5px
 }
 
+:host ::ng-deep .filter-radio-btn .mat-radio-outer-circle {
+  border-color: #000000!important;
+}
+
+:host ::ng-deep .filter-radio-btn .mat-radio-inner-circle {
+  background-color: #000000!important;
+}
+
 .filter-type {
   position: relative;
   top: -81px;
@@ -136,16 +139,15 @@
 }
 
 .product-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 0 auto;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, 307px);
+  margin: 0 auto 30px;
   padding-top: 1%;
-  width: 90%;
+  width: auto;
 }
 
 .product-card {
-  margin: 10px 20px;
   width: 275px;
 }
 
@@ -198,9 +200,5 @@
 @media only screen and (max-width: 1200px) {
   .filters {
     width: 95%;
-  }
-
-  .product-list {
-    width: 100%;
   }
 }

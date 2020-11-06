@@ -1,5 +1,5 @@
 <div class="catalog">
-  <div class="catalog-panel" *ngIf="this.filter.type === 'all' && !this.filter.search">
+  <div class="catalog-panel" *ngIf="this.showBrowse" [@inOutAnimation]>
     <mat-card>
       <mat-card-content>
         <h1><strong>Items</strong></h1>
@@ -14,7 +14,7 @@
     </mat-card>
   </div>
   <div class="filters">
-    <div class="filter-btn" (click)="openCloseFilters()" matRipple>
+    <div class="filter-btn" (click)="openCloseFilters()" matRipple matTooltip="{{filterOpen ? 'Close Filter' : 'Open Filter'}}" matTooltipPosition="right">
       <svg class="filter-icon">
         <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path>
       </svg>
@@ -49,7 +49,7 @@
       </div>
       <div class="filter filter-sort-by">
         <strong>Sort By</strong>
-        <mat-radio-group [(ngModel)]="this.filter.sortBy" class="filter-radio-grp" (ngModelChange)="updateFilter()">
+        <mat-radio-group [(ngModel)]="this.filter.sortBy" class="filter-radio-grp" (ngModelChange)="updateFilter()" disabled>
           <mat-radio-button class="filter-radio-btn" value="recommended">Recommended</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="rating">Rating</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="totalReviews">Total Reviews</mat-radio-button>
@@ -60,20 +60,22 @@
   </div>
   <div class="product-list">
     <mat-card *ngFor="let product of products; let i = index;" class="product-card">
-      <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
-        <div class="product-image">
-          <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
-          <div *ngIf="!product.images || !product.images[0]" class="default-image">
-            <mat-icon [inline]="true">category</mat-icon>
+      <a href="product/{{product.productId}}">
+        <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
+          <div class="product-image">
+            <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
+            <div *ngIf="!product.images || !product.images[0]" class="default-image">
+              <mat-icon [inline]="true">category</mat-icon>
+            </div>
+          </div>
+          <div class="product-description" id="product-description-{{i}}">
+            <p>
+              Description:<br>
+              {{product.description}}
+            </p>
           </div>
         </div>
-        <div class="product-description" id="product-description-{{i}}">
-          <p>
-            Description:<br>
-            {{product.description}}
-          </p>
-        </div>
-      </div>
+      </a>
       <mat-card-content>
         <p>
           <span class="green">

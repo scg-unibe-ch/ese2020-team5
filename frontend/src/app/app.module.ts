@@ -36,6 +36,7 @@ import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -56,28 +57,29 @@ import { MatRadioModule } from '@angular/material/radio';
     ProductComponent,
     CatalogComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        MatButtonModule,
-        MatListModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatTabsModule,
-        MatToolbarModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatIconModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatProgressSpinnerModule,
-        MatRippleModule,
-        MatRadioModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MatButtonModule,
+    MatListModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatTabsModule,
+    MatToolbarModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatRippleModule,
+    MatRadioModule,
+    MatTooltipModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

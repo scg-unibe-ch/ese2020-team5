@@ -2,15 +2,30 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.css']
+  styleUrls: ['./catalog.component.css'],
+  animations: [
+    trigger(
+      'inOutAnimation',
+      [
+        transition(
+          ':leave',
+          [
+            style({ height: 295, opacity: 1 }),
+            animate('0.3s ease-in', style({ height: 0, opacity: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class CatalogComponent implements OnInit {
   products: Product[];
   filterOpen = false;
+  showBrowse = true;
   filter: any = {
     search: null,
     type: 'all',
@@ -32,14 +47,19 @@ export class CatalogComponent implements OnInit {
       const filterSection = (document.getElementsByClassName('filter-options') as HTMLCollectionOf<HTMLElement>)[0];
       filterSection.style.maxHeight = (filterSection.scrollHeight - 81) + 'px';
     }
+    this.calculateProductContainerWidth();
   }
 
   ngOnInit(): void {
+    this.calculateProductContainerWidth();
     this.initializeFilter();
     this.getFilteredProducts().then(products => this.products = products);
   }
 
   initializeFilter(): void {
+    if (this.route.snapshot.queryParams.q || this.route.snapshot.queryParams.type) {
+      this.showBrowse = false;
+    }
     this.filter.search = (this.route.snapshot.queryParams.q) ? this.route.snapshot.queryParams.q : this.filter.search;
     this.filter.type = (this.route.snapshot.queryParams.type) ? this.route.snapshot.queryParams.type : this.filter.type;
     this.filter.priceFrom = (this.route.snapshot.queryParams.priceFrom) ? this.route.snapshot.queryParams.priceFrom : this.filter.priceFrom;
@@ -109,6 +129,18 @@ export class CatalogComponent implements OnInit {
     this.router.navigate(['catalog'], { queryParams });
   }
 
+  calculateProductContainerWidth(): void {
+    let windowWidth = 0;
+    if (window.innerWidth > 1200) {
+      windowWidth = window.innerWidth * 0.9 + 15;
+    } else {
+      windowWidth = window.innerWidth * 0.95 + 15;
+    }
+    const times = Math.floor(windowWidth / 322);
+    (document.getElementsByClassName('product-list') as HTMLCollectionOf<HTMLElement>)[0].style.width = (322 * times - 15) + 'px';
+    return null;
+  }
+
   mouseEnterItem(index: number): void {
     document.getElementById('product-description-' + index).style.display = 'block';
   }
@@ -118,6 +150,9 @@ export class CatalogComponent implements OnInit {
   }
 
   openCloseFilters(): void {
+    if (this.showBrowse) {
+      this.showBrowse = false;
+    }
     this.filterOpen = !this.filterOpen;
     const filterSection = (document.getElementsByClassName('filter-options') as HTMLCollectionOf<HTMLElement>)[0];
     if (this.filterOpen) {
