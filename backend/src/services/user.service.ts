@@ -36,11 +36,11 @@ export class UserService {
                     {userName: loginRequestee.userNameOrEmail},
                     {email: loginRequestee.userNameOrEmail}]
                 }
-            }).then((usr) => {
+            }).then((user) => {
                 // compares the hash with the password from the login request
-                if (bcrypt.compareSync(loginRequestee.password, usr.password)) {
-                    const token: string = jwt.sign({ userName: usr.userName, userId: usr.userId }, secret, { expiresIn: '2h' });
-                    return Promise.resolve({ usr, token });
+                if (bcrypt.compareSync(loginRequestee.password, user.password)) {
+                    const token: string = jwt.sign({ userName: user.userName, userId: user.userId }, secret, { expiresIn: '2h' });
+                    return Promise.resolve({ user, token });
                 } else {
                     return Promise.reject({ message: 'not authorized' });
                 }
