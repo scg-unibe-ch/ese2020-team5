@@ -8,7 +8,8 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput type="password" formControlName="password">
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
     <mat-error *ngIf="showErrorMessage">Invalid combination of username/email and password!</mat-error>
     <div class="login-form-links">
@@ -16,6 +17,6 @@
       <br>
       <!--<a href="login/forgot-password">Forgot password?</a>-->
     </div>
-    <button mat-stroked-button type="submit" class="login-form-btn" color="black" [disabled]="loginForm.invalid">Login</button>
+    <button mat-stroked-button type="submit" class="login-form-btn black-btn" color="black" [disabled]="loginForm.invalid">Login</button>
   </form>
 </div>
