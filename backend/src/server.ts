@@ -5,13 +5,15 @@ import { TodoListController } from './controllers/todolist.controller';
 import { UserController } from './controllers/user.controller';
 import { SecuredController } from './controllers/secured.controller';
 import { ProductController } from './controllers/product.controller';
+import { ReviewController } from './controllers/review.controller';
+import { TransactionController } from './controllers/transaction.controller';
 import { Sequelize } from 'sequelize';
 import { TodoList } from './models/todolist.model';
 import { TodoItem } from './models/todoitem.model';
 import { User } from './models/user.model';
 import { Product } from './models/product.model';
-import {ReviewController} from './controllers/review.controller';
-import {Review} from './models/review.model';
+import { Review } from './models/review.model';
+import { Transaction } from './models/transaction.model';
 
 import cors from 'cors';
 
@@ -32,8 +34,10 @@ export class Server {
         User.initialize(this.sequelize);
         Product.initialize(this.sequelize);
         Review.initialize(this.sequelize);
+        Transaction.initialize(this.sequelize);
         Product.createAssociations();
         User.createAssociations();
+        Transaction.createAssociations();
 
         this.sequelize.sync({force: true}).then(() => {                // create connection to the database
             User.createDefaultUsers();                           // create a default admin user and a default normal user
@@ -71,6 +75,7 @@ export class Server {
             .use('/secured', SecuredController)
             .use('/products', ProductController)
             .use('/review', ReviewController)
+            .use('transaction', TransactionController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
             // this is the message you get if you open http://localhost:3000/ when the server is running
