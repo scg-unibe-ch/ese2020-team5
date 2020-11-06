@@ -590,7 +590,7 @@
 									"    })",
 									"} else if (pm.environment.get('userId') == 2 ) {",
 									"    pm.test(\"User must not be able to update other users products\", () => {",
-									"        pm.response.to.have.status(403);",
+									"        pm.response.to.have.status(500);",
 									"    })",
 									"}"
 								],
@@ -674,7 +674,7 @@
 									"    })",
 									"} else if (pm.environment.get('userId') == 2 ) {",
 									"    pm.test(\"User must not be able to approve a product\", () => {",
-									"        pm.response.to.have.status(403);",
+									"        pm.response.to.have.status(500);",
 									"    })",
 									"}"
 								],
@@ -947,7 +947,7 @@
 									"    })",
 									"} else if (pm.environment.get('userId') == 2 ) {",
 									"    pm.test(\"User must not be able to delete other users products\", () => {",
-									"        pm.response.to.have.status(403);",
+									"        pm.response.to.have.status(500);",
 									"    })",
 									"}"
 								],
@@ -1050,7 +1050,7 @@
 									"    })",
 									"} else if (pm.environment.get('userId') == 2 ) {",
 									"    pm.test(\"User must not be able to get all users of system\", () => {",
-									"        pm.response.to.have.status(403);",
+									"        pm.response.to.have.status(500);",
 									"    })",
 									"}"
 								],
@@ -1364,12 +1364,12 @@
 	],
 	"variable": [
 		{
-			"id": "025a9d47-ad01-4ea8-8e24-cd77b8c54499",
+			"id": "dc821e2a-abbd-434c-b9f8-92a7aa9d4a49",
 			"key": "currentAccessToken",
 			"value": ""
 		},
 		{
-			"id": "fd2e4a6c-67c4-4158-af2d-da425f648988",
+			"id": "5ba1e863-bc90-424c-bbf0-c3253a058a3e",
 			"key": "uri",
 			"value": "localhost:3000"
 		}
