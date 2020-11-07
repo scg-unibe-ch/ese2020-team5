@@ -28,7 +28,7 @@
           Country: {{(user.country) ? user.country : '-'}}<br>
           City: {{(user.city) ? user.city : '-'}}, {{(user.zipCode) ? user.zipCode : '-'}}<br>
         </p>
-        <button *ngIf="!user.isAdmin" mat-stroked-button class="black-btn delete-btn" (click)="deleteUser(user)">Delete</button>
+        <button *ngIf="!user.isAdmin" mat-stroked-button class="red-btn delete-btn" (click)="deleteUser(user)">Delete</button>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
