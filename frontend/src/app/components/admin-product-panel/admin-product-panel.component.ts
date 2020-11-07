@@ -16,6 +16,7 @@ export class AdminProductPanelComponent implements OnInit {
   approvedProducts: Product[];
   products: Product[];
   filter = null;
+  searchFilter = '';
 
   constructor(
     private productService: ProductService,
@@ -42,19 +43,30 @@ export class AdminProductPanelComponent implements OnInit {
             this.filter = 0;
             this.products = this.allProducts;
           }
+          if (params.q) {
+            this.searchFilter = params.q;
+            this.products = this.products.filter(entry =>
+              (entry.title.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1)
+              || (entry.description.toLowerCase().indexOf(this.searchFilter.toLowerCase()) > -1)
+            );
+          }
         });
       });
     });
   }
 
   filterProducts(): void {
+    let queryParams: any = {};
     if (this.filter === 0) {
-      this.router.navigate(['/admin/dashboard/products']);
     } else if (this.filter === 1) {
-      this.router.navigate(['/admin/dashboard/products'], { queryParams: { approved : 1 }});
+      queryParams = Object.assign(queryParams, { approved: 1 });
     } else {
-      this.router.navigate(['/admin/dashboard/products'], { queryParams: { approved : 0 }});
+      queryParams = Object.assign(queryParams, { approved: 0 });
     }
+    if (this.searchFilter.replace(/ /g, '') !== '') {
+      queryParams = Object.assign(queryParams, { q: this.searchFilter });
+    }
+    this.router.navigate(['/admin/dashboard/products'], { queryParams });
   }
 
   approveProduct(productId: number): void {

@@ -17,3 +17,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: #d4d4d4!important;
   background-color: #393939;
 }
+
+.red-btn {
+  color: #ececec;
+  background-color: #d04b4b;
+}
+
+.red-btn:hover {
+  color: #ffffff;
+  background-color: #db2929;
+}
+
+.red-btn:disabled {
+  color: #d4d4d4!important;
+  background-color: #bc5959;
+}

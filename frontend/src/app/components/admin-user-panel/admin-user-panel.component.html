@@ -1,7 +1,16 @@
 <div class="user-panel-bg">
   <div class="user-panel">
     <h1><strong><a href="admin/dashboard">Admin Dashboard</a> - User List</strong></h1>
-    <mat-accordion multi>
+    <div class="filter">
+      <div class="filter-search">
+        <input placeholder="Search" class="search" [(ngModel)]="searchFilter" (keydown.enter)="filterUsers()">
+        <mat-icon (click)="filterUsers()">search</mat-icon>
+      </div>
+    </div>
+    <div *ngIf="this.users && !this.users[0]" class="no-user-found">
+      <h1>No Users found!</h1>
+    </div>
+    <mat-accordion multi *ngIf="this.users && this.users[0]">
       <mat-expansion-panel *ngFor="let user of users">
         <mat-expansion-panel-header>
           <mat-panel-title>
