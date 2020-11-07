@@ -35,6 +35,7 @@ import { AdminProductPanelComponent } from './components/admin-product-panel/adm
 import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { DeleteUserComponent } from './components/custom/dialog/delete-user/delete-user.component';
+import { ApproveProductComponent } from './components/custom/dialog/approve-product/approve-product.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { DeleteUserComponent } from './components/custom/dialog/delete-user/dele
     AdminProductPanelComponent,
     ProductComponent,
     CatalogComponent,
-    DeleteUserComponent
+    DeleteUserComponent,
+    ApproveProductComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { Product } from '../../models/product.model';
 import { DeleteProductComponent } from '../custom/dialog/delete-product/delete-product.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApproveProductComponent } from '../custom/dialog/approve-product/approve-product.component';
 
 @Component({
   selector: 'app-admin-product-panel',
@@ -69,9 +70,9 @@ export class AdminProductPanelComponent implements OnInit {
     this.router.navigate(['/admin/dashboard/products'], { queryParams });
   }
 
-  approveProduct(productId: number): void {
-    this.productService.approveProduct(productId).then(() => {
-      location.reload();
+  approveProduct(product: Product): void {
+    this.dialog.open(ApproveProductComponent, {
+      data: product
     });
   }
 

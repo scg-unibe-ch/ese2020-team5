@@ -33,7 +33,7 @@
         </div>
         <div class="product-description">{{product.description}}</div>
         <div class="product-btn-container">
-          <button *ngIf="!product.approved" mat-stroked-button (click)="approveProduct(product.productId)">APPROVE</button>
+          <button *ngIf="!product.approved" mat-stroked-button (click)="approveProduct(product)">APPROVE</button>
           <button mat-stroked-button (click)="deleteProduct(product)" class="red-btn">DELETE</button>
         </div>
       </div>
