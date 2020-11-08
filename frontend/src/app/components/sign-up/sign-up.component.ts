@@ -30,10 +30,10 @@ export class SignUpComponent implements OnInit {
       city: [''],
       zipCode: [''],
       address: [''],
-      userName: ['', [Validators.required]],
+      userName: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [
         Validators.required,
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@!%*?&#+-:;])[A-Za-z\d$@!%*?&#+-:;].{7,}')
       ]],
       cPassword: ['']
     });
@@ -63,7 +63,6 @@ export class SignUpComponent implements OnInit {
 
   signUp(): void {
     this.authService.signUp(this.signUpForm.value).then((data: any) => {
-      console.log(data);
       this.router.navigate(['/login']);
     }).catch((error: any) => {
       if (error.error.message.message.indexOf('Email') > -1) {

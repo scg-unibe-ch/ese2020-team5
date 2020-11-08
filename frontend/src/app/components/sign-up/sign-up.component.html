@@ -52,6 +52,7 @@
       <mat-label>Username*</mat-label>
       <input matInput type="text" formControlName="userName">
       <mat-error *ngIf="signUpForm.controls.userName.hasError('required')">Username required!</mat-error>
+      <mat-error *ngIf="signUpForm.controls.userName.hasError('minlength')">Username requires at least 4 characters!</mat-error>
       <mat-error *ngIf="signUpForm.controls.userName.hasError('inUse')">Username is already in use!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="password">
@@ -59,7 +60,7 @@
       <input matInput type="password" formControlName="password">
       <mat-error *ngIf="signUpForm.controls.password.hasError('required')">Password required!</mat-error>
       <mat-error *ngIf="signUpForm.controls.password.hasError('pattern')">
-        Password requires a capital letter, a number, a special character and at least 7 characters!
+        Password requires a capital letter, a number, a special character(@ $ ! % * ? & + # - : ;) and at least 7 characters!
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="password">
