@@ -117,11 +117,11 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             foreignKey: 'userId'
         });
         User.hasMany(Transaction, {
-           as: 'transactions',
+           as: 'selltransactions',
            foreignKey: 'sellerId'
         });
         User.hasMany(Transaction, {
-            as: 'transactions',
+            as: 'buytransactions',
             foreignKey: 'buyerId'
         });
     }
