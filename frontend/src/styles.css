@@ -17,3 +17,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: #d4d4d4!important;
   background-color: #393939;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
