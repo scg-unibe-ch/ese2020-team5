@@ -55,11 +55,7 @@ export class AppComponent implements OnInit {
   }
 
   searchItem(): void {
-    if (this.searchFilter && this.searchFilter.replace(/ /g, '') !== '') {
-      location.assign('catalog?q=' + this.searchFilter);
-    } else {
-      location.assign('catalog');
-    }
+    location.assign('catalog?q=' + this.searchFilter);
   }
 
   openCloseAccountModal(): void {
