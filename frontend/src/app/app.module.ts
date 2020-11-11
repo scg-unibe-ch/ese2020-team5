@@ -34,6 +34,9 @@ import { AdminUserPanelComponent } from './components/admin-user-panel/admin-use
 import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
 import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteUserComponent } from './components/custom/dialog/delete-user/delete-user.component';
 import { ApproveProductComponent } from './components/custom/dialog/approve-product/approve-product.component';
 
@@ -76,7 +79,10 @@ import { ApproveProductComponent } from './components/custom/dialog/approve-prod
     MatIconModule,
     MatExpansionModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRippleModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
   providers: [
     {
