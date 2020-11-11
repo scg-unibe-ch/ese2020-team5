@@ -29,12 +29,9 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userNameOrEmail = localStorage.getItem('userNameOrEmail');
-    this.route.params.subscribe(params => {
-        this.userService.getUser().then(user => this.user = user);
-        if (this.user) {
-          this.initialize();
-        }
+    this.userService.getUser().then(user => {
+      this.user = user;
+      this.initialize();
     });
   }
 
