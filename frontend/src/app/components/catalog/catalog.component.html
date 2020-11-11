@@ -1,5 +1,5 @@
 <div class="catalog">
-  <div class="catalog-panel" *ngIf="this.showBrowse" [@inOutAnimation]>
+  <div class="catalog-panel" *ngIf="type === 'all' && !this.searchFilter">
     <mat-card>
       <mat-card-content>
         <h1><strong>Items</strong></h1>
@@ -13,69 +13,22 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="filters">
-    <div class="filter-btn" (click)="openCloseFilters()" matRipple matTooltip="{{filterOpen ? 'Close Filter' : 'Open Filter'}}" matTooltipPosition="right">
-      <svg class="filter-icon">
-        <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path>
-      </svg>
-      <p class="filter-text">Filter</p>
-    </div>
-    <div class="filter-options">
-      <hr>
-      <div class="filter filter-type">
-        <strong>Type</strong>
-        <mat-radio-group [(ngModel)]="this.filter.type" class="filter-radio-grp" (ngModelChange)="updateFilter()">
-          <mat-radio-button class="filter-radio-btn" value="all">All</mat-radio-button>
-          <mat-radio-button class="filter-radio-btn" value="items">Items</mat-radio-button>
-          <mat-radio-button class="filter-radio-btn" value="services">Services</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div class="filter filter-price">
-        <strong>Price</strong>
-        <label class="filter-label">From</label>
-        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="this.filter.priceFrom" (ngModelChange)="updateFilter()">
-        <span>CHF</span>
-        <label class="filter-label">To</label>
-        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="this.filter.priceTo" (ngModelChange)="updateFilter()">
-        <span>CHF</span>
-      </div>
-      <div class="filter filter-sale-type">
-        <strong>Sale Type</strong>
-        <mat-radio-group [(ngModel)]="this.filter.salesType" class="filter-radio-grp" (ngModelChange)="updateFilter()">
-          <mat-radio-button class="filter-radio-btn" value="sellOrLend">Sell or Lend</mat-radio-button>
-          <mat-radio-button class="filter-radio-btn" value="sell">To Sell</mat-radio-button>
-          <mat-radio-button class="filter-radio-btn" value="lend">To Lend</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div class="filter filter-sort-by">
-        <strong>Sort By</strong>
-        <mat-radio-group [(ngModel)]="this.filter.sortBy" class="filter-radio-grp" (ngModelChange)="updateFilter()" disabled>
-          <mat-radio-button class="filter-radio-btn" value="recommended">Recommended</mat-radio-button>
-          <mat-radio-button class="filter-radio-btn" value="rating">Rating</mat-radio-button>
-          <mat-radio-button class="filter-radio-btn" value="totalReviews">Total Reviews</mat-radio-button>
-        </mat-radio-group>
-      </div>
-    </div>
-    <hr>
-  </div>
   <div class="product-list">
     <mat-card *ngFor="let product of products; let i = index;" class="product-card">
-      <a href="product/{{product.productId}}">
-        <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
-          <div class="product-image">
-            <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
-            <div *ngIf="!product.images || !product.images[0]" class="default-image">
-              <mat-icon [inline]="true">category</mat-icon>
-            </div>
-          </div>
-          <div class="product-description" id="product-description-{{i}}">
-            <p>
-              Description:<br>
-              {{product.description}}
-            </p>
+      <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
+        <div class="product-image">
+          <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
+          <div *ngIf="!product.images || !product.images[0]" class="default-image">
+            <mat-icon [inline]="true">category</mat-icon>
           </div>
         </div>
-      </a>
+        <div class="product-description" id="product-description-{{i}}">
+          <p>
+            Description:<br>
+            {{product.description}}
+          </p>
+        </div>
+      </div>
       <mat-card-content>
         <p>
           <span class="green">

@@ -1,3 +1,9 @@
+.catalog {
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  background-color: #f6f6f6;
+}
+
 .catalog-panel {
   margin: 0 auto;
   padding-top: 20px;
@@ -41,113 +47,17 @@
   background-color: #d4a423;
 }
 
-.filters {
-  width: 80%;
-  margin: 20px auto 0;
-}
-
-.filter-btn {
-  user-select: none;
-  cursor: pointer;
-  display: inline-block;
-  padding: 0 8px 8px;
-}
-
-.filter-btn:hover {
-  color: #7a7a7a;
-  fill: #7a7a7a;
-}
-
-.filter-btn:active {
-  color: #4e4e4e;
-  fill: #4e4e4e;
-}
-
-.filter-icon {
-  position: relative;
-  top: 8px;
-  width: 25px;
-  height: 25px;
-  display: inline-block;
-}
-
-.filter-text {
-  margin: 0;
-  display: inline-block;
-}
-
-.filter-options {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-
-.filter {
-  color: #3c3c3c;
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  padding: 0 10px;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.filter-radio-grp {
-  display: flex;
-  flex-direction: column;
-}
-
-.filter-radio-btn {
-  margin: 5px
-}
-
-:host ::ng-deep .filter-radio-btn .mat-radio-outer-circle {
-  border-color: #000000!important;
-}
-
-:host ::ng-deep .filter-radio-btn .mat-radio-inner-circle {
-  background-color: #000000!important;
-}
-
-.filter-type {
-  position: relative;
-  top: -81px;
-}
-
-.filter-price {}
-
-.filter-sale-type {
-  position: relative;
-  top: -81px;
-}
-
-.filter-sort-by {
-  position: relative;
-  top: -81px;
-}
-
-.filter-label {
-  display: inline-block;
-  width: 180px;
-  padding: 10px 0 2px;
-}
-
-.filter-input {
-  border: none;
-  outline: none;
-  padding: 2px 0;
-  border-bottom: 1px solid #131313;
-}
-
 .product-list {
-  display: grid;
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fit, 307px);
-  margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
   padding-top: 1%;
-  width: auto;
+  width: 90%;
 }
 
 .product-card {
+  margin: 10px 20px;
   width: 275px;
 }
 
@@ -198,7 +108,7 @@
 }
 
 @media only screen and (max-width: 1200px) {
-  .filters {
-    width: 95%;
+  .product-list {
+    width: 100%;
   }
 }
