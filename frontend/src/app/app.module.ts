@@ -37,6 +37,8 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DeleteUserComponent } from './components/custom/dialog/delete-user/delete-user.component';
+import { ApproveProductComponent } from './components/custom/dialog/approve-product/approve-product.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AdminUserPanelComponent,
     AdminProductPanelComponent,
     ProductComponent,
-    CatalogComponent
+    CatalogComponent,
+    DeleteUserComponent,
+    ApproveProductComponent
   ],
   imports: [
     BrowserModule,
