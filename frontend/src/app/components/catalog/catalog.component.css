@@ -138,6 +138,11 @@
   border-bottom: 1px solid #131313;
 }
 
+.no-products-found {
+  margin-top: 3%;
+  text-align: center;
+}
+
 .product-list {
   display: grid;
   grid-gap: 15px;

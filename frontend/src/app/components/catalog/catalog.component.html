@@ -58,6 +58,9 @@
     </div>
     <hr>
   </div>
+  <div class="no-products-found" *ngIf="this.products && !this.products[0]">
+    <h1>No products found!</h1>
+  </div>
   <div class="product-list">
     <mat-card *ngFor="let product of products; let i = index;" class="product-card">
       <a href="product/{{product.productId}}">
