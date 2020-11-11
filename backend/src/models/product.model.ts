@@ -121,7 +121,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     }
 
     public static createDefaultProduct() {
-        Product.create({ // Create default product
+        Product.create({ // Create default product for admin
             title: 'TestProduct',
             type: 0,
             description: 'This is a test product',
@@ -134,5 +134,49 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             approved: 0,
             userId: 1
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
+
+        Product.create({ // Create default product for user
+            title: 'TestProduct',
+            type: 0,
+            description: 'This is a test product',
+            location: 'Bern',
+            sellOrLend: 0,
+            price: 120,
+            priceKind: 0,
+            status: 0,
+            deliverable: 1,
+            approved: 0,
+            userId: 2
+        }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
+        Product.create({ // Create default product for admin (for testing purposes two products are needed
+            title: 'TestProduct',
+            type: 0,
+            description: 'This is a test product',
+            location: 'Bern',
+            sellOrLend: 0,
+            price: 120,
+            priceKind: 0,
+            status: 0,
+            deliverable: 1,
+            approved: 0,
+            userId: 1
+        }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
+        Product.create({ // Create default product for user (for testing purposes two products are needed
+            title: 'TestProduct',
+            type: 0,
+            description: 'This is a test product',
+            location: 'Bern',
+            sellOrLend: 0,
+            price: 120,
+            priceKind: 0,
+            status: 0,
+            deliverable: 1,
+            approved: 0,
+            userId: 2
+        }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
     }
 }

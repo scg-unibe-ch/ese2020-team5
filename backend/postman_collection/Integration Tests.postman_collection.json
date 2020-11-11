@@ -1,0 +1,1378 @@
+{
+	"info": {
+		"_postman_id": "d5ac8a5e-0f33-47a3-a05c-7d14c0d79627",
+		"name": "Integration Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login and Register Tests",
+			"item": [
+				{
+					"name": "user login fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b777665b-4805-4bc2-ade8-4475d4593674",
+								"exec": [
+									"pm.test(\"User should not login test\", function() {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userNameOrEmail\": \"Jonathan\",\r\n    \"password\": \"notSecure2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/login",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9261cfa3-f29a-4f0f-80b9-f7f18f351e50",
+								"exec": [
+									"pm.test(\"User user should be able to login\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Verifying the response of the user login\", () => {",
+									"    const responseJson = pm.response.json();",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(responseJson.user.userName).to.eql('user');",
+									"    pm.expect(responseJson.user.email).to.eql('user@example.com');",
+									"    pm.expect(responseJson.user.firstName).to.eql('Testing');",
+									"    pm.expect(responseJson.user.lastName).to.eql('user');",
+									"    pm.expect(responseJson.user.isAdmin).to.eql(0);",
+									"    pm.expect(responseJson.user.userId).to.eql(2);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userNameOrEmail\":\"user\",\r\n    \"password\":\"notSecure12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/login",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6fc739cc-edc0-40b4-ba2e-7d37015b6b96",
+								"exec": [
+									"pm.test(\"User admin should be able to login\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Verifying the response of the user admin login\", () => {",
+									"    const responseJson = pm.response.json();",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(responseJson.user.userName).to.eql('admin');",
+									"    pm.expect(responseJson.user.email).to.eql('admin@example.com');",
+									"    pm.expect(responseJson.user.firstName).to.eql('Admin');",
+									"    pm.expect(responseJson.user.isAdmin).to.eql(1);",
+									"    pm.expect(responseJson.user.userId).to.eql(1);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userNameOrEmail\": \"admin\",\r\n    \"password\": \"notSecure12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/login",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "417b6180-b8ba-4809-ba0c-26fca939ad44",
+								"exec": [
+									"pm.test(\"Registration should be possible\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"Testi\",\r\n    \"password\":\"notSecure12\",\r\n    \"email\":\"testi@example.com\",\r\n    \"lastName\":\"ng\",\r\n    \"firstName\":\"Testi\",\r\n    \"isAdmin\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/register",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user registration same username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6694ea04-0560-478b-9a85-0a990c223c71",
+								"exec": [
+									"pm.test(\"Guest should be unable to register with already used username\", () => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"Testi\",\r\n    \"password\":\"notSecure12\",\r\n    \"email\":\"testi2@example.com\",\r\n    \"lastName\":\"ng\",\r\n    \"firstName\":\"Testi\",\r\n    \"isAdmin\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/register",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user registration same  email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b3d4cf95-df7a-4561-ba70-b047e0faa56a",
+								"exec": [
+									"pm.test(\"Guest should be unable to register with already used email\", () => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"Testing\",\r\n    \"password\":\"notSecure12\",\r\n    \"email\":\"testi@example.com\",\r\n    \"lastName\":\"ng\",\r\n    \"firstName\":\"Testi\",\r\n    \"isAdmin\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/register",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user registration forgotten fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb0819ca-e90e-45d1-863d-76608d557fc8",
+								"exec": [
+									"pm.test(\"Guest should be unable to register if he forgot some attributes\", () => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"Testing\",\r\n    \"password\":\"notSecure12\",\r\n    \"email\":\"testi2@example.com\",\r\n    \"isAdmin\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/register",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Integration tests that concerning the User controller in the backend\nNo token is used for these tests",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8388b299-0cb6-4ae9-99ac-13b960adef09",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7f31f95-86fa-41f9-b38c-659e65952ef7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Review Tests",
+			"item": [
+				{
+					"name": "create a review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5622f15-e0a4-4ffd-a3ce-34cb420c3d24",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"All users should be able to create a review\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"",
+									"pm.test(\"Verify the new review attribute\",() => {",
+									"    pm.expect(responseJson.review).to.eql('This is by far the best product eva');",
+									"    pm.expect(responseJson.productId).to.eql(parseInt(pm.environment.get('productId')));",
+									"    pm.expect(responseJson.userId).to.eql(parseInt(pm.environment.get('userId')));",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"review\":\"This is by far the best product eva\",\r\n    \"productId\": {{productId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/review",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Product Tests",
+			"item": [
+				{
+					"name": "create Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0983bce5-79e7-47db-8a20-467ac1a5512b",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"All users should be able to create new products\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"The new product should have the same userId as the creator\",() => {",
+									"    pm.expect(responseJson.userId).to.eql(parseInt(pm.environment.get('userId')));",
+									"})",
+									"",
+									"pm.test(\"New products should not be approved\",() => {",
+									"    pm.expect(responseJson.approved).to.eql(0);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"TestProdu21ct\",\n    \"type\": 0,\n    \"description\": \"This is a test product\",\n    \"location\": \"Bern\",\n    \"sellOrLend\": 0,\n    \"price\": 120,\n    \"priceKind\": 0,\n    \"status\": 0,\n    \"deliverable\": 1,\n    \"approved\": 0,\n    \"userId\": {{userId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/products",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Product Guest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e7ec1b64-77bb-4c07-be07-5c6e741c2ddd",
+								"exec": [
+									"pm.test(\"Guests should not be able to create a product\",() => {",
+									"    pm.response.to.have.status(403);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"TestProdu21ct\",\n    \"type\": 0,\n    \"description\": \"This is a test product\",\n    \"location\": \"Bern\",\n    \"sellOrLend\": 0,\n    \"price\": 120,\n    \"priceKind\": 0,\n    \"status\": 0,\n    \"deliverable\": 1,\n    \"approved\": 0,\n    \"userId\": {{userId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/products",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update own product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "49f6cc5b-34be-4480-842b-b6032f5bb350",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d26be02b-3130-45cf-a86c-a103f8484431",
+								"exec": [
+									"pm.test(\"All users are able to update their product\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Verify the updated attributes\", () => {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson.title).to.eql('updatedTitle');",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"updatedTitle\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/products/{{productId}}",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						},
+						"description": "delete a product"
+					},
+					"response": []
+				},
+				{
+					"name": "update other users product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "98d67082-046a-4863-b4bb-b083cf99898d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "332f5ecf-2562-4974-a811-966ad9803656",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin is able to update other users products\", () => {",
+									"        pm.response.to.have.status(200);",
+									"        const responseJson = pm.response.json();",
+									"        pm.expect(responseJson.title).to.eql('updatedTitle2');",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"User must not be able to update other users products\", () => {",
+									"        pm.response.to.have.status(500);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"updatedTitle2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/products/{{productId2}}",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"{{productId2}}"
+							]
+						},
+						"description": "delete a product"
+					},
+					"response": []
+				},
+				{
+					"name": "approve product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5bde6bb5-2208-4f87-ad7c-f0e54aa6de74",
+								"exec": [
+									"const echoPostRequest = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/products',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            title: \"TestProdu21ct\",",
+									"            type: 0,",
+									"            description: \"This is a test product\",",
+									"            location: \"Bern\",",
+									"            sellOrLend: 0,",
+									"            price: 120,",
+									"            priceKind: 0,",
+									"            status: 0,",
+									"            deliverable: 1,",
+									"            approved: 0,",
+									"            userId: pm.environment.get('userId')",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"pm.sendRequest(echoPostRequest, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "47aa5d4d-b9f3-4338-83a6-7b5c63f53b4f",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin is able to approve the product\", () => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"User must not be able to approve a product\", () => {",
+									"        pm.response.to.have.status(500);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approved\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/products/{{productId}}",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						},
+						"description": "delete a product"
+					},
+					"response": []
+				},
+				{
+					"name": "get User products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86b11a99-568e-47c6-9d0b-a290808c49cb",
+								"exec": [
+									"pm.test(\"All users should be able to get their own products. Nethertheless if approved or not\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/products/",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						},
+						"description": "Request all products from the database (from all users)\nonly a logged in person should be able to do this"
+					},
+					"response": []
+				},
+				{
+					"name": "get catalog",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12376726-2688-47f3-b82b-3194eb6f7e82",
+								"exec": [
+									"pm.test(\"Everyone should be able to get the catalog\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/products/catalog",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"catalog"
+							]
+						},
+						"description": "Request all products from the database (from all users)\nonly a logged in person should be able to do this"
+					},
+					"response": []
+				},
+				{
+					"name": "get catalog Guest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beab73bf-b1f1-4fee-91e2-5385320e1d97",
+								"exec": [
+									"pm.test(\"Everyone should be able to get the catalog\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/products/catalog",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"catalog"
+							]
+						},
+						"description": "Request all products from the database (from all users)\nonly a logged in person should be able to do this"
+					},
+					"response": []
+				},
+				{
+					"name": "get all unapproved products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1af21043-6824-4a45-885e-1eebee5a43b9",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin is able to get all the unapproved products\", () => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"User must not be able to get all the unapproved products\", () => {",
+									"        pm.response.to.have.status(500);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/products/admin-catalog",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"admin-catalog"
+							]
+						},
+						"description": "Request all products from the database (from all users)\nonly a logged in person should be able to do this"
+					},
+					"response": []
+				},
+				{
+					"name": "delete own product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dc9b219b-15f0-4c59-acf4-b92a98818ee8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "789bb6f4-8590-422d-b6e5-6cca44c2b1da",
+								"exec": [
+									"pm.test(\"All users are able to delete their product\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/products/{{productId}}",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						},
+						"description": "delete a product"
+					},
+					"response": []
+				},
+				{
+					"name": "delete other users product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "77f82153-0e1b-4925-a5eb-b938d541f338",
+								"exec": [
+									"const echoPostRequest = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/products',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            title: \"TestProdu21ct\",",
+									"            type: 0,",
+									"            description: \"This is a test product\",",
+									"            location: \"Bern\",",
+									"            sellOrLend: 0,",
+									"            price: 120,",
+									"            priceKind: 0,",
+									"            status: 0,",
+									"            deliverable: 1,",
+									"            approved: 0,",
+									"            userId: 2",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"pm.sendRequest(echoPostRequest, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "592aaa2a-967e-4260-a0d6-76731ad56a94",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin is able to delete other users products\", () => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"User must not be able to delete other users products\", () => {",
+									"        pm.response.to.have.status(500);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/products/{{productId2}}",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"products",
+								"{{productId2}}"
+							]
+						},
+						"description": "delete a product"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User Tests",
+			"item": [
+				{
+					"name": "get user information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9600af03-7120-4903-a521-af0138b27d80",
+								"exec": [
+									"pm.test(\"Every user should be able to get his account information\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Verifying the response of admin account information\", () => {",
+									"        const responseJson = pm.response.json();",
+									"        pm.response.to.have.status(200);",
+									"        pm.expect(responseJson.userName).to.eql('admin');",
+									"        pm.expect(responseJson.email).to.eql('admin@example.com');",
+									"        pm.expect(responseJson.firstName).to.eql('Admin');",
+									"        pm.expect(responseJson.lastName).to.eql('istrator');",
+									"        pm.expect(responseJson.isAdmin).to.eql(1);",
+									"        pm.expect(responseJson.userId).to.eql(1);",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"Verifying the response of user account information\", () => {",
+									"        const responseJson = pm.response.json();",
+									"        pm.response.to.have.status(200);",
+									"        pm.expect(responseJson.userName).to.eql('user');",
+									"        pm.expect(responseJson.email).to.eql('user@example.com');",
+									"        pm.expect(responseJson.firstName).to.eql('Testing');",
+									"        pm.expect(responseJson.lastName).to.eql('user');",
+									"        pm.expect(responseJson.isAdmin).to.eql(0);",
+									"        pm.expect(responseJson.userId).to.eql(2);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/user/",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "252e971c-8612-4774-a2d9-43a7fad603f5",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin is able to get all the user information\", () => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"User must not be able to get all users of system\", () => {",
+									"        pm.response.to.have.status(500);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/user/all",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update User info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "74b2b8ff-4556-4a55-aa7e-a0c8bd5564f4",
+								"exec": [
+									"pm.test(\"All users should be able to update their account information\", () => {",
+									"    pm.response.to.have.status(200);",
+									"",
+									"})",
+									"pm.test(\"Verify the updated attributes\", () => {",
+									"    pm.response.to.have.status(200);",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson.lastName).to.eql('updated lastName');",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lastName\": \"updated lastName\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/user/update",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a516a444-a569-4673-94e9-47926785d59e",
+								"exec": [
+									"const echoPostRequest = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            userName: \"testi2\",",
+									"            password: \"notSecure12\",",
+									"            email: \"testi2@example.com\",",
+									"            lastName: \"ng\",",
+									"            firstName: \"Testi\",",
+									"            isAdmin: 1",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"pm.sendRequest(echoPostRequest, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa91f86c-248d-41e4-849d-16450c4b05bf",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin is able to get delete User with userId: \" + pm.environment.get('deleteUserId'), () => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"User is able to delete own account\", () => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/user/{{deleteUserId}}",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"{{deleteUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user delete 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e5355b61-1c2d-4b27-906a-19e6f8f0ef5c",
+								"exec": [
+									"const echoPostRequest = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            userName: \"testi3\",",
+									"            password: \"notSecure12\",",
+									"            email: \"testi3@example.com\",",
+									"            lastName: \"ng\",",
+									"            firstName: \"Testi\",",
+									"            isAdmin: 1",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"const echoPostRequest2 = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            userName: \"testi4\",",
+									"            password: \"notSecure12\",",
+									"            email: \"testi4@example.com\",",
+									"            lastName: \"ng\",",
+									"            firstName: \"Testi\",",
+									"            isAdmin: 1",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"const echoPostRequest3 = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/json',",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            userName: \"testi5\",",
+									"            password: \"notSecure12\",",
+									"            email: \"testi5@example.com\",",
+									"            lastName: \"ng\",",
+									"            firstName: \"Testi\",",
+									"            isAdmin: 1",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"pm.sendRequest(echoPostRequest3, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});",
+									"",
+									"pm.sendRequest(echoPostRequest, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});",
+									"",
+									"pm.sendRequest(echoPostRequest2, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9e2405b3-b539-4213-8a83-0de8a54e1887",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin is able to get delete User with userId: \" + pm.environment.get('deleteUserId2'), () => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"} else if (pm.environment.get('userId') == 2 ) {",
+									"    pm.test(\"User must not be able to delete other account\", () => {",
+									"        pm.response.to.have.status(403);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/user/{{deleteUserId2}}",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"user",
+								"{{deleteUserId2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{currentAccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5d919feb-e8f0-4e75-a5d0-8e5a25fb93f3",
+				"type": "text/javascript",
+				"exec": [
+					"const echoPostRequest = {",
+					"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/login',",
+					"  method: 'POST',",
+					"  header: 'Content-Type:application/json',",
+					"  body: {",
+					"    mode: 'application/json',",
+					"    raw: JSON.stringify(",
+					"        {",
+					"        \tuserNameOrEmail: pm.environment.get('username'),",
+					"        \tpassword: pm.environment.get('password')",
+					"        })",
+					"  }",
+					"};",
+					"",
+					"pm.sendRequest(echoPostRequest, function (err, res) {",
+					"    console.log(err ? err : res.json());",
+					"    if (err === null) {",
+					"        console.log('Saving the token and expiry date')",
+					"        var responseJson = res.json();",
+					"        pm.environment.set('currentAccessToken', responseJson.token)",
+					"    }",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1edb51ec-7f39-4321-9937-7cf254b7927b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "dc821e2a-abbd-434c-b9f8-92a7aa9d4a49",
+			"key": "currentAccessToken",
+			"value": ""
+		},
+		{
+			"id": "5ba1e863-bc90-424c-bbf0-c3253a058a3e",
+			"key": "uri",
+			"value": "localhost:3000"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
