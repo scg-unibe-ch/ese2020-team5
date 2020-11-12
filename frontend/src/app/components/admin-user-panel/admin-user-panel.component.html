@@ -3,7 +3,7 @@
     <h1><strong><a href="admin/dashboard">Admin Dashboard</a> - User List</strong></h1>
     <div class="filter">
       <div class="filter-search">
-        <input placeholder="Search" class="search" [(ngModel)]="searchFilter" (keydown.enter)="filterUsers()">
+        <input type="search" placeholder="Search" class="search" [(ngModel)]="searchFilter" (keydown.enter)="filterUsers()">
         <mat-icon (click)="filterUsers()">search</mat-icon>
       </div>
     </div>
