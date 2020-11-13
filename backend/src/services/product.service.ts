@@ -56,6 +56,24 @@ export class ProductService {
             .catch(err => Promise.reject(err));
     }
 
+    public getOne(userId: number, productId: number): Promise<Product> {
+        return Product.findByPk(productId)
+            .then(product => {
+                if ( product.approved ) {
+                    return Promise.resolve(product);
+                } else {
+                    return User.findByPk(userId).then(user => {
+                        if (user.isAdmin !== 1) {
+                            return Promise.reject('You are not authorized to do this!');
+                        } else {
+                            return Promise.resolve(product);
+                        }
+                    });
+                }
+            })
+            .catch(err => Promise.reject(err));
+    }
+
     public getCatalog(): Promise<Product[]> {
         return Product.findAll({where: { approved: 1 }, include: [Product.associations.reviews]})
             .then(list => Promise.resolve(list))
