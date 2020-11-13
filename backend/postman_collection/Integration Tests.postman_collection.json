@@ -461,7 +461,7 @@
 									"pm.test(\"Check the response attributes\", () => {",
 									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
 									"    pm.expect(responseJson.buyerId).to.be.an('number');",
-									"    pm.expect(responseJson.productId).to.eql(1);",
+									"    pm.expect(responseJson.productId).to.eql(pm.environment.get('productId').toNumber());",
 									"})"
 								],
 								"type": "text/javascript"
@@ -481,14 +481,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{uri}}/cart/1",
+							"raw": "http://{{uri}}/cart/{{productId}}",
 							"protocol": "http",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"cart",
-								"1"
+								"{{productId}}"
 							]
 						}
 					},
@@ -523,14 +523,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{uri}}/cart/5",
+							"raw": "http://{{uri}}/cart/100",
 							"protocol": "http",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"cart",
-								"5"
+								"100"
 							]
 						}
 					},
@@ -1529,12 +1529,12 @@
 	],
 	"variable": [
 		{
-			"id": "3f7c0e09-c483-4b9f-94b3-dc99c5f3aa91",
+			"id": "2b70a3ac-875e-43d3-bc4e-e791c0f7d530",
 			"key": "currentAccessToken",
 			"value": ""
 		},
 		{
-			"id": "3739753b-e656-41d9-95ab-5b990ad837af",
+			"id": "efda82c0-f968-4e01-9b44-80e88176f904",
 			"key": "uri",
 			"value": "localhost:3000"
 		}
