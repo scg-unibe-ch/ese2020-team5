@@ -1,9 +1,3 @@
-.user-panel-bg {
-  min-height: calc(100vh - 50px);
-  width: 100%;
-  background-color: #f6f6f6;
-}
-
 .user-panel {
   margin: 0 auto;
   padding-top: 3%;
@@ -13,6 +7,43 @@
 
 .user-panel a {
   color: black;
+}
+
+.filter {
+  position: relative;
+  height: 80px;
+}
+
+.filter-search {
+  position: absolute;
+  top: 13px;
+  left: 10px;
+}
+
+.search {
+  display: inline;
+  padding: 5px;
+  background-color: unset;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.filter-search mat-icon {
+  position: relative;
+  top: 9px;
+  cursor: pointer;
+  user-select: none;
+  color: #777777;
+}
+
+.filter-search mat-icon:hover {
+  color: #131313;
 }
 
 .delete-btn {
