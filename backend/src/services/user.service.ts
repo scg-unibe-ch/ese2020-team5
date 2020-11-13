@@ -2,7 +2,7 @@ import { UserAttributes, User } from '../models/user.model';
 import { LoginResponse, LoginRequest } from '../models/login.model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {Op} from 'sequelize';
+import {Op, where} from 'sequelize';
 import {Request} from 'express';
 
 export class UserService {
@@ -56,6 +56,25 @@ export class UserService {
                     return Promise.reject({ message: 'not authorized' });
                 }
             }).catch((err) => Promise.reject({ message: err }));
+    }
+
+    public update(userId: number, newAttributes: UserAttributes): Promise<UserAttributes> {
+        return User.findByPk(userId)
+            .then(usr => {
+            return usr.update(newAttributes);
+        }).then(usr => {
+            return Promise.resolve(usr);
+        }).catch(err => {
+            return Promise.reject({message: err});
+        });
+    }
+
+    public getReviews(userId: number) {
+        return User.findByPk(userId, { include: [User.associations.reviews]})
+            .then(user => {
+                return Promise.resolve({user});
+            })
+            .catch(err => Promise.reject({message: err}));
     }
 
     public getAll(userId: number): Promise<User[]> {

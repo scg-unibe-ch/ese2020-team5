@@ -12,10 +12,10 @@ Follow the README in the frontend folder and backend folder respectively.<br>
 
 ### Default Users
 At the start of the backend, the following users gets created:
-username    |   email           |   password    |   Admin
-------------|-------------------|---------------|------------
-admin       |admin@example.com  | notSecure12   | yes
-user        |user@example.com   | notSecure12   | no
+username    |   email           |   password     |   Admin
+------------|-------------------|----------------|------------
+admin       |admin@example.com  | notSecure12    | yes
+user        |user@example.com   | notSecure12    | no
 
 ## General Information
 Note that the folders deliverables, frontend and backend are present on the top level of the repository. Your repository should also contain these three folders. 

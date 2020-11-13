@@ -1,0 +1,44 @@
+<div class="catalog">
+  <div class="catalog-panel" *ngIf="type === 'all' && !this.searchFilter">
+    <mat-card>
+      <mat-card-content>
+        <h1><strong>Items</strong></h1>
+        <a href="catalog?type=items"><button class="browse-btn">Browse</button></a>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <h1><strong>Services</strong></h1>
+        <a href="catalog?type=services"><button class="browse-btn">Browse</button></a>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="product-list">
+    <mat-card *ngFor="let product of products; let i = index;" class="product-card">
+      <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
+        <div class="product-image">
+          <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
+          <div *ngIf="!product.images || !product.images[0]" class="default-image">
+            <mat-icon [inline]="true">category</mat-icon>
+          </div>
+        </div>
+        <div class="product-description" id="product-description-{{i}}">
+          <p>
+            Description:<br>
+            {{product.description}}
+          </p>
+        </div>
+      </div>
+      <mat-card-content>
+        <p>
+          <span class="green">
+            <strong>{{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
+          </span><br>
+          <a class="product-title" href="product/{{product.productId}}">
+            <strong>{{(product.title.length > 72) ? product.title.substring(0, 70) + '..' : product.title}}</strong>
+          </a>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

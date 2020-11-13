@@ -1,0 +1,42 @@
+<div class="product-panel-bg">
+  <div class="product-panel">
+    <h1><strong><a href="admin/dashboard">Admin Dashboard</a> - Product List</strong></h1>
+    <div class="filter-container">
+      <div class="filter-search">
+        <input placeholder="Search" class="search" [(ngModel)]="searchFilter" (keydown.enter)="filterProducts()">
+        <mat-icon (click)="filterProducts()">search</mat-icon>
+      </div>
+      <div class="filter-approve">
+        <p>Filter by: </p>
+        <mat-form-field appearance="outline">
+          <mat-select [(ngModel)]="filter" (ngModelChange)="filterProducts()">
+            <mat-option [value]=0>All</mat-option>
+            <mat-option [value]=1>Approved</mat-option>
+            <mat-option [value]=2>Unapproved</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="products && !products[0]" class="no-products">
+      <h1>No Products found!</h1>
+    </div>
+    <div *ngIf="products && products[0]">
+      <div *ngFor="let product of products" class="product">
+        <div class="product-image">
+          <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}" class="image" alt="">
+          <div *ngIf="!product.images || !product.images[0]" class="default-image">
+            <mat-icon [inline]="true">category</mat-icon>
+          </div>
+        </div>
+        <div class="product-title">
+          <a href="product/{{product.productId}}"><h2>{{product.title}}</h2></a>
+        </div>
+        <div class="product-description">{{product.description}}</div>
+        <div class="product-btn-container">
+          <button *ngIf="!product.approved" mat-stroked-button (click)="approveProduct(product)">APPROVE</button>
+          <button mat-stroked-button (click)="deleteProduct(product)" class="red-btn">DELETE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

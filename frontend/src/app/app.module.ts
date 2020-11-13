@@ -20,7 +20,22 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
-import {MatIconModule} from "@angular/material/icon";
+import { CreateProductComponent } from './components/create-product/create-product.component';
+import { MatIconModule } from '@angular/material/icon';
+import { LogoutComponent } from './components/logout/logout.component';
+import { MyProductsComponent } from './components/my-products/my-products.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { DeleteProductComponent } from './components/custom/dialog/delete-product/delete-product.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AdminUserPanelComponent } from './components/admin-user-panel/admin-user-panel.component';
+import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
+import { ProductComponent } from './components/product/product.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
+import { DeleteUserComponent } from './components/custom/dialog/delete-user/delete-user.component';
+import { ApproveProductComponent } from './components/custom/dialog/approve-product/approve-product.component';
 
 @NgModule({
   declarations: [
@@ -29,25 +44,40 @@ import {MatIconModule} from "@angular/material/icon";
     HomeComponent,
     SignUpComponent,
     ProfileComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CreateProductComponent,
+    LogoutComponent,
+    MyProductsComponent,
+    DeleteProductComponent,
+    EditProductComponent,
+    AdminPanelComponent,
+    AdminUserPanelComponent,
+    AdminProductPanelComponent,
+    ProductComponent,
+    CatalogComponent,
+    DeleteUserComponent,
+    ApproveProductComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        MatButtonModule,
-        MatListModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatTabsModule,
-        MatToolbarModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatIconModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MatButtonModule,
+    MatListModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatTabsModule,
+    MatToolbarModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

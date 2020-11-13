@@ -1,5 +1,14 @@
-import { Optional, Model, Sequelize, DataTypes } from 'sequelize';
+import {
+    Optional,
+    Model,
+    Sequelize,
+    DataTypes,
+    Association,
+    HasManyGetAssociationsMixin,
+    HasManyAddAssociationMixin
+} from 'sequelize';
 import {User} from './user.model';
+import {Review} from './review.model';
 
 export interface ProductAttributes {
     productId: number;
@@ -19,6 +28,10 @@ export interface ProductAttributes {
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'productId'> { }
 
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
+    public static associations: {
+        reviews: Association<Product, Review>;
+    };
+
     productId!: number;
     title!: string;
     type!: number; // type == 0: product, type == 1: service
@@ -31,6 +44,9 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     deliverable!: number; // deliverable == 1: yes, deliverable == 0: no
     approved!: number; // approved == 0: not yet approved from an admin, approved == 1: product approved by an admin
     userId!: number; // FK of user table
+
+    public getReviews!: HasManyGetAssociationsMixin<Review>;
+    public addReview!: HasManyAddAssociationMixin<Review, number>;
 
     public static initialize(sequelize: Sequelize) {
         Product.init({
@@ -97,11 +113,15 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             as: 'user',
             onDelete: 'cascade',
             foreignKey: 'userId'
+        }),
+        Product.hasMany(Review, {
+            as: 'reviews',
+            foreignKey: 'productId'
         });
     }
 
     public static createDefaultProduct() {
-        Product.create({ // Create default product
+        Product.create({ // Create default product for admin
             title: 'TestProduct',
             type: 0,
             description: 'This is a test product',
@@ -114,5 +134,49 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             approved: 0,
             userId: 1
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
+
+        Product.create({ // Create default product for user
+            title: 'TestProduct',
+            type: 0,
+            description: 'This is a test product',
+            location: 'Bern',
+            sellOrLend: 0,
+            price: 120,
+            priceKind: 0,
+            status: 0,
+            deliverable: 1,
+            approved: 0,
+            userId: 2
+        }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
+        Product.create({ // Create default product for admin (for testing purposes two products are needed
+            title: 'TestProduct',
+            type: 0,
+            description: 'This is a test product',
+            location: 'Bern',
+            sellOrLend: 0,
+            price: 120,
+            priceKind: 0,
+            status: 0,
+            deliverable: 1,
+            approved: 0,
+            userId: 1
+        }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
+        Product.create({ // Create default product for user (for testing purposes two products are needed
+            title: 'TestProduct',
+            type: 0,
+            description: 'This is a test product',
+            location: 'Bern',
+            sellOrLend: 0,
+            price: 120,
+            priceKind: 0,
+            status: 0,
+            deliverable: 1,
+            approved: 0,
+            userId: 2
+        }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
     }
 }

@@ -1,0 +1,42 @@
+.admin-panel-bg > h1 {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.admin-panel {
+  margin: 0 auto;
+  padding-top: 40px;
+  display: block;
+  text-align: center;
+  user-select: none;
+}
+
+.card {
+  margin: 10px 20px;
+  padding: 70px;
+  display: inline-block;
+  width: 20%;
+  min-width: 300px;
+  cursor: pointer;
+  text-align: center;
+  color: #e5b123;
+  box-shadow: 2px 2px 8px #aaaaaa;
+}
+
+.card h2 {
+  color: #000000;
+}
+
+.card:hover {
+  color: #efbb2d;
+  background-color: #efefef;
+}
+
+.card:active {
+  background-color: #e2e2e2;
+}
+
+.icon {
+  font-size: 100px;
+  padding: 30px;
+}

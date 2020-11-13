@@ -4,6 +4,7 @@ import { UserService, AdminService } from '../services/user.service';
 import {getUserId, verifyToken} from '../middlewares/checkAuth';
 import {isNumber} from 'util';
 
+
 const userController: Router = express.Router();
 const userService = new UserService();
 const adminService = new AdminService();
@@ -37,6 +38,12 @@ userController.delete('/:id', verifyToken, (req: Request, res: Response) => {
         adminService.delete(getUserId(req), deleterId)
             .then(deleted => res.send(deleted))
             .catch(err => res.status(500).send(err));
+    }
+);
+
+userController.get('/reviews', verifyToken, // you can add middleware on specific requests like that
+    (req: Request, res: Response) => {
+        userService.getReviews(getUserId(req)).then(reviews => res.send(reviews)).catch(err => res.status(500).send(err));
     }
 );
 

@@ -15,14 +15,18 @@
   min-width: 0;
 }
 
-:host ::ng-deep .login-form .mat-form-field-wrapper{
-  margin: 10px 0 !important;
+.login-form mat-icon:hover {
+  cursor: pointer;
 }
 
 .login-form-fields {
   width: 95%;
   margin: 30px auto;
   text-align: center;
+}
+
+.login-form mat-icon {
+  user-select: none;
 }
 
 .login-form-links {
@@ -43,17 +47,6 @@
 .login-form-btn {
   margin-top: 30px;
   width: 50%;
-  background-color: #1a1a1a;
-  color: white;
   grid-column-start: 2;
   grid-column-end: 4;
-}
-
-.login-form-btn:hover {
-  background-color: #101010;
-}
-
-.login-form-btn:disabled {
-  background-color: #353535;
-  color: white;
 }
