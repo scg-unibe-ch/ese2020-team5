@@ -1,4 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
   myAccount = '';
 
   constructor(
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService
   ) { }
@@ -37,39 +39,11 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
-    if (this.myAccountModalShown) {
-      this.openCloseAccountModal();
-    }
-  }
-
-  modifyAccountContentPos(): void {
-    const navEntries = document.getElementById('nav-entries');
-    const navEntriesRight = window.getComputedStyle(navEntries).right;
-    const navEntriesWidth = window.getComputedStyle(navEntries).width;
-    const myAccountWidth = document.getElementById('my-account').offsetWidth;
-    const myAccountContentWidth = document.getElementById('my-account-content').offsetWidth;
-    const elmCenterPosition = parseInt(navEntriesRight, 10) + parseInt(navEntriesWidth, 10)
-      - (myAccountWidth / 2) - (myAccountContentWidth / 2);
-    document.getElementById('my-account-content').style.right =
-      (elmCenterPosition >= 0) ? (elmCenterPosition + 'px') : (0 + 'px');
+    
   }
 
   searchItem(): void {
     location.assign('catalog?q=' + this.searchFilter);
-  }
-
-  openCloseAccountModal(): void {
-    this.myAccountModalShown = !this.myAccountModalShown;
-    if (this.myAccountModalShown) {
-      this.modifyAccountContentPos();
-      this.myAccountArrow = 'expand_less';
-      document.getElementById('my-account-bg').style.display = 'block';
-      document.getElementById('my-account-content').style.visibility = 'visible';
-    } else {
-      this.myAccountArrow = 'expand_more';
-      document.getElementById('my-account-bg').style.display = 'none';
-      document.getElementById('my-account-content').style.visibility = 'hidden';
-    }
   }
 
   navigateTo(page: string): void {

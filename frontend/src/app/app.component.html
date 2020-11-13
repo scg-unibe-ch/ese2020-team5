@@ -1,11 +1,14 @@
-<div class="nav-bar">
+<mat-toolbar class="nav-bar">
   <div class="logo">
     <mat-icon (click)="navigateTo('catalog')">home</mat-icon><a href="catalog"><strong>TEAM5</strong></a>
   </div>
-  <div class="search-container">
-    <input type="text" placeholder="Search..." name="search" [(ngModel)]="searchFilter" (keydown.enter)="searchItem()">
-    <button (click)="searchItem()"><mat-icon>search</mat-icon></button>
-  </div>
+  <span class="nav-spacing"></span>
+  <mat-form-field appearance="outline" class="search-container">
+    <input matInput type="search" placeholder="Search..." class="search" [(ngModel)]="searchFilter" (keydown.enter)="searchItem()">
+    <button mat-button mat-icon-button matSuffix class="search-btn" (click)="searchItem()"><mat-icon>search</mat-icon></button>
+  </mat-form-field>
+  <span class="nav-spacing"></span>
+  
   <div id="nav-entries" class="nav-entries">
     <button mat-stroked-button class="createListing-btn" (click)="navigateTo('my-products/new')">+ Create new Listing</button>
     <button mat-icon-button class="my-account" (click)="navigateTo('shopping-cart')">
@@ -43,49 +46,8 @@
         <mat-icon>exit_to_app</mat-icon>
         <span>Log Out</span>
       </button>
-      
-      
     </mat-menu>
-
-  <!--
-  <div>
-    <div id="my-account" class="my-account" (click)="openCloseAccountModal()">
-      <mat-icon class="person-outline">person</mat-icon><h3>{{myAccount}}</h3><mat-icon>{{myAccountArrow}}</mat-icon>
-    </div>
-    <a class="nav-entry" href="catalog"><mat-icon>storefront</mat-icon><h3>Catalog</h3></a>
-    <a class="nav-entry" href="shopping-cart"><mat-icon>shopping_cart</mat-icon><h3>Shopping cart</h3></a>
   </div>
-  -->
-</div>
+</mat-toolbar>
 <mat-divider class="nav-divider"></mat-divider>
-<!--
-<div id="my-account-bg" class="my-account-bg" (click)="openCloseAccountModal()"></div>
-<div id="my-account-content" class="my-account-content">
-  <div *ngIf="!isLoggedIn()">
-    <div class="my-account-content-section">
-      <a href="login"><mat-icon>login</mat-icon>Log In</a>
-    </div>
-    <div class="my-account-content-section">
-      <a href="signup"><mat-icon>assignment</mat-icon>Sign Up</a>
-    </div>
-  </div>
-  <div *ngIf="isLoggedIn()">
-    <div class="my-account-content-section">
-      <a href="profile"><mat-icon>account_circle</mat-icon>Profile</a>
-    </div>
-    <div class="my-account-content-section" *ngIf="isAdmin()">
-      <a href="admin/dashboard"><mat-icon>admin_panel_settings</mat-icon>Admin Dashboard</a>
-    </div>
-    <div class="my-account-content-section">
-      <a href="my-products"><mat-icon>store</mat-icon>My Products</a>
-    </div>
-    <div class="my-account-content-section">
-      <a href="my-products/new"><mat-icon>post_add</mat-icon>Create Listing</a>
-    </div>
-    <div class="my-account-content-section">
-      <a href="logout"><mat-icon>exit_to_app</mat-icon>Log Out</a>
-    </div>
-  </div>
-</div>
--->
 <router-outlet></router-outlet>

@@ -62,7 +62,7 @@
           <mat-error *ngIf="profileForm.controls.userName.hasError('required')">Username required!</mat-error>
           <mat-error *ngIf="profileForm.controls.userName.hasError('inUse')">Username is already in use!</mat-error>
         </mat-form-field>
+        <button mat-stroked-button type="submit" class="profile-form-btn" color="black" [disabled]="profileForm.invalid">Update</button>
       </div>
-      <button mat-stroked-button type="submit" class="profile-form-btn" color="black" [disabled]="profileForm.invalid">Update</button>
     </form> 
 </div>

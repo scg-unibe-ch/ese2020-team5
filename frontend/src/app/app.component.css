@@ -1,29 +1,28 @@
 .nav-bar {
-  display: block;
+  display: flex;
   position: relative;
   top: 0;
   left: 0;
   z-index: 1;
-  height: 3em;
-  padding: 2em;
   background-color: #ffffff;
   user-select: none;
+  padding: 45px;
 }
-
 
 .nav-divider {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 2.5em;
   width: 95%;
+}
 
+.nav-spacing {
+  flex: 1 1 auto;
 }
 
 .logo {
-  display: inline-block;
+  display: inline;
   position: relative;
   left: 8%;
-  margin-top: 0.7em;
 }
 
 .logo a {
@@ -42,37 +41,27 @@
 
 .nav-entries {
   float: right;
-  display: inline;
   position: relative;
-  right: 7%;
-}
-
-.nav-entries div {
-  display: inline;
 }
 
 .search-container {
-  display: inline-grid;
+  display: inline-flex;
   position: relative;
-  left: calc(30% - 71px);
-  width: 35%;
-  grid-template-columns: 12fr;
+  width: 30%;
+  font-size: 15px;
+  vertical-align: middle;
+  margin-top: 15px;
 }
 
-.search-container > input {
-  height: 27px;
-  grid-column-start: 1;
-  grid-column-end: 12;
+.search {
+  vertical-align: middle;
 }
 
-.search-container > input:focus {
-  outline: none;
-}
-
-.search-container > button {
-  height: 33px;
-  grid-column-start: 12;
-  grid-column-end: 13;
+input.mat-input-element {
+  height: 15px;
+  margin-top:0px;
+  margin-bottom:7px;
+  padding: 0;
 }
 
 .my-account {
@@ -83,7 +72,6 @@
 .my-account:hover {
   color: #000000;
 }
-
 
 .my-account h3 {
   display: inline;
@@ -145,7 +133,7 @@
   }
 
   .search-container {
-    left: calc(20% - 25px);
+    left: calc(-25px);
   }
 
   .logo mat-icon {
@@ -167,7 +155,7 @@
 
 @media only screen and (max-width: 700px) {
   .search-container {
-    left: calc(20% - 25px);
+    left: calc(50% - 25px);
   }
 
 }
