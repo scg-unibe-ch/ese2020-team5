@@ -36,11 +36,11 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
                 },
                 buyerId: {
                     type: DataTypes.INTEGER,
-                    allowNull: false
+                    allowNull: true
                 },
                 sellerId: {
                     type: DataTypes.INTEGER,
-                    allowNull: false
+                    allowNull: true
                 },
                 pricePerUnit: {
                     type: DataTypes.INTEGER,
@@ -56,7 +56,7 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
                 },
                 productId: {
                     type: DataTypes.INTEGER,
-                    allowNull: false
+                    allowNull: true
                 },
                 productName: {
                     type: DataTypes.STRING,
@@ -69,18 +69,18 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
     public static createAssociations() {
         Transaction.belongsTo(User, {
             as: 'buyer',
-            onDelete: 'SET NULL',
-            foreignKey: 'buyerId'
+            foreignKey: 'buyerId',
+            onDelete: 'SET NULL'
         });
         Transaction.belongsTo(User, {
             as: 'seller',
-            onDelete: 'SET NULL',
-            foreignKey: 'sellerId'
+            foreignKey: 'sellerId',
+            onDelete: 'SET NULL'
         });
         Transaction.belongsTo(Product, {
             as: 'product',
-            onDelete: 'SET NULL',
-            foreignKey: 'productId'
+            foreignKey: 'productId',
+            onDelete: 'SET NULL'
         });
     }
 }

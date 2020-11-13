@@ -118,11 +118,13 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
         });
         User.hasMany(Transaction, {
            as: 'selltransactions',
-           foreignKey: 'sellerId'
+           foreignKey: 'sellerId',
+            onDelete: 'SET NULL'
         });
         User.hasMany(Transaction, {
             as: 'buytransactions',
-            foreignKey: 'buyerId'
+            foreignKey: 'buyerId',
+            onDelete: 'SET NULL'
         });
     }
 

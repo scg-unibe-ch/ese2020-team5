@@ -9,6 +9,7 @@ import {
 } from 'sequelize';
 import {User} from './user.model';
 import {Review} from './review.model';
+import { Transaction } from './transaction.model';
 
 export interface ProductAttributes {
     productId: number;
@@ -30,6 +31,7 @@ export interface ProductCreationAttributes extends Optional<ProductAttributes, '
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
     public static associations: {
         reviews: Association<Product, Review>;
+        transactions: Association<Product, Transaction>;
     };
 
     productId!: number;
@@ -113,9 +115,13 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             as: 'user',
             onDelete: 'cascade',
             foreignKey: 'userId'
-        }),
+        });
         Product.hasMany(Review, {
             as: 'reviews',
+            foreignKey: 'productId'
+        });
+        Product.hasMany(Transaction, {
+            as: 'transaction',
             foreignKey: 'productId'
         });
     }
