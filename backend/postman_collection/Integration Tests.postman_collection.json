@@ -1307,6 +1307,171 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ShoppingCart Tests",
+			"item": [
+				{
+					"name": "empty Shopping Cart error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "21e1f828-c413-4812-afa7-75a3d46be85a",
+								"exec": [
+									"pm.test(\"User should be able to buy its shopping cart\",() => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/cart/buy",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ShoppingCart entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0d06ef75-8677-4743-9551-a815e30a1084",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Check the response attributes\", () => {",
+									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
+									"    pm.expect(responseJson.buyerId).to.be.an('number');",
+									"    pm.expect(responseJson.productId).to.eql(1);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/1",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ShoppingCart with wrong productId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a0b7a21-25a7-4810-8862-edf7fd3a67ee",
+								"exec": [
+									"pm.test(\"Return error if the product is not found\",() => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/5",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "successfull buy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1278098f-986f-444f-a0ca-07daa60ec5c2",
+								"exec": [
+									"pm.test(\"User should be able to buy its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/cart/buy",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Test the transactions",
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
@@ -1364,12 +1529,12 @@
 	],
 	"variable": [
 		{
-			"id": "dc821e2a-abbd-434c-b9f8-92a7aa9d4a49",
+			"id": "01ee2a14-dcf3-437a-a099-1b23e1a364c1",
 			"key": "currentAccessToken",
 			"value": ""
 		},
 		{
-			"id": "5ba1e863-bc90-424c-bbf0-c3253a058a3e",
+			"id": "67d65e4a-afe1-4992-b169-35147c28db77",
 			"key": "uri",
 			"value": "localhost:3000"
 		}

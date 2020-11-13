@@ -5,17 +5,23 @@ import { Product } from './product.model';
 export interface ShoppingCartAttributes {
     buyerId: number;
     productId: number;
+    amountOrTime: number;
 }
 
 export class ShoppingCart extends Model<ShoppingCartAttributes> implements ShoppingCartAttributes {
 
     buyerId!: number;
     productId!: number;
+    amountOrTime!: number;
 
     public static initialize(sequelize: Sequelize) {
         ShoppingCart.init(
             {
                 buyerId: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
+                },
+                amountOrTime: {
                     type: DataTypes.INTEGER,
                     allowNull: false
                 },

@@ -8,7 +8,7 @@ export interface TransactionAttributes {
     sellerId: number;
     pricePerUnit: number;
     priceTotal: number;
-    amount: number;
+    amountOrTime: number;
     productName: string;
     productId: number;
 }
@@ -22,7 +22,7 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
     sellerId!: number;
     pricePerUnit!: number;
     priceTotal!: number;
-    amount!: number;
+    amountOrTime!: number;
     productName!: string;
     productId!: number;
 
@@ -50,7 +50,7 @@ export class Transaction extends Model<TransactionAttributes, TransactionCreatio
                     type: DataTypes.INTEGER,
                     allowNull: false
                 },
-                amount: {
+                amountOrTime: {
                     type: DataTypes.INTEGER,
                     allowNull: false
                 },
