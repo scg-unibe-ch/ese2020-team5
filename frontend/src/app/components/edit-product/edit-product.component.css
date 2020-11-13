@@ -39,11 +39,17 @@
   min-height: 150px;
 }
 
-.edit-component-content mat-checkbox {
-  display: block;
+.input-mat-prefix {
+  position: relative;
+  top: -4px;
+}
+
+.checkbox-container mat-checkbox {
+  margin-right: 15px;
 }
 
 .checkbox-container {
+  margin-bottom: 25px;
   grid-column-start: 1;
   grid-column-end: 7;
 }
@@ -99,18 +105,11 @@
 @media only screen and (max-width: 1000px) {
   .edit-component-content {
     width: 90%;
+    padding: 0;
     border: none;
   }
 
   .edit-product-btn {
     width: 250px;
   }
-}
-
-:host ::ng-deep .loading mat-spinner svg circle {
-  stroke: #131313;
-}
-
-:host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-ripple-element {
-  background-color: #131313;
 }
