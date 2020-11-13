@@ -9,9 +9,9 @@ export class Product {
     public sellOrLend: number,
     public price: number,
     public priceKind: number,
-    public status: number,
-    public deliverable: number,
-    public approved: number,
+    public status: boolean,
+    public deliverable: boolean,
+    public approved: boolean,
     public userId: number
   ) {}
 }
