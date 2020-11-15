@@ -13,7 +13,7 @@ export class ProductService {
     public update(req: Request, userId: number ): Promise<ProductAttributes> {
        return Product.findByPk(req.params.id)
             .then(product => {
-                if (!product) {
+                if (!!product) {
                     return User.findByPk(userId).then(user => {
                         if (user.isAdmin !== 1 && (product.userId !== userId || req.body.hasOwnProperty('approved'))) {
                             return Promise.reject('You are not authorized to do this!');
@@ -35,7 +35,7 @@ export class ProductService {
     public delete(req: Request, userId: number): Promise<ProductAttributes> {
         return Product.findByPk(req.params.id)
             .then(product => {
-                if (!product) {
+                if (!!product) {
                     return User.findByPk(userId).then(user => {
                         if (user.isAdmin !== 1 && product.userId !== userId) {
                             return Promise.reject('You are not authorized to do this!');
