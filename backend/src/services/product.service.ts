@@ -5,21 +5,23 @@ import {Request} from 'express';
 export class ProductService {
 
     public create(product: ProductAttributes): Promise<ProductAttributes> {
-        return Product.create(product).then(created => Promise.resolve(created)).catch(err => Promise.reject(err));
+        return Product.create(product)
+            .then(created => Promise.resolve(created))
+            .catch(err => Promise.reject(err));
     }
 
     public update(req: Request, userId: number ): Promise<ProductAttributes> {
        return Product.findByPk(req.params.id)
-            .then(found => {
-                if (found != null) {
+            .then(product => {
+                if (!product) {
                     return User.findByPk(userId).then(user => {
-                        if (user.isAdmin !== 1 && (found.userId !== userId || req.body.hasOwnProperty('approved'))) {
+                        if (user.isAdmin !== 1 && (product.userId !== userId || req.body.hasOwnProperty('approved'))) {
                             return Promise.reject('You are not authorized to do this!');
                         } else {
                             // if (found.userId == userId && req.body.has('approved')) {
                             //      return Promise.reject('You are not auth
-                            return found.update(req.body).then(() => {
-                                return Promise.resolve(found);
+                            return product.update(req.body).then(() => {
+                                return Promise.resolve(product);
                             }).catch(err => Promise.reject(err));
                         }
                     });
@@ -32,19 +34,19 @@ export class ProductService {
 
     public delete(req: Request, userId: number): Promise<ProductAttributes> {
         return Product.findByPk(req.params.id)
-            .then(found => {
-                if (found != null) {
+            .then(product => {
+                if (!product) {
                     return User.findByPk(userId).then(user => {
-                        if (user.isAdmin !== 1 && found.userId !== userId) {
+                        if (user.isAdmin !== 1 && product.userId !== userId) {
                             return Promise.reject('You are not authorized to do this!');
                         } else {
-                            return found.destroy()
-                                .then(() => Promise.resolve(found))
+                            return product.destroy()
+                                .then(() => Promise.resolve(product))
                                 .catch(err => Promise.reject(err));
                         }
                     });
                 } else {
-                    return Promise.reject(found);
+                    return Promise.reject(product);
                 }
             })
             .catch(err => Promise.reject(err));
