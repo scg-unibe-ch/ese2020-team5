@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-product',
@@ -17,7 +17,6 @@ export class EditProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router,
     private formBuilder: FormBuilder
   ) { }
 
@@ -40,17 +39,18 @@ export class EditProductComponent implements OnInit {
       description: [this.product.description, [Validators.required]],
       location: [this.product.location, [Validators.required]],
       sellOrLend: [this.product.sellOrLend, [Validators.required]],
-      price: [this.product.price, [Validators.required]],
+      price: [this.product.price, [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       priceKind: [this.product.priceKind, [Validators.required]],
       status: [this.product.status, [Validators.required]],
       deliverable: [this.product.deliverable, [Validators.required]]
     });
-    if (!this.product.status) {
-      this.productForm.get('status').setValue(0);
-    }
     this.productForm.get('type').valueChanges.subscribe(x => {
       if (x === 1) {
         this.productForm.get('sellOrLend').setValue(0);
+        this.productForm.get('deliverable').setValue(false);
+      }
+      if ((x === 0) && this.productForm.get('priceKind').value !== 0) {
+        this.productForm.get('sellOrLend').setValue(1);
       }
     });
     this.productForm.get('priceKind').valueChanges.subscribe(x => {
@@ -63,15 +63,15 @@ export class EditProductComponent implements OnInit {
   updateProduct(): void {
     this.productService.updateProduct(Object.assign({ productId: this.product.productId }, this.productForm.value))
       .then(() => {
-        this.router.navigate([
+        location.assign(
           (this.route.snapshot.queryParams.link) ? this.route.snapshot.queryParams.link : ('/product/' + this.id)
-        ]);
+        );
       });
   }
 
   cancelUpdate(): void {
-    this.router.navigate([
+    location.assign(
       (this.route.snapshot.queryParams.link) ? this.route.snapshot.queryParams.link : ('/product/' + this.id)
-    ]);
+    );
   }
 }
