@@ -45,13 +45,13 @@
 }
 
 .search-container {
-  display: inline-flex;
+  display: inline;
   position: relative;
-  width: 30%;
+  width: 40%;
   font-size: 15px;
   vertical-align: middle;
   margin-top: 15px;
-  left: calc(15% - 35px);
+  left: 5%;
 }
 
 .search {
@@ -134,7 +134,7 @@ input.mat-input-element {
   }
 
   .search-container {
-    left: calc(-25px);
+    left: 5%;
   }
 
   .logo mat-icon {
@@ -154,12 +154,19 @@ input.mat-input-element {
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 800px) {
   .search-container {
     left: calc(5% - 30px);
-    display: inline;
+    width: 30%;
   }
-  .createListing-btn {
+}
+
+@media only screen and (max-width: 600px) {
+  .search-container {
+    
+    width: 40%;
+  }
+  .createListing-btn{
     display: none;
   }
 }
