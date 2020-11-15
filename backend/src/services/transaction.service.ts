@@ -8,7 +8,7 @@ export class TransactionService {
 
         return Product.findByPk(shoppingCartEntry.productId)
             .then(product => {
-                if (product === null ) {
+                if (!product) {
                     return Promise.reject('Product not found');
                 } else {
                     // Create a transaction out of the entries added
