@@ -21,7 +21,9 @@ export interface UserAttributes {
     country: string;
     city: string;
     zipCode: string;
+    street: string;
     phoneNr: string;
+    credits: number;
     isAdmin: number;
 }
 
@@ -46,9 +48,11 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     firstName: string;
     gender: string;
     country: string;
+    street: string;
     city: string;
     zipCode: string;
     phoneNr: string;
+    credits: number;
     isAdmin: number;
 
     public static initialize(sequelize: Sequelize) {
@@ -84,6 +88,9 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             country: {
                 type: DataTypes.STRING
             },
+            street: {
+                type: DataTypes.STRING
+            },
             city: {
                 type: DataTypes.STRING
             },
@@ -92,6 +99,9 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             },
             phoneNr: {
                 type: DataTypes.STRING
+            },
+            credits: {
+                type: DataTypes.INTEGER
             },
             isAdmin: {
                 type: DataTypes.INTEGER
@@ -124,9 +134,11 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             lastName: 'istrator',
             gender: 'male',
             country: 'Switzerland',
+            street: 'Bahnhof 1',
             city: 'Bern',
             zipCode: '3000',
             phoneNr: '123 123 12 12',
+            credits: 1000,
             isAdmin: 1
         }).then(admin => Promise.resolve(admin)).catch(err => Promise.reject(err));
 
@@ -138,9 +150,11 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             lastName: 'user',
             gender: 'female',
             country: 'Switzerland',
+            street: 'Bahnhof 1',
             city: 'Fribourg',
             zipCode: '1700',
             phoneNr: '123 456 78 90',
+            credits: 10,
             isAdmin: 0
         }).then(admin => Promise.resolve(admin)).catch(err => Promise.reject(err));
     }
