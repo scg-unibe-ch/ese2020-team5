@@ -51,6 +51,7 @@
   font-size: 15px;
   vertical-align: middle;
   margin-top: 15px;
+  left: calc(15% - 35px);
 }
 
 .search {
@@ -155,7 +156,10 @@ input.mat-input-element {
 
 @media only screen and (max-width: 700px) {
   .search-container {
-    left: calc(50% - 25px);
+    left: calc(5% - 30px);
+    display: inline;
   }
-
+  .createListing-btn {
+    display: none;
+  }
 }
