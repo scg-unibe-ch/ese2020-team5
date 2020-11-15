@@ -63,7 +63,7 @@ export class ProductService {
                     return Promise.resolve(product);
                 } else {
                     return User.findByPk(userId).then(user => {
-                        if (user.isAdmin !== 1) {
+                        if (user.isAdmin !== 1 && userId !== product.userId) {
                             return Promise.reject('You are not authorized to do this!');
                         } else {
                             return Promise.resolve(product);
