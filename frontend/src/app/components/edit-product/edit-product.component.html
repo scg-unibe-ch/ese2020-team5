@@ -3,8 +3,7 @@
 </div>
 <div *ngIf="product">
   <form [formGroup]="productForm" (ngSubmit)="updateProduct()" class="edit-component-content">
-    <h1>Edit Product '{{product.title}} #{{product.productId}}'</h1>
-    <hr>
+    <h1><strong>Edit:</strong> '{{product.title}} #{{product.productId}}'</h1>
     <mat-form-field appearance="outline" class="product-type">
       <mat-label>Product Type*</mat-label>
       <mat-select formControlName="type">
@@ -24,15 +23,15 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="price">
       <mat-label>Price*</mat-label>
-      <input matInput type="text" formControlName="price">
-      <span matPrefix class="input-mat-prefix">$&nbsp;</span>
+      <input matInput type="number" formControlName="price">
+      <span matPrefix class="input-mat-prefix">CHF&nbsp;</span>
       <mat-error *ngIf="productForm.controls.price.hasError('required')">Price required!</mat-error>
       <mat-error *ngIf="productForm.controls.price.hasError('pattern')">Invalid format! Please type the price in 0.00 format!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="price-type">
       <mat-label>Price Type*</mat-label>
       <mat-select formControlName="priceKind">
-        <mat-option [value]=0>-</mat-option>
+        <mat-option [value]=0>Fixed</mat-option>
         <mat-option [value]=1>per hour</mat-option>
         <mat-option [value]=2>per day</mat-option>
       </mat-select>
@@ -57,5 +56,6 @@
       <button mat-stroked-button type="submit" class="black-btn edit-product-btn" [disabled]="this.productForm.invalid">Update</button>
       <button mat-stroked-button type="button" class="black-btn edit-product-btn" (click)="cancelUpdate()">Cancel</button>
     </div>
+    
   </form>
 </div>

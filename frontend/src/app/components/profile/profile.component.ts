@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -12,11 +15,17 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   secureEndpointResponse = '';
   userNameOrEmail = '';
+  profileForm: FormGroup;
+  user: User = null;
+  id: number;
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +49,10 @@ export class ProfileComponent implements OnInit {
       zipCode: [this.user.zipCode, [Validators.required]],
       phoneNr: [this.user.phoneNr, [Validators.required]]
     });
+  }
+
+  updateProfile(): void {
+    this.userService.updateProfile(Object.assign({ userId: this.user.userId }, this.profileForm.value))
   }
 
   logout(): void {

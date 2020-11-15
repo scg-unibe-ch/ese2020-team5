@@ -22,27 +22,21 @@
 .logo {
   display: inline;
   position: relative;
-  top: 12px;
   left: 8%;
 }
 
 .logo a {
-  color: #ffffff;
-  font-size: 25px;
+  color: #000000;
+  font-size: 30px;
   text-decoration: none;
 }
 
 .logo mat-icon {
   cursor: pointer;
   position: relative;
+  color: #000000;
   top: 2px;
-  color: #ffffff;
   display: none;
-}
-
-.nav-entries {
-  float: right;
-  position: relative;
 }
 
 .search-container {
@@ -70,7 +64,6 @@ input.mat-input-element {
   float: right;
   display: inline;
   position: relative;
-  top: 4px;
   right: 7%;
 }
 
@@ -79,12 +72,12 @@ input.mat-input-element {
 }
 
 .my-account {
-  color: #d7d7d7;
+  color: #303030;
   cursor: pointer;
 }
 
 .my-account:hover {
-  color: #ffffff;
+  color: #000000;
 }
 
 .my-account h3 {
@@ -118,55 +111,10 @@ input.mat-input-element {
   top: 7px;
 }
 
-.my-account-bg {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-}
-
-.my-account-content {
-  display: block;
-  visibility: hidden;
-  position: absolute;
-  float: right;
-  z-index: 2;
-  top: 50px;
-  min-width: 200px;
-  margin: 0;
-  background-image: radial-gradient(ellipse farthest-side at center top, #2f2f2f 0%, #131313 100%);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-.my-account-content-section {
-  display: block;
-  padding: 4px 0 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-}
-
-.my-account-content-section a {
-  margin-left: 20px;
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-}
-
-.my-account-content-section a:hover {
-  color: rgba(255, 255, 255, 1);
-  cursor: pointer;
-}
-
-.my-account-content-section a:active {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.my-account-content-section mat-icon {
-  position: relative;
-  top: 7px;
-  margin-right: 8px;
+.createListing-btn {
+  border: 1px solid #0000001F;
+  border-radius: 4px;
+  margin-right: 25px;
 }
 
 @media only screen and (max-width: 1400px) {

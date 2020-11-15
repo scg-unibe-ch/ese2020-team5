@@ -13,19 +13,12 @@
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-column-gap: 15px;
   padding: 25px;
-  border: 1px solid #a7a7a7;
 }
 
 .edit-component-content h1 {
-  margin-bottom: 0;
-  text-align: center;
-  grid-column-start: 1;
-  grid-column-end: 7;
-}
-
-.edit-component-content hr {
-  margin: 10px 0 25px;
-  width: 100%;
+  font-size: 3em;
+  margin-bottom: 0.7em;
+  text-align: left;
   grid-column-start: 1;
   grid-column-end: 7;
 }
@@ -41,7 +34,7 @@
 
 .input-mat-prefix {
   position: relative;
-  top: -4px;
+  top: -3.5px;
 }
 
 .checkbox-container mat-checkbox {

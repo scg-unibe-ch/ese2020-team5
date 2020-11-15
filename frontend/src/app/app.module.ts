@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { MatMenuModule} from '@angular/material/menu';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -80,6 +80,7 @@ import { ProductStatusIconComponent } from './components/custom/product-status-i
     MatCardModule,
     MatTabsModule,
     MatToolbarModule,
+    MatMenuModule,
     AppRoutingModule,
     ReactiveFormsModule,
     MatSelectModule,
