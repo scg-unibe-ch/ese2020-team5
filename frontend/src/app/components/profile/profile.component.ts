@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute,Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,17 +12,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class ProfileComponent implements OnInit {
   secureEndpointResponse = '';
   userNameOrEmail = '';
-  profileForm: FormGroup;
-  user: User = null;
-  id: number;
 
   constructor(
     private authService: AuthService,
     private httpClient: HttpClient,
-    private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private formBuilder: FormBuilder
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +41,6 @@ export class ProfileComponent implements OnInit {
       phoneNr: [this.user.phoneNr, [Validators.required]]
     });
   }
-  
 
   logout(): void {
     this.authService.logout();
@@ -64,9 +54,4 @@ export class ProfileComponent implements OnInit {
       this.secureEndpointResponse = 'Unauthorized';
     });
   }
-
-  updateProfile(): void {
-    this.userService.updateProfile(Object.assign({ userId: this.user.userId }, this.profileForm.value))
-  }
-
 }
