@@ -40,6 +40,7 @@ export class Server {
         Product.createAssociations();
         User.createAssociations();
         Transaction.createAssociations();
+        ShoppingCart.createAssociations();
 
         this.sequelize.sync({force: true}).then(() => {                // create connection to the database
             User.createDefaultUsers();                           // create a default admin user and a default normal user

@@ -59,17 +59,37 @@ export class ShoppingCartService {
 
     public buy(buyerId: number): Promise<string> {
         const transactionService = new TransactionService();
+        let totalPrice = 0;
+        let userCredits = 0;
 
-        return ShoppingCart.findAll( {where: {buyerId: buyerId }})
+        return User.findByPk(buyerId)
+            .then(user => userCredits = user.credits)
+            .then(() => ShoppingCart.findAll( {where: {buyerId: buyerId }}))
             .then( shoppingCartEntries => {
                 if (shoppingCartEntries.length === 0) {
                     return Promise.reject('Shopping Cart is empty!');
+                }
+                for (let i = 0; i < shoppingCartEntries.length; i++) {
+                    shoppingCartEntries[i].getProduct()
+                        .then(product => {
+                            console.log(product);
+                            totalPrice += product.price;
+                            console.log(totalPrice);
+                        });
+                }
+                return Promise.resolve(shoppingCartEntries);
+            })
+            .then( shoppingCartEntries => {
+                console.log('totalPrice: ' + totalPrice);
+                console.log('userCredits: ' + userCredits);
+                if (totalPrice > userCredits) {
+                    return Promise.reject('You do not have enough credits!');
                 }
                 for ( let i = 0; i < shoppingCartEntries.length; i++) {
                     transactionService.add(shoppingCartEntries[i])
                         .catch(err => Promise.reject(err));
                 }
-                return true;
+                return Promise.resolve(true);
             })
             .then(() => ShoppingCart.findAll({where: {buyerId: buyerId }}))
             .then(shoppingCartEntries => {

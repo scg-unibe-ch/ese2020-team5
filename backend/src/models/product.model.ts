@@ -10,6 +10,7 @@ import {
 import {User} from './user.model';
 import {Review} from './review.model';
 import { Transaction } from './transaction.model';
+import {ShoppingCart} from './shoppingcart.model';
 
 export interface ProductAttributes {
     productId: number;
@@ -31,6 +32,7 @@ export interface ProductCreationAttributes extends Optional<ProductAttributes, '
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
     public static associations: {
         reviews: Association<Product, Review>;
+        shoppingCart: Association<Product, ShoppingCart>;
         transactions: Association<Product, Transaction>;
     };
 
@@ -118,6 +120,10 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
         });
         Product.hasMany(Review, {
             as: 'reviews',
+            foreignKey: 'productId'
+        });
+        Product.hasMany(ShoppingCart, {
+            as: 'shoppingCart',
             foreignKey: 'productId'
         });
         Product.hasMany(Transaction, {
