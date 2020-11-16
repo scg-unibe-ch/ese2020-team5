@@ -63,7 +63,12 @@ export class ShoppingCartService {
         let userCredits = 0;
 
         return User.findByPk(buyerId)
-            .then(user => userCredits = user.credits)
+            .then(user => {
+                userCredits = user.credits;
+                if (user.firstName == null || user.lastName == null || user.city == null || user.country == null || user.street == null) {
+                    return Promise.reject('User information is incomplete, will not be able to deliver');
+                }
+            })
             .then(() => ShoppingCart.findAll( {where: {buyerId: buyerId }}))
             .then( async(shoppingCartEntries) => {
                 if (shoppingCartEntries.length === 0) {
