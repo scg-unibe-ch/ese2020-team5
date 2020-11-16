@@ -29,8 +29,8 @@ export class ShoppingCartService {
                 // TODO: Check if the product is a service or not, if not, check if the amount wanted <= the amount available
                 if (!product) {
                     return Promise.reject('could not find the Product!');
-                } else if ( product.status !== 0) {
-                    return Promise.reject('product ' + product.title + ' is not available!');
+                } else if ( product.status !== 0 || product.approved !== 1) {
+                    return Promise.reject('product ' + product.title + ' is not available or not approved yet!');
                 } else {
                     return ShoppingCart.create(shoppingCartItem);
                 }
@@ -65,18 +65,19 @@ export class ShoppingCartService {
         return User.findByPk(buyerId)
             .then(user => userCredits = user.credits)
             .then(() => ShoppingCart.findAll( {where: {buyerId: buyerId }}))
-            .then( shoppingCartEntries => {
+            .then( async(shoppingCartEntries) => {
                 if (shoppingCartEntries.length === 0) {
                     return Promise.reject('Shopping Cart is empty!');
                 }
+
                 for (let i = 0; i < shoppingCartEntries.length; i++) {
-                    shoppingCartEntries[i].getProduct()
-                        .then(product => {
-                            console.log(product);
-                            totalPrice += product.price;
-                            console.log(totalPrice);
-                        });
+                    totalPrice += await Product.findByPk(shoppingCartEntries[i].productId).then(product => product.price);
                 }
+
+                if (totalPrice > userCredits) {
+                    return Promise.reject('You do not have enough credits!');
+                }
+
                 return Promise.resolve(shoppingCartEntries);
             })
             .then( shoppingCartEntries => {

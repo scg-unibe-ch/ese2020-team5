@@ -46,7 +46,25 @@ export class TransactionService {
                         return Promise.resolve(transaction);
                     })
                     .catch(err => Promise.reject(err));
-            })
+            })/*
+            .then(transaction => {
+                return Product.findByPk(transaction.productId)
+                    .then(product => {
+                        const productUpdate = {};
+                        if (product.type === 1) {
+                            productUpdate.status = 1;
+                        } else {
+                            if ( product.amount - transaction.amountOrTime == 0) {
+                                productUpdate.status = 1;
+                                productUpdate.amount = 0;
+                            } else {
+                                productUpdate.amount = product.amount - transaction.amountOrTime;
+                            }
+                        }
+                        product.update(productUpdate);
+                        return Promise.resolve(transaction);
+                    });
+            })*/
             .then(created => Promise.resolve(created))
             .catch(err => Promise.reject(err));
     }
