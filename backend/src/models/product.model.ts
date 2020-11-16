@@ -158,7 +158,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             priceKind: 0,
             status: 0,
             deliverable: 1,
-            approved: 0,
+            approved: 1,
             userId: 2
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 

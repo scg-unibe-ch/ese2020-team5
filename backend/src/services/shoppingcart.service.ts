@@ -32,7 +32,22 @@ export class ShoppingCartService {
                 } else if ( product.status !== 0 || product.approved !== 1) {
                     return Promise.reject('product ' + product.title + ' is not available or not approved yet!');
                 } else {
-                    return ShoppingCart.create(shoppingCartItem);
+                    return ShoppingCart.findOne({where: {buyerId: buyerId, productId: productId}})
+                        .then(found => {
+                            if (found !== null) {
+                                const updateShoppingCartEntry = {
+                                    amountOrTime: found.amountOrTime + shoppingCartItem.amountOrTime,
+                                    buyerId: buyerId,
+                                    productId: parseInt(productId, 10)
+                                };
+                                return this.update(updateShoppingCartEntry, buyerId, productId)
+                                    .catch(err => Promise.reject(err));
+                            } else {
+                                return ShoppingCart.create(shoppingCartItem)
+                                    .catch(err => Promise.reject(err));
+                            }
+                        })
+                        .catch(err => Promise.reject(err));
                 }
             })
             .then(created => Promise.resolve(created))
@@ -76,7 +91,8 @@ export class ShoppingCartService {
                 }
 
                 for (let i = 0; i < shoppingCartEntries.length; i++) {
-                    totalPrice += await Product.findByPk(shoppingCartEntries[i].productId).then(product => product.price);
+                    totalPrice += await Product.findByPk(shoppingCartEntries[i].productId)
+                        .then(product => product.price * shoppingCartEntries[i].amountOrTime);
                 }
 
                 if (totalPrice > userCredits) {
@@ -86,8 +102,6 @@ export class ShoppingCartService {
                 return Promise.resolve(shoppingCartEntries);
             })
             .then( shoppingCartEntries => {
-                console.log('totalPrice: ' + totalPrice);
-                console.log('userCredits: ' + userCredits);
                 if (totalPrice > userCredits) {
                     return Promise.reject('You do not have enough credits!');
                 }

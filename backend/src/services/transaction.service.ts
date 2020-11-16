@@ -31,8 +31,9 @@ export class TransactionService {
                         const userUpdate = {
                             credits: user.credits - transaction.priceTotal
                         };
-                        user.update(userUpdate);
-                        return Promise.resolve(transaction);
+                        return user.update(userUpdate)
+                            .then(() => Promise.resolve(transaction))
+                            .catch(err => Promise.reject(err));
                     })
                     .catch(err => Promise.reject(err));
             })
@@ -42,8 +43,9 @@ export class TransactionService {
                         const userUpdate = {
                             credits: user.credits + transaction.priceTotal
                         };
-                        user.update(userUpdate);
-                        return Promise.resolve(transaction);
+                        return user.update(userUpdate)
+                            .then(() => Promise.resolve(transaction))
+                            .catch(err => Promise.reject(err));
                     })
                     .catch(err => Promise.reject(err));
             })/*
