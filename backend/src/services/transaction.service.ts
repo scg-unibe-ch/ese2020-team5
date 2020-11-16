@@ -63,8 +63,9 @@ export class TransactionService {
                                 productUpdate.amount = product.amount - transaction.amountOrTime;
                             }
                         }
-                        product.update(productUpdate);
-                        return Promise.resolve(transaction);
+                        return product.update(productUpdate)
+                            .then(() => Promise.resolve(transaction))
+                            .catch(err => Promise.reject(err));
                     });
             })*/
             .then(created => Promise.resolve(created))

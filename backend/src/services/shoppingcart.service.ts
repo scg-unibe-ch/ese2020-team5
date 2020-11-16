@@ -12,7 +12,6 @@ export class ShoppingCartService {
             .catch(err => Promise.reject(err));
     }
 
-    // TODO: If the same product gets added, simply sum up the amountOrTime
     public create(shoppingCartItem: ShoppingCartAttributes, buyerId: number, productId: string): Promise<ShoppingCartAttributes> {
         shoppingCartItem.buyerId = buyerId;
         shoppingCartItem.productId = parseInt(productId, 10);
@@ -26,11 +25,12 @@ export class ShoppingCartService {
                 }
             })
             .then(product => {
-                // TODO: Check if the product is a service or not, if not, check if the amount wanted <= the amount available
                 if (!product) {
                     return Promise.reject('could not find the Product!');
                 } else if ( product.status !== 0 || product.approved !== 1) {
                     return Promise.reject('product ' + product.title + ' is not available or not approved yet!');
+                /*} else if ( product.type === 0 && product.amount < shoppingCartItem.amountOrTime) {
+                    return Promise.reject('The stock of the product ' + product.title + ' is too low: ' + product.amount);*/
                 } else {
                     return ShoppingCart.findOne({where: {buyerId: buyerId, productId: productId}})
                         .then(found => {
