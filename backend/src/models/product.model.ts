@@ -7,8 +7,10 @@ import {
     HasManyGetAssociationsMixin,
     HasManyAddAssociationMixin
 } from 'sequelize';
-import { User } from './user.model';
-import { Review } from './review.model';
+import {User} from './user.model';
+import {Review} from './review.model';
+import { Transaction } from './transaction.model';
+import {ShoppingCart} from './shoppingcart.model';
 import { ProductImage } from './productImage.model';
 
 export interface ProductAttributes {
@@ -24,6 +26,7 @@ export interface ProductAttributes {
     deliverable: number;
     approved: number;
     userId: number;
+    // amount: number;
 }
 
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'productId'> { }
@@ -32,6 +35,8 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     public static associations: {
         reviews: Association<Product, Review>;
         images: Association<Product, ProductImage>
+        shoppingCart: Association<Product, ShoppingCart>;
+        transactions: Association<Product, Transaction>;
     };
 
     productId!: number;
@@ -46,6 +51,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     deliverable!: number; // deliverable == 1: yes, deliverable == 0: no
     approved!: number; // approved == 0: not yet approved from an admin, approved == 1: product approved by an admin
     userId!: number; // FK of user table
+    // amount!: number;
 
     public getReviews!: HasManyGetAssociationsMixin<Review>;
     public addReview!: HasManyAddAssociationMixin<Review, number>;
@@ -98,7 +104,11 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
                     type: DataTypes.INTEGER,
                     // allowNull: false,
                     defaultValue: 0
-                },
+                }, /*
+                amount: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                }, */
                 userId: {
                     type: DataTypes.INTEGER,
                     allowNull: false
@@ -126,6 +136,14 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             as: 'images',
             foreignKey: 'productId'
         });
+        Product.hasMany(ShoppingCart, {
+            as: 'shoppingCart',
+            foreignKey: 'productId'
+        });
+        Product.hasMany(Transaction, {
+            as: 'transaction',
+            foreignKey: 'productId'
+        });
     }
 
     public static createDefaultProduct() {
@@ -140,6 +158,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             status: 0,
             deliverable: 1,
             approved: 0,
+            // amount: 10,
             userId: 1
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 
@@ -154,7 +173,8 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             priceKind: 0,
             status: 0,
             deliverable: 1,
-            approved: 0,
+            approved: 1,
+            // amount: 10,
             userId: 2
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 
@@ -169,6 +189,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             status: 0,
             deliverable: 1,
             approved: 0,
+            // amount: 10,
             userId: 1
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 
@@ -183,7 +204,9 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             status: 0,
             deliverable: 1,
             approved: 0,
+            // amount: 10,
             userId: 2
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
     }
 }
