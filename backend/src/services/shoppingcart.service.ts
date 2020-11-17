@@ -27,7 +27,7 @@ export class ShoppingCartService {
             .then(product => {
                 if (!product) {
                     return Promise.reject('could not find the Product!');
-                } else if ( product.status !== 0 || product.approved !== 1) {
+                } else if ( product.status !== 0 || product.approved !== 1) { // Check if the product is available and approved
                     return Promise.reject('product ' + product.title + ' is not available or not approved yet!');
                 /*} else if ( product.type === 0 && product.amount < shoppingCartItem.amountOrTime) {
                     return Promise.reject('The stock of the product ' + product.title + ' is too low: ' + product.amount);*/
@@ -35,6 +35,8 @@ export class ShoppingCartService {
                     return ShoppingCart.findOne({where: {buyerId: buyerId, productId: productId}})
                         .then(found => {
                             if (found !== null) {
+                                // If there is already a shopping cart entry for this user and that product,
+                                // simply sum up the current amountOrTime and the send amountOrTime value
                                 const updateShoppingCartEntry = {
                                     amountOrTime: found.amountOrTime + shoppingCartItem.amountOrTime,
                                     buyerId: buyerId,
@@ -43,6 +45,7 @@ export class ShoppingCartService {
                                 return this.update(updateShoppingCartEntry, buyerId, productId)
                                     .catch(err => Promise.reject(err));
                             } else {
+                                // If there is no entry with this product from the user, add the entry
                                 return ShoppingCart.create(shoppingCartItem)
                                     .catch(err => Promise.reject(err));
                             }
@@ -80,21 +83,26 @@ export class ShoppingCartService {
         return User.findByPk(buyerId)
             .then(user => {
                 userCredits = user.credits;
+                // Check if the user information is complete
                 if (user.firstName == null || user.lastName == null || user.city == null || user.country == null || user.street == null) {
                     return Promise.reject('User information is incomplete, will not be able to deliver');
                 }
             })
             .then(() => ShoppingCart.findAll( {where: {buyerId: buyerId }}))
             .then( async(shoppingCartEntries) => {
+                // Check if the shopping cart is empty, if yes buy will fail
                 if (shoppingCartEntries.length === 0) {
                     return Promise.reject('Shopping Cart is empty!');
                 }
 
+                // Calculate the total price of the shopping cart
                 for (let i = 0; i < shoppingCartEntries.length; i++) {
                     totalPrice += await Product.findByPk(shoppingCartEntries[i].productId)
                         .then(product => product.price * shoppingCartEntries[i].amountOrTime);
                 }
 
+                // If the price of the shopping cart is higher than the credits of the user
+                // then the checkout should not proceed
                 if (totalPrice > userCredits) {
                     return Promise.reject('You do not have enough credits!');
                 }
@@ -102,17 +110,17 @@ export class ShoppingCartService {
                 return Promise.resolve(shoppingCartEntries);
             })
             .then( shoppingCartEntries => {
-                if (totalPrice > userCredits) {
-                    return Promise.reject('You do not have enough credits!');
-                }
+                // Go through every shopping cart entry and create a transaction
+                // This way, all transactions are stored in the database
                 for ( let i = 0; i < shoppingCartEntries.length; i++) {
                     transactionService.add(shoppingCartEntries[i])
                         .catch(err => Promise.reject(err));
                 }
-                return Promise.resolve(true);
+                return Promise.resolve(shoppingCartEntries);
             })
-            .then(() => ShoppingCart.findAll({where: {buyerId: buyerId }}))
             .then(shoppingCartEntries => {
+                // Delete the shopping cart entries in the database
+                // e.g. clear the shopping cart
                 for ( let i = 0; i < shoppingCartEntries.length; i++) {
                     shoppingCartEntries[i].destroy()
                         .catch(err => Promise.reject(err));

@@ -28,6 +28,7 @@ export class TransactionService {
             .then(transaction => {
                 return User.findByPk(transaction.buyerId)
                     .then(user => {
+                        // first subtract the amount of credits (= amount * price) from the buyer
                         const userUpdate = {
                             credits: user.credits - transaction.priceTotal
                         };
@@ -40,6 +41,7 @@ export class TransactionService {
             .then(transaction => {
                 return User.findByPk(transaction.sellerId)
                     .then(user => {
+                        // Then add the amount of credits (=amount * price) to the seller
                         const userUpdate = {
                             credits: user.credits + transaction.priceTotal
                         };
@@ -48,18 +50,22 @@ export class TransactionService {
                             .catch(err => Promise.reject(err));
                     })
                     .catch(err => Promise.reject(err));
-            })/*
+            }) /*
             .then(transaction => {
                 return Product.findByPk(transaction.productId)
                     .then(product => {
+                        // Update the product (e.g. set as unavailable or decrement the stock
                         const productUpdate = {};
                         if (product.type === 1) {
+                            // if it is a service, it is automatically unavailable
                             productUpdate.status = 1;
                         } else {
+                            // if the resulting amount of a product is 0, it becomes unavailable
                             if ( product.amount - transaction.amountOrTime == 0) {
                                 productUpdate.status = 1;
                                 productUpdate.amount = 0;
                             } else {
+                                // If no special case, simply decrement the amount left of the product
                                 productUpdate.amount = product.amount - transaction.amountOrTime;
                             }
                         }
