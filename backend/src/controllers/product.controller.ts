@@ -23,7 +23,11 @@ productController.get('/', verifyToken, (req: Request, res: Response) => {
 });
 
 productController.get('/catalog', (req: Request, res: Response) => {
-   productService.getCatalog().then(products => res.send(products)).catch(err => res.status(500).send(err));
+   productService.getEntireCatalog().then(products => res.send(products)).catch(err => res.status(500).send(err));
+});
+
+productController.get('/catalog-available', (req: Request, res: Response) => {
+    productService.getAvailableCatalog().then(products => res.send(products)).catch(err => res.status(500).send(err));
 });
 
 productController.get('/admin-catalog', verifyToken, (req: Request, res: Response) => {

@@ -56,8 +56,14 @@ export class ProductService {
             .catch(err => Promise.reject(err));
     }
 
-    public getCatalog(): Promise<Product[]> {
+    public getAvailableCatalog(): Promise<Product[]> {
         return Product.findAll({where: { approved: 1 }, include: [Product.associations.reviews]})
+            .then(list => Promise.resolve(list))
+            .catch(err => Promise.reject(err));
+    }
+
+    public getEntireCatalog(): Promise<Product[]> {
+        return Product.findAll({include: [Product.associations.reviews]})
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
