@@ -13,6 +13,22 @@ import { Transaction } from './transaction.model';
 import {ShoppingCart} from './shoppingcart.model';
 import { ProductImage } from './productImage.model';
 
+export interface ProductUpdate {
+    productId?: number;
+    title?: string;
+    type?: number;
+    description?: string;
+    location?: string;
+    sellOrLend?: number;
+    price?: number;
+    priceKind?: number;
+    status?: number;
+    deliverable?: number;
+    approved?: number;
+    userId?: number;
+    amount?: number;
+}
+
 export interface ProductAttributes {
     productId: number;
     title: string;
