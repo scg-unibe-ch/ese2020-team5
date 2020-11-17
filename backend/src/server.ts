@@ -10,8 +10,9 @@ import { TodoList } from './models/todolist.model';
 import { TodoItem } from './models/todoitem.model';
 import { User } from './models/user.model';
 import { Product } from './models/product.model';
-import {ReviewController} from './controllers/review.controller';
-import {Review} from './models/review.model';
+import { ReviewController } from './controllers/review.controller';
+import { Review } from './models/review.model';
+import { ProductImage } from './models/productImage.model';
 
 import cors from 'cors';
 
@@ -31,6 +32,7 @@ export class Server {
         TodoList.createAssociations();
         User.initialize(this.sequelize);
         Product.initialize(this.sequelize);
+        ProductImage.initialize(this.sequelize);
         Review.initialize(this.sequelize);
         Product.createAssociations();
         User.createAssociations();
