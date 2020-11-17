@@ -34,8 +34,15 @@ import { AdminUserPanelComponent } from './components/admin-user-panel/admin-use
 import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
 import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteUserComponent } from './components/custom/dialog/delete-user/delete-user.component';
 import { ApproveProductComponent } from './components/custom/dialog/approve-product/approve-product.component';
+import { CompactProductListComponent } from './components/custom/compact-product-list/compact-product-list.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { CompactProductCardComponent } from './components/custom/compact-product-card/compact-product-card.component';
+import { ProductStatusIconComponent } from './components/custom/product-status-icon/product-status-icon.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +63,10 @@ import { ApproveProductComponent } from './components/custom/dialog/approve-prod
     ProductComponent,
     CatalogComponent,
     DeleteUserComponent,
-    ApproveProductComponent
+    ApproveProductComponent,
+    CompactProductListComponent,
+    CompactProductCardComponent,
+    ProductStatusIconComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +86,11 @@ import { ApproveProductComponent } from './components/custom/dialog/approve-prod
     MatIconModule,
     MatExpansionModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRippleModule,
+    MatRadioModule,
+    MatTooltipModule,
+    MatButtonToggleModule
   ],
   providers: [
     {

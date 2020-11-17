@@ -1,12 +1,40 @@
 import { ProductAttributes, Product } from '../models/product.model';
 import { User } from '../models/user.model';
-import {Request} from 'express';
-import {Op} from 'sequelize';
+import { Request } from 'express';
+import { ProductImageAttributes, ProductImage } from '../models/productImage.model';
+import { upload, MulterRequest } from '../middlewares/imageUpload';
 
 export class ProductService {
 
     public create(product: ProductAttributes): Promise<ProductAttributes> {
         return Product.create(product).then(created => Promise.resolve(created)).catch(err => Promise.reject(err));
+    }
+
+    public addImage(req: MulterRequest, userId: number): Promise<ProductImageAttributes> {
+        return Product.findByPk(req.params.id)
+            .then(found => {
+                if (!found) {
+                    return Promise.reject('Product not found');
+                } else if (found.userId !== userId) {
+                    return Promise.reject('You are not authorized to do this!');
+                } else {
+                    return new Promise<ProductImageAttributes>((resolve, reject) => {
+                        upload.single('image')(req, null, (error: any) => {
+                            if (req.fileValidationError) {
+                                reject(req.fileValidationError);
+                            } else if (!req.file) {
+                                reject('Please select an image to upload');
+                            } else if (error) {
+                                reject(error);
+                            } else {
+                                ProductImage.create({ fileName: req.file.filename, productId: found.productId })
+                                    .then(created => resolve(created)).catch(err => reject(err));
+                            }
+                        });
+                    });
+                }
+            })
+            .catch(err => Promise.reject(err));
     }
 
     public update(req: Request, userId: number ): Promise<ProductAttributes> {
@@ -52,7 +80,7 @@ export class ProductService {
     }
 
     public getAll(userId: number): Promise<Product[]> {
-        return Product.findAll({where: { userId: userId }, include: [Product.associations.reviews]})
+        return Product.findAll({where: { userId: userId }, include: [Product.associations.reviews, Product.associations.images]})
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
@@ -70,13 +98,13 @@ export class ProductService {
     }
 
     public getEntireCatalog(): Promise<Product[]> {
-        return Product.findAll({where: {approved: 1}, include: [Product.associations.reviews]})
+        return Product.findAll({where: {approved: 1}, include: [Product.associations.reviews,Product.associations.images]})
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
 
     public getAdminCatalog(userId: number): Promise<Product[]> {
-        return Product.findAll({where: { approved: 0 }})
+        return Product.findAll({where: { approved: 0 }, include: [Product.associations.images]})
             .then(list => {
                 return User.findByPk(userId).then(user => {
                     if (user.isAdmin !== 1) {
