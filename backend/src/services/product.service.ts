@@ -1,6 +1,7 @@
 import { ProductAttributes, Product } from '../models/product.model';
 import { User } from '../models/user.model';
 import {Request} from 'express';
+import {Op} from 'sequelize';
 
 export class ProductService {
 
@@ -57,13 +58,19 @@ export class ProductService {
     }
 
     public getAvailableCatalog(): Promise<Product[]> {
-        return Product.findAll({where: { approved: 1 }, include: [Product.associations.reviews]})
+        return Product.findAll({
+            where: {
+                [Op.or]: [
+                    {status: 1},
+                    {approved: 1}]
+            }
+        })
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
 
     public getEntireCatalog(): Promise<Product[]> {
-        return Product.findAll({include: [Product.associations.reviews]})
+        return Product.findAll({where: {approved: 1}, include: [Product.associations.reviews]})
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
