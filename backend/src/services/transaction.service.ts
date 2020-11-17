@@ -55,7 +55,8 @@ export class TransactionService {
                 return Product.findByPk(transaction.productId)
                     .then(product => {
                         // Update the product (e.g. set as unavailable or decrement the stock
-                        const productUpdate = {};
+                        const productUpdate = {
+                        };
                         if (product.type === 1) {
                             // if it is a service, it is automatically unavailable
                             productUpdate.status = 1;
