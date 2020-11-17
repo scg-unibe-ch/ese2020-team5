@@ -51,8 +51,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  updateProfile(): void {
-    this.userService.updateProfile(Object.assign({ userId: this.user.userId }, this.profileForm.value))
+  updateUser(): void {
+    this.userService.updateUser(Object.assign({ userId: this.user.userId }, this.profileForm.value))
   }
 
   logout(): void {

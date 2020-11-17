@@ -8,7 +8,7 @@
       {{ secureEndpointResponse }}
     </div>
   -->
-    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="profile-form-fields">
+    <form [formGroup]="profileForm" (ngSubmit)="updateUser()" class="profile-form-fields">
       <div class="grid-container">
         <mat-form-field appearance="outline" class="first-name">
           <mat-label>{{user.firstName}}</mat-label>
