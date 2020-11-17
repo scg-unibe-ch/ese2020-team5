@@ -1,6 +1,7 @@
 import express, { Router, Request, Response } from 'express';
 import { ProductService } from '../services/product.service';
 import { verifyToken, getUserId } from '../middlewares/checkAuth';
+import { MulterRequest } from '../middlewares/imageUpload';
 
 const productController: Router = express.Router();
 
@@ -8,6 +9,10 @@ const productService = new ProductService();
 
 productController.post('/', verifyToken, (req: Request, res: Response) => {
     productService.create(req.body).then(created => res.send(created)).catch(err => res.status(500).send(err));
+});
+
+productController.post('/:id/image', verifyToken, (req: MulterRequest, res: Response) => {
+    productService.addImage(req, getUserId(req)).then(created => res.send(created)).catch(err => res.status(500).send(err));
 });
 
 productController.put('/:id', verifyToken, (req: Request, res: Response) => {
