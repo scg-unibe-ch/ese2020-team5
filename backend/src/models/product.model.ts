@@ -11,6 +11,7 @@ import {User} from './user.model';
 import {Review} from './review.model';
 import { Transaction } from './transaction.model';
 import {ShoppingCart} from './shoppingcart.model';
+import { ProductImage } from './productImage.model';
 
 export interface ProductAttributes {
     productId: number;
@@ -33,6 +34,7 @@ export interface ProductCreationAttributes extends Optional<ProductAttributes, '
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
     public static associations: {
         reviews: Association<Product, Review>;
+        images: Association<Product, ProductImage>
         shoppingCart: Association<Product, ShoppingCart>;
         transactions: Association<Product, Transaction>;
     };
@@ -53,6 +55,8 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
 
     public getReviews!: HasManyGetAssociationsMixin<Review>;
     public addReview!: HasManyAddAssociationMixin<Review, number>;
+    public getImages!: HasManyGetAssociationsMixin<ProductImage>;
+    public addImage!: HasManyAddAssociationMixin<ProductImage, number>;
 
     public static initialize(sequelize: Sequelize) {
         Product.init({
@@ -126,6 +130,10 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
         });
         Product.hasMany(Review, {
             as: 'reviews',
+            foreignKey: 'productId'
+        });
+        Product.hasMany(ProductImage, {
+            as: 'images',
             foreignKey: 'productId'
         });
         Product.hasMany(ShoppingCart, {

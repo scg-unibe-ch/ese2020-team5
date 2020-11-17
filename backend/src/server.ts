@@ -13,6 +13,7 @@ import { TodoItem } from './models/todoitem.model';
 import { User } from './models/user.model';
 import { Product } from './models/product.model';
 import { Review } from './models/review.model';
+import { ProductImage } from './models/productImage.model';
 import { Transaction } from './models/transaction.model';
 import { ShoppingCart} from './models/shoppingcart.model';
 
@@ -34,6 +35,7 @@ export class Server {
         TodoList.createAssociations();
         User.initialize(this.sequelize);
         Product.initialize(this.sequelize);
+        ProductImage.initialize(this.sequelize);
         Review.initialize(this.sequelize);
         Transaction.initialize(this.sequelize);
         ShoppingCart.initialize(this.sequelize);

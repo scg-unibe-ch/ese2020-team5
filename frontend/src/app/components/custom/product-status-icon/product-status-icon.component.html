@@ -1,0 +1,6 @@
+<div class="status-circle"
+     matTooltipPosition="right"
+     matTooltip="Status: {{(product && product.status) ? 'Available' : 'Not available'}}&#13;Deliverable: {{(product && product.deliverable) ? 'Yes' : 'No'}}">
+  <div class="deliverable-semi-circle {{(product && product.deliverable) ? 'filled' : ''}}"></div>
+  <div class="available-semi-circle {{(product && product.status) ? 'filled' : ''}}"></div>
+</div>
