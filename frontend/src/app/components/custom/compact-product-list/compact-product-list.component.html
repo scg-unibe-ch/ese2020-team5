@@ -1,0 +1,24 @@
+<div class="{{view === 'customer' ? 'compact-product-list clickable' : 'compact-product-list'}}" (click)="view === 'customer' ? navigateToProduct() : {}">
+  <div class="product-image">
+    <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}" class="image" alt="">
+    <div *ngIf="!product.images || !product.images[0]" class="default-image">
+      <mat-icon [inline]="true">category</mat-icon>
+    </div>
+  </div>
+  <div class="status-info">
+    <app-product-status-icon [product]="product"></app-product-status-icon>
+  </div>
+  <div class="{{view === 'customer' ? 'product-title customer-view' : 'product-title editor-view'}}">
+    <a *ngIf="view !== 'customer'" href="product/{{product.productId}}"><h2>{{product.title}}</h2></a>
+    <h2 *ngIf="view === 'customer'">{{product.title}}</h2>
+  </div>
+  <div class="product-price">
+    <strong>{{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
+  </div>
+  <div class="{{view === 'customer' ? 'product-description customer-view' : 'product-description editor-view'}}">{{product.description}}</div>
+  <div class="product-btn-container">
+    <button *ngIf="view === 'admin' && !product.approved" mat-stroked-button (click)="approveProduct()">APPROVE</button>
+    <button *ngIf="view === 'owner'" mat-stroked-button (click)="editProduct()">EDIT</button>
+    <button *ngIf="view === 'owner' || view === 'admin'" mat-stroked-button (click)="deleteProduct()" class="red-btn">DELETE</button>
+  </div>
+</div>

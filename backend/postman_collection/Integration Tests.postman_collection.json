@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f0bf7359-3e01-4130-aba8-dc80ba28d6b9",
+		"_postman_id": "d5ac8a5e-0f33-47a3-a05c-7d14c0d79627",
 		"name": "Integration Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "19482f39-fcbc-4de1-92dc-8137a7f8973a",
+								"id": "b777665b-4805-4bc2-ade8-4475d4593674",
 								"exec": [
 									"pm.test(\"User should not login test\", function() {",
 									"    pm.response.to.have.status(500);",
@@ -56,7 +56,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c5e84843-a0e6-48c5-8340-3c7f49a6680a",
+								"id": "9261cfa3-f29a-4f0f-80b9-f7f18f351e50",
 								"exec": [
 									"pm.test(\"User user should be able to login\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -109,7 +109,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ad6ac3a3-027f-429e-a324-cfe8e9620033",
+								"id": "6fc739cc-edc0-40b4-ba2e-7d37015b6b96",
 								"exec": [
 									"pm.test(\"User admin should be able to login\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -161,7 +161,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bc9cb9b6-a78e-473f-8e80-4b076bce44c7",
+								"id": "417b6180-b8ba-4809-ba0c-26fca939ad44",
 								"exec": [
 									"pm.test(\"Registration should be possible\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -203,7 +203,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "39006c1c-f998-4681-a852-eab903ff5587",
+								"id": "6694ea04-0560-478b-9a85-0a990c223c71",
 								"exec": [
 									"pm.test(\"Guest should be unable to register with already used username\", () => {",
 									"    pm.response.to.have.status(500);",
@@ -245,7 +245,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0ad87818-8674-47cb-aa75-5c5475d8c1f2",
+								"id": "b3d4cf95-df7a-4561-ba70-b047e0faa56a",
 								"exec": [
 									"pm.test(\"Guest should be unable to register with already used email\", () => {",
 									"    pm.response.to.have.status(500);",
@@ -287,7 +287,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3010517c-8384-46b8-b39e-c9bceb3fd1c2",
+								"id": "fb0819ca-e90e-45d1-863d-76608d557fc8",
 								"exec": [
 									"pm.test(\"Guest should be unable to register if he forgot some attributes\", () => {",
 									"    pm.response.to.have.status(500);",
@@ -332,7 +332,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "c52b328f-841f-41f0-9e47-0f10d5c244f8",
+						"id": "8388b299-0cb6-4ae9-99ac-13b960adef09",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -342,7 +342,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "39711fd4-2a3d-4628-9ce4-c86fd4298b11",
+						"id": "e7f31f95-86fa-41f9-b38c-659e65952ef7",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -361,7 +361,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "14e7a0ba-bccc-4d7c-b85d-3ea2382b83a3",
+								"id": "d5622f15-e0a4-4ffd-a3ce-34cb420c3d24",
 								"exec": [
 									"const responseJson = pm.response.json();",
 									"",
@@ -409,6 +409,446 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "ShoppingCart Tests",
+			"item": [
+				{
+					"name": "empty Shopping Cart error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a467fcc-1398-46ec-b27c-d34078597798",
+								"exec": [
+									"pm.test(\"User should be able to buy its shopping cart\",() => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/cart/buy",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ShoppingCart entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f9731ee-e2a3-4a3f-8bb5-7dd7eea05068",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Check the response attributes\", () => {",
+									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
+									"    pm.expect(responseJson.buyerId).to.be.an('number');",
+									"    pm.expect(responseJson.productId).to.eql(2);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a36dac76-bf28-4732-bf92-eb88b04b3e6c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add same product = update amountOrTime",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "271908f5-0a2b-4b3c-a312-8855e663d881",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Check the response attributes\", () => {",
+									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
+									"    pm.expect(responseJson.buyerId).to.be.an('number');",
+									"    pm.expect(responseJson.productId).to.eql(2);",
+									"    pm.expect(responseJson.amountOrTime).to.be.eql(8);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c963489e-4094-4e60-8928-52ce85f46fd8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get ShoppingCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9a1184c5-c267-44f5-919f-7e0613d815f5",
+								"exec": [
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update ShoppingCart entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "89b65791-ac3f-42d6-ba59-bf67e2dd7462",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Check the response attributes\", () => {",
+									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
+									"    pm.expect(responseJson.buyerId).to.be.an('number');",
+									"    pm.expect(responseJson.productId).to.eql(2);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete ShoppingCart entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c8319f8f-1c31-4a07-bbd4-57968b358ee9",
+								"exec": [
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/cart/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ShoppingCart with wrong productId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ea2aa882-e5b9-4572-8d22-8fc8c5f1fc26",
+								"exec": [
+									"pm.test(\"Return error if the product is not found\",() => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/100",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ShoppingCart with unapproved product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "17214e2e-3088-4e52-84ce-f1258c6d6a19",
+								"exec": [
+									"pm.test(\"Return error if the product is not approved\",() => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/cart/1",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "successfull buy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "49d65171-b9c7-4ff4-843a-4b95d12a95d0",
+								"exec": [
+									"if (pm.environment.get('userId') == 1 ) {",
+									"    pm.test(\"Admin should be able to buy its shopping cart\",() => {",
+									"        pm.response.to.have.status(200);",
+									"    })",
+									"} else {",
+									"    pm.test(\"User won't have enough credits\", () => {",
+									"        pm.response.to.have.status(500);",
+									"    })",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6590719b-eec8-4904-8c6c-9ba7a671b00d",
+								"exec": [
+									"const echoPostRequest = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/cart/2',",
+									"  method: 'POST',",
+									"  header: {",
+									"      'Content-Type': 'application/json',",
+									"      'Authorization': 'Bearer ' + pm.environment.get('currentAccessToken')",
+									"    },",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            amountOrTime: pm.environment.get('deleteUserId2')",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"pm.sendRequest(echoPostRequest, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/cart/buy",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"cart",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Test the transactions",
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Product Tests",
 			"item": [
 				{
@@ -417,7 +857,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d19e7430-eac1-40db-a84a-515fecbce9d3",
+								"id": "0983bce5-79e7-47db-8a20-467ac1a5512b",
 								"exec": [
 									"const responseJson = pm.response.json();",
 									"",
@@ -468,7 +908,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "00130345-3613-4d71-92db-8f68e83cbd0f",
+								"id": "e7ec1b64-77bb-4c07-be07-5c6e741c2ddd",
 								"exec": [
 									"pm.test(\"Guests should not be able to create a product\",() => {",
 									"    pm.response.to.have.status(403);",
@@ -552,7 +992,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3010b932-8e43-4411-a7b0-31cc67b895ef",
+								"id": "49f6cc5b-34be-4480-842b-b6032f5bb350",
 								"exec": [
 									""
 								],
@@ -562,7 +1002,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "83514a84-2f48-4482-bc9e-a3ae5fcf35c3",
+								"id": "d26be02b-3130-45cf-a86c-a103f8484431",
 								"exec": [
 									"pm.test(\"All users are able to update their product\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -610,7 +1050,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1bcab276-ded3-4960-acac-1d21e189010f",
+								"id": "98d67082-046a-4863-b4bb-b083cf99898d",
 								"exec": [
 									""
 								],
@@ -620,7 +1060,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "07b9c3b2-0223-49b3-8d7c-8fd57ddda81b",
+								"id": "332f5ecf-2562-4974-a811-966ad9803656",
 								"exec": [
 									"if (pm.environment.get('userId') == 1 ) {",
 									"    pm.test(\"Admin is able to update other users products\", () => {",
@@ -671,7 +1111,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "49431b3f-7c4f-468f-a7f2-310f7eff4a46",
+								"id": "5bde6bb5-2208-4f87-ad7c-f0e54aa6de74",
 								"exec": [
 									"const echoPostRequest = {",
 									"  url: 'http://' + pm.collectionVariables.get('uri') + '/products',",
@@ -706,7 +1146,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2dc5b6d7-ee5e-42e0-849b-ec7054add438",
+								"id": "47aa5d4d-b9f3-4338-83a6-7b5c63f53b4f",
 								"exec": [
 									"if (pm.environment.get('userId') == 1 ) {",
 									"    pm.test(\"Admin is able to approve the product\", () => {",
@@ -873,7 +1313,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b4bc8b27-3208-4b8e-a88d-159eb64859d2",
+								"id": "86b11a99-568e-47c6-9d0b-a290808c49cb",
 								"exec": [
 									"pm.test(\"All users should be able to get their own products. Nethertheless if approved or not\",() => {",
 									"    pm.response.to.have.status(200);",
@@ -907,7 +1347,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c5447b34-96c1-4a64-a1f3-8b0b70fdd51a",
+								"id": "12376726-2688-47f3-b82b-3194eb6f7e82",
 								"exec": [
 									"pm.test(\"Everyone should be able to get the catalog\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -941,7 +1381,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "33b9769b-0232-42cb-a410-a1228e7a1c9a",
+								"id": "beab73bf-b1f1-4fee-91e2-5385320e1d97",
 								"exec": [
 									"pm.test(\"Everyone should be able to get the catalog\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -978,7 +1418,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ddba856b-1e53-444a-bdf6-eff9d2c15add",
+								"id": "1af21043-6824-4a45-885e-1eebee5a43b9",
 								"exec": [
 									"if (pm.environment.get('userId') == 1 ) {",
 									"    pm.test(\"Admin is able to get all the unapproved products\", () => {",
@@ -1018,7 +1458,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ed5ebe5a-b393-435c-a9ec-0a4d92a2bf79",
+								"id": "dc9b219b-15f0-4c59-acf4-b92a98818ee8",
 								"exec": [
 									""
 								],
@@ -1028,7 +1468,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9fbc6444-8e0b-49f9-9a97-aa3619407dfe",
+								"id": "789bb6f4-8590-422d-b6e5-6cca44c2b1da",
 								"exec": [
 									"pm.test(\"All users are able to delete their product\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -1062,12 +1502,15 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8fcf4200-8c09-40d4-94f7-2cafb3923720",
+								"id": "77f82153-0e1b-4925-a5eb-b938d541f338",
 								"exec": [
 									"const echoPostRequest = {",
 									"  url: 'http://' + pm.collectionVariables.get('uri') + '/products',",
 									"  method: 'POST',",
-									"  header: 'Content-Type:application/json',",
+									"  header: {",
+									"      'Content-Type': 'application/json',",
+									"      'Authorization': 'Bearer ' + pm.environment.get('currentAccessToken')",
+									"  },",
 									"  body: {",
 									"    mode: 'application/json',",
 									"    raw: JSON.stringify(",
@@ -1097,7 +1540,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "899b33d4-d161-4b53-97d1-c59031ae182e",
+								"id": "592aaa2a-967e-4260-a0d6-76731ad56a94",
 								"exec": [
 									"if (pm.environment.get('userId') == 1 ) {",
 									"    pm.test(\"Admin is able to delete other users products\", () => {",
@@ -1143,7 +1586,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "cd250a32-b48c-433c-961b-f1085e10225b",
+								"id": "9600af03-7120-4903-a521-af0138b27d80",
 								"exec": [
 									"pm.test(\"Every user should be able to get his account information\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -1200,7 +1643,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6b70234b-933d-48d8-849e-8519ae8d0842",
+								"id": "252e971c-8612-4774-a2d9-43a7fad603f5",
 								"exec": [
 									"if (pm.environment.get('userId') == 1 ) {",
 									"    pm.test(\"Admin is able to get all the user information\", () => {",
@@ -1239,7 +1682,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d4c0d2c0-ef1c-445e-869c-61d466a3c18e",
+								"id": "74b2b8ff-4556-4a55-aa7e-a0c8bd5564f4",
 								"exec": [
 									"pm.test(\"All users should be able to update their account information\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -1287,7 +1730,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "dc984f1e-39d4-4a2b-b6c7-f9f486563ca7",
+								"id": "a516a444-a569-4673-94e9-47926785d59e",
 								"exec": [
 									"const echoPostRequest = {",
 									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
@@ -1317,7 +1760,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "45a6b090-8e17-4163-a8f4-00f48c0fa4f6",
+								"id": "aa91f86c-248d-41e4-849d-16450c4b05bf",
 								"exec": [
 									"if (pm.environment.get('userId') == 1 ) {",
 									"    pm.test(\"Admin is able to get delete User with userId: \" + pm.environment.get('deleteUserId'), () => {",
@@ -1356,7 +1799,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "d61575e3-cb28-41c6-96a8-7233e54bea01",
+								"id": "e5355b61-1c2d-4b27-906a-19e6f8f0ef5c",
 								"exec": [
 									"const echoPostRequest = {",
 									"  url: 'http://' + pm.collectionVariables.get('uri') + '/user/register',",
@@ -1430,7 +1873,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dc5da66d-a94d-4531-9876-6bf701b68879",
+								"id": "9e2405b3-b539-4213-8a83-0de8a54e1887",
 								"exec": [
 									"if (pm.environment.get('userId') == 1 ) {",
 									"    pm.test(\"Admin is able to get delete User with userId: \" + pm.environment.get('deleteUserId2'), () => {",
@@ -1481,7 +1924,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "0e91fe68-1e6e-41a7-a186-031c99bce228",
+				"id": "5d919feb-e8f0-4e75-a5d0-8e5a25fb93f3",
 				"type": "text/javascript",
 				"exec": [
 					"const echoPostRequest = {",
@@ -1512,7 +1955,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "562935ad-17f0-4b5f-8125-fd565749ee65",
+				"id": "1edb51ec-7f39-4321-9937-7cf254b7927b",
 				"type": "text/javascript",
 				"exec": [
 					""
