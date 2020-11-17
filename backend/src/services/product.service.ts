@@ -4,7 +4,6 @@ import { Request } from 'express';
 import { ProductImageAttributes, ProductImage } from '../models/productImage.model';
 import { upload, MulterRequest } from '../middlewares/imageUpload';
 import {Op} from "sequelize";
-import {userInfo} from "os";
 
 export class ProductService {
 
