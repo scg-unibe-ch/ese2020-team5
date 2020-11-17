@@ -7,8 +7,9 @@ import {
     HasManyGetAssociationsMixin,
     HasManyAddAssociationMixin
 } from 'sequelize';
-import {User} from './user.model';
-import {Review} from './review.model';
+import { User } from './user.model';
+import { Review } from './review.model';
+import { ProductImage } from './productImage.model';
 
 export interface ProductAttributes {
     productId: number;
@@ -30,6 +31,7 @@ export interface ProductCreationAttributes extends Optional<ProductAttributes, '
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
     public static associations: {
         reviews: Association<Product, Review>;
+        images: Association<Product, ProductImage>
     };
 
     productId!: number;
@@ -47,6 +49,8 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
 
     public getReviews!: HasManyGetAssociationsMixin<Review>;
     public addReview!: HasManyAddAssociationMixin<Review, number>;
+    public getImages!: HasManyGetAssociationsMixin<ProductImage>;
+    public addImage!: HasManyAddAssociationMixin<ProductImage, number>;
 
     public static initialize(sequelize: Sequelize) {
         Product.init({
@@ -113,9 +117,13 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             as: 'user',
             onDelete: 'cascade',
             foreignKey: 'userId'
-        }),
+        });
         Product.hasMany(Review, {
             as: 'reviews',
+            foreignKey: 'productId'
+        });
+        Product.hasMany(ProductImage, {
+            as: 'images',
             foreignKey: 'productId'
         });
     }
@@ -177,6 +185,5 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             approved: 0,
             userId: 2
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
-
     }
 }
