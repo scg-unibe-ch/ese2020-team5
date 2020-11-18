@@ -1,13 +1,10 @@
-import { Review } from './review.model';
-import { ProductImage } from './productImage.model';
-
 export class Product {
   constructor(
     public productId: number,
     public title: string,
     public type: number,
     public description: string,
-    public images: ProductImage[],
+    public images: any[],
     public location: string,
     public sellOrLend: number,
     public price: number,
@@ -15,7 +12,7 @@ export class Product {
     public status: number,
     public deliverable: number,
     public approved: number,
-    public reviews: Review[],
+    public reviews: any[],
     public userId: number
   ) {}
 }
