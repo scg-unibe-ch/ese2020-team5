@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.model';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-compact-product-list',
@@ -22,7 +23,8 @@ export class CompactProductListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    public imageService: ImageService
   ) { }
 
   ngOnInit(): void {
