@@ -208,5 +208,20 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             userId: 2
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 
+        Product.create({ // Create default product for user (for testing purposes two products are needed
+            title: 'UnavailableTestProduct',
+            type: 0,
+            description: 'This is a test product',
+            location: 'Bern',
+            sellOrLend: 0,
+            price: 120,
+            priceKind: 0,
+            status: 1,
+            deliverable: 1,
+            approved: 1,
+            // amount: 10,
+            userId: 2
+        }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
+
     }
 }

@@ -3,7 +3,7 @@ import { User } from '../models/user.model';
 import { Request } from 'express';
 import { ProductImageAttributes, ProductImage } from '../models/productImage.model';
 import { upload, MulterRequest } from '../middlewares/imageUpload';
-import {Op} from "sequelize";
+import {Op} from 'sequelize';
 
 export class ProductService {
 
@@ -87,7 +87,7 @@ export class ProductService {
     }
 
     public getCatalog(): Promise<Product[]> {
-        return Product.findAll({where: { approved: 1 }, include: [Product.associations.reviews, Product.associations.images]})
+        return Product.findAll({where: { approved: 1, status: 0 }, include: [Product.associations.reviews, Product.associations.images]})
             .then(list => Promise.resolve(list))
             .catch(err => Promise.reject(err));
     }
@@ -98,7 +98,7 @@ export class ProductService {
                 [Op.and]: [
                     {userId: userId},
                     {approved: 1},
-                    {status: 0}]
+                    {status: 1}]
             }
         })
             .then(list => Promise.resolve(list))

@@ -31,7 +31,7 @@ productController.get('/catalog', (req: Request, res: Response) => {
    productService.getCatalog().then(products => res.send(products)).catch(err => res.status(500).send(err));
 });
 
-productController.get('/catalog-unavailable/:id', (req: Request, res: Response) => {
+productController.get('/catalog-unavailable', verifyToken, (req: Request, res: Response) => {
     productService.getUnavailableCatalog(getUserId(req))
         .then(products => res.send(products))
         .catch(err => res.status(500).send(err));
