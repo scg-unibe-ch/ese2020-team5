@@ -3,7 +3,7 @@ import { User } from '../models/user.model';
 import { Request } from 'express';
 import { ProductImageAttributes, ProductImage } from '../models/productImage.model';
 import { upload, MulterRequest } from '../middlewares/imageUpload';
-import {Op} from "sequelize";
+import {Op} from 'sequelize';
 
 export class ProductService {
 
