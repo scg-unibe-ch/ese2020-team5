@@ -1218,40 +1218,6 @@
 					"response": []
 				},
 				{
-					"name": "get available catalog",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "bbfc8e08-3874-4503-a642-5bf0dfa93de6",
-								"exec": [
-									"pm.test(\"Everyone should be able to get the catalog\", () => {",
-									"    pm.response.to.have.status(200);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{uri}}/products/catalog-available",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"products",
-								"catalog-available"
-							]
-						},
-						"description": "Request all products from the database (from all users)\nonly a logged in person should be able to do this"
-					},
-					"response": []
-				},
-				{
 					"name": "get unavailable catalog user",
 					"event": [
 						{
