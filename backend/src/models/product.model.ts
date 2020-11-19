@@ -13,6 +13,22 @@ import { Transaction } from './transaction.model';
 import {ShoppingCart} from './shoppingcart.model';
 import { ProductImage } from './productImage.model';
 
+export interface ProductUpdate {
+    productId?: number;
+    title?: string;
+    type?: number;
+    description?: string;
+    location?: string;
+    sellOrLend?: number;
+    price?: number;
+    priceKind?: number;
+    status?: number;
+    deliverable?: number;
+    approved?: number;
+    userId?: number;
+    amount?: number;
+}
+
 export interface ProductAttributes {
     productId: number;
     title: string;
@@ -26,7 +42,7 @@ export interface ProductAttributes {
     deliverable: number;
     approved: number;
     userId: number;
-    // amount: number;
+    amount: number;
 }
 
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'productId'> { }
@@ -51,7 +67,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     deliverable!: number; // deliverable == 1: yes, deliverable == 0: no
     approved!: number; // approved == 0: not yet approved from an admin, approved == 1: product approved by an admin
     userId!: number; // FK of user table
-    // amount!: number;
+    amount: number;
 
     public getReviews!: HasManyGetAssociationsMixin<Review>;
     public addReview!: HasManyAddAssociationMixin<Review, number>;
@@ -104,11 +120,12 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
                     type: DataTypes.INTEGER,
                     // allowNull: false,
                     defaultValue: 0
-                }, /*
+                },
                 amount: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
-                }, */
+                    defaultValue: 1
+                },
                 userId: {
                     type: DataTypes.INTEGER,
                     allowNull: false
@@ -158,7 +175,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             status: 0,
             deliverable: 1,
             approved: 0,
-            // amount: 10,
+            amount: 1,
             userId: 1
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 
@@ -174,7 +191,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             status: 0,
             deliverable: 1,
             approved: 1,
-            // amount: 10,
+            amount: 10,
             userId: 2
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 
@@ -189,7 +206,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             status: 0,
             deliverable: 1,
             approved: 0,
-            // amount: 10,
+            amount: 10,
             userId: 1
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 
@@ -204,7 +221,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             status: 0,
             deliverable: 1,
             approved: 0,
-            // amount: 10,
+            amount: 10,
             userId: 2
         }).then(product => Promise.resolve(product)).catch(err => Promise.reject(err));
 

@@ -1,4 +1,4 @@
-import { Product } from '../models/product.model';
+import {Product, ProductUpdate} from '../models/product.model';
 import {Transaction, TransactionAttributes, TransactionCreationAttributes} from '../models/transaction.model';
 import {ShoppingCartAttributes} from '../models/shoppingcart.model';
 import {User} from '../models/user.model';
@@ -50,18 +50,19 @@ export class TransactionService {
                             .catch(err => Promise.reject(err));
                     })
                     .catch(err => Promise.reject(err));
-            }) /*
+            })
             .then(transaction => {
                 return Product.findByPk(transaction.productId)
                     .then(product => {
                         // Update the product (e.g. set as unavailable or decrement the stock
-                        const productUpdate = {};
+                        // Hail to Jethro, who enforced me to create an Interface for this.
+                        const productUpdate: ProductUpdate = {};
                         if (product.type === 1) {
                             // if it is a service, it is automatically unavailable
                             productUpdate.status = 1;
                         } else {
                             // if the resulting amount of a product is 0, it becomes unavailable
-                            if ( product.amount - transaction.amountOrTime == 0) {
+                            if ( product.amount - transaction.amountOrTime === 0) {
                                 productUpdate.status = 1;
                                 productUpdate.amount = 0;
                             } else {
@@ -73,7 +74,7 @@ export class TransactionService {
                             .then(() => Promise.resolve(transaction))
                             .catch(err => Promise.reject(err));
                     });
-            })*/
+            })
             .then(created => Promise.resolve(created))
             .catch(err => Promise.reject(err));
     }
