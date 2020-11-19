@@ -50,7 +50,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="deliverable">
       <mat-label>Delivery Available*</mat-label>
-      <mat-select formControlName="deliverable">
+      <mat-select formControlName="deliverable" [disabled]="createProductForm.value.type === 1">
         <mat-option value="1">Yes, can be delivered</mat-option>
         <mat-option value="0">No, can't be delivered</mat-option>
         <mat-error *ngIf="createProductForm.controls.deliverable.hasError('required')">required!</mat-error>
