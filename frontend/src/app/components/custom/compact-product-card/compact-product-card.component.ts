@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../models/product.model';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-compact-product-card',
@@ -12,7 +13,7 @@ export class CompactProductCardComponent implements OnInit {
   @Input()
   index: number;
 
-  constructor() { }
+  constructor(public imageService: ImageService) { }
 
   ngOnInit(): void {
   }
