@@ -124,6 +124,25 @@ export class ProductService {
             .catch(err => Promise.reject(err));
     }
 
+    public getCatalog(): Promise<Product[]> {
+        return Product.findAll({where: { approved: 1, status: 0 }, include: [Product.associations.reviews, Product.associations.images]})
+            .then(list => Promise.resolve(list))
+            .catch(err => Promise.reject(err));
+    }
+
+    public getUnavailableCatalog(userId: number|string): Promise<Product[]> {
+        return Product.findAll({
+            where: {
+                [Op.and]: [
+                    {userId: userId},
+                    {approved: 1},
+                    {status: 1}]
+            }
+        })
+            .then(list => Promise.resolve(list))
+            .catch(err => Promise.reject(err));
+    }
+
     public getAdminCatalog(userId: number): Promise<Product[]> {
         return Product.findAll({where: { approved: 0 }, include: [Product.associations.images]})
             .then(list => {
