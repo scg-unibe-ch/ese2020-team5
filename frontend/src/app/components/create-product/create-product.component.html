@@ -7,8 +7,8 @@
       <mat-select formControlName="type">
         <mat-option [value]="0">Item</mat-option>
         <mat-option [value]="1">Service</mat-option>
-        <mat-error *ngIf="createProductForm.controls.type.hasError('required')">Product type required!</mat-error>
       </mat-select>
+      <mat-error *ngIf="createProductForm.controls.type.hasError('required')">Product type required!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="title">
       <mat-label>Title*</mat-label>
@@ -34,14 +34,15 @@
         <mat-option [value]="1">per hour</mat-option>
         <mat-option [value]="2">per day</mat-option>
       </mat-select>
+      <mat-error *ngIf="createProductForm.controls.priceKind.hasError('required')">Required!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="sellOrLend">
       <mat-label>Sell or Lend*</mat-label>
       <mat-select formControlName="sellOrLend" [disabled]="createProductForm.value.type === 1 || createProductForm.value.priceKind === 1 || createProductForm.value.priceKind === 2">
         <mat-option [value]="0">To Sell</mat-option>
         <mat-option [value]="1">To Lend</mat-option>
-        <mat-error *ngIf="createProductForm.controls.sellOrLend.hasError('required')">Pricing required!</mat-error>
       </mat-select>
+      <mat-error *ngIf="createProductForm.controls.sellOrLend.hasError('required')">Required!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="location">
       <mat-label>Location*</mat-label>
@@ -53,8 +54,8 @@
       <mat-select formControlName="deliverable" [disabled]="createProductForm.value.type === 1">
         <mat-option value="1">Yes, can be delivered</mat-option>
         <mat-option value="0">No, can't be delivered</mat-option>
-        <mat-error *ngIf="createProductForm.controls.deliverable.hasError('required')">required!</mat-error>
       </mat-select>
+      <mat-error *ngIf="createProductForm.controls.deliverable.hasError('required')">Required!</mat-error>
     </mat-form-field>
     <br>
     <button mat-stroked-button type="submit" class="createProduct-form-btn" [disabled]="createProductForm.invalid">Create Product</button>
