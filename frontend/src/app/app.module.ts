@@ -43,6 +43,7 @@ import { CompactProductListComponent } from './components/custom/compact-product
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CompactProductCardComponent } from './components/custom/compact-product-card/compact-product-card.component';
 import { ProductStatusIconComponent } from './components/custom/product-status-icon/product-status-icon.component';
+import { StarRatingComponent } from './components/custom/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ProductStatusIconComponent } from './components/custom/product-status-i
     ApproveProductComponent,
     CompactProductListComponent,
     CompactProductCardComponent,
-    ProductStatusIconComponent
+    ProductStatusIconComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,

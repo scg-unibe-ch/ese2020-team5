@@ -1,0 +1,10 @@
+<div class="star-rating" [style]="'font-size: ' + size + 'px'">
+  <mat-icon class="star"
+            *ngFor="let i of totalStars"
+            [inline]="true"
+            (mousemove)="editable ? hoverStar($event, i) : {}"
+            (mouseleave)="editable ? setBackValue() : {}"
+            (click)="editable ? setValue() : {}">
+    {{(value >= i - 0.75 && value < i - 0.25) ? 'star_half' : ((value >= i - 0.25) ? 'star' : 'star_outline')}}
+  </mat-icon>
+</div>
