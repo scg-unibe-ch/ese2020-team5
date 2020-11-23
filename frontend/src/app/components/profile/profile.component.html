@@ -1,7 +1,68 @@
-<h1>You are currently logged in as {{ userNameOrEmail }}</h1>
-<br>
-<button type="submit" (click)="logout()" class="logout-btn">Logout</button>
-<div class="accessSecureEndpoint">
-  <button type="submit" (click)="accessSecuredEndpoint()" class="accessSecureEndpoint-btn">Access Secure Endpoint (only for logged in users)</button>
-  {{ secureEndpointResponse }}
+<div class="profile">
+  <h1>You are currently logged in as <strong>{{ userNameOrEmail }}</strong></h1>
+
+    <!--
+    <button type="submit" (click)="logout()" class="logout-btn">Logout</button>
+    <div class="accessSecureEndpoint">
+      <button type="submit" (click)="accessSecuredEndpoint()" class="accessSecureEndpoint-btn">Access Secure Endpoint (only for logged in users)</button>
+      {{ secureEndpointResponse }}
+    </div>
+  -->
+    <form [formGroup]="profileForm" (ngSubmit)="updateUser()" class="profile-form-fields">
+      <div class="grid-container">
+        <mat-form-field appearance="outline" class="first-name">
+          <mat-label>{{user.firstName}}</mat-label>
+          <input matInput type="text" formControlName="firstName">
+          <mat-error *ngIf="profileForm.controls.firstName.hasError('required')">First Name required!</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="last-name">
+          <mat-label>Last Name*</mat-label>
+          <input matInput type="text" formControlName="lastName">
+          <mat-error *ngIf="profileForm.controls.lastName.hasError('required')">Last Name required!</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="email">
+          <mat-label>Email*</mat-label>
+          <input matInput type="email" formControlName="email">
+          <mat-error *ngIf="profileForm.controls.email.hasError('required')">Email required!</mat-error>
+          <mat-error *ngIf="profileForm.controls.email.hasError('email')">Invalid email!</mat-error>
+          <mat-error *ngIf="profileForm.controls.email.hasError('inUse')">Email is already in use!</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="phone-nr">
+          <mat-label>Phone Nr.</mat-label>
+          <input matInput type="tel" formControlName="phoneNr">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="gender">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="country">
+          <mat-label>Country</mat-label>
+          <input matInput type="text" formControlName="country">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="city">
+          <mat-label>City</mat-label>
+          <input matInput type="text" formControlName="city">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="zip-code">
+          <mat-label>ZIP Code</mat-label>
+          <input matInput type="number" formControlName="zipCode">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="address">
+          <mat-label>Address</mat-label>
+          <input matInput type="text" formControlName="address">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline" class="username">
+          <mat-label>Username*</mat-label>
+          <input matInput type="text" formControlName="userName">
+          <mat-error *ngIf="profileForm.controls.userName.hasError('required')">Username required!</mat-error>
+          <mat-error *ngIf="profileForm.controls.userName.hasError('inUse')">Username is already in use!</mat-error>
+        </mat-form-field>
+        <button mat-stroked-button type="submit" class="profile-form-btn" color="black" [disabled]="profileForm.invalid">Update</button>
+      </div>
+    </form> 
 </div>
