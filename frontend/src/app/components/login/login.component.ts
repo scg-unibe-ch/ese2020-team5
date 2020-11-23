@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.login(this.loginForm.value).then((data: any) => {
+    this.authService.login(this.loginForm.value).then(data => {
       this.showErrorMessage = false;
       localStorage.setItem('userToken', data.token);
       localStorage.setItem('userNameOrEmail', data.user.userName);

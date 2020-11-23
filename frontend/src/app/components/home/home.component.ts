@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private productService: ProductService
   ) { }
 
   ngOnInit(): void {
@@ -18,10 +20,6 @@ export class HomeComponent implements OnInit {
 
   onFileSelected(event: any): void {
     const file = event.target.files[0] as File;
-    const formData = new FormData();
-    formData.append('image', file, file.name);
-    this.httpClient.post(environment.endpointURL + 'products/1/image', formData).subscribe(res => {
-      console.log(res);
-    });
+    this.productService.addImage(3, file);
   }
 }

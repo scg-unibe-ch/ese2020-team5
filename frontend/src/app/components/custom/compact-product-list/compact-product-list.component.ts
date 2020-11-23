@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.model';
+import { ImageService } from '../../../services/image.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-compact-product-list',
@@ -22,11 +24,15 @@ export class CompactProductListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    public imageService: ImageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUser().then(user => this.user = user);
+    if (this.authService.isLoggedIn()) {
+      this.userService.getUser().then(user => this.user = user).catch(() => this.authService.logout());
+    }
   }
 
   isProductOwner(): boolean {
