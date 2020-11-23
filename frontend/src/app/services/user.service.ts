@@ -53,6 +53,7 @@ export class UserService {
   isAdmin(): boolean {
     return (this.user) ? this.user.isAdmin : false;
   }
+  
   updateUser(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
       this.httpClient.put(environment.endpointURL + 'user/' + user.userId, user).subscribe((res: any) => {
