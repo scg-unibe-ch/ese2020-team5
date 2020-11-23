@@ -4,11 +4,11 @@ import {
     Sequelize,
     DataTypes,
     Association,
-    HasManyGetAssociationsMixin,
     HasManyAddAssociationMixin
 } from 'sequelize';
-import {Product} from './product.model';
-import {Review} from './review.model';
+import { Product } from './product.model';
+import { Review } from './review.model';
+import { Transaction } from './transaction.model';
 
 export interface UserAttributes {
     userId: number;
@@ -33,10 +33,13 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public static associations: {
         products: Association<User, Product>;
         reviews: Association<User, Review>;
+        transactions: Association<User, Transaction>
     };
 
-    public getProducts!: HasManyGetAssociationsMixin<Product>;
+    // public getProducts!: HasManyGetAssociationsMixin<Product>;
     public addProduct!: HasManyAddAssociationMixin<Product, number>;
+    // public getTransactions!: HasManyGetAssociationsMixin<Transaction>;
+    // public addTransaction: HasManyAddAssociationMixin<Transaction, number>;
 
     public readonly products?: Product[];
 
@@ -118,10 +121,20 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
         User.hasMany(Product, {
             as: 'products',
             foreignKey: 'userId'
-        }),
+        });
         User.hasMany(Review, {
             as: 'reviews',
             foreignKey: 'userId'
+        });
+        User.hasMany(Transaction, {
+           as: 'selltransactions',
+           foreignKey: 'sellerId',
+            onDelete: 'SET NULL'
+        });
+        User.hasMany(Transaction, {
+            as: 'buytransactions',
+            foreignKey: 'buyerId',
+            onDelete: 'SET NULL'
         });
     }
 

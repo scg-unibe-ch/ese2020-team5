@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   myAccountArrow = 'expand_more';
   myAccountModalShown = false;
   myAccount = '';
+  isAdmin = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,9 +22,9 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.loadUser();
     if (this.authService.isLoggedIn()) {
       this.userService.getUser().then(user => {
+        this.isAdmin = user.isAdmin;
         this.myAccount = user.userName;
         if (this.myAccount.length > 12) {
           this.myAccount = this.myAccount.substring(0, 10) + '..';
@@ -43,15 +44,15 @@ export class AppComponent implements OnInit {
   }
 
   searchItem(): void {
-    location.assign('catalog?q=' + this.searchFilter);
+    if (this.searchFilter && this.searchFilter.replace(/ /g, '') !== '') {
+      location.assign('catalog?q=' + this.searchFilter);
+    } else {
+      location.assign('catalog');
+    }
   }
 
   navigateTo(page: string): void {
     location.assign(page);
-  }
-
-  isAdmin(): boolean {
-    return this.userService.isAdmin();
   }
 
   isLoggedIn(): boolean {
