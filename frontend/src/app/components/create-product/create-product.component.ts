@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
 import { UserService } from '../../services/user.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Product } from '../../models/product.model';
 
 @Component({
@@ -20,9 +17,6 @@ export class CreateProductComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private router: Router,
-    private authService: AuthService,
     private productService: ProductService,
     private userService: UserService
     ) { }
