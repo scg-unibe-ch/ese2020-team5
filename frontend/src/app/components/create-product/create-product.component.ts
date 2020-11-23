@@ -62,10 +62,8 @@ export class CreateProductComponent implements OnInit {
   createProduct(): void {
     this.productService.createProduct(this.createProductForm.value).then((data: any) => {
       this.showErrorMessage = false;
-      console.log(data);
       location.assign('my-products');
     }).catch((error: any) => {
-      console.log(error);
       this.showErrorMessage = true;
     });
   }
