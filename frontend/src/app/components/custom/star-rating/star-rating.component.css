@@ -1,0 +1,10 @@
+.star-rating {
+  position: relative;
+  top: 7px;
+  display: inline-block;
+  color: #ffbe24;
+}
+
+.star {
+  user-select: none;
+}
