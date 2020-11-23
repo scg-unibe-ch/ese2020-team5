@@ -5,20 +5,18 @@ import { ProductService } from '../../services/product.service';
 import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-
-
-
-
+import { Product } from '../../models/product.model';
 
 @Component({
-  selector: 'app-create-listing',
+  selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent implements OnInit {
-  createListingForm: FormGroup;
+  createProductForm: FormGroup;
   showErrorMessage = false;
   userId: number;
+  product: Product = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +28,7 @@ export class CreateProductComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.createListingForm = this.formBuilder.group({
+    this.createProductForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       type: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -43,12 +41,26 @@ export class CreateProductComponent implements OnInit {
       userId: ['']
     });
     this.userService.getUser().then(user => {
-      this.createListingForm.get('userId').setValue(user.userId);
+      this.createProductForm.get('userId').setValue(user.userId);
+    });
+    this.createProductForm.get('type').valueChanges.subscribe(x => {
+      if (x === 1) {
+        this.createProductForm.get('sellOrLend').setValue(0);
+        this.createProductForm.get('deliverable').setValue(false);
+      }
+      if ((x === 0) && this.createProductForm.get('priceKind').value !== 0) {
+        this.createProductForm.get('sellOrLend').setValue(1);
+      }
+    });
+    this.createProductForm.get('priceKind').valueChanges.subscribe(x => {
+      if ((x !== 0) && this.createProductForm.get('type').value === 0) {
+        this.createProductForm.get('sellOrLend').setValue(1);
+      }
     });
   }
 
-  createListing(): void {
-    this.productService.createProduct(this.createListingForm.value).then((data: any) => {
+  createProduct(): void {
+    this.productService.createProduct(this.createProductForm.value).then((data: any) => {
       this.showErrorMessage = false;
       console.log(data);
       location.assign('my-products');
