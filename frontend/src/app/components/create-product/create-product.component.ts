@@ -31,7 +31,7 @@ export class CreateProductComponent implements OnInit {
       priceKind: ['', [Validators.required]],
       location: ['', [Validators.required]],
       deliverable: ['', [Validators.required]],
-      status: [''],
+      status: ['', [Validators.required]],
       userId: ['']
     });
     this.userService.getUser().then(user => {

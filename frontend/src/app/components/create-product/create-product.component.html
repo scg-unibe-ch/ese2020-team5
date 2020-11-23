@@ -57,6 +57,14 @@
       </mat-select>
       <mat-error *ngIf="createProductForm.controls.deliverable.hasError('required')">Required!</mat-error>
     </mat-form-field>
+    <mat-form-field appearance="outline" class="status">
+      <mat-label>Status*</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="1">Available</mat-option>
+        <mat-option value="0">Currently unavailable</mat-option>
+      </mat-select>
+      <mat-error *ngIf="createProductForm.controls.status.hasError('required')">Current status required!</mat-error>
+    </mat-form-field>
     <br>
     <button mat-stroked-button type="submit" class="createProduct-form-btn" [disabled]="createProductForm.invalid">Create Product</button>
     </div>
