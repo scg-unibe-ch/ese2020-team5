@@ -12,8 +12,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  integrationTests:
+  backendTests:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     
@@ -37,3 +36,14 @@ jobs:
       - name: Run user integration tests
         run: newman run Integration\ Tests.postman_collection.json -e User.postman_environment.json
         working-directory: ./backend/postman_collection
+
+  frontendTests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get all node dependencies
+        run: npm install
+        working-directory: ./frontend
+      - name: Run integration tests
+        run: ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        working-directory: ./frontend
