@@ -1,5 +1,5 @@
 <div class="createProduct-form">
-  <h1><strong>Create Listing</strong></h1>
+  <h1><strong>Create Product Listing</strong></h1>
   <form [formGroup]="createProductForm" (ngSubmit)="createProduct()" class="createProduct-form-fields">
     <div class="grid-container">
     <mat-form-field appearance="outline" class="ProductType">
@@ -34,7 +34,7 @@
         <mat-option [value]="1">per hour</mat-option>
         <mat-option [value]="2">per day</mat-option>
       </mat-select>
-      <mat-error *ngIf="createProductForm.controls.priceKind.hasError('required')">Required!</mat-error>
+      <mat-error *ngIf="createProductForm.controls.priceKind.hasError('required')">Price kind required!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="sellOrLend">
       <mat-label>Sell or Lend*</mat-label>
@@ -42,7 +42,7 @@
         <mat-option [value]="0">To Sell</mat-option>
         <mat-option [value]="1">To Lend</mat-option>
       </mat-select>
-      <mat-error *ngIf="createProductForm.controls.sellOrLend.hasError('required')">Required!</mat-error>
+      <mat-error *ngIf="createProductForm.controls.sellOrLend.hasError('required')">Sell or lend required!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="location">
       <mat-label>Location*</mat-label>
@@ -55,7 +55,7 @@
         <mat-option value="1">Yes, can be delivered</mat-option>
         <mat-option value="0">No, can't be delivered</mat-option>
       </mat-select>
-      <mat-error *ngIf="createProductForm.controls.deliverable.hasError('required')">Required!</mat-error>
+      <mat-error *ngIf="createProductForm.controls.deliverable.hasError('required')">Deliverable required!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="status">
       <mat-label>Status*</mat-label>
