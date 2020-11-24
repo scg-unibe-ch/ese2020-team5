@@ -12,22 +12,16 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-column-gap: 15px;
-  padding: 25px;
-  border: 1px solid #a7a7a7;
 }
 
 .edit-component-content h1 {
-  margin-bottom: 0;
-  text-align: center;
+  font-size: 3em;
+  text-align: left;
   grid-column-start: 1;
   grid-column-end: 7;
-}
-
-.edit-component-content hr {
-  margin: 10px 0 25px;
-  width: 100%;
-  grid-column-start: 1;
-  grid-column-end: 7;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.2em;
 }
 
 .edit-component-content mat-form-field {
@@ -61,10 +55,20 @@
   grid-column-end: 7;
 }
 
-.edit-product-btn {
+.update-product-btn {
   margin: 10px;
   display: inline-block;
   width: 300px;
+  background-color:#FBB03B;
+  color: white;
+  border-radius: 20px;
+}
+
+.cancel-product-btn {
+  margin: 10px;
+  display: inline-block;
+  width: 300px;
+  border-radius: 20px;
 }
 
 .product-type {
