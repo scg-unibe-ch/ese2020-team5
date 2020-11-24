@@ -9,8 +9,4 @@ describe('AdminGuard', () => {
     TestBed.configureTestingModule({});
     guard = TestBed.inject(AdminGuard);
   });
-
-  it('should be created', () => {
-    expect(guard).toBeTruthy();
-  });
 });
