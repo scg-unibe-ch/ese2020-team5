@@ -45,5 +45,5 @@ jobs:
         run: npm install
         working-directory: ./frontend
       - name: Run integration tests
-        run: ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
         working-directory: ./frontend
