@@ -7,6 +7,7 @@ export interface ReviewAttributes {
     review: string;
     productId: number;
     userId: number;
+    rating: number;
 }
 
 export interface ReviewCreationAttributes extends Optional<ReviewAttributes, 'reviewId'> { }
@@ -20,6 +21,7 @@ export class Review extends Model<ReviewAttributes, ReviewCreationAttributes> im
     review!: string;
     productId!: number;
     userId!: number;
+    rating!: number;
 
     public static initialize(sequelize: Sequelize) {
         Review.init(
@@ -40,6 +42,10 @@ export class Review extends Model<ReviewAttributes, ReviewCreationAttributes> im
                 userId: {
                     type: DataTypes.INTEGER,
                     allowNull: false
+                },
+                rating: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
                 }
             },
             { tableName: 'reviews', sequelize }
@@ -58,5 +64,21 @@ export class Review extends Model<ReviewAttributes, ReviewCreationAttributes> im
             onDelete: 'SET NULL',
             foreignKey: 'userId'
         });
+    }
+
+    static createDefaultReview() {
+        Review.create({ // Create default product for admin
+            review: 'WOW, what a crappy product',
+            productId: 2,
+            userId: 2,
+            rating: 1
+        }).then(review => Promise.resolve(review)).catch(err => Promise.reject(err));
+
+        Review.create({ // Create default product for admin
+            review: 'It is alright I guess',
+            productId: 2,
+            userId: 1,
+            rating: 2.5
+        }).then(review => Promise.resolve(review)).catch(err => Promise.reject(err));
     }
 }
