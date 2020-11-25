@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'admin/dashboard', component: AdminPanelComponent, canActivate: [AdminGuard] },
   { path: 'admin/dashboard/users', component: AdminUserPanelComponent, canActivate: [AdminGuard] },
   { path: 'admin/dashboard/products', component: AdminProductPanelComponent, canActivate: [AdminGuard] },
-  { path: 'cart', component: ShoppingCartComponent },
+  { path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard] },
   { path: 'cart/checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/catalog' }
 ];
