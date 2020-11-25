@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { ImageService } from '../../services/image.service';
 import { Review } from '../../models/review.model';
 import { ProductImage } from '../../models/productImage.model';
+import { CartItem } from 'src/app/models/cartItem.model';
 
 @Component({
   selector: 'app-product',
@@ -14,6 +15,7 @@ import { ProductImage } from '../../models/productImage.model';
 })
 export class ProductComponent implements OnInit {
   product: Product;
+  cartItem: CartItem;
   avgRating = 0;
   imageIndex = 0;
   user: RestrictedUser;
@@ -89,7 +91,7 @@ export class ProductComponent implements OnInit {
 
   addToCart(): void {
     if (this.authService.isLoggedIn() && this.product.approved) {
-      // ToDO: Add to cart
+      this.productService.addToCart(this.cartItem)
     } else {
       location.assign('login?returnURL=' + this.router.url);
     }

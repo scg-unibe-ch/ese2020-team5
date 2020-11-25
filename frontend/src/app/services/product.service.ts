@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
+import { CartItem } from '../models/cartItem.model';
 import { environment } from '../../environments/environment';
 import { ProductImage } from '../models/productImage.model';
 
@@ -108,6 +109,16 @@ export class ProductService {
     return new Promise<Product>((resolve, reject) => {
       this.httpClient.put(environment.endpointURL + 'products/' + productId, { approved: 1 }).subscribe((product: Product) => {
         resolve(product);
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
+  addToCart(cartItem: CartItem) {
+    return new Promise<CartItem>((resolve, reject) => {
+      this.httpClient.post(environment.endpointURL + ':id', cartItem).subscribe((createdCart: CartItem) => {
+        resolve(createdCart);
       }, (error: any) => {
         reject(error);
       });

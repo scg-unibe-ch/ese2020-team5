@@ -1,1 +1,4 @@
-<p>shopping-cart works!</p>
+
+<div *ngFor="let cartItems" class="product">
+    <app-compact-product-list [product]="product" view="customer"></app-compact-product-list>
+</div>
