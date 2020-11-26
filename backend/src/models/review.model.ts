@@ -80,5 +80,19 @@ export class Review extends Model<ReviewAttributes, ReviewCreationAttributes> im
             userId: 1,
             rating: 2.5
         }).then(review => Promise.resolve(review)).catch(err => Promise.reject(err));
+
+        Review.create({ // Create default product for admin
+            review: 'It is alright I guess',
+            productId: 2,
+            userId: 2,
+            rating: 2.5
+        }).then(review => Promise.resolve(review)).catch(err => Promise.reject(err));
+
+        Review.create({ // Create default product for admin
+            review: 'It is alright I guess',
+            productId: 2,
+            userId: 1,
+            rating: 2.5
+        }).then(review => Promise.resolve(review)).catch(err => Promise.reject(err));
     }
 }
