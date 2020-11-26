@@ -53,7 +53,7 @@ export class ReviewService {
             }).then(() => {
                 return User.findByPk(deleterId);
             }).then((user) => {
-                if (this.isUserAdmin(user) && this.doesUserIdMatch(found_review.userId, deleterId)) {
+                if (!this.isUserAdmin(user) && !this.doesUserIdMatch(found_review.userId, deleterId)) {
                     return Promise.reject({message: 'You are not authorized to do this!', status: 500});
                 } else {
                     return found_review.destroy();
