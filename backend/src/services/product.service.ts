@@ -3,7 +3,7 @@ import { User } from '../models/user.model';
 import { Request } from 'express';
 import { ProductImageAttributes, ProductImage } from '../models/productImage.model';
 import { upload, MulterRequest } from '../middlewares/imageUpload';
-import {Op} from 'sequelize';
+import { Op } from 'sequelize';
 
 export class ProductService {
 
@@ -77,6 +77,32 @@ export class ProductService {
                     });
                 } else {
                     return Promise.reject(product);
+                }
+            })
+            .catch(err => Promise.reject(err));
+    }
+
+    public deleteImage(req: Request, userId: number): Promise<ProductImageAttributes> {
+        return ProductImage.findByPk(req.params.id)
+            .then(image => {
+                if (!image) {
+                    return Promise.reject('Image not found!');
+                } else {
+                    return Product.findByPk(image.productId)
+                        .then(product => {
+                            if (!product) {
+                                return Promise.reject('Product not found!');
+                            } else {
+                                if (product.userId !== userId) {
+                                    return Promise.reject('You are not authorized to do this!');
+                                } else {
+                                    return image.destroy()
+                                        .then(() => Promise.resolve(image))
+                                        .catch(err => Promise.reject(err));
+                                }
+                            }
+                        })
+                        .catch(err => Promise.reject(err));
                 }
             })
             .catch(err => Promise.reject(err));
