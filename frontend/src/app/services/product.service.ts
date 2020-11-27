@@ -117,7 +117,7 @@ export class ProductService {
 
   addToCart(cartItem: CartItem) {
     return new Promise<CartItem>((resolve, reject) => {
-      this.httpClient.post(environment.endpointURL + ':id', cartItem).subscribe((createdCart: CartItem) => {
+      this.httpClient.post(environment.endpointURL + 'cart/' + cartItem.productId, cartItem).subscribe((createdCart: CartItem) => {
         resolve(createdCart);
       }, (error: any) => {
         reject(error);
