@@ -18,6 +18,7 @@ notificationController.put('/:id', verifyToken, (req: Request, res: Response) =>
         .catch(err => res.status(500).send(err));
 });
 
+// This function is more or less for tests only, the frontend will probably never use this API
 notificationController.post('/', verifyToken, (req: Request, res: Response) => {
     notificationService.create(getUserId(req), req.body.text)
         .then(notification => res.send(notification))

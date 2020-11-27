@@ -1,4 +1,4 @@
-import {Notification, NotificationAttributes} from '../models/notification.model';
+import {Notification, NotificationCreationAttributes} from '../models/notification.model';
 
 
 export class NotificationService {
@@ -10,7 +10,7 @@ export class NotificationService {
     }
 
     public read(userId: number, notificationId: string): Promise<Notification> {
-        return Notification.findByPk(notificationId)
+        return Notification.findOne({where: {notificationId: notificationId, userId: userId}})
             .then(notification => {
                 const updatedNotification = {
                     read: 1
@@ -21,7 +21,7 @@ export class NotificationService {
     }
 
     public create(userId: number, text: string): Promise<Notification> {
-        const NotificationParams: NotificationAttributes = {
+        const NotificationParams: NotificationCreationAttributes = {
             userId: userId,
             text: text,
             read: 0

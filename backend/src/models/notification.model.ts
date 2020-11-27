@@ -1,18 +1,22 @@
 import {
     Model,
     DataTypes,
-    Sequelize
+    Sequelize, Optional
 } from 'sequelize';
-import { User } from './user.model';
+import {User, UserAttributes} from './user.model';
 
 export interface NotificationAttributes {
+    notificationId: number;
     userId: number;
     text: string;
     read: number; // read == 0: Not yet read, read == 1: notification read
 }
 
-export class Notification extends Model<NotificationAttributes> implements NotificationAttributes {
+export interface NotificationCreationAttributes extends Optional<NotificationAttributes, 'notificationId'> { }
 
+export class Notification extends Model<NotificationAttributes, NotificationCreationAttributes> implements NotificationAttributes {
+
+    notificationId!: number;
     userId!: number;
     text!: string;
     read!: number;
@@ -20,6 +24,11 @@ export class Notification extends Model<NotificationAttributes> implements Notif
     public static initialize(sequelize: Sequelize) {
         Notification.init(
             {
+                notificationId: {
+                    type: DataTypes.INTEGER,
+                    autoIncrement: true,
+                    primaryKey: true
+                },
                 userId: {
                     type: DataTypes.INTEGER,
                     allowNull: false
