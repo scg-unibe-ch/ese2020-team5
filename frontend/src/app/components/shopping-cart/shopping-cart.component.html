@@ -1,4 +1,13 @@
-
-<div *ngFor="let cartItems" class="product">
-    <app-compact-product-list [product]="product" view="customer"></app-compact-product-list>
+<div class="cartItemListContainer">
+    <h1>Shopping Cart</h1>
+    <hr>
+    <div *ngFor="let cartItem of cartItems" class="cartItemsList">
+        <a href="product/{{cartItem.productId}}"><h2>{{product.title}}</h2></a>
+        <h3>Amount: {{cartItem.amountOrTime}}</h3>
+        <h3>{{product.price | currency:'CHF '}}</h3>
+        <button mat-stroked-button (click)="incrementAmountOrTime()">+</button>
+        <button mat-stroked-button (click)="deleteCartItem()">Remove</button>
+        <button mat-stroked-button (click)="buy()">Buy</button>
+        <hr>
+    </div>
 </div>
