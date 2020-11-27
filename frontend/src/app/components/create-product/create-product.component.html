@@ -49,22 +49,10 @@
       <input matInput type="text" formControlName="location">
       <mat-error *ngIf="createProductForm.controls.location.hasError('required')">Location required!</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline" class="deliverable">
-      <mat-label>Delivery Available*</mat-label>
-      <mat-select formControlName="deliverable" [disabled]="createProductForm.value.type === 1">
-        <mat-option value="1">Yes, can be delivered</mat-option>
-        <mat-option value="0">No, can't be delivered</mat-option>
-      </mat-select>
-      <mat-error *ngIf="createProductForm.controls.deliverable.hasError('required')">Deliverable required!</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="status">
-      <mat-label>Status*</mat-label>
-      <mat-select formControlName="status">
-        <mat-option value="1">Available</mat-option>
-        <mat-option value="0">Currently unavailable</mat-option>
-      </mat-select>
-      <mat-error *ngIf="createProductForm.controls.status.hasError('required')">Current status required!</mat-error>
-    </mat-form-field>
+    <div class="checkbox-container">
+      <mat-checkbox color="primary" labelPosition="before" formControlName="status" class="black-checkbox available">Available</mat-checkbox>
+      <mat-checkbox color="primary" labelPosition="before" formControlName="deliverable" class="black-checkbox deliverable" [disabled]="createProductForm.value.type === 1">Deliverable</mat-checkbox>
+    </div>
     <br>
     <button mat-stroked-button type="submit" class="createProduct-form-btn" [disabled]="createProductForm.invalid">Create Product</button>
     </div>

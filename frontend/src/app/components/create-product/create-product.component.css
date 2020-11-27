@@ -23,7 +23,17 @@
 
 .input-mat-prefix {
   position: relative;
-  top: -3.5px;
+  top: -4px;
+}
+
+.checkbox-container mat-checkbox {
+  margin-right: 15px;
+}
+
+.checkbox-container {
+  margin-bottom: 25px;
+  grid-column-start: 1;
+  grid-column-end: 7;
 }
 
 .createProduct-form-btn {
