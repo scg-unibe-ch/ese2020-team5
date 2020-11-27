@@ -120,12 +120,12 @@ class FakeService {
     return [
       {
         imageId: 1,
-        fileName: 'https://static.digitecgalaxus.ch/Files/3/8/9/3/4/6/5/3/GV-N3070GAMING%20OC-8GD-2.png?impolicy=ProductTileImage&resizeWidth=1000&resizeHeight=1000&resizeType=downsize&quality=high&cropWidth=0&cropHeight=0',
+        fileName: 'https://imgur.com/B0tVe5P.png',
         productId
       },
       {
         imageId: 2,
-        fileName: 'https://static.digitecgalaxus.ch/Files/3/8/9/3/4/6/3/8/GV-N3070GAMING%20OC-8GD-7.png?impolicy=ProductTileImage&resizeWidth=1000&resizeHeight=1000&resizeType=downsize&quality=high&cropWidth=0&cropHeight=0',
+        fileName: 'https://imgur.com/zvRYqId.png',
         productId
       }
     ];
