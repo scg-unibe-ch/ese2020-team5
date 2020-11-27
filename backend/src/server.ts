@@ -7,6 +7,7 @@ import { SecuredController } from './controllers/secured.controller';
 import { ProductController } from './controllers/product.controller';
 import { ReviewController } from './controllers/review.controller';
 import { ShoppingCartController} from './controllers/shoppingcart.controller';
+import { NotificationController } from './controllers/notification.controller';
 import { Sequelize } from 'sequelize';
 import { TodoList } from './models/todolist.model';
 import { TodoItem } from './models/todoitem.model';
@@ -16,6 +17,7 @@ import { Review } from './models/review.model';
 import { ProductImage } from './models/productImage.model';
 import { Transaction } from './models/transaction.model';
 import { ShoppingCart} from './models/shoppingcart.model';
+import { Notification } from './models/notification.model';
 
 import cors from 'cors';
 
@@ -39,10 +41,12 @@ export class Server {
         Review.initialize(this.sequelize);
         Transaction.initialize(this.sequelize);
         ShoppingCart.initialize(this.sequelize);
+        Notification.initialize(this.sequelize);
         Product.createAssociations();
         User.createAssociations();
         Transaction.createAssociations();
         ShoppingCart.createAssociations();
+        Notification.createAssociations();
 
         this.sequelize.sync({force: true}).then(() => {
             User.truncate();
@@ -83,6 +87,7 @@ export class Server {
             .use('/products', ProductController)
             .use('/review', ReviewController)
             .use('/cart', ShoppingCartController)
+            .use('/notification', NotificationController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
             // this is the message you get if you open http://localhost:3000/ when the server is running
