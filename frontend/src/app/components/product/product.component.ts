@@ -7,6 +7,7 @@ import { ImageService } from '../../services/image.service';
 import { Review } from '../../models/review.model';
 import { ProductImage } from '../../models/productImage.model';
 import { CartItem } from 'src/app/models/cartItem.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-product',
@@ -28,7 +29,8 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
     private authService: AuthService,
     public fakeService: FakeService,
-    public imageService: ImageService
+    public imageService: ImageService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -91,7 +93,14 @@ export class ProductComponent implements OnInit {
 
   addToCart(): void {
     if (this.authService.isLoggedIn() && this.product.approved) {
-      this.productService.addToCart(this.cartItem)
+      this.userService.getUser().then(user => {
+        const cartItem: CartItem = {
+          buyerId: user.userId,
+          productId: this.product.productId,
+          amountOrTime: 1
+        }
+        this.productService.addToCart(cartItem); 
+      });
     } else {
       location.assign('login?returnURL=' + this.router.url);
     }
