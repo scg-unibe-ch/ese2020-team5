@@ -11,7 +11,6 @@ import { Product } from '../../models/product.model';
 })
 export class CreateProductComponent implements OnInit {
   createProductForm: FormGroup;
-  showErrorMessage = false;
   userId: number;
   product: Product = null;
 
@@ -19,7 +18,7 @@ export class CreateProductComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private userService: UserService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.createProductForm = this.formBuilder.group({
@@ -30,8 +29,8 @@ export class CreateProductComponent implements OnInit {
       sellOrLend: ['', [Validators.required]],
       priceKind: ['', [Validators.required]],
       location: ['', [Validators.required]],
-      deliverable: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      deliverable: [false],
+      status: [true],
       userId: ['']
     });
     this.userService.getUser().then(user => {
@@ -55,10 +54,7 @@ export class CreateProductComponent implements OnInit {
 
   createProduct(): void {
     this.productService.createProduct(this.createProductForm.value).then(() => {
-      this.showErrorMessage = false;
       location.assign('my-products');
-    }).catch(error => {
-      this.showErrorMessage = true;
     });
   }
 }
