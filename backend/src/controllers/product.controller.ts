@@ -23,6 +23,10 @@ productController.delete('/:id', verifyToken, (req: Request, res: Response) => {
     productService.delete(req, getUserId(req)).then(deleted => res.send(deleted)).catch(err => res.status(500).send(err));
 });
 
+productController.delete('/image/:id', verifyToken, (req: Request, res: Response) => {
+    productService.deleteImage(req, getUserId(req)).then(deleted => res.send(deleted)).catch(err => res.status(500).send(err));
+});
+
 productController.get('/', verifyToken, (req: Request, res: Response) => {
     productService.getAll(getUserId(req)).then(products => res.send(products)).catch(err => res.status(500).send(err));
 });
