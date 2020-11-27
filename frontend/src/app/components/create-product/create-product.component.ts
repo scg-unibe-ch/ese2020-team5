@@ -26,7 +26,7 @@ export class CreateProductComponent implements OnInit {
       title: ['', [Validators.required]],
       type: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      price: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       sellOrLend: ['', [Validators.required]],
       priceKind: ['', [Validators.required]],
       location: ['', [Validators.required]],
