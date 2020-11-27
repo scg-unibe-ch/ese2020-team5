@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 
@@ -10,6 +10,7 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   searchFilter = '';
   isAdmin = false;
+  userName = 'My Account';
 
   constructor(
     private authService: AuthService,
@@ -17,11 +18,16 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('userName')) {
+      this.userName = localStorage.getItem('userName');
+    }
     if (this.authService.isLoggedIn()) {
       this.userService.getUser().then(user => {
+        this.userName = user.userName;
         this.isAdmin = user.isAdmin;
       }).catch(() => {
         this.authService.logout();
+        this.userName = 'My Account';
       });
     }
   }
@@ -32,10 +38,6 @@ export class AppComponent implements OnInit {
     } else {
       location.assign('catalog');
     }
-  }
-
-  navigateTo(page: string): void {
-    location.assign(page);
   }
 
   isLoggedIn(): boolean {
