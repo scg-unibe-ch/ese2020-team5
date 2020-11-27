@@ -60,6 +60,7 @@
 }
 
 .search-container > button {
+  cursor: pointer;
   height: 33px;
   grid-column-start: 12;
   grid-column-end: 13;
