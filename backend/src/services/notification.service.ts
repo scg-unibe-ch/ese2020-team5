@@ -1,5 +1,7 @@
 import {Notification, NotificationCreationAttributes} from '../models/notification.model';
-
+import { User } from '../models/user.model';
+import { EmailService, EmailAttributes } from './email.service';
+const emailService = new EmailService();
 
 export class NotificationService {
 
@@ -26,6 +28,26 @@ export class NotificationService {
             text: text,
             read: 0
         };
-        return Notification.create(NotificationParams);
+
+        const mailOptions: EmailAttributes = {
+            from: 'team5@roux.li',
+            text: text,
+            subject: 'EMail from your loved web shop',
+            to: null
+        };
+
+        return User.findByPk(userId)
+            .then(user => {
+                if (!user) {
+                    return Promise.reject('Could not find the user to send a mail to');
+                } else {
+                    mailOptions.to = user.email;
+                    return emailService.send(mailOptions);
+                }
+            })
+            .then(() => {
+                return Notification.create(NotificationParams);
+            })
+            .catch(err => Promise.reject(err));
     }
 }

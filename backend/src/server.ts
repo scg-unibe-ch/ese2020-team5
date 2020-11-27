@@ -89,7 +89,7 @@ export class Server {
             .use('/review', ReviewController)
             .use('/cart', ShoppingCartController)
             .use('/notification', NotificationController)
-            .use('subscription', SubscriptionController)
+            // .use('subscription', SubscriptionController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
             // this is the message you get if you open http://localhost:3000/ when the server is running

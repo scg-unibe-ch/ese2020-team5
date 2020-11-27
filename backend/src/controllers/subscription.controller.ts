@@ -19,11 +19,13 @@ subscriptionController.post('/sendNotification', (req, res) => {
         }
     };
 
+    /*
     const promises = [];
     fakeDatabase.forEach(subscription => {
         promises.push(webpush.sendNotification(subscription, JSON.stringify(notificationPayload)));
     });
     Promise.all(promises).then(() => res.sendStatus(200));
+     */
 });
 
 export const SubscriptionController: Router = subscriptionController;
