@@ -69,7 +69,7 @@ export class ReviewService {
     }
 
     protected isRatingInRange(rating: number): boolean {
-        return 1 <= rating && rating <= 5;
+        return 0 <= rating && rating <= 5;
     }
 
     protected doesUserIdMatch(reviewerId: number, updaterId: number | string): boolean {
