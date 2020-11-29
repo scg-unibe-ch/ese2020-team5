@@ -1,0 +1,85 @@
+.inbox {
+  display: flex;
+  margin: 0 auto;
+  width: calc(500px + 35%);
+  height: calc(100vh - 50px);
+  border-left: 3px solid #000000;
+  border-right: 3px solid #000000;
+}
+
+.notification-list {
+  width: calc(100px + 20%);
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 3px solid #000000;
+}
+
+.not-list-functions {
+  position: relative;
+  display: flex;
+  height: 40px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.not-list-func-check {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+}
+
+::ng-deep .not-list-functions .mat-checkbox .mat-checkbox-frame {
+  border-color: white;
+}
+
+.no-content {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.list-entry {
+  position: relative;
+  cursor: pointer;
+}
+
+.list-entry:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.selected-entry {
+  cursor: default;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.read-entry {
+  background-color: rgba(42, 61, 119, 0.05);
+}
+
+.not-list-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-entry-checkbox {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+}
+
+.notification-content {
+  width: calc(80% - 100px);
+}
+
+.notification-text {
+  padding: 20px 25px 25px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media only screen and (max-width: 1000px) {
+  .inbox {
+    width: 100%;
+    border: none;
+  }
+}

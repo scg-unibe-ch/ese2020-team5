@@ -1,0 +1,41 @@
+<div class="inbox">
+  <div class="notification-list">
+    <div class="not-list-functions">
+      <button [disabled]="!isMinOneMarked" mat-icon-button (click)="isMinOneMarked ? setMarkedNotificationsAsRead() : {}">
+        <mat-icon matTooltip="Mark as read" [matTooltipDisabled]="!isMinOneMarked">drafts</mat-icon>
+      </button>
+      <mat-checkbox class="not-list-func-check"
+                    color="primary"
+                    [indeterminate]="isMinOneMarked && !areAllMarked"
+                    [(ngModel)]="areAllMarked"
+                    (ngModelChange)="updateMarkedList()">
+      </mat-checkbox>
+    </div>
+    <div class="no-content" *ngIf="notifications && !notifications[0]">
+      You currently have no notifications!
+    </div>
+    <mat-list style="padding-top: 0" *ngIf="notifications && notifications[0]">
+      <div *ngFor="let notification of notifications; let i = index"
+           [classList]="selectedIndex === i ? 'list-entry selected-entry' : (notification.read ? 'list-entry read-entry' : 'list-entry')">
+        <mat-list-item (click)="selectNotification(i)">
+          <span class="not-list-text" *ngIf="!notification.read"><strong>
+            [#{{notifications.length - i}}]<br>
+            {{notification.text}}
+          </strong></span>
+          <span class="not-list-text" *ngIf="notification.read">
+            [#{{notifications.length - i}}]<br>
+            {{notification.text}}
+          </span>
+        </mat-list-item>
+        <mat-checkbox class="list-entry-checkbox" [(ngModel)]="markedNotifications[i]" (ngModelChange)="updateMarkedState()"></mat-checkbox>
+        <mat-divider *ngIf="i + 1 < notifications.length"></mat-divider>
+      </div>
+    </mat-list>
+  </div>
+  <div class="notification-content">
+    <div class="notification-text" *ngIf="notifications && notifications[0] && selectedIndex >= 0">
+      <span style="float: right">{{notifications[selectedIndex].createdAt.replace('T', ' ').replace('Z', ' GMT')}}</span>
+      {{'\n\n' +notifications[selectedIndex].text}}
+    </div>
+  </div>
+</div>
