@@ -19,16 +19,24 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('userName')) {
-      this.userName = localStorage.getItem('userName');
+      this.userName = this.correctNameLength(localStorage.getItem('userName'));
     }
     if (this.authService.isLoggedIn()) {
       this.userService.getUser().then(user => {
-        this.userName = user.userName;
+        this.userName = this.correctNameLength(user.userName);
         this.isAdmin = user.isAdmin;
       }).catch(() => {
         this.authService.logout();
         this.userName = 'My Account';
       });
+    }
+  }
+
+  correctNameLength(name: string): string {
+    if (name.length > 11) {
+      return name.substring(0, 10) + '...';
+    } else {
+      return name;
     }
   }
 

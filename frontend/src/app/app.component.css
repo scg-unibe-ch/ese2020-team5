@@ -144,6 +144,10 @@
   color: #ffffff;
 }
 
+.nav-entry-icon-btn--ext {
+  padding-bottom: 21px;
+}
+
 @media only screen and (max-width: 1600px) {
   .nav-entries {
     right: 20px;
