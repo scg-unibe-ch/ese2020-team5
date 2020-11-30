@@ -31,7 +31,7 @@ export class ShoppingCartComponent implements OnInit {
     public imageService: ImageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { this.router.routeReuseStrategy.shouldReuseRoute = () => false; }
+  ) {}
 
   ngOnInit(): void {
     this.userService.getUser().then(user => {
@@ -45,10 +45,8 @@ export class ShoppingCartComponent implements OnInit {
       this.cartService.getCartItems().then(cartItems => {
         this.cartItems = cartItems;
         for (let cartItem of cartItems) {
-          console.log(cartItem.productId)
           this.productService.getProductById(cartItem.productId).then(product => {
             this.products.push(product);
-            console.log(product.title, product.productId, "price: " + product.price, "Amount: " + cartItem.amountOrTime)
           });
         }
       });
@@ -79,4 +77,15 @@ export class ShoppingCartComponent implements OnInit {
       // setTimeout(() => { refresh.price.total(); }, 2000);
     });
   }
+  buy (): void {
+    this.userService.getUser().then(user => {
+      const cartItem: CartItem = {
+        buyerId: user.userId,
+        productId: this.products.productId,
+        amountOrTime: this.amountOrTime
+      }
+      this.cartService.buy(buyerId);
+      console.log(buyerId)
+    });
+  }  
 }

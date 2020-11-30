@@ -41,4 +41,14 @@ export class CartService {
       });
     });    
   }
+
+  buy(buyerId: number) {
+    return new Promise<CartItem>((resolve, reject) => {
+      this.httpClient.post(environment.endpointURL + 'cart/' + cartItem.buyerId, cartItem).subscribe((bought: CartItem) => {
+        resolve(bought);
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
 }
