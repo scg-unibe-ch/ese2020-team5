@@ -13,7 +13,7 @@
     <h2 *ngIf="view === 'customer'">{{product.title}}</h2>
   </div>
   <div class="product-price">
-    <strong>{{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
+    <strong>{{product.price.toLocaleString('en-US', { style: 'currency', currency: 'CHF' })}}</strong>
   </div>
   <div class="{{view === 'customer' ? 'product-description customer-view' : 'product-description editor-view'}}">{{product.description}}</div>
   <div class="product-btn-container">
