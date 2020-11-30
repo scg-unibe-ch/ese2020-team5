@@ -45,6 +45,8 @@ import { MatMenuModule} from '@angular/material/menu';
 import { CompactProductCardComponent } from './components/custom/compact-product-card/compact-product-card.component';
 import { ProductStatusIconComponent } from './components/custom/product-status-icon/product-status-icon.component';
 import { StarRatingComponent } from './components/custom/star-rating/star-rating.component';
+import { InboxComponent } from './components/inbox/inbox.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { StarRatingComponent } from './components/custom/star-rating/star-rating
     CompactProductListComponent,
     CompactProductCardComponent,
     ProductStatusIconComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    InboxComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +97,8 @@ import { StarRatingComponent } from './components/custom/star-rating/star-rating
     MatRadioModule,
     MatTooltipModule,
     MatButtonToggleModule,
-    MatMenuModule
+    MatMenuModule,
+    MatBadgeModule
   ],
   providers: [
     {
