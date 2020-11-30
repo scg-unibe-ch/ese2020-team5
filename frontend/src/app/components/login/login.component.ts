@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).then(data => {
       this.showErrorMessage = false;
       localStorage.setItem('userToken', data.token);
-      localStorage.setItem('userNameOrEmail', data.user.userName);
+      localStorage.setItem('userName', data.user.userName);
       location.assign((this.returnURL) ? this.returnURL : 'home');
     }).catch((error: any) => {
       console.log(error);
