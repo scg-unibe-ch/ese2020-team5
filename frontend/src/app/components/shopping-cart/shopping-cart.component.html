@@ -1,13 +1,28 @@
-<div class="cartItemListContainer">
+<div class="shopping-cart">
     <h1>Shopping Cart</h1>
-    <hr>
-    <div *ngFor="let cartItem of cartItems" class="cartItemsList">
-        <a href="product/{{cartItem.productId}}"><h2>{{product.title}}</h2></a>
-        <h3>Amount: {{cartItem.amountOrTime}}</h3>
-        <h3>{{product.price | currency:'CHF '}}</h3>
-        <button mat-stroked-button (click)="incrementAmountOrTime()">+</button>
-        <button mat-stroked-button (click)="deleteCartItem()">Remove</button>
+    <div *ngIf = "cartItems && products.length === cartItems.length" class="cart-items-container" >
+        <div *ngFor="let product of products; let i = index;" class="cart-items">
+            <div class="product-image">
+                <img *ngIf="product.images && product.images[0]" src="{{imageService.getImageUrl(product.images[0].fileName)}}" class="image" alt="">
+                <div *ngIf="!product.images || !product.images[0]" class="default-image">
+                    <mat-icon [inline]="true">category</mat-icon>
+                </div>
+            </div>
+            <a href="product/{{product.productId}}" class="product-title"><h2>{{product.title}}</h2></a>
+            <div class="product-price">
+                <h3 *ngIf = "cartItems[i].amountOrTime == 1"><strong>{{product.price | currency:'CHF '}}</strong></h3>
+                <h3 *ngIf = "cartItems[i].amountOrTime > 1"><strong>{{ product.price * cartItems[i].amountOrTime | currency:'CHF '}}</strong> ({{cartItems[i].amountOrTime}} x {{product.price | currency:'CHF '}})</h3>
+            </div>
+            <div class="cart-btn-container">
+                <button mat-stroked-button (click)="cartItems[i].amountOrTime = cartItems[i].amountOrTime - 1; incrementAmountOrTime(i, cartItems[i].amountOrTime )" type="button"><mat-icon>remove</mat-icon></button>
+                <input class="amountOrTime-input-field" type="number" [(ngModel)]="cartItems[i].amountOrTime" (ngModelChange)="incrementAmountOrTime(i, cartItems[i].amountOrTime)" min="1"/>
+                <button mat-stroked-button (click)="cartItems[i].amountOrTime = cartItems[i].amountOrTime + 1; incrementAmountOrTime(i, cartItems[i].amountOrTime )" type="button"><mat-icon>add</mat-icon></button>
+                <button mat-stroked-button (click)="deleteCartItem(i)" class="red-btn"><mat-icon>delete</mat-icon></button>
+            </div>
+        </div>
+    </div>
+    <div class="order-summary">
+        <h2><strong>Order Summary</strong></h2>
         <button mat-stroked-button (click)="buy()">Buy</button>
-        <hr>
     </div>
 </div>
