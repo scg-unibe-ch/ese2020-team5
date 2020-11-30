@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,14 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   searchFilter = '';
   isAdmin = false;
+  isLoggedIn = false;
   userName = 'My Account';
+  newNotifications = 0;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -22,12 +26,21 @@ export class AppComponent implements OnInit {
       this.userName = this.correctNameLength(localStorage.getItem('userName'));
     }
     if (this.authService.isLoggedIn()) {
+      this.isLoggedIn = true;
       this.userService.getUser().then(user => {
         this.userName = this.correctNameLength(user.userName);
         this.isAdmin = user.isAdmin;
       }).catch(() => {
+        this.isLoggedIn = false;
         this.authService.logout();
         this.userName = 'My Account';
+      });
+      this.notificationService.getNotifications().then(notifications => {
+        notifications.forEach(notification => {
+          if (!notification.read) {
+            this.newNotifications++;
+          }
+        });
       });
     }
   }
@@ -46,9 +59,5 @@ export class AppComponent implements OnInit {
     } else {
       location.assign('catalog');
     }
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
   }
 }

@@ -46,6 +46,7 @@ import { CompactProductCardComponent } from './components/custom/compact-product
 import { ProductStatusIconComponent } from './components/custom/product-status-icon/product-status-icon.component';
 import { StarRatingComponent } from './components/custom/star-rating/star-rating.component';
 import { InboxComponent } from './components/inbox/inbox.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -73,31 +74,32 @@ import { InboxComponent } from './components/inbox/inbox.component';
     StarRatingComponent,
     InboxComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatListModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatTabsModule,
-    MatToolbarModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-    MatRippleModule,
-    MatRadioModule,
-    MatTooltipModule,
-    MatButtonToggleModule,
-    MatMenuModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        MatButtonModule,
+        MatListModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatTabsModule,
+        MatToolbarModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+        MatRippleModule,
+        MatRadioModule,
+        MatTooltipModule,
+        MatButtonToggleModule,
+        MatMenuModule,
+        MatBadgeModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
