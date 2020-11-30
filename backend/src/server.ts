@@ -51,8 +51,10 @@ export class Server {
         this.sequelize.sync({force: true}).then(() => {
             User.truncate();
             Product.truncate(); // create connection to the database
+            Review.truncate();
             User.createDefaultUsers();                           // create a default admin user and a default normal user
             Product.createDefaultProduct();
+            Review.createDefaultReview();
         }).then(() => {
             this.server.listen(this.port, () => {                                   // start server on specified port
                 console.log(`server listening at http://localhost:${this.port}`);   // indicate that the server has started
