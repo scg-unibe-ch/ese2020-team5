@@ -31,4 +31,14 @@ export class CartService {
       });
     });
   }
+
+  updateCartItem(cartItem: CartItem) {
+    return new Promise<CartItem>((resolve, reject) => {
+      this.httpClient.put(environment.endpointURL + 'cart/' + cartItem.productId, cartItem).subscribe((updatedCartItem: CartItem) => {
+        resolve(updatedCartItem);
+      }, (error: any) => {
+        reject(error);
+      });
+    });    
+  }
 }
