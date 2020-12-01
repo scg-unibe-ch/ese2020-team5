@@ -42,7 +42,12 @@ export class NotificationService {
                     return Promise.reject('Could not find the user to send a mail to');
                 } else {
                     mailOptions.to = user.email;
-                    return emailService.send(mailOptions);
+                    // The whole procedure should not fail just because the mail goes not out!
+                    return emailService.send(mailOptions)
+                        .catch(() => {
+                            console.log('Mail could not be send!');
+                            return Promise.resolve();
+                        });
                 }
             })
             .then(() => {
