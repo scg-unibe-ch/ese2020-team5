@@ -42,9 +42,9 @@ export class CartService {
     });    
   }
 
-  buy(buyerId: number) {
+  buy(buyerId: number): Promise<CartItem> {
     return new Promise<CartItem>((resolve, reject) => {
-      this.httpClient.post(environment.endpointURL + 'cart/' + cartItem.buyerId, cartItem).subscribe((bought: CartItem) => {
+      this.httpClient.post(environment.endpointURL + 'cart/' + buyerId).subscribe((bought: string) => {
         resolve(bought);
       }, (error: any) => {
         reject(error);

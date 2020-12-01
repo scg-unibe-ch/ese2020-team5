@@ -74,18 +74,16 @@ export class ShoppingCartComponent implements OnInit {
         amountOrTime: [newAmountOrTime]
       }
       this.cartService.updateCartItem(cartItem);
-      // setTimeout(() => { refresh.price.total(); }, 2000);
     });
   }
-  buy (): void {
+  buy () {
     this.userService.getUser().then(user => {
-      const cartItem: CartItem = {
-        buyerId: user.userId,
-        productId: this.products.productId,
-        amountOrTime: this.amountOrTime
-      }
-      this.cartService.buy(buyerId);
-      console.log(buyerId)
+      this.cartService.getCartItems().then(cartItems => {
+        this.cartItems = cartItems;
+        for (let cartItem of cartItems) {
+          this.cartService.buy(cartItem.buyerId);
+        }
+      });
     });
-  }  
+  }
 }

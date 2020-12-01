@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="order-summary">
-        <h2><strong>Order Summary</strong></h2>
-        <button mat-stroked-button (click)="buy()">Buy</button>
+        <h2><strong>Order Summary: {{total}}</strong></h2>
+        <button mat-stroked-button (click)="buy(cartItems)">Buy</button>
     </div>
 </div>
