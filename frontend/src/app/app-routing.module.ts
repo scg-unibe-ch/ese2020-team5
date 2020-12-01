@@ -17,6 +17,7 @@ import { AdminUserPanelComponent } from './components/admin-user-panel/admin-use
 import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
 import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { InboxComponent } from './components/inbox/inbox.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/catalog', pathMatch: 'full'},
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'admin/dashboard', component: AdminPanelComponent, canActivate: [AdminGuard] },
   { path: 'admin/dashboard/users', component: AdminUserPanelComponent, canActivate: [AdminGuard] },
   { path: 'admin/dashboard/products', component: AdminProductPanelComponent, canActivate: [AdminGuard] },
+  { path: 'inbox', component: InboxComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/catalog' }
 ];
 

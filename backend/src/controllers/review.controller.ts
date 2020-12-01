@@ -1,38 +1,40 @@
 import express from 'express';
 import { Router, Request, Response } from 'express';
-import { Review } from '../models/review.model';
 import {getUserId, verifyToken} from '../middlewares/checkAuth';
-import {User} from '../models/user.model';
+import { ReviewService } from '../services/review.service';
 
 const reviewController: Router = express.Router();
 
+const reviewService = new ReviewService();
+
 reviewController.post('/', verifyToken, (req: Request, res: Response) => {
     req.body.userId = getUserId(req);
-    Review.create(req.body)
-        .then(inserted => res.send(inserted))
+    reviewService.create(req.body)
+        .then(inserted => res.status(200).send(inserted))
         .catch(err => res.status(500).send(err));
 });
 
 reviewController.put('/:id', verifyToken, (req: Request, res: Response) => {
-    Review.findByPk(req.params.id)
-        .then(found => {
-            if (found != null) {
-                if (found.userId !== getUserId(req)) {
-                    return Promise.reject('You are not authorized to do this!');
-                }
-                found.update(req.body).then(updated => {
-                    res.status(200).send(updated);
-                });
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(err => res.status(500).send(err));
-
+    reviewService.update(req.body, req.params.id, getUserId(req))
+        .then((updated) => {
+            res.status(200).send(updated);
+        }).catch((err) => {
+            console.log(err);
+            res.status(err.status).send({message: err.message});
+        });
 });
 
 reviewController.delete('/:id', verifyToken, (req: Request, res: Response) => {
-    const userId = getUserId(req);
+    reviewService.delete(getUserId(req), req.params.id)
+        .then(() => {
+            res.status(200).send({message: 'Review deleted'});
+        }).catch((err) => {
+            res.status(err.status).send({message: err.message});
+        });
+});
+
+/*
+const userId = getUserId(req);
     Review.findByPk(req.params.id)
         .then(found => {
             if (found != null) {
@@ -49,6 +51,5 @@ reviewController.delete('/:id', verifyToken, (req: Request, res: Response) => {
             }
         })
         .catch(err => res.status(500).send(err));
-});
-
+*/
 export const ReviewController: Router = reviewController;
