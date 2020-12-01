@@ -12,10 +12,26 @@ export class NotificationService {
     public read(userId: number, notificationId: string): Promise<Notification> {
         return Notification.findOne({where: {notificationId: notificationId, userId: userId}})
             .then(notification => {
-                const updatedNotification = {
-                    read: 1
-                };
-                return notification.update(updatedNotification);
+                if (notification) {
+                    const updatedNotification = {
+                        read: 1
+                    };
+                    return notification.update(updatedNotification);
+                } else {
+                    return Promise.reject('Notification not found!');
+                }
+            })
+            .catch(err => Promise.reject(err));
+    }
+
+    public delete(userId: number, notificationId: string): Promise<Notification> {
+        return Notification.findOne({where: {notificationId: notificationId, userId: userId}})
+            .then(notification => {
+                if (notification) {
+                    return notification.destroy()
+                        .then(() => Promise.resolve(notification))
+                        .catch(err => Promise.reject(err));
+                }
             })
             .catch(err => Promise.reject(err));
     }
