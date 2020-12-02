@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   myAccountArrow = 'expand_more';
   myAccountModalShown = false;
   myAccount = '';
+  title = '';
+  event: any;
 
   constructor(
     private authService: AuthService,
@@ -37,6 +39,7 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
+    this.event = event;
     if (this.myAccountModalShown) {
       this.openCloseAccountModal();
     }

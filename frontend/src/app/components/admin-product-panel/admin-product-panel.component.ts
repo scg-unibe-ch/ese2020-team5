@@ -12,6 +12,9 @@ import { ApproveProductComponent } from '../custom/dialog/approve-product/approv
   styleUrls: ['./admin-product-panel.component.css']
 })
 export class AdminProductPanelComponent implements OnInit {
+  set title(value: string) {
+    this.title = value;
+  }
   allProducts: Product[];
   unapprovedProducts: Product[];
   approvedProducts: Product[];
