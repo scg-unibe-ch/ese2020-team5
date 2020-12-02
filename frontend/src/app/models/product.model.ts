@@ -12,6 +12,7 @@ export class Product {
     public sellOrLend: number,
     public price: number,
     public priceKind: number,
+    public amount: number,
     public status: number,
     public deliverable: number,
     public approved: number,
