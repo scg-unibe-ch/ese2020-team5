@@ -1,0 +1,33 @@
+.address-form {
+  width: 95%;
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 15px;
+}
+
+.country, .street {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.city {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.zip-code {
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-container button {
+  min-width: 300px;
+  margin: 10px;
+}
