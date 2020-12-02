@@ -18,6 +18,7 @@ import { AdminProductPanelComponent } from './components/admin-product-panel/adm
 import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { InboxComponent } from './components/inbox/inbox.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/catalog', pathMatch: 'full'},
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'admin/dashboard/users', component: AdminUserPanelComponent, canActivate: [AdminGuard] },
   { path: 'admin/dashboard/products', component: AdminProductPanelComponent, canActivate: [AdminGuard] },
   { path: 'inbox', component: InboxComponent, canActivate: [AuthGuard] },
+  { path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/catalog' }
 ];
 

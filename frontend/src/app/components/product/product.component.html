@@ -1,9 +1,6 @@
-<div class="product-notification">
-  <p>This page is still in progress. Content will be added later on.<span class="close" (click)="closeNotification()">&times;</span></p>
-</div>
-<!--<div *ngIf="!product.approved" class="product-notification">
+<div *ngIf="product && !product.approved" class="product-notification">
   <p>Since the product is unapproved this page can only be seen by admins and the product owner!<span class="close" (click)="closeNotification()">&times;</span></p>
-</div>-->
+</div>
 <div *ngIf="!product" class="loading">
   <mat-spinner></mat-spinner>
 </div>
@@ -36,10 +33,10 @@
   <div class="product-info">
     <span style="position: absolute; top: 4px; font-size: 12px">posted by:</span>
     <div class="user-info">
-      <a *ngIf="user" href="{{'user/' + user.userId}}"><h3><strong>{{user.userName + ' #' + user.userId}}</strong></h3></a>
+      <a *ngIf="owner" href="{{'user/' + owner.userId}}"><h3><strong>{{owner.userName + ' #' + owner.userId}}</strong></h3></a>
       <div class="user-avg-rating">
         <span style="position: relative; top: 4px">avg. rating:</span>
-        <app-star-rating value="{{user.avgRating}}" size="15"></app-star-rating>
+        <app-star-rating value="{{owner.avgRating}}" size="15"></app-star-rating>
       </div>
     </div>
     <div class="product-rating">
