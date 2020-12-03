@@ -41,11 +41,6 @@ export class ProductComponent implements OnInit {
         this.owner = this.fakeService.getUserById(product.userId);
         this.avgRating = this.fakeService.getAvgRatingOfProduct();
         this.product.reviews = this.fakeService.getFakeReviews();
-        if (this.product.productId % 2 === 0) {
-          this.product.images = this.fakeService.getFakeImages(this.product.productId);
-        } else {
-          this.product.images = [];
-        }
       }).catch(() => location.assign('catalog'));
     });
     document.addEventListener('keydown', (event) => {
