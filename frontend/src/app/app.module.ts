@@ -49,6 +49,7 @@ import { InboxComponent } from './components/inbox/inbox.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './components/custom/dialog/checkout/checkout.component';
+import { ProductFormComponent } from './components/custom/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { CheckoutComponent } from './components/custom/dialog/checkout/checkout.
     StarRatingComponent,
     InboxComponent,
     ShoppingCartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,

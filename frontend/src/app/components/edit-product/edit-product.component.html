@@ -1,61 +1,6 @@
 <div *ngIf="!product" class="loading">
   <mat-spinner></mat-spinner>
 </div>
-<div *ngIf="product">
-  <form [formGroup]="productForm" (ngSubmit)="updateProduct()" class="edit-component-content">
-    <h1>Edit Product '{{product.title}} #{{product.productId}}'</h1>
-    <hr>
-    <mat-form-field appearance="outline" class="product-type">
-      <mat-label>Product Type*</mat-label>
-      <mat-select formControlName="type">
-        <mat-option [value]=0>Item</mat-option>
-        <mat-option [value]=1>Service</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="title">
-      <mat-label>Title*</mat-label>
-      <input matInput type="text" formControlName="title">
-      <mat-error *ngIf="productForm.controls.title.hasError('required')">Title required!</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="description">
-      <mat-label>Description*</mat-label>
-      <textarea matInput type="text" formControlName="description" style="resize: none"></textarea>
-      <mat-error *ngIf="productForm.controls.description.hasError('required')">Description required!</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="price">
-      <mat-label>Price*</mat-label>
-      <input matInput type="text" formControlName="price">
-      <span matPrefix class="input-mat-prefix">$&nbsp;</span>
-      <mat-error *ngIf="productForm.controls.price.hasError('required')">Price required!</mat-error>
-      <mat-error *ngIf="productForm.controls.price.hasError('pattern')">Invalid format! Please type the price in 0.00 format!</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="price-type">
-      <mat-label>Price Type*</mat-label>
-      <mat-select formControlName="priceKind">
-        <mat-option [value]=0>-</mat-option>
-        <mat-option [value]=1>per hour</mat-option>
-        <mat-option [value]=2>per day</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="sell-or-lend">
-      <mat-label>Sell or Lend?</mat-label>
-      <mat-select formControlName="sellOrLend" [disabled]="productForm.value.type === 1 || productForm.value.priceKind === 1 || productForm.value.priceKind === 2">
-        <mat-option [value]=0>To Sell</mat-option>
-        <mat-option [value]=1>To Lend</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="location">
-      <mat-label>Location*</mat-label>
-      <input matInput type="text" formControlName="location">
-      <mat-error *ngIf="productForm.controls.location.hasError('required')">Location required!</mat-error>
-    </mat-form-field>
-    <div class="checkbox-container">
-      <mat-checkbox color="primary" labelPosition="before" formControlName="status" class="black-checkbox available">Available</mat-checkbox>
-      <mat-checkbox color="primary" labelPosition="before" formControlName="deliverable" class="black-checkbox deliverable" [disabled]="productForm.value.type === 1">Deliverable</mat-checkbox>
-    </div>
-    <div class="btn-container">
-      <button mat-stroked-button type="submit" class="black-btn edit-product-btn" [disabled]="this.productForm.invalid">Update</button>
-      <button mat-stroked-button type="button" class="black-btn edit-product-btn" (click)="cancelUpdate()">Cancel</button>
-    </div>
-  </form>
+<div *ngIf="product" class="edit-component-content">
+  <app-product-form [product]="product"></app-product-form>
 </div>
