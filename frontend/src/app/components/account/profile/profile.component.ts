@@ -65,6 +65,6 @@ export class ProfileComponent implements OnInit {
   updateUser(): void {
     this.userService.updateUser(Object.assign({ userId: this.user.userId }, this.profileForm.value)).then(() => {
       location.reload();
-    }).catch(err => console.log(err));
+    });
   }
 }

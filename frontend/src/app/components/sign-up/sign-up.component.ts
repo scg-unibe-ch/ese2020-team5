@@ -95,8 +95,6 @@ export class SignUpComponent implements OnInit {
         this.emailAlreadyInUse();
       } else if (error.error.message.message.indexOf('Username') > -1) {
         this.userNameAlreadyInUse();
-      } else {
-        console.log(error);
       }
     });
   }
