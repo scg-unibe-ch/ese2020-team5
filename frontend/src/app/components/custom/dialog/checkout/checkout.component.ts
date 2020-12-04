@@ -49,7 +49,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   buy(): void {
-    this.cartService.buyCartItems((this.data.deliverable ? this.addressForm.value : {}));
-    location.reload();
+    this.cartService.buyCartItems((this.data.deliverable ? this.addressForm.value : {})).then(() => {
+      location.reload();
+    }).catch(() => {
+      location.reload();
+    });
   }
 }
