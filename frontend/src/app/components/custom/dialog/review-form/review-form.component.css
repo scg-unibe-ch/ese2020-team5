@@ -1,0 +1,33 @@
+.review-form-content {
+  width: 555px;
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+.review-form {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rating {
+  float: right;
+}
+
+.review {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.review textarea {
+  resize: none;
+  height: 125px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
