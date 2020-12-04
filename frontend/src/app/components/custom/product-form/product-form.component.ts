@@ -120,11 +120,13 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('amount').setValue(0);
     }
     this.productForm.get('amount').enable();
-    console.log(this.productForm.value);
     this.productService.createProduct(Object.assign(this.productForm.value, { approved: 0, userId: this.user.userId })).then(product => {
-      this.uploadImages(product.productId);
-    }).catch(err => {
-      console.log(err);
+      this.uploadImages(product.productId).then(() => {
+        location.assign(
+          (this.route.snapshot.queryParams.link) ? this.route.snapshot.queryParams.link
+            : (this.product ? '/product/' + this.product.productId : 'my-products')
+        );
+      });
     });
   }
 
@@ -134,47 +136,42 @@ export class ProductFormComponent implements OnInit {
     }
     this.productService.updateProduct(Object.assign({ productId: this.product.productId }, this.productForm.value))
       .then(() => {
-        this.uploadImages();
+        this.uploadImages().then(() => {
+          location.assign(
+            (this.route.snapshot.queryParams.link) ? this.route.snapshot.queryParams.link
+              : (this.product ? '/product/' + this.product.productId : 'my-products')
+          );
+        });
       });
   }
 
-  uploadImages(productId?: number): void {
+  async uploadImages(productId?: number): Promise<void> {
     if (this.addedImages.length > 0) {
-      this.addedImages.forEach((image, index) => {
-        this.productService.addImage((productId ? productId : this.product.productId), image.file).then(() => {
-          if (index === this.addedImages.length - 1 && this.product) {
-            this.deleteImages();
-          } else {
-            location.assign('my-products');
-          }
-        });
-      });
+      for (const image of this.addedImages) {
+        await this.productService.addImage((productId ? productId : this.product.productId), image.file);
+      }
+      if (this.product) {
+        return this.deleteImages();
+      } else {
+        return Promise.resolve();
+      }
     } else {
       if (this.product) {
-        this.deleteImages();
+        return this.deleteImages();
       } else {
-        location.assign('my-products');
+        return Promise.resolve();
       }
     }
   }
 
-  deleteImages(): void {
+  async deleteImages(): Promise<void> {
     if (this.removeImages.length > 0) {
-      this.removeImages.forEach((imageId, index) => {
-        this.productService.deleteImage(imageId).then(() => {
-          if (index === this.removeImages.length - 1) {
-            location.assign(
-              (this.route.snapshot.queryParams.link) ? this.route.snapshot.queryParams.link
-                : (this.product ? '/product/' + this.product.productId : 'my-products')
-            );
-          }
-        });
-      });
+      for (const imageId of this.removeImages) {
+        await this.productService.deleteImage(imageId);
+      }
+      return Promise.resolve();
     } else {
-      location.assign(
-        (this.route.snapshot.queryParams.link) ? this.route.snapshot.queryParams.link
-          : (this.product ? '/product/' + this.product.productId : 'my-products')
-      );
+      return Promise.resolve();
     }
   }
 
