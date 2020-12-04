@@ -1,0 +1,20 @@
+<div class="review-list-content">
+  <h1>Reviews</h1>
+  <hr style="margin: 10px 0;">
+  <div *ngIf="reviews && products.length === reviews.length">
+    <div class="review" *ngFor="let review of reviews; let i = index">
+      <div class="review-container">
+        <div class="btn-container">
+          <button mat-stroked-button class="review-btn" (click)="editReview(review, products[i])">Edit</button>
+          <button mat-stroked-button class="red-btn review-btn">Delete</button>
+        </div>
+        <a href="product/{{products[i].productId}}"><h2>{{products[i].title}}</h2></a>
+        <p>{{review.review}}</p>
+        <div class="star-rating">
+          <app-star-rating value="{{review.rating}}"></app-star-rating>
+        </div>
+      </div>
+      <hr *ngIf="i < reviews.length - 1">
+    </div>
+  </div>
+</div>

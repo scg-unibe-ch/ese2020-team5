@@ -32,7 +32,7 @@ export class UserService {
 
   updateUser(user: User): Promise<User> {
     return new Promise<User>((resolve, reject) => {
-      this.httpClient.put(environment.endpointURL + 'user', user).subscribe((updatedUser: User) => {
+      this.httpClient.put(environment.endpointURL + 'user/update', user).subscribe((updatedUser: User) => {
         resolve(updatedUser);
       }, (error: any) => {
         reject(error);

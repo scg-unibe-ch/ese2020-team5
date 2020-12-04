@@ -1,0 +1,18 @@
+<div class="account-content">
+  <div class="account-content-header">
+    <h1><strong>{{user ? user.userName : ''}} #{{user ? user.userId : ''}}</strong></h1>
+    <nav mat-tab-nav-bar mat-align-tabs="center">
+      <a class="account-tab"
+         mat-tab-link
+         *ngFor="let link of links"
+         [routerLink]="link.url"
+         (click)="section = link.url"
+         [active]="section === link.url">
+        {{link.name}}
+      </a>
+    </nav>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

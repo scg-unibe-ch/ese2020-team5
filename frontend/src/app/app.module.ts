@@ -17,7 +17,6 @@ import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
@@ -51,6 +50,10 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { CheckoutComponent } from './components/custom/dialog/checkout/checkout.component';
 import { ProductFormComponent } from './components/custom/product-form/product-form.component';
 import { ReviewFormComponent } from './components/custom/dialog/review-form/review-form.component';
+import { AccountComponent } from './components/account/account.component';
+import { ProfileComponent } from './components/account/profile/profile.component';
+import { ReviewsComponent } from './components/account/reviews/reviews.component';
+import { WishlistComponent } from './components/account/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,6 @@ import { ReviewFormComponent } from './components/custom/dialog/review-form/revi
     LoginComponent,
     HomeComponent,
     SignUpComponent,
-    ProfileComponent,
     ForgotPasswordComponent,
     CreateProductComponent,
     LogoutComponent,
@@ -80,7 +82,11 @@ import { ReviewFormComponent } from './components/custom/dialog/review-form/revi
     ShoppingCartComponent,
     CheckoutComponent,
     ProductFormComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    AccountComponent,
+    ProfileComponent,
+    ReviewsComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
