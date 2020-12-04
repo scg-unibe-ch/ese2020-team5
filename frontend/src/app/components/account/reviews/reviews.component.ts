@@ -5,6 +5,7 @@ import { Product } from '../../../models/product.model';
 import { ProductService } from '../../../services/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewFormComponent } from '../../custom/dialog/review-form/review-form.component';
+import { DeleteReviewComponent } from '../../custom/dialog/delete-review/delete-review.component';
 
 @Component({
   selector: 'app-reviews',
@@ -36,6 +37,12 @@ export class ReviewsComponent implements OnInit {
         product,
         review
       }
+    });
+  }
+
+  deleteReview(review: Review): void {
+    this.dialog.open(DeleteReviewComponent, {
+      data: review
     });
   }
 }

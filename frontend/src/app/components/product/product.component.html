@@ -66,8 +66,8 @@
           <strong>{{userNamesOfReviews[i] + ' #' + review.userId}}</strong>
         </a>
         <div *ngIf="user && review.userId === user.userId" class="review-btn-container">
-          <button mat-stroked-button class="review-edit-btn black-btn" (click)="editReview(review)">Edit</button>
-          <button mat-stroked-button class="review-delete-btn black-btn" (click)="deleteReview(review)">Delete</button>
+          <button mat-stroked-button class="review-edit-btn" (click)="editReview(review)">Edit</button>
+          <button mat-stroked-button class="review-delete-btn red-btn" (click)="deleteReview(review)">Delete</button>
         </div>
         <p class="review-content">{{review.review}}</p>
         <div class="review-rating">

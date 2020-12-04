@@ -54,6 +54,7 @@ import { AccountComponent } from './components/account/account.component';
 import { ProfileComponent } from './components/account/profile/profile.component';
 import { ReviewsComponent } from './components/account/reviews/reviews.component';
 import { WishlistComponent } from './components/account/wishlist/wishlist.component';
+import { DeleteReviewComponent } from './components/custom/dialog/delete-review/delete-review.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { WishlistComponent } from './components/account/wishlist/wishlist.compon
     AccountComponent,
     ProfileComponent,
     ReviewsComponent,
-    WishlistComponent
+    WishlistComponent,
+    DeleteReviewComponent
   ],
   imports: [
     BrowserModule,

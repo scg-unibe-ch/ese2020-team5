@@ -6,7 +6,7 @@
       <div class="review-container">
         <div class="btn-container">
           <button mat-stroked-button class="review-btn" (click)="editReview(review, products[i])">Edit</button>
-          <button mat-stroked-button class="red-btn review-btn">Delete</button>
+          <button mat-stroked-button class="red-btn review-btn" (click)="deleteReview(review)">Delete</button>
         </div>
         <a href="product/{{products[i].productId}}"><h2>{{products[i].title}}</h2></a>
         <p>{{review.review}}</p>

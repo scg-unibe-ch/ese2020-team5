@@ -13,6 +13,7 @@ import { Review } from '../../models/review.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewFormComponent } from '../custom/dialog/review-form/review-form.component';
 import { User } from '../../models/user.model';
+import { DeleteReviewComponent } from '../custom/dialog/delete-review/delete-review.component';
 
 @Component({
   selector: 'app-product',
@@ -166,8 +167,8 @@ export class ProductComponent implements OnInit {
   }
 
   deleteReview(review: Review): void {
-    this.reviewService.deleteReview(review.reviewId).then(() => {
-      location.reload();
+    this.dialog.open(DeleteReviewComponent, {
+      data: review
     });
   }
 }
