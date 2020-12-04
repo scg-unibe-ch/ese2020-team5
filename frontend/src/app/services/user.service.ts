@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { PublicUser } from '../models/publicUser.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,16 @@ export class UserService {
   getUser(): Promise<User> {
     return new Promise<User>((resolve, reject) => {
       this.httpClient.get(environment.endpointURL + 'user').subscribe((user: User) => {
+        resolve(user);
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
+  getUserById(userId: number): Promise<PublicUser> {
+    return new Promise<PublicUser>((resolve, reject) => {
+      this.httpClient.get(environment.endpointURL + 'user/' + userId + '/public').subscribe((user: PublicUser) => {
         resolve(user);
       }, (error: any) => {
         reject(error);
