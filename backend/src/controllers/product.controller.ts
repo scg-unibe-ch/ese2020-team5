@@ -39,7 +39,7 @@ productController.get('/admin-catalog', verifyToken, (req: Request, res: Respons
     productService.getAdminCatalog(getUserId(req)).then(products => res.send(products)).catch(err => res.status(500).send(err));
 });
 
-productController.get('/:id', verifyToken, (req: Request, res: Response) => {
+productController.get('/:id', (req: Request, res: Response) => {
     productService.getOne(getUserId(req), parseInt(req.params.id, 10))
         .then(products => res.send(products))
         .catch(err => res.status(500).send(err));

@@ -118,7 +118,7 @@ export class ProductService {
             .then(product => {
                 if ( product.approved ) {
                     return Promise.resolve(product);
-                } else {
+                } else if ( userId ) {
                     return User.findByPk(userId).then(user => {
                         if (user.isAdmin !== 1 && userId !== product.userId) {
                             return Promise.reject('You are not authorized to do this!');
@@ -126,6 +126,8 @@ export class ProductService {
                             return Promise.resolve(product);
                         }
                     });
+                } else {
+                    return Promise.reject('You are not authorized to do this!');
                 }
             })
             .catch(err => Promise.reject(err));
