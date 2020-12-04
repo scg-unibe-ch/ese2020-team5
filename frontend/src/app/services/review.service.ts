@@ -49,6 +49,12 @@ export class ReviewService {
       });
     });
   }
+
+  getAvgRating(reviews: Review[]): number {
+    let totalRating = 0;
+    reviews.forEach(review => totalRating += review.rating);
+    return (reviews.length > 0 ? totalRating / reviews.length : 0);
+  }
 }
 
 class ExtendedUser extends User {
