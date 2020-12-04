@@ -13,11 +13,11 @@ wishlistController.get('/', verifyToken, (req: Request, res: Response) => {
 });
 
 
-/*wishlistController.post('/buy', verifyToken, (req: Request, res: Response) => {
-    WishlistService.buy(getUserId(req))
-        .then(bought => res.send(bought))
+wishlistController.post('/cart', verifyToken, (req: Request, res: Response) => {
+    wishlistService.move(getUserId(req))
+        .then(moved => res.send(moved))
         .catch(err => res.status(500).send(err));
-});*/
+});
 
 wishlistController.post('/:id', verifyToken, (req: Request, res: Response) => {
     wishlistService.create(req.body, getUserId(req), req.params.id)

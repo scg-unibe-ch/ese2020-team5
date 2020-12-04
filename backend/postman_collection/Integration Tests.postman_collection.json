@@ -642,346 +642,6 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Wishlist Tests",
-			"item": [
-				{
-					"name": "create Wishlist entry",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "af401b4a-7195-4178-8e7f-e619101e4acf",
-								"exec": [
-									"const responseJson = pm.response.json();",
-									"",
-									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
-									"    pm.response.to.have.status(200);",
-									"})",
-									"",
-									"pm.test(\"Check the response attributes\", () => {",
-									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
-									"    pm.expect(responseJson.buyerId).to.be.an('number');",
-									"    pm.expect(responseJson.productId).to.eql(2);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "13d1e01f-83c4-4f66-b30a-daf3f4162d5d",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"amountOrTime\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{uri}}/wishlist/2",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"wishlist",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add same product = update amountOrTime",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "0cf2403b-393e-4bb4-bc71-4c1d22cf16c2",
-								"exec": [
-									"const responseJson = pm.response.json();",
-									"",
-									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
-									"    pm.response.to.have.status(200);",
-									"})",
-									"",
-									"pm.test(\"Check the response attributes\", () => {",
-									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
-									"    pm.expect(responseJson.buyerId).to.be.an('number');",
-									"    pm.expect(responseJson.productId).to.eql(2);",
-									"    pm.expect(responseJson.amountOrTime).to.be.eql(8);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "e5c39153-dca6-4786-b756-2ca54170baa1",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"amountOrTime\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{uri}}/wishlist/2",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"wishlist",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Wishlist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "4b378cf5-beeb-49ce-80ea-f6ee5ddf68fd",
-								"exec": [
-									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
-									"    pm.response.to.have.status(200);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"amountOrTime\": 2\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{uri}}/wishlist/",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"wishlist",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update Wishlist entry",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "9d75baec-83bb-40a0-95a0-0a4542d7b2e5",
-								"exec": [
-									"const responseJson = pm.response.json();",
-									"",
-									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
-									"    pm.response.to.have.status(200);",
-									"})",
-									"",
-									"pm.test(\"Check the response attributes\", () => {",
-									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
-									"    pm.expect(responseJson.buyerId).to.be.an('number');",
-									"    pm.expect(responseJson.productId).to.eql(2);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"amountOrTime\": 1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{uri}}/wishlist/2",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"wishlist",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete Wishlist entry",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "a1bfe848-f957-41ed-b4e2-3e557f448ab3",
-								"exec": [
-									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
-									"    pm.response.to.have.status(200);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://{{uri}}/wishlist/2",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"wishlist",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create Wishlist with wrong productId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "81d8f7ee-b9a0-47b6-8240-f6e2e7acf8b8",
-								"exec": [
-									"pm.test(\"Return error if the product is not found\",() => {",
-									"    pm.response.to.have.status(500);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"amountOrTime\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{uri}}/wishlist/100",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"wishlist",
-								"100"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create Wishlist with unapproved product",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "3729ef5a-23e8-44aa-a82a-2d4552b8916b",
-								"exec": [
-									"pm.test(\"Return error if the product is not approved\",() => {",
-									"    pm.response.to.have.status(500);",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"amountOrTime\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{uri}}/wishlist/1",
-							"protocol": "http",
-							"host": [
-								"{{uri}}"
-							],
-							"path": [
-								"wishlist",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "Test the transactions",
-			"protocolProfileBehavior": {}
-		},
-		{
 			"name": "ShoppingCart Tests",
 			"item": [
 				{
@@ -1412,6 +1072,407 @@
 							"path": [
 								"cart",
 								"buy"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Test the transactions",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Wishlist Tests",
+			"item": [
+				{
+					"name": "create Wishlist entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af401b4a-7195-4178-8e7f-e619101e4acf",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Check the response attributes\", () => {",
+									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
+									"    pm.expect(responseJson.buyerId).to.be.an('number');",
+									"    pm.expect(responseJson.productId).to.eql(2);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "13d1e01f-83c4-4f66-b30a-daf3f4162d5d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/wishlist/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add same product = update amountOrTime",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0cf2403b-393e-4bb4-bc71-4c1d22cf16c2",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Check the response attributes\", () => {",
+									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
+									"    pm.expect(responseJson.buyerId).to.be.an('number');",
+									"    pm.expect(responseJson.productId).to.eql(2);",
+									"    pm.expect(responseJson.amountOrTime).to.be.eql(8);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e5c39153-dca6-4786-b756-2ca54170baa1",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/wishlist/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Wishlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b378cf5-beeb-49ce-80ea-f6ee5ddf68fd",
+								"exec": [
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/wishlist/",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Wishlist entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d75baec-83bb-40a0-95a0-0a4542d7b2e5",
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"pm.test(\"Check the response attributes\", () => {",
+									"    pm.expect(responseJson.buyerId).to.eql(pm.environment.get('userId').toNumber());",
+									"    pm.expect(responseJson.buyerId).to.be.an('number');",
+									"    pm.expect(responseJson.productId).to.eql(2);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/wishlist/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Wishlist entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a1bfe848-f957-41ed-b4e2-3e557f448ab3",
+								"exec": [
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/wishlist/2",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Wishlist with wrong productId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81d8f7ee-b9a0-47b6-8240-f6e2e7acf8b8",
+								"exec": [
+									"pm.test(\"Return error if the product is not found\",() => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/wishlist/100",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Wishlist with unapproved product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3729ef5a-23e8-44aa-a82a-2d4552b8916b",
+								"exec": [
+									"pm.test(\"Return error if the product is not approved\",() => {",
+									"    pm.response.to.have.status(500);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amountOrTime\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{uri}}/wishlist/1",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "move Wishlist to shopping cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1b84fd63-09a4-4af5-86bd-2463f04507ad",
+								"exec": [
+									"pm.test(\"User should be able to add items to its shopping cart\",() => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9bc96daa-6692-4006-95fb-85d959026f19",
+								"exec": [
+									"const echoPostRequest = {",
+									"  url: 'http://' + pm.collectionVariables.get('uri') + '/wishlist/2',",
+									"  method: 'POST',",
+									"  header: {",
+									"      'Content-Type': 'application/json',",
+									"      'Authorization': 'Bearer ' + pm.environment.get('currentAccessToken')",
+									"    },",
+									"  body: {",
+									"    mode: 'application/json',",
+									"    raw: JSON.stringify(",
+									"        {",
+									"            amountOrTime: pm.environment.get('deleteUserId2')",
+									"        })",
+									"  }",
+									"};",
+									"",
+									"pm.sendRequest(echoPostRequest, function (err, res) {",
+									"    console.log(err ? err : res.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{uri}}/wishlist/cart",
+							"protocol": "http",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"wishlist",
+								"cart"
 							]
 						}
 					},

@@ -1,7 +1,10 @@
 import { Product } from '../models/product.model';
 import { WishlistAttributes, Wishlist } from '../models/wishlist.model';
 import {User} from '../models/user.model';
+import {ShoppingCartService} from './shoppingcart.service';
+import {ShoppingCartAttributes} from '../models/shoppingcart.model';
 
+const shoppingCartService = new ShoppingCartService();
 
 export class WishlistService {
 
@@ -56,22 +59,43 @@ export class WishlistService {
             .catch(err => Promise.reject(err));
     }
 
-    public delete(shoppingCartItem: WishlistAttributes, buyerId: number, productId: string): Promise<WishlistAttributes> {
+    public delete(wishlistItem: WishlistAttributes, buyerId: number, productId: string): Promise<WishlistAttributes> {
         return Wishlist.findOne({where: { buyerId: buyerId, productId: productId}})
-            .then(shoppingCartEntry => shoppingCartEntry.destroy()
-                .then(() => Promise.resolve(shoppingCartEntry)))
+            .then(wishlistEntry => wishlistEntry.destroy()
+                .then(() => Promise.resolve(wishlistEntry)))
             .catch(err => Promise.reject(err));
     }
 
-    public update(shoppingCartItem: WishlistAttributes, buyerId: number, productId: string): Promise<WishlistAttributes> {
-        if (shoppingCartItem.amountOrTime === 0) {
-            return this.delete(shoppingCartItem, buyerId, productId);
+    public update(wishlistItem: WishlistAttributes, buyerId: number, productId: string): Promise<WishlistAttributes> {
+        if (wishlistItem.amountOrTime === 0) {
+            return this.delete(wishlistItem, buyerId, productId);
         } else {
             return Wishlist.findOne({where: { buyerId: buyerId, productId: productId}})
-                .then(shoppingCartEntry => shoppingCartEntry.update(shoppingCartItem))
+                .then(shoppingCartEntry => shoppingCartEntry.update(wishlistItem))
                 .then(updated => Promise.resolve(updated))
                 .catch(err => Promise.reject(err));
         }
+    }
+
+    public move(buyerId: number): Promise<String> {
+        return Wishlist.findAll({where: {buyerId: buyerId}})
+            .then(async(entries) => {
+                if (!entries) {
+                    return Promise.reject('Empty Wishlist!');
+                }
+                return entries.forEach(wishlistentry => {
+                    const shoppingCartEntry: ShoppingCartAttributes = {
+                        buyerId: wishlistentry.buyerId,
+                        productId: wishlistentry.productId,
+                        amountOrTime: wishlistentry.amountOrTime
+                    };
+                    shoppingCartService.create(shoppingCartEntry, wishlistentry.buyerId, wishlistentry.productId.toString())
+                        .then(() => this.delete(wishlistentry, wishlistentry.buyerId, wishlistentry.productId.toString()))
+                        .catch(() => Promise.reject('Could not move wishlist entry to shopping cart!'));
+                });
+            })
+            .then(() => Promise.resolve('OK!'))
+            .catch(err => Promise.reject(err));
     }
 
 /*    public buy(buyerId: number): Promise<string> {

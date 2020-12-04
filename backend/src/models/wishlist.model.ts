@@ -2,8 +2,6 @@ import {
     Model,
     DataTypes,
     Sequelize,
-    Association,
-    HasManyGetAssociationsMixin,
     BelongsToCreateAssociationMixin
 } from 'sequelize';
 import { User } from './user.model';
