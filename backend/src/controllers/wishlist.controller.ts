@@ -13,11 +13,11 @@ wishlistController.get('/', verifyToken, (req: Request, res: Response) => {
 });
 
 
-wishlistController.post('/cart', verifyToken, (req: Request, res: Response) => {
+/*wishlistController.post('/cart', verifyToken, (req: Request, res: Response) => {
     wishlistService.move(getUserId(req))
         .then(moved => res.send(moved))
         .catch(err => res.status(500).send(err));
-});
+});*/
 
 wishlistController.post('/:id', verifyToken, (req: Request, res: Response) => {
     wishlistService.create(req.body, getUserId(req), req.params.id)
@@ -25,11 +25,11 @@ wishlistController.post('/:id', verifyToken, (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
-wishlistController.put('/:id', verifyToken, (req: Request, res: Response) => {
+/*wishlistController.put('/:id', verifyToken, (req: Request, res: Response) => {
     wishlistService.update(req.body, getUserId(req), req.params.id)
         .then(updated => res.send(updated))
         .catch(err => res.status(500).send(err));
-});
+});*/
 
 wishlistController.delete('/:id', verifyToken, (req: Request, res: Response) => {
     wishlistService.delete(req.body, getUserId(req), req.params.id)

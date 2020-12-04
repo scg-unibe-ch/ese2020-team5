@@ -10,14 +10,12 @@ import { Product } from './product.model';
 export interface WishlistAttributes {
     buyerId: number;
     productId: number;
-    amountOrTime: number;
 }
 
 export class Wishlist extends Model<WishlistAttributes> implements WishlistAttributes {
 
     buyerId!: number;
     productId!: number;
-    amountOrTime!: number;
 
     public getProduct!: BelongsToCreateAssociationMixin<Product>;
 
@@ -25,10 +23,6 @@ export class Wishlist extends Model<WishlistAttributes> implements WishlistAttri
         Wishlist.init(
             {
                 buyerId: {
-                    type: DataTypes.INTEGER,
-                    allowNull: false
-                },
-                amountOrTime: {
                     type: DataTypes.INTEGER,
                     allowNull: false
                 },
