@@ -242,16 +242,22 @@
     width: 98%;
     border: none;
     margin: 0 auto;
+    min-height: calc(100vh - 386px);
+  }
+
+  .table-names {
+    position: relative;
+    top: 0;
+    z-index: 0;
   }
 
   .checkout {
+    position: relative;
     margin: 0 auto;
     width: 95%;
     height: 200px;
     border: 0;
     border-top: 1px solid #a7a7a7;
-    position: sticky;
-    bottom: 0;
   }
 }
 

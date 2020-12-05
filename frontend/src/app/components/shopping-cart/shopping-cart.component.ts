@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../models/cartItem.model';
 import { Product } from '../../models/product.model';
@@ -27,11 +27,6 @@ export class ShoppingCartComponent implements OnInit {
     public imageService: ImageService
   ) { }
 
-  @HostListener('window:beforeunload')
-  save(): void {
-    this.saveChanges();
-  }
-
   ngOnInit(): void {
     this.userService.getUser().then(user => {
       this.credits = user.credits;
@@ -50,26 +45,27 @@ export class ShoppingCartComponent implements OnInit {
         });
       });
     });
-    window.onbeforeunload = () => {
-      this.saveChanges();
-    };
+  }
+
+  saveChange(cartItem: CartItem, index: number): void {
+    this.validateAmount(index);
+    this.cartService.updateCartItem(cartItem);
   }
 
   saveChanges(): void {
     this.cartItems.forEach((cartItem, index) => {
-      this.validateAmount(index);
-      this.cartService.updateCartItem(cartItem);
+      this.saveChange(cartItem, index);
     });
   }
 
   addAmount(index: number): void {
     this.cartItems[index].amountOrTime++;
-    this.validateAmount(index);
+    this.saveChange(this.cartItems[index], index);
   }
 
   removeAmount(index: number): void {
     this.cartItems[index].amountOrTime--;
-    this.validateAmount(index);
+    this.saveChange(this.cartItems[index], index);
   }
 
   validateAmount(index: number): void {
@@ -108,6 +104,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout(): void {
+    this.saveChanges();
     const deliverable = this.isMinOneProductDeliverable();
     this.dialog.open(CheckoutComponent, {
       data: {
