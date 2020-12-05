@@ -12,8 +12,8 @@ export class ReviewService {
 
   getReviewsFromUser(): Promise<Review[]> {
     return new Promise<Review[]>((resolve, reject) => {
-      this.httpClient.get(environment.endpointURL + 'user/reviews').subscribe((user: ExtendedUser) => {
-        resolve(user.reviews);
+      this.httpClient.get(environment.endpointURL + 'user/reviews').subscribe((reviews: Review[]) => {
+        resolve(reviews);
       }, (error: any) => {
         reject(error);
       });
@@ -55,8 +55,4 @@ export class ReviewService {
     reviews.forEach(review => totalRating += review.rating);
     return (reviews.length > 0 ? totalRating / reviews.length : 0);
   }
-}
-
-class ExtendedUser extends User {
-  reviews: Review[];
 }
