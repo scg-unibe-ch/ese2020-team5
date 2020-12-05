@@ -1,1 +1,31 @@
-<p>wishlist works!</p>
+<div class="wishlist">
+  <h1>Wishlist</h1>
+  <div class="btn-container">
+    <button [disabled]="!canBeMovedToCart || products.length === 0"
+            mat-stroked-button
+            class="add-all-btn black-btn"
+            (click)="addAllToCart()">
+      Add all to Cart
+    </button>
+    <button [disabled]="!products || products.length === 0" mat-stroked-button type="button" class="clear-list black-btn" (click)="clearList()">Clear List</button>
+  </div>
+  <hr>
+  <div *ngIf="products && products.length > 0" class="wishlist-content">
+    <div class="product" *ngFor="let product of products; let i = index">
+      <app-compact-product-list [product]="product" view="wishlist"></app-compact-product-list>
+      <div class="product-btn-container">
+        <button [disabled]="!product.status || !product.approved"
+                class="add-to-cart"
+                mat-icon-button
+                matTooltip="Add to Cart"
+                (click)="addToCart(i)">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+        <button class="remove-item" mat-icon-button matTooltip="Remove Item" (click)="removeItem(i)"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="products && products.length === 0" class="wishlist-content">
+    <h1>You have no products added to your wishlist!</h1>
+  </div>
+</div>

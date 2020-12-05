@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'catalog', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   { path: 'profile', redirectTo: 'account/profile', pathMatch: 'full' },
+  { path: 'wishlist', redirectTo: 'account/wishlist', pathMatch: 'full' },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },

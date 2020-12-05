@@ -71,6 +71,10 @@
   text-decoration: underline;
 }
 
+.product-title h2{
+  display: inline;
+}
+
 .product-price {
   position: absolute;
   top: 30px;

@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReviewFormComponent } from '../custom/dialog/review-form/review-form.component';
 import { User } from '../../models/user.model';
 import { DeleteReviewComponent } from '../custom/dialog/delete-review/delete-review.component';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-product',
@@ -39,6 +40,7 @@ export class ProductComponent implements OnInit {
     private userService: UserService,
     private cartService: CartService,
     private reviewService: ReviewService,
+    private wishlistService: WishlistService,
     private dialog: MatDialog,
     public imageService: ImageService
   ) { }
@@ -141,9 +143,22 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  async isNotInWishlist(): Promise<void> {
+    try {
+      const wishlistEntries = await this.wishlistService.getWishlist();
+      if (wishlistEntries && wishlistEntries.some(entry => entry.productId === this.product.productId)) {
+        return Promise.reject();
+      } else {
+        return Promise.resolve();
+      }
+    } catch (error) {
+      return Promise.reject();
+    }
+  }
+
   addToWishlist(): void {
     if (this.authService.isLoggedIn() && this.product.approved) {
-      // ToDo: Add to Wishlist
+      this.isNotInWishlist().then(() => this.wishlistService.addToWishlist(this.product.productId));
     } else {
       location.assign('login?returnURL=' + this.router.url);
     }
