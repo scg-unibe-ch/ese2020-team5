@@ -47,6 +47,8 @@ import { ProductStatusIconComponent } from './components/custom/product-status-i
 import { StarRatingComponent } from './components/custom/star-rating/star-rating.component';
 import { InboxComponent } from './components/inbox/inbox.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './components/custom/dialog/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import { MatBadgeModule } from '@angular/material/badge';
     CompactProductCardComponent,
     ProductStatusIconComponent,
     StarRatingComponent,
-    InboxComponent
+    InboxComponent,
+    ShoppingCartComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

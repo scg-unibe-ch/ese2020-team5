@@ -1,0 +1,38 @@
+<div class="checkout-dialog">
+  <form *ngIf="data.deliverable" [formGroup]="addressForm" class="address-form">
+    <h2 style="grid-column: 1/5"><strong>Delivery Address:</strong></h2>
+    <mat-form-field appearance="outline" class="country">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="country">
+        <mat-option *ngFor="let country of countryList" value="{{country}}">{{country}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="city">
+      <mat-label>City</mat-label>
+      <input matInput type="text" formControlName="city">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="zip-code">
+      <mat-label>ZIP Code</mat-label>
+      <input matInput type="number" formControlName="zipCode">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="street">
+      <mat-label>Address</mat-label>
+      <input matInput type="text" formControlName="street">
+    </mat-form-field>
+  </form>
+  <hr>
+  <div style="width: 90%; margin: 0 auto">
+    <span><strong>Total:</strong></span><br>
+    <span style="float: right">{{data.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span><br>
+    <span><strong>Your Credits:</strong></span><br>
+    <span style="float: right">{{user ? user.credits.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : ''}}</span><br>
+    <hr>
+    <span><strong>Balance:</strong></span><br>
+    <span style="float: right">{{user ? (user.credits - data.total).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : ''}}</span><br>
+  </div>
+  <hr>
+  <div mat-dialog-actions class="btn-container">
+    <button mat-button class="black-btn" [disabled]="addressForm.invalid || user.credits < data.total" (click)="buy()">Buy</button>
+    <button mat-stroked-button mat-dialog-close>Cancel</button>
+  </div>
+</div>

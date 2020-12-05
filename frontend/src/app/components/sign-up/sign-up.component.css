@@ -54,7 +54,7 @@
   grid-column-end: 5;
 }
 
-.email, .country, .address, .username, .password{
+.email, .country, .street, .username, .password{
   grid-column-start: 1;
   grid-column-end: 5;
 }

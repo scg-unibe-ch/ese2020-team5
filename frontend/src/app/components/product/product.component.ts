@@ -6,6 +6,9 @@ import { AuthService } from '../../services/auth.service';
 import { ImageService } from '../../services/image.service';
 import { Review } from '../../models/review.model';
 import { ProductImage } from '../../models/productImage.model';
+import { CartItem } from '../../models/cartItem.model';
+import { UserService } from '../../services/user.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +19,7 @@ export class ProductComponent implements OnInit {
   product: Product;
   avgRating = 0;
   imageIndex = 0;
-  user: RestrictedUser;
+  owner: RestrictedUser;
   showImage = false;
   showReviews = true;
 
@@ -25,6 +28,8 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private authService: AuthService,
+    private userService: UserService,
+    private cartService: CartService,
     public fakeService: FakeService,
     public imageService: ImageService
   ) { }
@@ -33,7 +38,7 @@ export class ProductComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.productService.getProductById(parseInt(params.id, 10)).then(product => {
         this.product = product;
-        this.user = this.fakeService.getUserById(product.userId);
+        this.owner = this.fakeService.getUserById(product.userId);
         this.avgRating = this.fakeService.getAvgRatingOfProduct();
         this.product.reviews = this.fakeService.getFakeReviews();
         if (this.product.productId % 2 === 0) {
@@ -89,7 +94,14 @@ export class ProductComponent implements OnInit {
 
   addToCart(): void {
     if (this.authService.isLoggedIn() && this.product.approved) {
-      // ToDO: Add to cart
+      this.userService.getUser().then(user => {
+        const cartItem: CartItem = {
+          buyerId: user.userId,
+          productId: this.product.productId,
+          amountOrTime: 1
+        };
+        this.cartService.addCartItem(cartItem);
+      });
     } else {
       location.assign('login?returnURL=' + this.router.url);
     }
