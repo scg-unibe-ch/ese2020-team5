@@ -7,6 +7,7 @@ import { ImageService } from '../../services/image.service';
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CheckoutComponent } from '../custom/dialog/checkout/checkout.component';
+import { DataSharingService } from '../../services/data-sharing.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -23,6 +24,7 @@ export class ShoppingCartComponent implements OnInit {
     private userService: UserService,
     private cartService: CartService,
     private productService: ProductService,
+    private dataSharingService: DataSharingService,
     private dialog: MatDialog,
     public imageService: ImageService
   ) { }
@@ -49,7 +51,7 @@ export class ShoppingCartComponent implements OnInit {
 
   saveChange(cartItem: CartItem, index: number): void {
     this.validateAmount(index);
-    this.cartService.updateCartItem(cartItem);
+    this.cartService.updateCartItem(cartItem).then(() => this.dataSharingService.updateCartItemsAmount());
   }
 
   saveChanges(): void {
@@ -80,6 +82,7 @@ export class ShoppingCartComponent implements OnInit {
 
   removeCartItem(index: number): void {
     this.cartService.deleteCartItem(this.cartItems[index].productId).then(() => {
+      this.dataSharingService.updateCartItemsAmount();
       this.cartItems.splice(index, 1);
       this.products.splice(index, 1);
       this.calcTotal();

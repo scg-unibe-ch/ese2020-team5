@@ -26,7 +26,13 @@
       <mat-icon matTooltip="Create Product">post_add</mat-icon>
     </a>
     <a href="cart" mat-icon-button class="nav-entry-icon-btn">
-      <mat-icon matTooltip="Shopping Cart">shopping_cart</mat-icon>
+      <mat-icon [matBadgeHidden]="cartItemsAmount === 0"
+                [matBadge]="cartItemsAmount"
+                matBadgeSize="small"
+                matBadgeColor="primary"
+                matTooltip="Shopping Cart">
+        shopping_cart
+      </mat-icon>
     </a>
   </div>
 </div>

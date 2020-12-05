@@ -8,6 +8,7 @@ import { CartService } from '../../../services/cart.service';
 import { CartItem } from '../../../models/cartItem.model';
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
+import { DataSharingService } from '../../../services/data-sharing.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -24,6 +25,7 @@ export class WishlistComponent implements OnInit {
     private wishlistService: WishlistService,
     private productService: ProductService,
     private cartService: CartService,
+    private dataSharingService: DataSharingService,
     public imageService: ImageService
   ) { }
 
@@ -92,7 +94,7 @@ export class WishlistComponent implements OnInit {
         productId: this.products[index].productId,
         amountOrTime: 1
       };
-      this.cartService.addCartItem(cartItem);
+      this.cartService.addCartItem(cartItem).then(() => this.dataSharingService.updateCartItemsAmount());
     });
   }
 

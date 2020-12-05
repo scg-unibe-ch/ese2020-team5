@@ -1,4 +1,4 @@
-import {Component, HostListener, Injectable, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
@@ -15,6 +15,7 @@ import { ReviewFormComponent } from '../custom/dialog/review-form/review-form.co
 import { User } from '../../models/user.model';
 import { DeleteReviewComponent } from '../custom/dialog/delete-review/delete-review.component';
 import { WishlistService } from '../../services/wishlist.service';
+import { DataSharingService } from '../../services/data-sharing.service';
 
 @Component({
   selector: 'app-product',
@@ -41,6 +42,7 @@ export class ProductComponent implements OnInit {
     private cartService: CartService,
     private reviewService: ReviewService,
     private wishlistService: WishlistService,
+    private dataSharingService: DataSharingService,
     private dialog: MatDialog,
     public imageService: ImageService
   ) { }
@@ -136,7 +138,7 @@ export class ProductComponent implements OnInit {
           productId: this.product.productId,
           amountOrTime: 1
         };
-        this.cartService.addCartItem(cartItem);
+        this.cartService.addCartItem(cartItem).then(() => this.dataSharingService.updateCartItemsAmount());
       });
     } else {
       location.assign('login?returnURL=' + this.router.url);
