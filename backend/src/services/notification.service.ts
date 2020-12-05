@@ -4,13 +4,13 @@ import {Notification, NotificationCreationAttributes} from '../models/notificati
 export class NotificationService {
 
     public get(userId: number): Promise<Notification[]> {
-        return Notification.findAll({where: {userId: userId}})
+        return Notification.findAll({ where: { userId: userId } })
             .then(notifications => Promise.resolve(notifications))
             .catch(err => Promise.reject(err));
     }
 
     public read(userId: number, notificationId: string): Promise<Notification> {
-        return Notification.findOne({where: {notificationId: notificationId, userId: userId}})
+        return Notification.findOne({ where: { notificationId: notificationId, userId: userId } })
             .then(notification => {
                 if (notification) {
                     const updatedNotification = {
@@ -25,12 +25,14 @@ export class NotificationService {
     }
 
     public delete(userId: number, notificationId: string): Promise<Notification> {
-        return Notification.findOne({where: {notificationId: notificationId, userId: userId}})
+        return Notification.findOne({ where: { notificationId: notificationId, userId: userId } })
             .then(notification => {
                 if (notification) {
                     return notification.destroy()
                         .then(() => Promise.resolve(notification))
                         .catch(err => Promise.reject(err));
+                } else {
+                    return Promise.reject('Notification not found!');
                 }
             })
             .catch(err => Promise.reject(err));
