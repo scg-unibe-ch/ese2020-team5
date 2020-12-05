@@ -9,14 +9,14 @@ export class ProductService {
     public create(product: ProductAttributes): Promise<ProductAttributes> {
         return Product.create(product)
             .then(created => Promise.resolve(created))
-            .catch(() => Promise.reject('could not create the product!'));
+            .catch(() => Promise.reject('Could not create the product!'));
     }
 
     public addImage(req: MulterRequest, userId: number): Promise<ProductImageAttributes> {
         return Product.findByPk(req.params.id)
             .then(found => {
                 if (!found) {
-                    return Promise.reject('Product not found');
+                    return Promise.reject('Product not found!');
                 } else if (found.userId !== userId) {
                     return Promise.reject('You are not authorized to do this!');
                 } else {
@@ -25,60 +25,59 @@ export class ProductService {
                             if (req.fileValidationError) {
                                 reject(req.fileValidationError);
                             } else if (!req.file) {
-                                reject('Please select an image to upload');
+                                reject('Please select an image to upload!');
                             } else if (error) {
-                                reject(error);
+                                reject('Could not upload image!');
                             } else {
                                 ProductImage.create({ fileName: req.file.filename, productId: found.productId })
-                                    .then(created => resolve(created)).catch(err => reject(err));
+                                    .then(created => resolve(created))
+                                    .catch(() => reject('Could not upload image!'));
                             }
                         });
                     });
                 }
             })
-            .catch(err => Promise.reject(err));
+            .catch(() => Promise.reject('Could not upload image!'));
     }
 
     public update(req: Request, userId: number ): Promise<ProductAttributes> {
-       return Product.findByPk(req.params.id)
+        return Product.findByPk(req.params.id)
             .then(product => {
-                if (!!product) {
+                if (product) {
                     return User.findByPk(userId).then(user => {
                         if (user.isAdmin !== 1 && (product.userId !== userId || req.body.hasOwnProperty('approved'))) {
                             return Promise.reject('You are not authorized to do this!');
                         } else {
-                            // if (found.userId == userId && req.body.has('approved')) {
-                            //      return Promise.reject('You are not auth
-                            return product.update(req.body).then(() => {
-                                return Promise.resolve(product);
-                            }).catch(() => Promise.reject('Could not update the product'));
+                            return product.update(req.body)
+                                .then(() => Promise.resolve(product))
+                                .catch(() => Promise.reject('Could not update the product!'));
                         }
                     });
                 } else {
-                    return Promise.reject('Product not found');
+                    return Promise.reject('Product not found!');
                 }
             })
-            .catch(err => Promise.reject(err));
+            .catch(() => Promise.reject('Could not update the product!'));
     }
 
     public delete(req: Request, userId: number): Promise<ProductAttributes> {
         return Product.findByPk(req.params.id)
             .then(product => {
-                if (!!product) {
+                if (product) {
                     return User.findByPk(userId).then(user => {
                         if (user.isAdmin !== 1 && product.userId !== userId) {
                             return Promise.reject('You are not authorized to do this!');
                         } else {
                             return product.destroy()
                                 .then(() => Promise.resolve(product))
-                                .catch(() => Promise.reject('Could not remove the product'));
+                                .catch(() => Promise.reject('Could not remove the product!'));
                         }
                     });
                 } else {
-                    return Promise.reject(product);
+                    return Promise.reject('Could not find the product!');
                 }
             })
-            .catch(err => Promise.reject(err));
+            .catch(() => Promise.reject('Could not remove the product!'));
     }
 
     public deleteImage(req: Request, userId: number): Promise<ProductImageAttributes> {
@@ -97,24 +96,24 @@ export class ProductService {
                                 } else {
                                     return image.destroy()
                                         .then(() => Promise.resolve(image))
-                                        .catch(() => Promise.reject('Could not remove the image'));
+                                        .catch(() => Promise.reject('Could not remove the image!'));
                                 }
                             }
                         })
-                        .catch(err => Promise.reject(err));
+                        .catch(() => Promise.reject('Could not find the product!'));
                 }
             })
-            .catch(err => Promise.reject(err));
+            .catch(() => Promise.reject('Could not remove the image!'));
     }
 
     public getAll(userId: number): Promise<Product[]> {
-        return Product.findAll({where: { userId: userId }, include: [Product.associations.reviews, Product.associations.images]})
+        return Product.findAll({ where: { userId: userId }, include: [Product.associations.reviews, Product.associations.images] })
             .then(list => Promise.resolve(list))
             .catch(() => Promise.reject('Could not get the products!'));
     }
 
     public getOne(userId: number, productId: number): Promise<Product> {
-        return Product.findByPk(productId, { include: [Product.associations.reviews, Product.associations.images]})
+        return Product.findByPk(productId, { include: [Product.associations.reviews, Product.associations.images] })
             .then(product => {
                 if ( product.approved ) {
                     return Promise.resolve(product);
@@ -130,7 +129,7 @@ export class ProductService {
                     return Promise.reject('You are not authorized to do this!');
                 }
             })
-            .catch(err => Promise.reject(err));
+            .catch(() => Promise.reject('Could not get the product!'));
     }
 
     public getCatalog(): Promise<Product[]> {
@@ -150,6 +149,6 @@ export class ProductService {
                     }
                 });
             })
-            .catch(err => Promise.reject(err));
+            .catch(() => Promise.reject('Could not get the admin catalog!'));
     }
 }
