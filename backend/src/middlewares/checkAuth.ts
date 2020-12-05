@@ -21,7 +21,11 @@ export function verifyToken(req: Request, res: Response, next: any) {
 }
 
 export function getUserId(req: Request): number {
-    const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.decode(token, {json: true});
-    return decoded.userId;
+    if (req.headers.authorization) {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.decode(token, {json: true});
+        return decoded.userId;
+    } else {
+        return null;
+    }
 }
