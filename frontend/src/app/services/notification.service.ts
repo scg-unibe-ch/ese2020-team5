@@ -19,9 +19,19 @@ export class NotificationService {
     });
   }
 
-  readNotification(id: number): Promise<Notification> {
+  readNotification(notificationId: number): Promise<Notification> {
     return new Promise<Notification>((resolve, reject) => {
-      this.httpClient.put(environment.endpointURL + 'notification/' + id, {}).subscribe((notification: Notification) => {
+      this.httpClient.put(environment.endpointURL + 'notification/' + notificationId, {}).subscribe((notification: Notification) => {
+        resolve(notification);
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
+  deleteNotification(notificationId: number): Promise<Notification> {
+    return new Promise<Notification>((resolve, reject) => {
+      this.httpClient.delete(environment.endpointURL + 'notification/' + notificationId).subscribe((notification: Notification) => {
         resolve(notification);
       }, (error: any) => {
         reject(error);
