@@ -3,10 +3,6 @@
   position: relative;
 }
 
-.profile > h1 {
-  text-align: left;
-}
-
 .profile-edit-btn {
   position: absolute;
   top: 20px;

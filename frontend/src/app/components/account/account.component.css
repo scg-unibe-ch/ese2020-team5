@@ -1,11 +1,14 @@
 .account-content {
-  text-align: center;
   margin: 0 auto;
 }
 
 .account-content-header {
-  position: sticky;
+  position: relative;
   padding-top: 25px;
+}
+
+.account-content-header h1 {
+  text-align: center;
 }
 
 .account-tab {

@@ -1,7 +1,7 @@
 <div class="profile">
-  <h1>Account Overview</h1>
+  <h1>Profile</h1>
   <button *ngIf="!editable" mat-stroked-button type="button" class="profile-edit-btn black-btn" (click)="edit()">Edit</button>
-  <hr style="margin: 10px 0;">
+  <hr style="margin: 10px 0 25px;">
   <form *ngIf="user" [formGroup]="profileForm" (ngSubmit)="updateUser()" class="profile-form-fields">
     <mat-form-field appearance="outline" class="first-name">
       <mat-label>First Name*</mat-label>

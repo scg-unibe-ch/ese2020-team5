@@ -1,7 +1,7 @@
 <div class="review-list-content">
   <h1>Reviews</h1>
   <hr style="margin: 10px 0;">
-  <div *ngIf="reviews && products.length === reviews.length">
+  <div *ngIf="reviews && products.length === reviews.length && reviews.length > 0">
     <div class="review" *ngFor="let review of reviews; let i = index">
       <div class="review-container">
         <div class="btn-container">
@@ -16,5 +16,8 @@
       </div>
       <hr *ngIf="i < reviews.length - 1">
     </div>
+  </div>
+  <div *ngIf="reviews && reviews.length === 0" class="no-review">
+    <h1>You have no reviews!</h1>
   </div>
 </div>

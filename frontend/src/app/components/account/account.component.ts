@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 
@@ -35,5 +35,9 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
     this.section = this.route.snapshot.children[0].url[0].path;
     this.userService.getUser().then(user => this.user = user);
+  }
+
+  navigateTo(path: string): void {
+    this.router.navigate(['account/' + path]).then(() => this.section = path);
   }
 }
