@@ -4,8 +4,8 @@
 You should have installed [NodeJS and npm](https://nodejs.org/en/download/) (they come as one) in order to start the backend server.
 
 ## Start
-- clone the ese2020-project-scaffolding repository
-- navigate to the backend folder `cd ese2020-project-scaffolding/backend`
+- clone the ese2020-team5 repository
+- navigate to the backend folder `cd ese2020-team5/backend`
 - run `npm install`
 - run `npm run dev`
 - open your browser with the url [http://localhost:3000](http://localhost:3000/)
@@ -17,31 +17,27 @@ You should have installed [NodeJS and npm](https://nodejs.org/en/download/) (the
 	- logic e.g. creating/authentication is done via [UserService](./src/services/user.service.ts)
 2. The controller itself is structured as a class.
 
+## Tests
 
-## Quick Links
-These are links to some of the files that we have implemented/modified when developing the backend:
+Run the postman backend test the following way:
 
-- Middleware
-	- [the function](./src/middlewares/checkAuth.ts)
-	- [how to use in express](./src/controllers/secured.controller.ts)
-- Login: 
-	- [service](./src/services/user.service.ts)
-	- [controller](./src/controllers/user.controller.ts)
-- Registration:
-	- [service](./src/services/user.service.ts)
-	- [controller](./src/controllers/user.controller.ts)
-- [typescript config](./src/tsconfig.json)
-- [routing](./src/controllers)
-- [API construction](./src/server.ts)
+```
+npm install newman
+npm run dev &
+newman run Integration\ Tests.postman_collection.json -e admin.postman_environment.json
+newman run Integration\ Tests.postman_collection.json -e User.postman_environment.json
+```
+
+or you can import the `Integration\ Tests.posman_collection.json` and the two environment files to postman and run it with the GUI.
 
 ## Database Diagram
 
-![database_diagram](../documentation/Database-v1.3.jpg)
+![database_diagram](../documentation/Database-v2.jpg)
 
 ## Endpoints
 Some endpoints can be called in a [browser](http://localhost:3000), others have to be called by a REST Client. [Here](./postman_collection) you can find a collection that contains all requests, which you can import into Postman. [Postman](https://www.postman.com/) is a REST Client.
 
-*TODO:* Finish the requests
+Here are some examples of the endpoints, please refer to the postman collection to see all kind of requests.
 
 ### `/products`
 - POST
@@ -348,17 +344,5 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
 		...
 	]
 
-	```
-	</details>
-
-### `/`
-- GET
-	<details>
-		<summary>Response</summary>
-
-		Code: 200
-		Body:
-	```text
-	<h1>Welcome to the ESE-2020 Course</h1><span style=\"font-size:100px;\">&#127881;</span>
 	```
 	</details>
