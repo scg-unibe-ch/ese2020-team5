@@ -33,23 +33,4 @@ reviewController.delete('/:id', verifyToken, (req: Request, res: Response) => {
         });
 });
 
-/*
-const userId = getUserId(req);
-    Review.findByPk(req.params.id)
-        .then(found => {
-            if (found != null) {
-                return User.findByPk(userId)
-                    .then(user => {
-                        if (user.isAdmin !== 1 && found.userId !== userId) {
-                            return Promise.reject('You are not authorized to do this!');
-                        } else {
-                            return found.destroy().then(() => res.status(200).send(found));
-                        }
-                    });
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(err => res.status(500).send(err));
-*/
 export const ReviewController: Router = reviewController;

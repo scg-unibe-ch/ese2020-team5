@@ -71,7 +71,6 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     amount: number;
 
     public getReviews!: HasManyGetAssociationsMixin<Review>;
-    public addReview!: HasManyAddAssociationMixin<Review, number>;
     public getImages!: HasManyGetAssociationsMixin<ProductImage>;
     public addImage!: HasManyAddAssociationMixin<ProductImage, number>;
 

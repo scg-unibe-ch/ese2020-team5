@@ -2,7 +2,6 @@
 import express, { Router, Request, Response } from 'express';
 import { UserService, AdminService } from '../services/user.service';
 import {getUserId, verifyToken} from '../middlewares/checkAuth';
-import {isNumber} from 'util';
 
 
 const userController: Router = express.Router();

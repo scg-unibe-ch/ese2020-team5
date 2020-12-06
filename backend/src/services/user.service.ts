@@ -2,8 +2,7 @@ import { UserAttributes, User } from '../models/user.model';
 import { LoginResponse, LoginRequest } from '../models/login.model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {Op, where} from 'sequelize';
-import {Request} from 'express';
+import {Op } from 'sequelize';
 import { Review } from '../models/review.model';
 
 export class UserService {
@@ -110,11 +109,7 @@ export class UserService {
             });
     }
     protected preconditionsDelete(deleter: UserAttributes, userToDeleteId: number): boolean {
-        if (deleter.userId === userToDeleteId) {
-            return true;
-        } else {
-            return false;
-        }
+        return deleter.userId === userToDeleteId;
     }
 }
 
