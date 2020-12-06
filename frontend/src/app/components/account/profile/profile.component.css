@@ -1,0 +1,60 @@
+.profile {
+  padding: 25px;
+  position: relative;
+}
+
+.profile-edit-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: calc(50px + 10%);
+}
+
+.profile-form-fields {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 15px;
+}
+
+.profile-form mat-form-field {
+  display: block;
+  min-width: 0;
+}
+
+.btn-container {
+  margin-top: 20px;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  text-align: center;
+}
+
+.profile-form-btn {
+  margin: 10px;
+  width: calc(200px + 20%);
+}
+
+.first-name {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.last-name {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+.email, .country, .street, .username, .password{
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.phone-nr, .city {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.gender, .zip-code {
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
