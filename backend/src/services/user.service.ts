@@ -85,7 +85,12 @@ export class UserService {
         return User.findByPk(userId)
             .then(user => {
                 return User.findOne({
-                    where: { [Op.or]: [ { userName: user.userName }, { email: user.email } ] }
+                    where: {
+                        [Op.or]: [
+                            { userName: newAttributes.userName, userId: { ne: userId } },
+                            { email: newAttributes.email, userId: { ne: userId } }
+                        ]
+                    }
                 }).then(foundUser => {
                     if (foundUser) {
                         if (foundUser.userName === user.userName) {
