@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {Op, where} from 'sequelize';
 import {Request} from 'express';
+import { Review } from '../models/review.model';
 
 export class UserService {
 
@@ -60,12 +61,10 @@ export class UserService {
         });
     }
 
-    public getReviews(userId: number) {
-        return User.findByPk(userId, { include: [User.associations.reviews]})
-            .then(user => {
-                return Promise.resolve({user});
-            })
-            .catch(err => Promise.reject({message: err}));
+    public getReviews(userId: number): Promise<Review[]> {
+        return Review.findAll({ where: { userId: userId } })
+            .then(list => Promise.resolve(list))
+            .catch(err => Promise.reject(err));
     }
 
     public getAll(userId: number): Promise<User[]> {

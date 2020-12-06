@@ -12,6 +12,7 @@ import {Review} from './review.model';
 import { Transaction } from './transaction.model';
 import {ShoppingCart} from './shoppingcart.model';
 import { ProductImage } from './productImage.model';
+import {Wishlist} from './wishlist.model';
 
 export interface ProductUpdate {
     productId?: number;
@@ -155,6 +156,10 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
         });
         Product.hasMany(ShoppingCart, {
             as: 'shoppingCart',
+            foreignKey: 'productId'
+        });
+        Product.hasMany(Wishlist, {
+            as: 'wishlist',
             foreignKey: 'productId'
         });
         Product.hasMany(Transaction, {
