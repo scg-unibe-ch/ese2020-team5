@@ -1,5 +1,5 @@
 <div class="catalog">
-  <div class="catalog-panel" *ngIf="this.showBrowse" [@inOutAnimation]>
+  <div class="catalog-panel" *ngIf="showBrowse" [@inOutAnimation]>
     <mat-card>
       <mat-card-content>
         <h1><strong>Items</strong></h1>
@@ -21,7 +21,7 @@
       <p class="filter-text">Filter</p>
     </div>
     <div class="product-view-selector">
-      <mat-button-toggle-group [(ngModel)]="this.productView" (ngModelChange)="changePreference()">
+      <mat-button-toggle-group [(ngModel)]="productView" (ngModelChange)="changePreference()">
         <mat-button-toggle value="card">
           <mat-icon>view_module</mat-icon>
         </mat-button-toggle>
@@ -34,7 +34,7 @@
       <hr>
       <div class="filter filter-type">
         <strong>Type</strong>
-        <mat-radio-group color="accent" [(ngModel)]="this.filter.type" class="filter-radio-grp" (ngModelChange)="updateFilter()">
+        <mat-radio-group color="accent" [(ngModel)]="filter.type" class="filter-radio-grp" (ngModelChange)="updateFilter()">
           <mat-radio-button class="filter-radio-btn" value="all">All</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="items">Items</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="services">Services</mat-radio-button>
@@ -43,15 +43,15 @@
       <div class="filter filter-price">
         <strong>Price</strong>
         <label class="filter-label">From</label>
-        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="this.filter.priceFrom" (ngModelChange)="updateFilter()">
+        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="filter.priceFrom" (ngModelChange)="updateFilter()">
         <span>CHF</span>
         <label class="filter-label">To</label>
-        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="this.filter.priceTo" (ngModelChange)="updateFilter()">
+        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="filter.priceTo" (ngModelChange)="updateFilter()">
         <span>CHF</span>
       </div>
       <div class="filter filter-sale-type">
         <strong>Sale Type</strong>
-        <mat-radio-group color="accent" [(ngModel)]="this.filter.salesType" class="filter-radio-grp" (ngModelChange)="updateFilter()">
+        <mat-radio-group color="accent" [(ngModel)]="filter.salesType" class="filter-radio-grp" (ngModelChange)="updateFilter()">
           <mat-radio-button class="filter-radio-btn" value="sellOrLend">Sell or Lend</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="sell">To Sell</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="lend">To Lend</mat-radio-button>
@@ -59,30 +59,30 @@
       </div>
       <div class="filter filter-location">
         <strong>Location</strong>
-        <input type="text" class="filter-input filter-input-location" placeholder="Location" [(ngModel)]="this.filter.location" (ngModelChange)="updateFilter()">
+        <input type="text" class="filter-input filter-input-location" placeholder="Location" [(ngModel)]="filter.location" (ngModelChange)="updateFilter()">
       </div>
       <div class="filter filter-status-deli">
         <strong>Status & Delivery</strong>
         <div class="filter-label">
           <mat-checkbox class="filter-checkbox"
-                        [ngModel]="this.filter.status === 'checked'"
-                        [indeterminate]="this.filter.status === 'crossed'"
-                        disabled (click)="checkBoxStatus()">
+                        [ngModel]="filter.status === 'checked'"
+                        [indeterminate]="filter.status === 'crossed'"
+                        disabled (click)="checkBox(filter.status, 'status')">
           </mat-checkbox>
           <label>&nbsp;Available</label>
         </div>
         <div class="filter-label">
           <mat-checkbox class="filter-checkbox"
-                        [ngModel]="this.filter.deliverable === 'checked'"
-                        [indeterminate]="this.filter.deliverable === 'crossed'"
-                        disabled (click)="checkBoxDelivery()">
+                        [ngModel]="filter.deliverable === 'checked'"
+                        [indeterminate]="filter.deliverable === 'crossed'"
+                        disabled (click)="checkBox(filter.deliverable, 'deliverable')">
           </mat-checkbox>
           <label>&nbsp;Deliverable</label>
         </div>
       </div>
       <div class="filter filter-sort-by">
         <strong>Sort By</strong>
-        <mat-radio-group color="accent" [(ngModel)]="this.filter.sortBy" class="filter-radio-grp" (ngModelChange)="updateFilter()" disabled>
+        <mat-radio-group color="accent" [(ngModel)]="filter.sortBy" class="filter-radio-grp" (ngModelChange)="updateFilter()">
           <mat-radio-button class="filter-radio-btn" value="recommended">Recommended</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="rating">Rating</mat-radio-button>
           <mat-radio-button class="filter-radio-btn" value="totalReviews">Total Reviews</mat-radio-button>
@@ -91,15 +91,15 @@
     </div>
     <hr>
   </div>
-  <div class="no-products-found" *ngIf="this.products && !this.products[0]">
+  <div class="no-products-found" *ngIf="products && !products[0]">
     <h1>No products found!</h1>
   </div>
-  <div class="product-list" *ngIf="this.productView === 'card' && this.products && this.products[0]">
+  <div class="product-list" *ngIf="productView === 'card' && products && products[0]">
     <div *ngFor="let product of products; let i = index;">
       <app-compact-product-card [product]="product" [index]="i"></app-compact-product-card>
     </div>
   </div>
-  <div class="product-list-2" *ngIf="this.productView === 'list' && this.products && this.products[0]">
+  <div class="product-list-2" *ngIf="productView === 'list' && products && products[0]">
     <div class="catalog-compact-product" *ngFor="let product of products">
       <app-compact-product-list [product]="product" view="customer"></app-compact-product-list>
     </div>
