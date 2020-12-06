@@ -87,15 +87,15 @@ export class UserService {
                 return User.findOne({
                     where: {
                         [Op.or]: [
-                            { userName: newAttributes.userName, userId: { ne: userId } },
-                            { email: newAttributes.email, userId: { ne: userId } }
+                            { userName: newAttributes.userName, userId: { [Op.ne]: user.userId } },
+                            { email: newAttributes.email, userId: { [Op.ne]: user.userId } }
                         ]
                     }
                 }).then(foundUser => {
                     if (foundUser) {
-                        if (foundUser.userName === user.userName) {
+                        if (foundUser.userName === newAttributes.userName) {
                             return Promise.reject('Username ' + foundUser.userName + ' already exists');
-                        } else if (foundUser.email === user.email) {
+                        } else if (foundUser.email === newAttributes.email) {
                             return Promise.reject('Email ' + foundUser.email + ' already exists');
                         }
                     }
