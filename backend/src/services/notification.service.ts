@@ -1,5 +1,7 @@
-import {Notification, NotificationCreationAttributes} from '../models/notification.model';
-
+import { Notification, NotificationCreationAttributes } from '../models/notification.model';
+import { User } from '../models/user.model';
+import { EmailService, EmailAttributes } from './email.service';
+const emailService = new EmailService();
 
 export class NotificationService {
 
@@ -44,6 +46,31 @@ export class NotificationService {
             text: text,
             read: 0
         };
-        return Notification.create(NotificationParams);
+
+        const mailOptions: EmailAttributes = {
+            from: 'team5@roux.li',
+            text: text,
+            subject: 'EMail from your loved web shop',
+            to: null
+        };
+
+        return User.findByPk(userId)
+            .then(user => {
+                if (!user) {
+                    return Promise.reject('Could not find the user to send a mail to');
+                } else {
+                    mailOptions.to = user.email;
+                    // The whole procedure should not fail just because the mail goes not out!
+                    return emailService.send(mailOptions)
+                        .catch(() => {
+                            console.log('Mail could not be send!');
+                            return Promise.resolve();
+                        });
+                }
+            })
+            .then(() => {
+                return Notification.create(NotificationParams);
+            })
+            .catch(err => Promise.reject(err));
     }
 }

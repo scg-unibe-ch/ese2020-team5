@@ -1,4 +1,4 @@
-import { Optional, Model, HasManyGetAssociationsMixin, HasManyAddAssociationMixin, DataTypes, Sequelize, Association } from 'sequelize';
+import { Optional, Model, DataTypes, Sequelize, Association } from 'sequelize';
 import { Product } from './product.model';
 import { User } from './user.model';
 
@@ -57,7 +57,7 @@ export class Review extends Model<ReviewAttributes, ReviewCreationAttributes> im
             as: 'product',
             onDelete: 'cascade',
             foreignKey: 'productId'
-        }),
+        });
 
         Review.belongsTo(User, {
             as: 'user',

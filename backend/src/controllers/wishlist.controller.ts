@@ -3,7 +3,6 @@ import { WishlistService } from '../services/wishlist.service';
 import { verifyToken, getUserId } from '../middlewares/checkAuth';
 
 const wishlistController: Router = express.Router();
-
 const wishlistService = new WishlistService();
 
 wishlistController.get('/', verifyToken, (req: Request, res: Response) => {

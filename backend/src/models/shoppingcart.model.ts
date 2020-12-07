@@ -1,10 +1,7 @@
 import {
     Model,
     DataTypes,
-    Sequelize,
-    Association,
-    HasManyGetAssociationsMixin,
-    BelongsToCreateAssociationMixin
+    Sequelize
 } from 'sequelize';
 import { User } from './user.model';
 import { Product } from './product.model';
@@ -20,8 +17,6 @@ export class ShoppingCart extends Model<ShoppingCartAttributes> implements Shopp
     buyerId!: number;
     productId!: number;
     amountOrTime!: number;
-
-    public getProduct!: BelongsToCreateAssociationMixin<Product>;
 
     public static initialize(sequelize: Sequelize) {
         ShoppingCart.init(

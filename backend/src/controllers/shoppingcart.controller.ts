@@ -3,7 +3,6 @@ import { ShoppingCartService } from '../services/shoppingcart.service';
 import { verifyToken, getUserId } from '../middlewares/checkAuth';
 
 const shoppingCartController: Router = express.Router();
-
 const shoppingCartService = new ShoppingCartService();
 
 shoppingCartController.get('/', verifyToken, (req: Request, res: Response) => {
