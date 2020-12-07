@@ -1,7 +1,7 @@
 import { Product } from '../models/product.model';
 import { ShoppingCartAttributes, ShoppingCart } from '../models/shoppingcart.model';
-import {User} from '../models/user.model';
-import {TransactionService} from './transaction.service';
+import { User } from '../models/user.model';
+import { TransactionService } from './transaction.service';
 
 
 export class ShoppingCartService {

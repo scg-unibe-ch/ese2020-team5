@@ -1,5 +1,4 @@
-import {Notification, NotificationCreationAttributes} from '../models/notification.model';
-
+import { Notification, NotificationCreationAttributes } from '../models/notification.model';
 
 export class NotificationService {
 

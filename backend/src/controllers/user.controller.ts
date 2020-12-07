@@ -1,8 +1,6 @@
-
 import express, { Router, Request, Response } from 'express';
 import { UserService, AdminService } from '../services/user.service';
-import {getUserId, verifyToken} from '../middlewares/checkAuth';
-
+import { getUserId, verifyToken } from '../middlewares/checkAuth';
 
 const userController: Router = express.Router();
 const userService = new UserService();

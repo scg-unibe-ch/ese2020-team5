@@ -15,9 +15,7 @@ import { Transaction } from './models/transaction.model';
 import { ShoppingCart} from './models/shoppingcart.model';
 import { Notification } from './models/notification.model';
 import { Wishlist } from './models/wishlist.model';
-
 import cors from 'cors';
-
 
 export class Server {
     private server: Application;

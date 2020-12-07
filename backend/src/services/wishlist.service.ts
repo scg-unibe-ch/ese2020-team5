@@ -1,6 +1,6 @@
 import { Product } from '../models/product.model';
 import { WishlistAttributes, Wishlist } from '../models/wishlist.model';
-import {User} from '../models/user.model';
+import { User } from '../models/user.model';
 
 export class WishlistService {
 
