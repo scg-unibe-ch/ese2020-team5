@@ -1,6 +1,5 @@
 <form [formGroup]="productForm" (ngSubmit)="product ? updateProduct() : createProduct()" class="product-form-component-content">
   <h1>{{product ? 'Edit Product \'' + product.title + ' #' + product.productId + '\'' : 'Create Product'}}</h1>
-  <hr>
   <mat-form-field appearance="outline" class="product-type">
     <mat-label>Product Type*</mat-label>
     <mat-select formControlName="type">
@@ -29,7 +28,7 @@
   <mat-form-field appearance="outline" class="price-type">
     <mat-label>Price Type*</mat-label>
     <mat-select formControlName="priceKind">
-      <mat-option [value]=0>-</mat-option>
+      <mat-option [value]=0>fixed</mat-option>
       <mat-option [value]=1>per hour</mat-option>
       <mat-option [value]=2>per day</mat-option>
     </mat-select>
@@ -57,7 +56,6 @@
     <mat-checkbox color="primary" labelPosition="before" formControlName="status" class="black-checkbox available">Available</mat-checkbox>
     <mat-checkbox color="primary" labelPosition="before" formControlName="deliverable" class="black-checkbox deliverable" [disabled]="productForm.value.type === 1">Deliverable</mat-checkbox>
   </div>
-  <hr>
   <div class="edit-images">
     <div class="uploaded-image" *ngFor="let image of images; let i = index">
       <img src="{{imageService.getImageUrl(image.fileName)}}" class="image" (click)="displayImage(imageService.getImageUrl(image.fileName))">
@@ -72,7 +70,6 @@
       <mat-icon [inline]="true">add_a_photo</mat-icon>
     </div>
   </div>
-  <hr>
   <div class="btn-container">
     <button mat-stroked-button type="submit" class="black-btn product-form-btn" [disabled]="this.productForm.invalid">{{product ? 'Update' : 'Create Product'}}</button>
     <button *ngIf="product" mat-stroked-button type="button" class="black-btn product-form-btn" (click)="cancelUpdate()">Cancel</button>
