@@ -5,5 +5,5 @@ export class Notification {
     public text: string,
     public read: number,
     public createdAt: string
-  ) {}
+  ) { }
 }

@@ -37,7 +37,9 @@
   </div>
   <div class="notification-content">
     <div class="notification-text" *ngIf="notifications && notifications[0] && selectedIndex >= 0">
-      <span style="float: right">{{notifications[selectedIndex].notification.createdAt.replace('T', ' ').replace('Z', ' GMT')}}</span>
+      <span style="float: right">
+        {{notifications[selectedIndex].notification.createdAt.replace('T', ' ').replace('Z', ' GMT')}}
+      </span>
       {{'\n\n' +notifications[selectedIndex].notification.text}}
     </div>
   </div>

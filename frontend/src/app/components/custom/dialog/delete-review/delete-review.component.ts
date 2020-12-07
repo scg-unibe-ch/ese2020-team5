@@ -16,8 +16,6 @@ export class DeleteReviewComponent {
   ) { }
 
   deleteReview(): void {
-    this.reviewService.deleteReview(this.data.reviewId).then(() => {
-      location.reload();
-    });
+    this.reviewService.deleteReview(this.data.reviewId).then(() => location.reload());
   }
 }

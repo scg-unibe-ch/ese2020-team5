@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
@@ -61,10 +61,12 @@ export class ProductComponent implements OnInit {
       this.product = product;
       this.product.reviews = this.product.reviews.reverse();
       this.userService.getUserById(product.userId).then(user => this.owner = user);
-      this.userService.getUser().then(user => this.user = user);
       this.initUserNamesOfReviews();
       this.initAvgRatingOfOwner();
-      this.initWasPurchased();
+      if (this.authService.isLoggedIn()) {
+        this.userService.getUser().then(user => this.user = user);
+        this.initWasPurchased();
+      }
       this.avgRating = this.reviewService.getAvgRating(this.product.reviews);
     });
   }

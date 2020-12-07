@@ -37,7 +37,9 @@
   </mat-form-field>
   <mat-form-field appearance="outline" class="sell-or-lend">
     <mat-label>Sell or Lend?</mat-label>
-    <mat-select formControlName="sellOrLend" [disabled]="productForm.value.type === 1 || productForm.value.priceKind === 1 || productForm.value.priceKind === 2">
+    <mat-select
+      formControlName="sellOrLend"
+      [disabled]="productForm.value.type === 1 || productForm.value.priceKind === 1 || productForm.value.priceKind === 2">
       <mat-option [value]=0>To Sell</mat-option>
       <mat-option [value]=1>To Lend</mat-option>
     </mat-select>
@@ -54,18 +56,36 @@
     <mat-error *ngIf="productForm.controls.amount.hasError('required')">Amount required!</mat-error>
   </mat-form-field>
   <div class="checkbox-container">
-    <mat-checkbox color="primary" labelPosition="before" formControlName="status" class="black-checkbox available">Available</mat-checkbox>
-    <mat-checkbox color="primary" labelPosition="before" formControlName="deliverable" class="black-checkbox deliverable" [disabled]="productForm.value.type === 1">Deliverable</mat-checkbox>
+    <mat-checkbox color="primary"
+                  labelPosition="before"
+                  formControlName="status"
+                  class="black-checkbox available">
+      Available
+    </mat-checkbox>
+    <mat-checkbox color="primary"
+                  labelPosition="before"
+                  formControlName="deliverable"
+                  class="black-checkbox deliverable"
+                  [disabled]="productForm.value.type === 1">
+      Deliverable
+    </mat-checkbox>
   </div>
   <hr>
   <div class="edit-images">
     <div class="uploaded-image" *ngFor="let image of images; let i = index">
-      <img src="{{imageService.getImageUrl(image.fileName)}}" class="image" (click)="displayImage(imageService.getImageUrl(image.fileName))">
-      <button mat-icon-button matTooltip="Delete Image" class="remove-image-btn" (click)="removeImage(i)"><mat-icon>delete</mat-icon></button>
+      <img src="{{imageService.getImageUrl(image.fileName)}}"
+           class="image"
+           (click)="displayImage(imageService.getImageUrl(image.fileName))"
+           alt="">
+      <button mat-icon-button matTooltip="Delete Image" class="remove-image-btn" (click)="removeImage(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
     <div class="uploaded-image" *ngFor="let image of addedImages; let i = index">
-      <img [src]="image.imgSrc" class="image" (click)="displayImage(image.imgSrc)">
-      <button mat-icon-button matTooltip="Delete Image" class="remove-image-btn" (click)="removeAddedImage(i)"><mat-icon>delete</mat-icon></button>
+      <img [src]="image.imgSrc" class="image" (click)="displayImage(image.imgSrc)" alt="">
+      <button mat-icon-button matTooltip="Delete Image" class="remove-image-btn" (click)="removeAddedImage(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
     <div class="upload-image">
       <input type="file" class="upload-image-input" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg">
@@ -74,8 +94,12 @@
   </div>
   <hr>
   <div class="btn-container">
-    <button mat-stroked-button type="submit" class="black-btn product-form-btn" [disabled]="this.productForm.invalid">{{product ? 'Update' : 'Create Product'}}</button>
-    <button *ngIf="product" mat-stroked-button type="button" class="black-btn product-form-btn" (click)="cancelUpdate()">Cancel</button>
+    <button mat-stroked-button type="submit" class="black-btn product-form-btn" [disabled]="this.productForm.invalid">
+      {{product ? 'Update' : 'Create Product'}}
+    </button>
+    <button *ngIf="product" mat-stroked-button type="button" class="black-btn product-form-btn" (click)="cancelUpdate()">
+      Cancel
+    </button>
   </div>
 </form>
 <div [classList]="showImage ? 'active' : 'inactive'">

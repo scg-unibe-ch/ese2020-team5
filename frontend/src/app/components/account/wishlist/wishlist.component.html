@@ -14,7 +14,7 @@
     <div class="product" *ngFor="let product of products; let i = index">
       <app-compact-product-list [product]="product" view="wishlist"></app-compact-product-list>
       <div class="product-btn-container">
-        <button [disabled]="!product.status || !product.approved"
+        <button [disabled]="!product.status || !product.approved || product.amount === 0"
                 class="add-to-cart"
                 mat-icon-button
                 matTooltip="Add to Cart"

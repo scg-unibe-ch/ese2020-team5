@@ -5,5 +5,5 @@ export class Review {
     public rating: number,
     public productId: number,
     public userId: number
-  ) {}
+  ) { }
 }

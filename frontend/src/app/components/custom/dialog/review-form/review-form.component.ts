@@ -1,8 +1,7 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Review } from '../../../../models/review.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReviewService } from '../../../../services/review.service';
-import { UserService } from '../../../../services/user.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Product } from '../../../../models/product.model';
 
@@ -19,8 +18,7 @@ export class ReviewFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: { review: Review, product: Product },
     private formBuilder: FormBuilder,
-    private reviewService: ReviewService,
-    private userService: UserService
+    private reviewService: ReviewService
   ) { }
 
   ngOnInit(): void {

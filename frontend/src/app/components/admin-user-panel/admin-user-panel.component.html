@@ -7,10 +7,10 @@
         <mat-icon (click)="filterUsers()">search</mat-icon>
       </div>
     </div>
-    <div *ngIf="this.users && !this.users[0]" class="no-user-found">
+    <div *ngIf="users && !users[0]" class="no-user-found">
       <h1>No Users found!</h1>
     </div>
-    <mat-accordion multi *ngIf="this.users && this.users[0]">
+    <mat-accordion multi *ngIf="users && users[0]">
       <mat-expansion-panel *ngFor="let user of users">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -23,10 +23,11 @@
         <p>
           Name: {{user.firstName}} {{user.lastName}}<br>
           Email: {{user.email}}<br>
-          Gender: {{(user.gender) ? user.gender : '-'}}<br>
-          Phone Nr.: {{(user.phoneNr) ? user.phoneNr : '-'}}<br>
-          Country: {{(user.country) ? user.country : '-'}}<br>
-          City: {{(user.city) ? user.city : '-'}}, {{(user.zipCode) ? user.zipCode : '-'}}<br>
+          Gender: {{user.gender ? user.gender : '-'}}<br>
+          Phone Nr.: {{user.phoneNr ? user.phoneNr : '-'}}<br>
+          Country: {{user.country ? user.country : '-'}}<br>
+          City: {{user.city ? user.city : '-'}}, {{(user.zipCode) ? user.zipCode : '-'}}<br>
+          Street: {{user.street ? user.street: '-'}}<br>
         </p>
         <button *ngIf="!user.isAdmin" mat-stroked-button class="red-btn delete-btn" (click)="deleteUser(user)">Delete</button>
       </mat-expansion-panel>

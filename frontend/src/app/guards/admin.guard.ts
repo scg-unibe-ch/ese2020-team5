@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) { }
+  constructor(private userService: UserService) { }
 
   canActivate(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
@@ -18,11 +15,11 @@ export class AdminGuard implements CanActivate {
           resolve(true);
         } else {
           reject(false);
-          this.router.navigate(['/home']);
+          location.assign('catalog');
         }
       }).catch(() => {
         reject(false);
-        this.router.navigate(['/home']);
+        location.assign('catalog');
       });
     });
   }

@@ -69,16 +69,4 @@ export class AdminProductPanelComponent implements OnInit {
     }
     this.router.navigate(['/admin/dashboard/products'], { queryParams });
   }
-
-  approveProduct(product: Product): void {
-    this.dialog.open(ApproveProductComponent, {
-      data: product
-    });
-  }
-
-  deleteProduct(product: Product): void {
-    this.dialog.open(DeleteProductComponent, {
-      data: product
-    });
-  }
 }

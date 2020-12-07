@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductImage } from '../../../models/productImage.model';
@@ -150,17 +150,11 @@ export class ProductFormComponent implements OnInit {
       for (const image of this.addedImages) {
         await this.productService.addImage((productId ? productId : this.product.productId), image.file);
       }
-      if (this.product) {
-        return this.deleteImages();
-      } else {
-        return Promise.resolve();
-      }
+    }
+    if (this.product) {
+      return this.deleteImages();
     } else {
-      if (this.product) {
-        return this.deleteImages();
-      } else {
-        return Promise.resolve();
-      }
+      return Promise.resolve();
     }
   }
 

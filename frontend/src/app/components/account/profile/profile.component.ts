@@ -53,6 +53,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  userNameAlreadyInUse(): void {
+    this.profileForm.controls.userName.setErrors({inUse: true});
+  }
+
+  emailAlreadyInUse(): void {
+    this.profileForm.controls.email.setErrors({inUse: true});
+  }
+
   edit(): void {
     this.editable = true;
   }
@@ -65,6 +73,12 @@ export class ProfileComponent implements OnInit {
   updateUser(): void {
     this.userService.updateUser(this.profileForm.value).then(() => {
       location.reload();
+    }).catch(error => {
+      if (error.error.indexOf('Email') > -1) {
+        this.emailAlreadyInUse();
+      } else if (error.error.indexOf('Username') > -1) {
+        this.userNameAlreadyInUse();
+      }
     });
   }
 }
