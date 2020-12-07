@@ -27,7 +27,7 @@ export class ShoppingCartService {
             .then(product => {
                 if (!product) {
                     return Promise.reject('could not find the Product!');
-                } else if ( product.status !== 0 || product.approved !== 1) { // Check if the product is available and approved
+                } else if ( product.status !== 1 || product.approved !== 1) { // Check if the product is available and approved
                     return Promise.reject('product ' + product.title + ' is not available or not approved yet!');
                 /*} else if ( product.type === 0 && product.amount < shoppingCartItem.amountOrTime) {
                     return Promise.reject('The stock of the product ' + product.title + ' is too low: ' + product.amount);*/

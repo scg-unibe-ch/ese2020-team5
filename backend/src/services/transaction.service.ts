@@ -61,7 +61,7 @@ export class TransactionService {
                         if (product.type !== 1 && product.sellOrLend !== 1) {
                             // if the resulting amount of a product is 0, it becomes unavailable
                             if ( product.amount - transaction.amountOrTime === 0) {
-                                productUpdate.status = 1;
+                                productUpdate.status = 0;
                                 productUpdate.amount = 0;
                             } else {
                                 // If no special case, simply decrement the amount left of the product
