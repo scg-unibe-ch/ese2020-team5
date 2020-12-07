@@ -9,7 +9,7 @@ export class ReviewService {
                 if (this.isRatingInRange(review.rating)) {
                     return Review.create(review);
                 } else {
-                    return Promise.reject({ message: 'Rating needs to be a number between 1 and 5' });
+                    return Promise.reject({ message: 'Rating needs to be a number between 0 and 5' });
                 }
             }).catch(err => Promise.reject(err));
     }
@@ -26,7 +26,7 @@ export class ReviewService {
                 if (!this.doesUserIdMatch(found.userId, userId)) {
                     return Promise.reject({ message: 'You are not authorized to do this!', status: 500 });
                 } else if (this.doesItContainRating(review) && !this.isRatingInRange(review.rating)) {
-                    return Promise.reject({ message: 'Rating needs to be a number between 1 and 5', status: 500 });
+                    return Promise.reject({ message: 'Rating needs to be a number between 0 and 5', status: 500 });
                 } else {
                     return found.update(review);
                 }
