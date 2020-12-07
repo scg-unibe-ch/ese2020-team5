@@ -133,10 +133,14 @@ export class CatalogComponent implements OnInit {
       a: (a.reviews.length > 0) ? this.reviewService.getAvgRating(a.reviews) : 2.5,
       b: (b.reviews.length > 0) ? this.reviewService.getAvgRating(b.reviews) : 2.5
     };
-    if (((avgRating.a - 2.5) * a.reviews.length) < ((avgRating.b - 2.5) * b.reviews.length )) {
+    if (((avgRating.a - 2.5) * (a.reviews.length / 10)) < ((avgRating.b - 2.5) * (b.reviews.length / 10))) {
       return 1;
-    } else if (((avgRating.a - 2.5) * a.reviews.length) > ((avgRating.b - 2.5) * b.reviews.length )) {
+    } else if (((avgRating.a - 2.5) * (a.reviews.length / 10)) > ((avgRating.b - 2.5) * (b.reviews.length / 10))) {
       return -1;
+    } else if (a.reviews.length > b.reviews.length) {
+      return -1;
+    } else if (b.reviews.length > a.reviews.length) {
+      return 1;
     } else {
       return 0;
     }
@@ -147,7 +151,17 @@ export class CatalogComponent implements OnInit {
       a: (a.reviews.length > 0) ? this.reviewService.getAvgRating(a.reviews) : 2.5,
       b: (b.reviews.length > 0) ? this.reviewService.getAvgRating(b.reviews) : 2.5
     };
-    return -1 * (avgRating.a - avgRating.b);
+    if (avgRating.a > avgRating.b) {
+      return -1;
+    } else if (avgRating.b > avgRating.a) {
+      return 1;
+    } else if (a.reviews.length > b.reviews.length) {
+      return -1;
+    } else if (b.reviews.length > a.reviews.length) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 
   sortByTotalReviews(a: Product, b: Product): number {
