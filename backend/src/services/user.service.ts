@@ -84,6 +84,12 @@ export class UserService {
     public update(userId: number, newAttributes: UserAttributes): Promise<UserAttributes> {
         return User.findByPk(userId)
             .then(user => {
+                if (!newAttributes.userName) {
+                    newAttributes.userName = user.userName;
+                }
+                if (!newAttributes.email) {
+                    newAttributes.email = user.email;
+                }
                 return User.findOne({
                     where: {
                         [Op.or]: [
