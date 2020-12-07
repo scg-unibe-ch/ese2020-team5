@@ -30,9 +30,29 @@ export class ProductService {
     });
   }
 
+  getProductsByUserId(userId: number): Promise<Product[]> {
+    return new Promise<Product[]>((resolve, reject) => {
+      this.httpClient.get(environment.endpointURL + 'user/' + userId + '/products').subscribe((products: Product[]) => {
+        resolve(products);
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
   getProductsFromUser(): Promise<Product[]> {
     return new Promise<Product[]>((resolve, reject) => {
       this.httpClient.get(environment.endpointURL + 'products').subscribe((products: Product[]) => {
+        resolve(products);
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
+  getPurchasedProducts(): Promise<Product[]> {
+    return new Promise<Product[]>((resolve, reject) => {
+      this.httpClient.get(environment.endpointURL + 'user/purchased').subscribe((products: Product[]) => {
         resolve(products);
       }, (error: any) => {
         reject(error);

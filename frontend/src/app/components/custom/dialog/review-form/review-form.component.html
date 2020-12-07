@@ -1,0 +1,30 @@
+<div class="review-form-content">
+  <span class="title" mat-dialog-title>{{'Review - ' + data.product.title + ' #' + data.product.productId}}</span>
+  <hr style="margin-bottom: 25px">
+  <form [formGroup]="reviewForm" (ngSubmit)="data.review ? updateReview() : createReview()" class="review-form">
+    <span style="float: left; position: relative; top: 13px"><strong>Rating:</strong></span>
+    <div class="rating">
+      <app-star-rating
+        [value]="data.review ? data.review.rating : 0"
+        [editable]="true"
+        size="40"
+        (valueUpdate)="reviewForm.controls.rating.setValue($event)">
+      </app-star-rating>
+    </div>
+    <mat-form-field appearance="outline" class="review">
+      <mat-label>Review*</mat-label>
+      <textarea matInput type="text" formControlName="review"></textarea>
+      <mat-error *ngIf="reviewForm.controls.review.hasError('required')">Review required!</mat-error>
+    </mat-form-field>
+    <div class="btn-container" mat-dialog-actions>
+      <button type="submit"
+              mat-stroked-button
+              mat-dialog-close
+              class="black-btn"
+              [disabled]="reviewForm.invalid">
+        {{data.review ? 'Update Review' : 'Submit Review'}}
+      </button>
+      <button *ngIf="data.review" mat-stroked-button mat-dialog-close>Cancel</button>
+    </div>
+  </form>
+</div>

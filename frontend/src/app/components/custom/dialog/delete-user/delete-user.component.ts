@@ -16,7 +16,6 @@ export class DeleteUserComponent {
   ) { }
 
   deleteUser(): void {
-    this.userService.deleteUser(this.data.userId);
-    location.reload();
+    this.userService.deleteUser(this.data.userId).then(() => location.reload());
   }
 }

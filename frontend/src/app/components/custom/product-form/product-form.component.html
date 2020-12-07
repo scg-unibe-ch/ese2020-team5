@@ -1,0 +1,111 @@
+<form [formGroup]="productForm" (ngSubmit)="product ? updateProduct() : createProduct()" class="product-form-component-content">
+  <h1>{{product ? 'Edit Product \'' + product.title + ' #' + product.productId + '\'' : 'Create Product'}}</h1>
+  <hr>
+  <mat-form-field appearance="outline" class="product-type">
+    <mat-label>Product Type*</mat-label>
+    <mat-select formControlName="type">
+      <mat-option [value]=0>Item</mat-option>
+      <mat-option [value]=1>Service</mat-option>
+    </mat-select>
+    <mat-error *ngIf="productForm.controls.type.hasError('required')">Type required!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="title">
+    <mat-label>Title*</mat-label>
+    <input matInput type="text" formControlName="title">
+    <mat-error *ngIf="productForm.controls.title.hasError('required')">Title required!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="description">
+    <mat-label>Description*</mat-label>
+    <textarea matInput type="text" formControlName="description" style="resize: none"></textarea>
+    <mat-error *ngIf="productForm.controls.description.hasError('required')">Description required!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="price">
+    <mat-label>Price*</mat-label>
+    <input matInput type="number" formControlName="price">
+    <span matPrefix class="input-mat-prefix">$&nbsp;</span>
+    <mat-error *ngIf="productForm.controls.price.hasError('required')">Price required!</mat-error>
+    <mat-error *ngIf="productForm.controls.price.hasError('pattern')">Invalid format! Please type the price in 0.00 format!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="price-type">
+    <mat-label>Price Type*</mat-label>
+    <mat-select formControlName="priceKind">
+      <mat-option [value]=0>-</mat-option>
+      <mat-option [value]=1>per hour</mat-option>
+      <mat-option [value]=2>per day</mat-option>
+    </mat-select>
+    <mat-error *ngIf="productForm.controls.priceKind.hasError('required')">Price Type required!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="sell-or-lend">
+    <mat-label>Sell or Lend?</mat-label>
+    <mat-select
+      formControlName="sellOrLend"
+      [disabled]="productForm.value.type === 1 || productForm.value.priceKind === 1 || productForm.value.priceKind === 2">
+      <mat-option [value]=0>To Sell</mat-option>
+      <mat-option [value]=1>To Lend</mat-option>
+    </mat-select>
+    <mat-error *ngIf="productForm.controls.sellOrLend.hasError('required')">Sell or Lend required!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="location">
+    <mat-label>Location*</mat-label>
+    <input matInput type="text" formControlName="location">
+    <mat-error *ngIf="productForm.controls.location.hasError('required')">Location required!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="amount">
+    <mat-label>Amount*</mat-label>
+    <input matInput type="number" formControlName="amount">
+    <mat-error *ngIf="productForm.controls.amount.hasError('required')">Amount required!</mat-error>
+  </mat-form-field>
+  <div class="checkbox-container">
+    <mat-checkbox color="primary"
+                  labelPosition="before"
+                  formControlName="status"
+                  class="black-checkbox available">
+      Available
+    </mat-checkbox>
+    <mat-checkbox color="primary"
+                  labelPosition="before"
+                  formControlName="deliverable"
+                  class="black-checkbox deliverable"
+                  [disabled]="productForm.value.type === 1">
+      Deliverable
+    </mat-checkbox>
+  </div>
+  <hr>
+  <div class="edit-images">
+    <div class="uploaded-image" *ngFor="let image of images; let i = index">
+      <img src="{{imageService.getImageUrl(image.fileName)}}"
+           class="image"
+           (click)="displayImage(imageService.getImageUrl(image.fileName))"
+           alt="">
+      <button mat-icon-button matTooltip="Delete Image" class="remove-image-btn" (click)="removeImage(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div class="uploaded-image" *ngFor="let image of addedImages; let i = index">
+      <img [src]="image.imgSrc" class="image" (click)="displayImage(image.imgSrc)" alt="">
+      <button mat-icon-button matTooltip="Delete Image" class="remove-image-btn" (click)="removeAddedImage(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div class="upload-image">
+      <input type="file" class="upload-image-input" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg">
+      <mat-icon [inline]="true">add_a_photo</mat-icon>
+    </div>
+  </div>
+  <hr>
+  <div class="btn-container">
+    <button mat-stroked-button type="submit" class="black-btn product-form-btn" [disabled]="this.productForm.invalid">
+      {{product ? 'Update' : 'Create Product'}}
+    </button>
+    <button *ngIf="product" mat-stroked-button type="button" class="black-btn product-form-btn" (click)="cancelUpdate()">
+      Cancel
+    </button>
+  </div>
+</form>
+<div [classList]="showImage ? 'active' : 'inactive'">
+  <div class="image-show-bg" (click)="displayImage(null)"></div>
+  <div class="image-show">
+    <span class="image-show-close" (click)="displayImage(null)">X</span>
+    <img class="image-show-src" [src]="imgSrc" alt="...">
+  </div>
+</div>

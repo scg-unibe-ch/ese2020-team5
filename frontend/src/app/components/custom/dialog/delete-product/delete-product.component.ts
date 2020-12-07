@@ -16,7 +16,6 @@ export class DeleteProductComponent {
   ) { }
 
   deleteProduct(): void {
-    this.productService.deleteProduct(this.data.productId);
-    location.reload();
+    this.productService.deleteProduct(this.data.productId).then(() => location.reload());
   }
 }

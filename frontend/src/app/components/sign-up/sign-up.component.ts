@@ -91,12 +91,10 @@ export class SignUpComponent implements OnInit {
     this.authService.signUp(this.signUpForm.value).then(() => {
       location.assign('login');
     }).catch((error: any) => {
-      if (error.error.message.message.indexOf('Email') > -1) {
+      if (error.error.indexOf('Email') > -1) {
         this.emailAlreadyInUse();
-      } else if (error.error.message.message.indexOf('Username') > -1) {
+      } else if (error.error.indexOf('Username') > -1) {
         this.userNameAlreadyInUse();
-      } else {
-        console.log(error);
       }
     });
   }

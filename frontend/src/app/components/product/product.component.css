@@ -213,16 +213,17 @@
 
 .review-header {
   position: relative;
-  cursor: pointer;
   border-radius: 5px;
-}
-
-.review-header:hover {
-  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .review-header h2 {
   margin: 0;
+}
+
+.review-btn {
+  position: absolute;
+  top: -2px;
+  right: 5px;
 }
 
 .review-entry {
@@ -238,6 +239,14 @@
 
 .review-username:hover {
   text-decoration: underline;
+}
+
+.review-btn-container {
+  float: right;
+}
+
+.review-edit-btn, .review-delete-btn {
+  margin: 0 5px;
 }
 
 .review-content {
@@ -314,12 +323,15 @@
   .product-content {
     width: 90%;
     min-width: 0;
+    border: none;
   }
 
   .product-info {
     margin-left: 0;
     width: 90%;
     height: 325px;
+    border-left: none;
+    border-right: none;
   }
 
   .product-reviews {

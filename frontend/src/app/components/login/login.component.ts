@@ -34,9 +34,8 @@ export class LoginComponent implements OnInit {
       this.showErrorMessage = false;
       localStorage.setItem('userToken', data.token);
       localStorage.setItem('userName', data.user.userName);
-      location.assign((this.returnURL) ? this.returnURL : 'home');
-    }).catch((error: any) => {
-      console.log(error);
+      location.assign((this.returnURL) ? this.returnURL : 'catalog');
+    }).catch(() => {
       this.showErrorMessage = true;
     });
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Notification } from '../../models/notification.model';
 import { NotificationService } from '../../services/notification.service';
+import { DataSharingService } from '../../services/data-sharing.service';
 
 @Component({
   selector: 'app-inbox',
@@ -9,64 +10,73 @@ import { NotificationService } from '../../services/notification.service';
 })
 export class InboxComponent implements OnInit {
   selectedIndex = -1;
-  notifications: Notification[];
-  markedNotifications: boolean[] = [];
+  notifications: { notification: Notification, marked: boolean }[];
   isMinOneMarked = false;
   areAllMarked = false;
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(
+    private notificationService: NotificationService,
+    private dataSharingService: DataSharingService
+  ) { }
 
   ngOnInit(): void {
     this.notificationService.getNotifications().then(notifications => {
-      this.notifications = notifications.reverse();
-      this.initializeMarkedList();
+      this.notifications = [];
+      notifications.reverse().forEach(notification => {
+        this.notifications.push({
+          notification,
+          marked: false
+        });
+      });
       this.selectNotification(0);
     }).catch(() => {
       this.notifications = [];
     });
   }
 
-  initializeMarkedList(): void {
-    this.notifications.forEach(() => {
-      this.markedNotifications.push(false);
-    });
-  }
-
   selectNotification(index: number): void {
     this.selectedIndex = index;
-    if (!this.notifications[this.selectedIndex].read) {
-      this.notificationService.readNotification(this.notifications[this.selectedIndex].notificationId).then(notification => {
-        this.notifications[this.selectedIndex] = notification;
+    if (!this.notifications[this.selectedIndex].notification.read) {
+      this.notificationService.readNotification(this.notifications[this.selectedIndex].notification.notificationId).then(notification => {
+        this.dataSharingService.updateUnreadNotificationsAmount();
+        this.notifications[this.selectedIndex].notification = notification;
       });
     }
   }
 
   updateMarkedState(): void {
-    let isMinOneMarked = false;
-    let areAllMarked = true;
-    this.markedNotifications.forEach(marked => {
-      if (marked) {
-        isMinOneMarked = true;
-      } else {
-        areAllMarked = false;
-      }
-    });
-    this.isMinOneMarked = isMinOneMarked;
-    this.areAllMarked = areAllMarked;
+    this.isMinOneMarked = this.notifications.some(notification => notification.marked);
+    this.areAllMarked = this.notifications.every(notification => notification.marked);
   }
 
   updateMarkedList(): void {
-    this.markedNotifications.forEach((marked, index) => {
-      this.markedNotifications[index] = this.areAllMarked;
+    this.notifications.forEach((notification, index) => {
+      notification.marked = this.areAllMarked;
     });
     this.updateMarkedState();
   }
 
   setMarkedNotificationsAsRead(): void {
-    this.markedNotifications.forEach((marked, index) => {
-      if (marked) {
-        this.notificationService.readNotification(this.notifications[index].notificationId).then(notification => {
-          this.notifications[index] = notification;
+    this.notifications.forEach((notification, index) => {
+      if (notification.marked) {
+        this.notificationService.readNotification(this.notifications[index].notification.notificationId).then(readNotification => {
+          this.dataSharingService.updateUnreadNotificationsAmount();
+          this.notifications[index].notification = readNotification;
+        });
+      }
+    });
+  }
+
+  deleteMarkedNotification(): void {
+    this.notifications.forEach((notification, index) => {
+      if (notification.marked) {
+        if (this.selectedIndex === index) {
+          this.selectedIndex = 0;
+        }
+        this.notificationService.deleteNotification(this.notifications[index].notification.notificationId).then(deleted => {
+          this.notifications = this.notifications.filter(entry => entry.notification.notificationId !== deleted.notificationId);
+          this.dataSharingService.updateUnreadNotificationsAmount();
+          this.updateMarkedState();
         });
       }
     });

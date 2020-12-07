@@ -1,7 +1,9 @@
 <div class="my-products">
   <div *ngIf="myProducts && !myProducts[0]" class="no-products">
     <h1>You currently offer no products!</h1>
-    <button mat-stroked-button class="create-product-btn black-btn" (click)="navigateTo('my-products/new')">Create new Product</button>
+    <button mat-stroked-button class="create-product-btn black-btn" (click)="navigateTo('my-products/new')">
+      Create new Product
+    </button>
   </div>
   <div *ngIf="myProducts && myProducts[0]" class="my-products-content">
     <div class="container">
@@ -9,7 +11,9 @@
         <input type="search" placeholder="Search" class="search" [(ngModel)]="filter" (ngModelChange)="filterMyProducts()">
         <mat-icon (click)="filterMyProducts()">search</mat-icon>
       </div>
-      <button mat-stroked-button class="create-btn black-btn" (click)="navigateTo('my-products/new')">Add new Product</button>
+      <button mat-stroked-button class="create-btn black-btn" (click)="navigateTo('my-products/new')">
+        Add new Product
+      </button>
     </div>
     <br>
     <div *ngFor="let product of filteredProducts" class="product">
