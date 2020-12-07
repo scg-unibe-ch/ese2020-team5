@@ -59,11 +59,11 @@ export class TransactionService {
                         const productUpdate: ProductUpdate = {};
                         if (product.type === 1) {
                             // if it is a service, it is automatically unavailable
-                            productUpdate.status = 1;
+                            productUpdate.status = 0;
                         } else {
                             // if the resulting amount of a product is 0, it becomes unavailable
                             if ( product.amount - transaction.amountOrTime === 0) {
-                                productUpdate.status = 1;
+                                productUpdate.status = 0;
                                 productUpdate.amount = 0;
                             } else {
                                 // If no special case, simply decrement the amount left of the product
