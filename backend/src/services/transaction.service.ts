@@ -1,12 +1,12 @@
-import {Product, ProductUpdate} from '../models/product.model';
-import {Transaction, TransactionAttributes, TransactionCreationAttributes} from '../models/transaction.model';
-import {ShoppingCartAttributes} from '../models/shoppingcart.model';
-import {User} from '../models/user.model';
+import { Product, ProductUpdate } from '../models/product.model';
+import { Transaction, TransactionAttributes, TransactionCreationAttributes } from '../models/transaction.model';
+import { ShoppingCartAttributes } from '../models/shoppingcart.model';
+import { User } from '../models/user.model';
 
 
 export class TransactionService {
-    public add(shoppingCartEntry: ShoppingCartAttributes): Promise<TransactionAttributes> {
 
+    public add(shoppingCartEntry: ShoppingCartAttributes): Promise<TransactionAttributes> {
         return Product.findByPk(shoppingCartEntry.productId)
             .then(product => {
                 if (!product) {

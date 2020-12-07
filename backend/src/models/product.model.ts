@@ -7,12 +7,12 @@ import {
     HasManyGetAssociationsMixin,
     HasManyAddAssociationMixin
 } from 'sequelize';
-import {User} from './user.model';
-import {Review} from './review.model';
+import { User } from './user.model';
+import { Review } from './review.model';
 import { Transaction } from './transaction.model';
-import {ShoppingCart} from './shoppingcart.model';
+import { ShoppingCart } from './shoppingcart.model';
 import { ProductImage } from './productImage.model';
-import {Wishlist} from './wishlist.model';
+import { Wishlist } from './wishlist.model';
 
 export interface ProductUpdate {
     productId?: number;
@@ -71,7 +71,6 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     amount: number;
 
     public getReviews!: HasManyGetAssociationsMixin<Review>;
-    public addReview!: HasManyAddAssociationMixin<Review, number>;
     public getImages!: HasManyGetAssociationsMixin<ProductImage>;
     public addImage!: HasManyAddAssociationMixin<ProductImage, number>;
 

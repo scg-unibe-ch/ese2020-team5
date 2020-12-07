@@ -3,7 +3,7 @@ import {
     DataTypes,
     Sequelize, Optional
 } from 'sequelize';
-import {User, UserAttributes} from './user.model';
+import {User} from './user.model';
 
 export interface NotificationAttributes {
     notificationId: number;
