@@ -36,10 +36,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
         transactions: Association<User, Transaction>
     };
 
-    // public getProducts!: HasManyGetAssociationsMixin<Product>;
     public addProduct!: HasManyAddAssociationMixin<Product, number>;
-    // public getTransactions!: HasManyGetAssociationsMixin<Transaction>;
-    // public addTransaction: HasManyAddAssociationMixin<Transaction, number>;
 
     public readonly products?: Product[];
 

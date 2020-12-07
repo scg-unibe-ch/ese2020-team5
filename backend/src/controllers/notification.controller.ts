@@ -3,7 +3,6 @@ import { NotificationService } from '../services/notification.service';
 import { verifyToken, getUserId } from '../middlewares/checkAuth';
 
 const notificationController: Router = express.Router();
-
 const notificationService = new NotificationService();
 
 notificationController.get('/', verifyToken, (req: Request, res: Response) => {

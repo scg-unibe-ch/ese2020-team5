@@ -1,4 +1,4 @@
-import {Notification, NotificationCreationAttributes} from '../models/notification.model';
+import { Notification, NotificationCreationAttributes } from '../models/notification.model';
 import { User } from '../models/user.model';
 import { EmailService, EmailAttributes } from './email.service';
 const emailService = new EmailService();

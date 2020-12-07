@@ -1,5 +1,5 @@
-import {Review, ReviewAttributes} from '../models/review.model';
-import {User} from '../models/user.model';
+import { Review, ReviewAttributes } from '../models/review.model';
+import { User } from '../models/user.model';
 
 export class ReviewService {
 
@@ -9,7 +9,7 @@ export class ReviewService {
                 if (this.isRatingInRange(review.rating)) {
                     return Review.create(review);
                 } else {
-                    return Promise.reject({message: 'Rating needs to be a number between 1 and 5'});
+                    return Promise.reject({ message: 'Rating needs to be a number between 1 and 5' });
                 }
             }).catch(err => Promise.reject(err));
     }
@@ -20,13 +20,13 @@ export class ReviewService {
                 if (this.isNotNull(found)) {
                     return Promise.resolve(found);
                 } else {
-                    return Promise.reject({message: 'Review is not found', status: 404});
+                    return Promise.reject({ message: 'Review is not found', status: 404 });
                 }
             }).then((found) => {
                 if (!this.doesUserIdMatch(found.userId, userId)) {
-                    return Promise.reject({message: 'You are not authorized to do this!', status: 500});
+                    return Promise.reject({ message: 'You are not authorized to do this!', status: 500 });
                 } else if (this.doesItContainRating(review) && !this.isRatingInRange(review.rating)) {
-                    return Promise.reject({message: 'Rating needs to be a number between 1 and 5', status: 500});
+                    return Promise.reject({ message: 'Rating needs to be a number between 1 and 5', status: 500 });
                 } else {
                     return found.update(review);
                 }
@@ -40,26 +40,26 @@ export class ReviewService {
             });
     }
 
-    public delete(deleterId: number, reviewId: number | string): Promise<number> {
-        let found_review: Review;
+    public delete(deleterId: number, reviewId: number | string): Promise<ReviewAttributes> {
+        let foundReview: Review;
         return Review.findByPk(reviewId)
             .then((found) => {
                 if (this.isNotNull(found)) {
-                    found_review = found;
+                    foundReview = found;
                     return Promise.resolve();
                 } else {
-                    return Promise.reject({message: 'Review is not found', status: 404});
+                    return Promise.reject({ message: 'Review is not found!', status: 404 });
                 }
             }).then(() => {
                 return User.findByPk(deleterId);
             }).then((user) => {
-                if (!this.isUserAdmin(user) && !this.doesUserIdMatch(found_review.userId, deleterId)) {
-                    return Promise.reject({message: 'You are not authorized to do this!', status: 500});
+                if (!this.isUserAdmin(user) && !this.doesUserIdMatch(foundReview.userId, deleterId)) {
+                    return Promise.reject({ message: 'You are not authorized to do this!', status: 500 });
                 } else {
-                    return found_review.destroy();
+                    return foundReview.destroy();
                 }
             }).then(() => {
-                return Promise.resolve(1);
+                return Promise.resolve(foundReview);
             }).catch((err) => {
                 if (!err.hasOwnProperty('status')) {
                     err.status = 500;
@@ -76,15 +76,15 @@ export class ReviewService {
         return reviewerId === Number(updaterId);
     }
 
-    protected isNotNull(review: Review | null) {
+    protected isNotNull(review: Review | null): boolean {
         return !!review;
     }
 
-    private doesItContainRating(review: ReviewAttributes) {
+    private doesItContainRating(review: ReviewAttributes): boolean {
         return 'rating' in review;
     }
 
-    private isUserAdmin(user: User) {
+    private isUserAdmin(user: User): boolean {
         return user.isAdmin === 1;
     }
 }

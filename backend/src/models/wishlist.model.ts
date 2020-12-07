@@ -1,8 +1,7 @@
 import {
     Model,
     DataTypes,
-    Sequelize,
-    BelongsToCreateAssociationMixin
+    Sequelize
 } from 'sequelize';
 import { User } from './user.model';
 import { Product } from './product.model';
@@ -16,8 +15,6 @@ export class Wishlist extends Model<WishlistAttributes> implements WishlistAttri
 
     buyerId!: number;
     productId!: number;
-
-    public getProduct!: BelongsToCreateAssociationMixin<Product>;
 
     public static initialize(sequelize: Sequelize) {
         Wishlist.init(

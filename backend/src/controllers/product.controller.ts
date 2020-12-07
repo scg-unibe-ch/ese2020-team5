@@ -4,7 +4,6 @@ import { verifyToken, getUserId } from '../middlewares/checkAuth';
 import { MulterRequest } from '../middlewares/imageUpload';
 
 const productController: Router = express.Router();
-
 const productService = new ProductService();
 
 productController.post('/', verifyToken, (req: Request, res: Response) => {
