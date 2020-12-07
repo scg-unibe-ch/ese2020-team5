@@ -35,18 +35,31 @@ export class ShoppingCartComponent implements OnInit {
     });
     this.cartService.getCartItems().then(cartItems => {
       this.cartItems = cartItems;
-      this.cartItems.forEach(cartItem => {
-        this.productService.getProductById(cartItem.productId).then(product => {
-          this.products.push(product);
-          if (this.products.length === this.cartItems.length) {
-            this.calcTotal();
-            this.cartItems.forEach((item, index) => {
-              this.validateAmount(index);
-            });
-          }
+      this.initProducts().then(() => {
+        this.calcTotal();
+        this.cartItems.forEach((item, index) => {
+          this.validateAmount(index);
         });
       });
     });
+  }
+
+  async initProducts(): Promise<void> {
+    for (const cartItem of this.cartItems) {
+      try {
+        const product = await this.productService.getProductById(cartItem.productId);
+        if (product) {
+          this.products.push(product);
+        } else {
+          this.removeCartItem(cartItem);
+          this.cartItems = this.cartItems.filter(entry => entry.productId !== cartItem.productId);
+        }
+      } catch (e) {
+        this.removeCartItem(cartItem);
+        this.cartItems = this.cartItems.filter(entry => entry.productId !== cartItem.productId);
+      }
+    }
+    return Promise.resolve();
   }
 
   saveChange(cartItem: CartItem, index: number): void {
@@ -74,17 +87,22 @@ export class ShoppingCartComponent implements OnInit {
     this.cartItems[index].amountOrTime = Math.floor(this.cartItems[index].amountOrTime);
     if (this.cartItems[index].amountOrTime < 1) {
       this.cartItems[index].amountOrTime = 1;
-    } else if (this.products[index] && this.cartItems[index].amountOrTime > this.products[index].amount) {
+    } else if (
+      this.products[index]
+      && !this.products[index].type
+      && !this.products[index].sellOrLend
+      && this.cartItems[index].amountOrTime > this.products[index].amount
+    ) {
       this.cartItems[index].amountOrTime = this.products[index].amount;
     }
     this.calcTotal();
   }
 
-  removeCartItem(index: number): void {
-    this.cartService.deleteCartItem(this.cartItems[index].productId).then(() => {
+  removeCartItem(cartItem: CartItem): void {
+    this.cartService.deleteCartItem(cartItem.productId).then(deletedCartItem => {
       this.dataSharingService.updateCartItemsAmount();
-      this.cartItems.splice(index, 1);
-      this.products.splice(index, 1);
+      this.cartItems = this.cartItems.filter(entry => entry.productId !== deletedCartItem.productId);
+      this.products = this.products.filter(entry => entry.productId !== deletedCartItem.productId);
       this.calcTotal();
     });
   }

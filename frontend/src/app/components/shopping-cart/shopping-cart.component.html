@@ -30,7 +30,7 @@
       </div>
       <div class="total">
         <strong class="total-price">{{(product.price * cartItems[i].amountOrTime).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
-        <button class="remove-cart-item" mat-icon-button matTooltip="Remove Item" (click)="removeCartItem(i)"><mat-icon>delete</mat-icon></button>
+        <button class="remove-cart-item" mat-icon-button matTooltip="Remove Item" (click)="removeCartItem(cartItems[i])"><mat-icon>delete</mat-icon></button>
       </div>
       <hr>
     </div>
@@ -43,6 +43,6 @@
     <hr>
     <span><strong>Balance:</strong></span><br>
     <span style="float: right">{{(this.credits - this.total).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span>
-    <button mat-stroked-button class="checkout-btn black-btn" [disabled]="this.cartItems && (this.cartItems.length < 1 || total > credits)" (click)="checkout()">Checkout</button>
+    <button mat-stroked-button class="checkout-btn black-btn" [disabled]="cartItems && (cartItems.length < 1 || total > credits)" (click)="checkout()">Checkout</button>
   </div>
 </div>

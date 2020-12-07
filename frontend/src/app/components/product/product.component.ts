@@ -69,10 +69,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  initUserNamesOfReviews(): void {
-    this.product.reviews.forEach(review => {
-      this.userService.getUserById(review.userId).then(user => this.userNamesOfReviews.push(user.userName));
-    });
+  async initUserNamesOfReviews(): Promise<void> {
+    for (const review of this.product.reviews) {
+      await this.userService.getUserById(review.userId)
+        .then(user => this.userNamesOfReviews.push(user.userName))
+        .catch(() => this.userNamesOfReviews.push('Unknown'));
+    }
+    return Promise.resolve();
   }
 
   initAvgRatingOfOwner(): void {
