@@ -2,7 +2,9 @@ import { Product, ProductUpdate } from '../models/product.model';
 import { Transaction, TransactionAttributes, TransactionCreationAttributes } from '../models/transaction.model';
 import { ShoppingCartAttributes } from '../models/shoppingcart.model';
 import { User } from '../models/user.model';
+import {NotificationService} from './notification.service';
 
+const notificationService = new NotificationService();
 
 export class TransactionService {
 
@@ -74,6 +76,40 @@ export class TransactionService {
                             .then(() => Promise.resolve(transaction))
                             .catch(err => Promise.reject(err));
                     });
+            })
+            .then(async(transaction) => {
+                const userId = transaction.sellerId;
+                let buyerLastname, buyerFirstname, buyerStreet, buyerZip, buyerCity, deliverable = 0;
+                let text: string;
+                const productName = transaction.productName;
+
+                await Product.findByPk(transaction.productId)
+                    .then(product => {
+                        deliverable = product.deliverable;
+                    })
+                    .catch(() => Promise.reject('Could not find the product!'));
+
+                await User.findByPk(transaction.buyerId)
+                    .then(user => {
+                        buyerFirstname = user.firstName;
+                        buyerLastname = user.lastName;
+                        if (deliverable === 1) {
+                            buyerCity = user.city;
+                            buyerStreet = user.street;
+                            buyerZip = user.zipCode;
+                        }
+                    })
+                    .catch(() => Promise.reject('Could not find the buyer!'));
+                text = buyerFirstname + ' ' + buyerLastname + ' bought your product ' + productName + '. ';
+
+                if (deliverable === 1) {
+                    text += 'The delivery address is: ' + buyerStreet + ', ' + buyerZip + ' ' + buyerCity;
+                }
+
+                console.log(text);
+                return notificationService.create(userId, text)
+                    .then(() => transaction)
+                    .catch(() => Promise.reject('could not create notification for transaction'));
             })
             .then(created => Promise.resolve(created))
             .catch(err => Promise.reject(err));

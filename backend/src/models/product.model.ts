@@ -177,7 +177,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             price: 120,
             priceKind: 0,
             status: 0,
-            deliverable: 1,
+            deliverable: 0, // not deliverable
             approved: 0,
             amount: 1,
             userId: 1
@@ -193,7 +193,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             price: 120,
             priceKind: 0,
             status: 0,
-            deliverable: 1,
+            deliverable: 1, // deliverable
             approved: 1,
             amount: 10,
             userId: 2
