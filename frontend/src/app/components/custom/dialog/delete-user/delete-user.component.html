@@ -1,0 +1,6 @@
+<h1 mat-dialog-title class="dialog-text">Delete User '{{data.userName}}#{{data.userId}}'</h1>
+<div mat-dialog-content class="dialog-text">Are you sure you want to remove the user '{{data.userName}}#{{data.userId}}'?</div>
+<div mat-dialog-actions style="margin-top: 30px; float: right">
+  <button mat-button mat-dialog-close class="red-btn" (click)="deleteUser()">Delete</button>
+  <button mat-stroked-button mat-dialog-close>Cancel</button>
+</div>

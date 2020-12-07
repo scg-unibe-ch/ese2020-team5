@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Delete Product '{{data.title}}'</h1>
-<div mat-dialog-content>Are you sure you want to remove the product '{{data.title}}'?</div>
+<h1 mat-dialog-title class="dialog-text">Delete Product '{{data.title}}'</h1>
+<div mat-dialog-content class="dialog-text">Are you sure you want to remove the product '{{data.title}}'?</div>
 <div mat-dialog-actions style="margin-top: 30px; float: right">
-  <button mat-button mat-dialog-close class="black-btn" (click)="deleteProduct()">Delete</button>
-  <button mat-button mat-dialog-close class="black-btn">Cancel</button>
+  <button mat-button mat-dialog-close class="red-btn" (click)="deleteProduct()">Delete</button>
+  <button mat-stroked-button mat-dialog-close>Cancel</button>
 </div>

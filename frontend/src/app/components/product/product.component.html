@@ -1,33 +1,81 @@
-<div class="product-notification">
-  <p>This page is still in progress. Content will be added later on.<span class="close" (click)="closeNotification()">&times;</span></p>
-</div>
-<!--<div *ngIf="!product.approved" class="product-notification">
+<div *ngIf="product && !product.approved" class="product-notification">
   <p>Since the product is unapproved this page can only be seen by admins and the product owner!<span class="close" (click)="closeNotification()">&times;</span></p>
-</div>-->
+</div>
 <div *ngIf="!product" class="loading">
   <mat-spinner></mat-spinner>
 </div>
-<div class="product-container">
-  <div *ngIf="product" class="product-content">
+<div *ngIf="product" class="product-container">
+  <div class="product-content">
     <h1>
-      <strong>{{product.title}} ({{(product.type == 0 ? 'Item' : 'Service')}})</strong><br>
+      <strong style="overflow-wrap: break-word;">{{product.title}} ({{(product.type == 0 ? 'Item' : 'Service')}})</strong><br>
       {{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}
       {{(product.priceKind != 0) ? ((product.priceKind == 1) ? 'per hour' : 'per day') : ''}}
     </h1>
     <hr>
-    <div class="product-description">
-      <p>
-        <strong>Description:</strong><br>
-        {{product.description}}
-      </p>
+    <div *ngIf="product.images[0]" class="image-slideshow">
+      <div class="product-image">
+        <img class="image" [src]="imageService.getImageUrl(product.images[imageIndex].fileName)" (click)="displayImage()">
+      </div>
+      <a class="slideshow-prev" (click)="nextImage(-1)">&#10094;</a>
+      <a class="slideshow-next" (click)="nextImage(1)">&#10095;</a>
+      <div class="dots-container">
+        <span *ngFor="let image of product.images; let i = index;"
+              (click)="setImage(i)"
+              [classList]="imageIndex === i ? 'slideshow-dot dot-active' : 'slideshow-dot'">
+        </span>
+      </div>
+      <hr>
     </div>
-    <div class="product-info">
+    <div class="product-description">
+      <p><strong>Description:</strong><br>{{product.description}}</p>
+    </div>
+  </div>
+  <div class="product-info">
+    <span style="position: absolute; top: 4px; font-size: 12px">posted by:</span>
+    <div class="user-info">
+      <a *ngIf="owner" href="{{'user/' + owner.userId}}"><h3><strong>{{owner.userName + ' #' + owner.userId}}</strong></h3></a>
+      <div class="user-avg-rating">
+        <span style="position: relative; top: 4px">avg. rating:</span>
+        <app-star-rating value="{{owner.avgRating}}" size="15"></app-star-rating>
+      </div>
+    </div>
+    <div class="product-rating">
+      <app-star-rating value="{{avgRating}}" size="35"></app-star-rating>
+      <span style="position: relative; top: -5px">({{product.reviews.length}})</span>
+    </div>
+    <div class="location-status-delivery">
       <p>Location: {{product.location}}</p>
       <p>Status: <span class="{{(product.status) ? 'green' : 'red'}}">{{product.status ? 'Available' : 'Not Available'}}</span></p>
       <p class="{{(product.deliverable) ? 'green' : 'red'}}">{{product.deliverable ? 'Deliverable' : 'Not Deliverable'}}</p>
     </div>
     <div class="btn-container">
-      <button mat-stroked-button class="add-btn black-btn" [disabled]="!product.approved" (click)="addToCart()">Add to Cart</button>
+      <button mat-stroked-button class="wishlist-btn" [disabled]="!product.approved" (click)="addToWishlist()">+Wishlist</button>
+      <button mat-stroked-button class="cart-btn black-btn" [disabled]="!product.approved" (click)="addToCart()">Add to Cart</button>
     </div>
+  </div>
+  <div class="product-reviews">
+    <div class="review-header" (click)="displayReviews()">
+      <h2><strong>&nbsp;Reviews </strong>({{product.reviews.length}})</h2>
+      <mat-icon style="position: absolute; top: 10px; right: 5px;">{{showReviews ? 'expand_less' : 'expand_more'}}</mat-icon>
+      <hr>
+    </div>
+    <div *ngIf="showReviews">
+      <div class="review-entry" *ngFor="let review of product.reviews">
+        <a class="review-username" href="user/{{review.userId}}">
+          <strong>{{fakeService.getUserById(review.userId).userName + ' #' + fakeService.getUserById(review.userId).userId}}</strong>
+        </a>
+        <p class="review-content">{{review.review}}</p>
+        <div class="review-rating">
+          <app-star-rating value="{{review.rating}}" size="20"></app-star-rating>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="product && product.images && product.images[0]" [classList]="showImage ? 'active' : 'inactive'">
+  <div class="image-show-bg" (click)="displayImage()"></div>
+  <div class="image-show">
+    <span class="image-show-close" (click)="displayImage()">X</span>
+    <img class="image-show-src" [src]="imageService.getImageUrl(product.images[imageIndex].fileName)">
   </div>
 </div>

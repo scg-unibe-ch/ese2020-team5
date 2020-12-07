@@ -1,13 +1,7 @@
-.product-panel-bg {
-  min-height: calc(100vh - 50px);
-  width: 100%;
-  background-color: #f6f6f6;
-}
-
 .product-panel {
   margin: 0 auto;
   padding-top: 3%;
-  width: 55%;
+  width: 60%;
 }
 
 .product-panel h1 {
@@ -19,31 +13,71 @@
 }
 
 .filter-container {
+  position: relative;
   display: block;
+  height: 70px;
 }
 
-.filter-container p {
+.filter-search {
+  position: absolute;
+  top: 13px;
+  left: 20px;
+}
+
+.search {
+  display: inline;
+  padding: 5px;
+  background-color: unset;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.filter-search mat-icon {
+  position: relative;
+  top: 9px;
+  cursor: pointer;
+  user-select: none;
+  color: #777777;
+}
+
+.filter-search mat-icon:hover {
+  color: #131313;
+}
+
+.filter-approve {
+  position: absolute;
+  right: 0;
+}
+
+.filter-approve p {
   display: inline;
 }
 
-.filter-container mat-form-field {
+.filter-approve mat-form-field {
   display: inline-block;
   width: 125px;
 }
 
-.product-panel mat-card {
-  margin: 10px auto 20px;
+/*-----------------*/
+.product {
+  margin: 10px auto;
+
 }
 
-.product-panel mat-card-title > a{
-  color: black;
-  text-decoration: none;
+@media only screen and (max-width: 1400px) {
+  .product-panel {
+    width: 80%;
+  }
 }
 
-.product-panel mat-card-title > a:hover {
-  text-decoration: underline;
-}
-
-.product-panel mat-card-content {
-  white-space: pre-wrap;
+@media only screen and (max-width: 1100px) {
+  .product-panel {
+    width: 95%;
+  }
 }

@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
@@ -35,6 +34,21 @@ import { AdminUserPanelComponent } from './components/admin-user-panel/admin-use
 import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
 import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { DeleteUserComponent } from './components/custom/dialog/delete-user/delete-user.component';
+import { ApproveProductComponent } from './components/custom/dialog/approve-product/approve-product.component';
+import { CompactProductListComponent } from './components/custom/compact-product-list/compact-product-list.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatMenuModule} from '@angular/material/menu';
+import { CompactProductCardComponent } from './components/custom/compact-product-card/compact-product-card.component';
+import { ProductStatusIconComponent } from './components/custom/product-status-icon/product-status-icon.component';
+import { StarRatingComponent } from './components/custom/star-rating/star-rating.component';
+import { InboxComponent } from './components/inbox/inbox.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './components/custom/dialog/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -53,14 +67,22 @@ import { CatalogComponent } from './components/catalog/catalog.component';
     AdminUserPanelComponent,
     AdminProductPanelComponent,
     ProductComponent,
-    CatalogComponent
+    CatalogComponent,
+    DeleteUserComponent,
+    ApproveProductComponent,
+    CompactProductListComponent,
+    CompactProductCardComponent,
+    ProductStatusIconComponent,
+    StarRatingComponent,
+    InboxComponent,
+    ShoppingCartComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatMenuModule,
     MatButtonModule,
     MatListModule,
     MatInputModule,
@@ -74,7 +96,13 @@ import { CatalogComponent } from './components/catalog/catalog.component';
     MatIconModule,
     MatExpansionModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRippleModule,
+    MatRadioModule,
+    MatTooltipModule,
+    MatButtonToggleModule,
+    MatMenuModule,
+    MatBadgeModule
   ],
   providers: [
     {

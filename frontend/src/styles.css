@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 html { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow-y: overlay; overflow-x: hidden; }
 
 .black-btn {
   color: #ececec;
@@ -16,4 +16,71 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .black-btn:disabled {
   color: #d4d4d4!important;
   background-color: #393939;
+}
+
+.green-btn {
+  color: #ececec;
+  background-color: #3fab32;
+}
+
+.green-btn:hover {
+  color: #ffffff;
+  background-color: #2fbf1f;
+}
+
+.green-btn:disabled {
+  color: #d4d4d4!important;
+  background-color: #67a760;
+}
+
+.red-btn {
+  color: #ececec;
+  background-color: #d04b4b;
+}
+
+.red-btn:hover {
+  color: #ffffff;
+  background-color: #db2929;
+}
+
+.red-btn:disabled {
+  color: #d4d4d4!important;
+  background-color: #bc5959;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  border-radius: 50em;
+  background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
+  background-size: contain;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 1px solid #4a4a4a;
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a1a1a;
 }

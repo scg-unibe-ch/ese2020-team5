@@ -9,7 +9,9 @@ export class User {
     public country: string,
     public city: string,
     public zipCode: string,
+    public street: string,
     public phoneNr: string,
+    public credits: number,
     public isAdmin: boolean
   ) { }
 }

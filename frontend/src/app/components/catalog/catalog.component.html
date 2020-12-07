@@ -1,5 +1,5 @@
 <div class="catalog">
-  <div class="catalog-panel" *ngIf="type === 'all' && !this.searchFilter">
+  <div class="catalog-panel" *ngIf="this.showBrowse" [@inOutAnimation]>
     <mat-card>
       <mat-card-content>
         <h1><strong>Items</strong></h1>
@@ -13,32 +13,95 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="product-list">
-    <mat-card *ngFor="let product of products; let i = index;" class="product-card">
-      <div mat-card-image (mouseenter)="mouseEnterItem(i)" (mouseleave)="mouseLeaveItem(i)">
-        <div class="product-image">
-          <img *ngIf="product.images && product.images[0]" src="{{product.images[0]}}">
-          <div *ngIf="!product.images || !product.images[0]" class="default-image">
-            <mat-icon [inline]="true">category</mat-icon>
-          </div>
+  <div class="filters">
+    <div class="filter-btn" (click)="openCloseFilters()" matRipple matTooltip="{{filterOpen ? 'Close Filter' : 'Open Filter'}}" matTooltipPosition="right">
+      <svg class="filter-icon">
+        <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path>
+      </svg>
+      <p class="filter-text">Filter</p>
+    </div>
+    <div class="product-view-selector">
+      <mat-button-toggle-group [(ngModel)]="this.productView" (ngModelChange)="changePreference()">
+        <mat-button-toggle value="card">
+          <mat-icon>view_module</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="list">
+          <mat-icon>view_stream</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="filter-options">
+      <hr>
+      <div class="filter filter-type">
+        <strong>Type</strong>
+        <mat-radio-group color="accent" [(ngModel)]="this.filter.type" class="filter-radio-grp" (ngModelChange)="updateFilter()">
+          <mat-radio-button class="filter-radio-btn" value="all">All</mat-radio-button>
+          <mat-radio-button class="filter-radio-btn" value="items">Items</mat-radio-button>
+          <mat-radio-button class="filter-radio-btn" value="services">Services</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="filter filter-price">
+        <strong>Price</strong>
+        <label class="filter-label">From</label>
+        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="this.filter.priceFrom" (ngModelChange)="updateFilter()">
+        <span>CHF</span>
+        <label class="filter-label">To</label>
+        <input type="number" class="filter-input" placeholder="0.00" [(ngModel)]="this.filter.priceTo" (ngModelChange)="updateFilter()">
+        <span>CHF</span>
+      </div>
+      <div class="filter filter-sale-type">
+        <strong>Sale Type</strong>
+        <mat-radio-group color="accent" [(ngModel)]="this.filter.salesType" class="filter-radio-grp" (ngModelChange)="updateFilter()">
+          <mat-radio-button class="filter-radio-btn" value="sellOrLend">Sell or Lend</mat-radio-button>
+          <mat-radio-button class="filter-radio-btn" value="sell">To Sell</mat-radio-button>
+          <mat-radio-button class="filter-radio-btn" value="lend">To Lend</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="filter filter-location">
+        <strong>Location</strong>
+        <input type="text" class="filter-input filter-input-location" placeholder="Location" [(ngModel)]="this.filter.location" (ngModelChange)="updateFilter()">
+      </div>
+      <div class="filter filter-status-deli">
+        <strong>Status & Delivery</strong>
+        <div class="filter-label">
+          <mat-checkbox class="filter-checkbox"
+                        [ngModel]="this.filter.status === 'checked'"
+                        [indeterminate]="this.filter.status === 'crossed'"
+                        disabled (click)="checkBoxStatus()">
+          </mat-checkbox>
+          <label>&nbsp;Available</label>
         </div>
-        <div class="product-description" id="product-description-{{i}}">
-          <p>
-            Description:<br>
-            {{product.description}}
-          </p>
+        <div class="filter-label">
+          <mat-checkbox class="filter-checkbox"
+                        [ngModel]="this.filter.deliverable === 'checked'"
+                        [indeterminate]="this.filter.deliverable === 'crossed'"
+                        disabled (click)="checkBoxDelivery()">
+          </mat-checkbox>
+          <label>&nbsp;Deliverable</label>
         </div>
       </div>
-      <mat-card-content>
-        <p>
-          <span class="green">
-            <strong>{{product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
-          </span><br>
-          <a class="product-title" href="product/{{product.productId}}">
-            <strong>{{(product.title.length > 72) ? product.title.substring(0, 70) + '..' : product.title}}</strong>
-          </a>
-        </p>
-      </mat-card-content>
-    </mat-card>
+      <div class="filter filter-sort-by">
+        <strong>Sort By</strong>
+        <mat-radio-group color="accent" [(ngModel)]="this.filter.sortBy" class="filter-radio-grp" (ngModelChange)="updateFilter()" disabled>
+          <mat-radio-button class="filter-radio-btn" value="recommended">Recommended</mat-radio-button>
+          <mat-radio-button class="filter-radio-btn" value="rating">Rating</mat-radio-button>
+          <mat-radio-button class="filter-radio-btn" value="totalReviews">Total Reviews</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="no-products-found" *ngIf="this.products && !this.products[0]">
+    <h1>No products found!</h1>
+  </div>
+  <div class="product-list" *ngIf="this.productView === 'card' && this.products && this.products[0]">
+    <div *ngFor="let product of products; let i = index;">
+      <app-compact-product-card [product]="product" [index]="i"></app-compact-product-card>
+    </div>
+  </div>
+  <div class="product-list-2" *ngIf="this.productView === 'list' && this.products && this.products[0]">
+    <div class="catalog-compact-product" *ngFor="let product of products">
+      <app-compact-product-list [product]="product" view="customer"></app-compact-product-list>
+    </div>
   </div>
 </div>

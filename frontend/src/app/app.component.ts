@@ -1,6 +1,7 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -9,78 +10,54 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
   searchFilter = '';
-  myAccountArrow = 'expand_more';
-  myAccountModalShown = false;
-  myAccount = '';
+  isAdmin = false;
+  isLoggedIn = false;
+  userName = 'My Account';
+  newNotifications = 0;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
-    this.userService.loadUser();
+    if (localStorage.getItem('userName')) {
+      this.userName = this.correctNameLength(localStorage.getItem('userName'));
+    }
     if (this.authService.isLoggedIn()) {
+      this.isLoggedIn = true;
       this.userService.getUser().then(user => {
-        this.myAccount = user.userName;
-        if (this.myAccount.length > 12) {
-          this.myAccount = this.myAccount.substring(0, 10) + '..';
-        }
+        this.userName = this.correctNameLength(user.userName);
+        this.isAdmin = user.isAdmin;
       }).catch(() => {
+        this.isLoggedIn = false;
         this.authService.logout();
-        this.myAccount = 'My Account';
+        this.userName = 'My Account';
       });
+      this.notificationService.getNotifications().then(notifications => {
+        notifications.forEach(notification => {
+          if (!notification.read) {
+            this.newNotifications++;
+          }
+        });
+      });
+    }
+  }
+
+  correctNameLength(name: string): string {
+    if (name.length > 11) {
+      return name.substring(0, 10) + '...';
     } else {
-      this.myAccount = 'My Account';
+      return name;
     }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    if (this.myAccountModalShown) {
-      this.openCloseAccountModal();
-    }
-  }
-
-  modifyAccountContentPos(): void {
-    const navEntries = document.getElementById('nav-entries');
-    const navEntriesRight = window.getComputedStyle(navEntries).right;
-    const navEntriesWidth = window.getComputedStyle(navEntries).width;
-    const myAccountWidth = document.getElementById('my-account').offsetWidth;
-    const myAccountContentWidth = document.getElementById('my-account-content').offsetWidth;
-    const elmCenterPosition = parseInt(navEntriesRight, 10) + parseInt(navEntriesWidth, 10)
-      - (myAccountWidth / 2) - (myAccountContentWidth / 2);
-    document.getElementById('my-account-content').style.right =
-      (elmCenterPosition >= 0) ? (elmCenterPosition + 'px') : (0 + 'px');
   }
 
   searchItem(): void {
-    location.assign('catalog?q=' + this.searchFilter);
-  }
-
-  openCloseAccountModal(): void {
-    this.myAccountModalShown = !this.myAccountModalShown;
-    if (this.myAccountModalShown) {
-      this.modifyAccountContentPos();
-      this.myAccountArrow = 'expand_less';
-      document.getElementById('my-account-bg').style.display = 'block';
-      document.getElementById('my-account-content').style.visibility = 'visible';
+    if (this.searchFilter && this.searchFilter.replace(/ /g, '') !== '') {
+      location.assign('catalog?q=' + this.searchFilter);
     } else {
-      this.myAccountArrow = 'expand_more';
-      document.getElementById('my-account-bg').style.display = 'none';
-      document.getElementById('my-account-content').style.visibility = 'hidden';
+      location.assign('catalog');
     }
-  }
-
-  navigateTo(page: string): void {
-    location.assign(page);
-  }
-
-  isAdmin(): boolean {
-    return this.userService.isAdmin();
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
   }
 }
