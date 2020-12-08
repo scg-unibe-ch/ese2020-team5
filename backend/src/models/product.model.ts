@@ -7,12 +7,12 @@ import {
     HasManyGetAssociationsMixin,
     HasManyAddAssociationMixin
 } from 'sequelize';
-import {User} from './user.model';
-import {Review} from './review.model';
+import { User } from './user.model';
+import { Review } from './review.model';
 import { Transaction } from './transaction.model';
-import {ShoppingCart} from './shoppingcart.model';
+import { ShoppingCart } from './shoppingcart.model';
 import { ProductImage } from './productImage.model';
-import {Wishlist} from './wishlist.model';
+import { Wishlist } from './wishlist.model';
 
 export interface ProductUpdate {
     productId?: number;
@@ -64,14 +64,13 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     sellOrLend!: number; // sellOrLend == 0: sell, sellOrLend == 1: lend
     price!: number;
     priceKind!: number; // priceKind == 0: fixed, priceKind == 1: price/hour, priceKind == 2: price/day
-    status!: number; // status == 0: available, status == 1: lent
+    status!: number; // status == 1: available, status == 0: lent
     deliverable!: number; // deliverable == 1: yes, deliverable == 0: no
     approved!: number; // approved == 0: not yet approved from an admin, approved == 1: product approved by an admin
     userId!: number; // FK of user table
     amount: number;
 
     public getReviews!: HasManyGetAssociationsMixin<Review>;
-    public addReview!: HasManyAddAssociationMixin<Review, number>;
     public getImages!: HasManyGetAssociationsMixin<ProductImage>;
     public addImage!: HasManyAddAssociationMixin<ProductImage, number>;
 
@@ -177,7 +176,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             sellOrLend: 0,
             price: 120,
             priceKind: 0,
-            status: 0,
+            status: 1,
             deliverable: 1,
             approved: 0,
             amount: 1,
@@ -193,7 +192,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             sellOrLend: 0,
             price: 120,
             priceKind: 0,
-            status: 0,
+            status: 1,
             deliverable: 1,
             approved: 1,
             amount: 10,
@@ -208,7 +207,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             sellOrLend: 0,
             price: 120,
             priceKind: 0,
-            status: 0,
+            status: 1,
             deliverable: 1,
             approved: 0,
             amount: 10,
@@ -223,7 +222,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             sellOrLend: 0,
             price: 120,
             priceKind: 0,
-            status: 0,
+            status: 1,
             deliverable: 1,
             approved: 0,
             amount: 10,
@@ -238,7 +237,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
             sellOrLend: 0,
             price: 120,
             priceKind: 0,
-            status: 1,
+            status: 0,
             deliverable: 1,
             approved: 1,
             amount: 10,

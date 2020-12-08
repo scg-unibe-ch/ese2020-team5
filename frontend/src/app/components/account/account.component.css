@@ -1,0 +1,35 @@
+.account-content {
+  margin: 0 auto;
+}
+
+.account-content-header {
+  position: relative;
+  padding-top: 25px;
+}
+
+.account-content-header h1 {
+  text-align: center;
+}
+
+.account-tab {
+  width: 25%;
+}
+
+.content {
+  margin: 0 auto;
+  width: calc(500px + 35%);
+  min-height: calc(100vh - 177px);
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+}
+
+@media only screen and (max-width: 1100px) {
+  .account-tab {
+    width: 33%;
+  }
+
+  .content {
+    border: none;
+    width: 100%;
+  }
+}

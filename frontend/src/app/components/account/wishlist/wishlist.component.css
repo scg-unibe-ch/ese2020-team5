@@ -1,0 +1,44 @@
+.wishlist {
+  padding: 25px;
+  position: relative;
+}
+
+.btn-container {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+}
+
+.add-all-btn {
+  width: 160px;
+}
+
+.clear-list {
+  width: 120px;
+  margin-left: 10px;
+}
+
+.wishlist-content {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.wishlist-content h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.product {
+  position: relative;
+  width: 100%;
+}
+
+.product-btn-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.remove-item {
+  color: #bc0000;
+}

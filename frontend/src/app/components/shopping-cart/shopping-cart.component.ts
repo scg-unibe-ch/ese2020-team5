@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../models/cartItem.model';
 import { Product } from '../../models/product.model';
@@ -7,6 +7,7 @@ import { ImageService } from '../../services/image.service';
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CheckoutComponent } from '../custom/dialog/checkout/checkout.component';
+import { DataSharingService } from '../../services/data-sharing.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -23,14 +24,10 @@ export class ShoppingCartComponent implements OnInit {
     private userService: UserService,
     private cartService: CartService,
     private productService: ProductService,
+    private dataSharingService: DataSharingService,
     private dialog: MatDialog,
     public imageService: ImageService
   ) { }
-
-  @HostListener('window:beforeunload')
-  save(): void {
-    this.saveChanges();
-  }
 
   ngOnInit(): void {
     this.userService.getUser().then(user => {
@@ -38,54 +35,74 @@ export class ShoppingCartComponent implements OnInit {
     });
     this.cartService.getCartItems().then(cartItems => {
       this.cartItems = cartItems;
-      this.cartItems.forEach(cartItem => {
-        this.productService.getProductById(cartItem.productId).then(product => {
-          this.products.push(product);
-          if (this.products.length === this.cartItems.length) {
-            this.calcTotal();
-            this.cartItems.forEach((item, index) => {
-              this.validateAmount(index);
-            });
-          }
+      this.initProducts().then(() => {
+        this.calcTotal();
+        this.cartItems.forEach((item, index) => {
+          this.validateAmount(index);
         });
       });
     });
-    window.onbeforeunload = () => {
-      this.saveChanges();
-    };
+  }
+
+  async initProducts(): Promise<void> {
+    for (const cartItem of this.cartItems) {
+      try {
+        const product = await this.productService.getProductById(cartItem.productId);
+        if (product) {
+          this.products.push(product);
+        } else {
+          this.removeCartItem(cartItem);
+          this.cartItems = this.cartItems.filter(entry => entry.productId !== cartItem.productId);
+        }
+      } catch (e) {
+        this.removeCartItem(cartItem);
+        this.cartItems = this.cartItems.filter(entry => entry.productId !== cartItem.productId);
+      }
+    }
+    return Promise.resolve();
+  }
+
+  saveChange(cartItem: CartItem, index: number): void {
+    this.validateAmount(index);
+    this.cartService.updateCartItem(cartItem).then(() => this.dataSharingService.updateCartItemsAmount());
   }
 
   saveChanges(): void {
     this.cartItems.forEach((cartItem, index) => {
-      this.validateAmount(index);
-      this.cartService.updateCartItem(cartItem);
+      this.saveChange(cartItem, index);
     });
   }
 
   addAmount(index: number): void {
     this.cartItems[index].amountOrTime++;
-    this.validateAmount(index);
+    this.saveChange(this.cartItems[index], index);
   }
 
   removeAmount(index: number): void {
     this.cartItems[index].amountOrTime--;
-    this.validateAmount(index);
+    this.saveChange(this.cartItems[index], index);
   }
 
   validateAmount(index: number): void {
     this.cartItems[index].amountOrTime = Math.floor(this.cartItems[index].amountOrTime);
-    if (this.cartItems[index].amountOrTime < 1) {
+    if (this.cartItems[index].amountOrTime < 1 && this.products[index].amount > 0) {
       this.cartItems[index].amountOrTime = 1;
-    } else if (this.products[index] && this.cartItems[index].amountOrTime > this.products[index].amount) {
+    } else if (
+      this.products[index]
+      && !this.products[index].type
+      && !this.products[index].sellOrLend
+      && this.cartItems[index].amountOrTime > this.products[index].amount
+    ) {
       this.cartItems[index].amountOrTime = this.products[index].amount;
     }
     this.calcTotal();
   }
 
-  removeCartItem(index: number): void {
-    this.cartService.deleteCartItem(this.cartItems[index].productId).then(() => {
-      this.cartItems.splice(index, 1);
-      this.products.splice(index, 1);
+  removeCartItem(cartItem: CartItem): void {
+    this.cartService.deleteCartItem(cartItem.productId).then(deletedCartItem => {
+      this.dataSharingService.updateCartItemsAmount();
+      this.cartItems = this.cartItems.filter(entry => entry.productId !== deletedCartItem.productId);
+      this.products = this.products.filter(entry => entry.productId !== deletedCartItem.productId);
       this.calcTotal();
     });
   }
@@ -108,6 +125,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout(): void {
+    this.saveChanges();
     const deliverable = this.isMinOneProductDeliverable();
     this.dialog.open(CheckoutComponent, {
       data: {

@@ -1,12 +1,12 @@
-import {Product, ProductUpdate} from '../models/product.model';
-import {Transaction, TransactionAttributes, TransactionCreationAttributes} from '../models/transaction.model';
-import {ShoppingCartAttributes} from '../models/shoppingcart.model';
-import {User} from '../models/user.model';
+import { Product, ProductUpdate } from '../models/product.model';
+import { Transaction, TransactionAttributes, TransactionCreationAttributes } from '../models/transaction.model';
+import { ShoppingCartAttributes } from '../models/shoppingcart.model';
+import { User } from '../models/user.model';
 
 
 export class TransactionService {
-    public add(shoppingCartEntry: ShoppingCartAttributes): Promise<TransactionAttributes> {
 
+    public add(shoppingCartEntry: ShoppingCartAttributes): Promise<TransactionAttributes> {
         return Product.findByPk(shoppingCartEntry.productId)
             .then(product => {
                 if (!product) {
@@ -57,17 +57,23 @@ export class TransactionService {
                         // Update the product (e.g. set as unavailable or decrement the stock
                         // Hail to Jethro, who enforced me to create an Interface for this.
                         const productUpdate: ProductUpdate = {};
-                        if (product.type === 1) {
-                            // if it is a service, it is automatically unavailable
-                            productUpdate.status = 1;
-                        } else {
+                        // If the product is a service, then do not decrement the amount
+                        // If it's a lent item, only decrement it by 1
+                        if (product.type === 0 && product.sellOrLend === 0) {
                             // if the resulting amount of a product is 0, it becomes unavailable
                             if ( product.amount - transaction.amountOrTime === 0) {
-                                productUpdate.status = 1;
+                                productUpdate.status = 0;
                                 productUpdate.amount = 0;
                             } else {
                                 // If no special case, simply decrement the amount left of the product
                                 productUpdate.amount = product.amount - transaction.amountOrTime;
+                            }
+                        } else if (product.type === 0 && product.sellOrLend === 1) {
+                            if (product.amount - 1 === 0) {
+                                productUpdate.status = 0;
+                                productUpdate.amount = 0;
+                            } else {
+                                productUpdate.amount = productUpdate.amount - 1;
                             }
                         }
                         return product.update(productUpdate)

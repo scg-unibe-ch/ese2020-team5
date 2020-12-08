@@ -15,8 +15,7 @@ export class CompactProductCardComponent implements OnInit {
 
   constructor(public imageService: ImageService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   mouseEnterItem(): void {
     document.getElementById('product-description-' + this.index).style.display = '-webkit-box';

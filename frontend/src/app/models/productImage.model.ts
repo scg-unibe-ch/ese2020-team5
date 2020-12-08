@@ -3,5 +3,5 @@ export class ProductImage {
     public imageId: number,
     public fileName: string,
     public productId: number
-  ) {}
+  ) { }
 }

@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -19,11 +18,24 @@ import { ProductComponent } from './components/product/product.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { InboxComponent } from './components/inbox/inbox.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AccountComponent } from './components/account/account.component';
+import { ProfileComponent } from './components/account/profile/profile.component';
+import { ReviewsComponent } from './components/account/reviews/reviews.component';
+import { WishlistComponent } from './components/account/wishlist/wishlist.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/catalog', pathMatch: 'full'},
+  { path: '', redirectTo: 'catalog', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile', redirectTo: 'account/profile', pathMatch: 'full' },
+  { path: 'wishlist', redirectTo: 'account/wishlist', pathMatch: 'full' },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'reviews', component: ReviewsComponent },
+      { path: 'wishlist', component: WishlistComponent }
+    ]
+  },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
   { path: 'signup', component: SignUpComponent, canActivate: [NotAuthGuard] },

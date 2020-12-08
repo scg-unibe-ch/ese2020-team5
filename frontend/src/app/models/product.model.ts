@@ -18,5 +18,5 @@ export class Product {
     public approved: number,
     public reviews: Review[],
     public userId: number
-  ) {}
+  ) { }
 }

@@ -26,7 +26,13 @@
       <mat-icon matTooltip="Create Product">post_add</mat-icon>
     </a>
     <a href="cart" mat-icon-button class="nav-entry-icon-btn">
-      <mat-icon matTooltip="Shopping Cart">shopping_cart</mat-icon>
+      <mat-icon [matBadgeHidden]="cartItemsAmount === 0"
+                [matBadge]="cartItemsAmount"
+                matBadgeSize="small"
+                matBadgeColor="primary"
+                matTooltip="Shopping Cart">
+        shopping_cart
+      </mat-icon>
     </a>
   </div>
 </div>
@@ -53,6 +59,10 @@
     <a mat-menu-item href="my-products">
       <mat-icon>store</mat-icon>
       <span>My Products</span>
+    </a>
+    <a mat-menu-item href="wishlist">
+      <mat-icon>list</mat-icon>
+      <span>My Wishlist</span>
     </a>
     <a mat-menu-item href="logout">
       <mat-icon>exit_to_app</mat-icon>

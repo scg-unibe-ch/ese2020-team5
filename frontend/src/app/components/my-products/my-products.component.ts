@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteProductComponent } from '../custom/dialog/delete-product/delete-product.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-products',

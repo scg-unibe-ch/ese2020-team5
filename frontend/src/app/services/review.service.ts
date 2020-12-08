@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Review } from '../models/review.model';
 import { environment } from '../../environments/environment';
-import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,8 @@ export class ReviewService {
 
   getReviewsFromUser(): Promise<Review[]> {
     return new Promise<Review[]>((resolve, reject) => {
-      this.httpClient.get(environment.endpointURL + 'user/reviews').subscribe((user: ExtendedUser) => {
-        resolve(user.reviews);
+      this.httpClient.get(environment.endpointURL + 'user/reviews').subscribe((reviews: Review[]) => {
+        resolve(reviews);
       }, (error: any) => {
         reject(error);
       });
@@ -49,8 +48,10 @@ export class ReviewService {
       });
     });
   }
-}
 
-class ExtendedUser extends User {
-  reviews: Review[];
+  getAvgRating(reviews: Review[]): number {
+    let totalRating = 0;
+    reviews.forEach(review => totalRating += review.rating);
+    return (reviews.length > 0 ? totalRating / reviews.length : 0);
+  }
 }

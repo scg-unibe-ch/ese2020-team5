@@ -1,17 +1,12 @@
-import express, { Application , Request, Response } from 'express';
+import express, { Application } from 'express';
 import morgan from 'morgan';
-import { TodoItemController } from './controllers/todoitem.controller';
-import { TodoListController } from './controllers/todolist.controller';
 import { UserController } from './controllers/user.controller';
-import { SecuredController } from './controllers/secured.controller';
 import { ProductController } from './controllers/product.controller';
 import { ReviewController } from './controllers/review.controller';
 import { ShoppingCartController} from './controllers/shoppingcart.controller';
 import { NotificationController } from './controllers/notification.controller';
 import { WishlistController } from './controllers/wishlist.controller';
 import { Sequelize } from 'sequelize';
-import { TodoList } from './models/todolist.model';
-import { TodoItem } from './models/todoitem.model';
 import { User } from './models/user.model';
 import { Product } from './models/product.model';
 import { Review } from './models/review.model';
@@ -20,23 +15,17 @@ import { Transaction } from './models/transaction.model';
 import { ShoppingCart} from './models/shoppingcart.model';
 import { Notification } from './models/notification.model';
 import { Wishlist } from './models/wishlist.model';
-
 import cors from 'cors';
-
 
 export class Server {
     private server: Application;
-    private sequelize: Sequelize;
+    private readonly sequelize: Sequelize;
     private port = process.env.PORT || 3000;
 
     constructor() {
         this.server = this.configureServer();
         this.sequelize = this.configureSequelize();
 
-        TodoItem.initialize(this.sequelize); // creates the tables if they dont exist
-        TodoList.initialize(this.sequelize);
-        TodoItem.createAssociations();
-        TodoList.createAssociations();
         User.initialize(this.sequelize);
         Product.initialize(this.sequelize);
         ProductImage.initialize(this.sequelize);
@@ -87,10 +76,7 @@ export class Server {
             .use(cors())
             .use(express.json())                    // parses an incoming json to an object
             .use(morgan('tiny'))                    // logs incoming requests
-            .use('/todoitem', TodoItemController)   // any request on this path is forwarded to the TodoItemController
-            .use('/todolist', TodoListController)
             .use('/user', UserController)
-            .use('/secured', SecuredController)
             .use('/products', ProductController)
             .use('/review', ReviewController)
             .use('/cart', ShoppingCartController)
