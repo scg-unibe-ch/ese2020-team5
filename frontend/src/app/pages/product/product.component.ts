@@ -11,9 +11,9 @@ import { ReviewService } from '../../services/review.service';
 import { PublicUser } from '../../models/publicUser.model';
 import { Review } from '../../models/review.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ReviewFormComponent } from '../custom/dialog/review-form/review-form.component';
+import { ReviewFormComponent } from '../custom-components/dialog/review-form/review-form.component';
 import { User } from '../../models/user.model';
-import { DeleteReviewComponent } from '../custom/dialog/delete-review/delete-review.component';
+import { DeleteReviewComponent } from '../custom-components/dialog/delete-review/delete-review.component';
 import { WishlistService } from '../../services/wishlist.service';
 import { DataSharingService } from '../../services/data-sharing.service';
 

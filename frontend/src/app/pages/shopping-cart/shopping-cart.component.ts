@@ -6,7 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { ImageService } from '../../services/image.service';
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CheckoutComponent } from '../custom/dialog/checkout/checkout.component';
+import { CheckoutComponent } from '../custom-components/dialog/checkout/checkout.component';
 import { DataSharingService } from '../../services/data-sharing.service';
 
 @Component({

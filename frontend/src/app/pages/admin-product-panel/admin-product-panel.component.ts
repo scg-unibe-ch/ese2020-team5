@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
-import { DeleteProductComponent } from '../custom/dialog/delete-product/delete-product.component';
+import { DeleteProductComponent } from '../custom-components/dialog/delete-product/delete-product.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApproveProductComponent } from '../custom/dialog/approve-product/approve-product.component';
+import { ApproveProductComponent } from '../custom-components/dialog/approve-product/approve-product.component';
 
 @Component({
   selector: 'app-admin-product-panel',
