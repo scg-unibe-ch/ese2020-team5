@@ -488,21 +488,21 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://{{uri}}/notification/{{userId}}",
+							"raw": "http://{{uri}}/notification/{{notificationId}}",
 							"protocol": "http",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"notification",
-								"{{userId}}"
+								"{{notificationId}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "read notification Copy",
+					"name": "delete notification",
 					"event": [
 						{
 							"listen": "test",
@@ -2247,7 +2247,7 @@
 									"    mode: 'application/json',",
 									"    raw: JSON.stringify(",
 									"        {",
-									"            userName: \"testi2\",",
+									"            userName: \"testi\" + pm.environment.get('deleteUserId'),",
 									"            password: \"notSecure12\",",
 									"            email: \"testi2@example.com\",",
 									"            lastName: \"ng\",",
@@ -2316,7 +2316,7 @@
 									"    mode: 'application/json',",
 									"    raw: JSON.stringify(",
 									"        {",
-									"            userName: \"testi3\",",
+									"            userName: \"testi\" + pm.environment.get('deleteUserId2'),",
 									"            password: \"notSecure12\",",
 									"            email: \"testi3@example.com\",",
 									"            lastName: \"ng\",",
