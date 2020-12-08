@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { NotificationService } from './services/notification.service';
+import { DataSharingService } from './services/data-sharing.service';
 
 @Component({
   selector: 'app-root',
@@ -14,19 +15,29 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
   userName = 'My Account';
   newNotifications = 0;
+  cartItemsAmount = 0;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dataSharingService: DataSharingService
   ) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('userName')) {
-      this.userName = this.correctNameLength(localStorage.getItem('userName'));
-    }
     if (this.authService.isLoggedIn()) {
+      if (localStorage.getItem('userName')) {
+        this.userName = this.correctNameLength(localStorage.getItem('userName'));
+      }
+      this.dataSharingService.unreadNotificationsAmount.subscribe(value => this.newNotifications = value);
+      this.dataSharingService.cartItemsAmount.subscribe(value => this.cartItemsAmount = value);
       this.isLoggedIn = true;
+      this.initAccountData();
+    }
+  }
+
+  initAccountData(): void {
+    if (this.authService.isLoggedIn()) {
       this.userService.getUser().then(user => {
         this.userName = this.correctNameLength(user.userName);
         this.isAdmin = user.isAdmin;
@@ -34,13 +45,6 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = false;
         this.authService.logout();
         this.userName = 'My Account';
-      });
-      this.notificationService.getNotifications().then(notifications => {
-        notifications.forEach(notification => {
-          if (!notification.read) {
-            this.newNotifications++;
-          }
-        });
       });
     }
   }

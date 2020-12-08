@@ -16,7 +16,6 @@ export class ApproveProductComponent {
   ) { }
 
   approveProduct(): void {
-    this.productService.approveProduct(this.data.productId);
-    location.reload();
+    this.productService.approveProduct(this.data.productId).then(() => location.reload());
   }
 }

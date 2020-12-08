@@ -3,5 +3,5 @@ export class CartItem {
     public buyerId: number,
     public productId: number,
     public amountOrTime: number
-  ) {}
+  ) { }
 }

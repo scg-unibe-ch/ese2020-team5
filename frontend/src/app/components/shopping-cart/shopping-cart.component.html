@@ -14,7 +14,10 @@
     <div class="cart-item" *ngFor="let product of products; let i = index">
       <div class="product">
         <div class="product-image">
-          <img *ngIf="product.images && product.images[0]" src="{{imageService.getImageUrl(product.images[0].fileName)}}" class="image" alt="">
+          <img *ngIf="product.images && product.images[0]"
+               src="{{imageService.getImageUrl(product.images[0].fileName)}}"
+               class="image"
+               alt="">
           <div *ngIf="!product.images || !product.images[0]" class="default-image">
             <mat-icon [inline]="true">category</mat-icon>
           </div>
@@ -24,25 +27,48 @@
         </div>
       </div>
       <div class="amount">
-        <button class="amount-add-btn btn" [disabled]="cartItems[i].amountOrTime >= product.amount" (click)="addAmount(i)"><mat-icon>add</mat-icon></button>
-        <button class="amount-remove-btn btn" [disabled]="cartItems[i].amountOrTime <= 1" (click)="removeAmount(i)"><mat-icon>remove</mat-icon></button>
-        <input class="amount-input" [(ngModel)]="cartItems[i].amountOrTime" (blur)="validateAmount(i)" type="number">
+        <button class="amount-add-btn btn"
+                [disabled]="product.type === 0 && product.sellOrLend === 0 && cartItems[i].amountOrTime >= product.amount"
+                (click)="addAmount(i)">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button class="amount-remove-btn btn" [disabled]="cartItems[i].amountOrTime <= 1" (click)="removeAmount(i)">
+          <mat-icon>remove</mat-icon>
+        </button>
+        <input class="amount-input" [(ngModel)]="cartItems[i].amountOrTime" (blur)="saveChange(cartItems[i], i)" type="number">
+        <span *ngIf="(product.type === 0 && product.sellOrLend === 1) || product.type === 1">
+          {{product.priceKind === 0 ? '' : (product.priceKind === 1 ? 'Hour(s)' : 'Day(s)')}}
+        </span>
       </div>
       <div class="total">
-        <strong class="total-price">{{(product.price * cartItems[i].amountOrTime).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</strong>
-        <button class="remove-cart-item" mat-icon-button matTooltip="Remove Item" (click)="removeCartItem(i)"><mat-icon>delete</mat-icon></button>
+        <strong class="total-price">
+          {{(product.price * cartItems[i].amountOrTime).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}
+        </strong>
+        <button class="remove-cart-item" mat-icon-button matTooltip="Remove Item" (click)="removeCartItem(cartItems[i])">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
       <hr>
+      <div *ngIf="product.status === 0 || product.amount === 0" class="not-available">
+        Not Available anymore!
+      </div>
     </div>
   </div>
   <div class="checkout">
     <span><strong>Total:</strong></span><br>
-    <span style="float: right">{{this.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span><br>
+    <span style="float: right">{{total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span><br>
     <span><strong>Your Credits:</strong></span><br>
-    <span style="float: right">{{this.credits.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span><br>
+    <span style="float: right">{{credits.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span><br>
     <hr>
     <span><strong>Balance:</strong></span><br>
-    <span style="float: right">{{(this.credits - this.total).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span>
-    <button mat-stroked-button class="checkout-btn black-btn" [disabled]="this.cartItems && (this.cartItems.length < 1 || total > credits)" (click)="checkout()">Checkout</button>
+    <span style="float: right">
+      {{(credits - total).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}
+    </span>
+    <button mat-stroked-button
+            class="checkout-btn black-btn"
+            [disabled]="cartItems && (cartItems.length < 1 || total > credits)"
+            (click)="checkout()">
+      Checkout
+    </button>
   </div>
 </div>

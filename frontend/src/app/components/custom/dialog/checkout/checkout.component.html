@@ -25,10 +25,14 @@
     <span><strong>Total:</strong></span><br>
     <span style="float: right">{{data.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span><br>
     <span><strong>Your Credits:</strong></span><br>
-    <span style="float: right">{{user ? user.credits.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : ''}}</span><br>
+    <span style="float: right">
+      {{user ? user.credits.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : ''}}
+    </span><br>
     <hr>
     <span><strong>Balance:</strong></span><br>
-    <span style="float: right">{{user ? (user.credits - data.total).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : ''}}</span><br>
+    <span style="float: right">
+      {{user ? (user.credits - data.total).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : ''}}
+    </span><br>
   </div>
   <hr>
   <div mat-dialog-actions class="btn-container">

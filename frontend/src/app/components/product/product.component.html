@@ -1,5 +1,8 @@
 <div *ngIf="product && !product.approved" class="product-notification">
-  <p>Since the product is unapproved this page can only be seen by admins and the product owner!<span class="close" (click)="closeNotification()">&times;</span></p>
+  <p>
+    Since the product is unapproved this page can only be seen by admins and the product owner!
+    <span class="close" (click)="closeNotification()">&times;</span>
+  </p>
 </div>
 <div *ngIf="!product" class="loading">
   <mat-spinner></mat-spinner>
@@ -36,7 +39,7 @@
       <a *ngIf="owner" href="{{'user/' + owner.userId}}"><h3><strong>{{owner.userName + ' #' + owner.userId}}</strong></h3></a>
       <div class="user-avg-rating">
         <span style="position: relative; top: 4px">avg. rating:</span>
-        <app-star-rating value="{{owner.avgRating}}" size="15"></app-star-rating>
+        <app-star-rating value="{{avgRatingOfOwner}}" size="15"></app-star-rating>
       </div>
     </div>
     <div class="product-rating">
@@ -44,26 +47,42 @@
       <span style="position: relative; top: -5px">({{product.reviews.length}})</span>
     </div>
     <div class="location-status-delivery">
+      <p *ngIf="product.type === 0"><strong>{{product.sellOrLend === 0 ? 'To Sell' : 'To Lend'}}</strong></p>
+      <p *ngIf="product.type === 0">Amount left: {{product.amount}}</p>
       <p>Location: {{product.location}}</p>
-      <p>Status: <span class="{{(product.status) ? 'green' : 'red'}}">{{product.status ? 'Available' : 'Not Available'}}</span></p>
+      <p>
+        Status:
+        <span class="{{(product.status && product.amount !== 0) ? 'green' : 'red'}}">
+          {{product.status && product.amount !== 0 ? 'Available' : 'Not Available'}}
+        </span>
+      </p>
       <p class="{{(product.deliverable) ? 'green' : 'red'}}">{{product.deliverable ? 'Deliverable' : 'Not Deliverable'}}</p>
     </div>
     <div class="btn-container">
       <button mat-stroked-button class="wishlist-btn" [disabled]="!product.approved" (click)="addToWishlist()">+Wishlist</button>
-      <button mat-stroked-button class="cart-btn black-btn" [disabled]="!product.approved" (click)="addToCart()">Add to Cart</button>
+      <button mat-stroked-button
+              class="cart-btn black-btn"
+              [disabled]="!product.approved || product.status === 0 || product.amount === 0"
+              (click)="addToCart()">
+        Add to Cart
+      </button>
     </div>
   </div>
   <div class="product-reviews">
-    <div class="review-header" (click)="displayReviews()">
+    <div class="review-header">
       <h2><strong>&nbsp;Reviews </strong>({{product.reviews.length}})</h2>
-      <mat-icon style="position: absolute; top: 10px; right: 5px;">{{showReviews ? 'expand_less' : 'expand_more'}}</mat-icon>
+      <button *ngIf="wasPurchased" mat-stroked-button class="review-btn black-btn" (click)="addReview()">Add Review</button>
       <hr>
     </div>
-    <div *ngIf="showReviews">
-      <div class="review-entry" *ngFor="let review of product.reviews">
+    <div *ngIf="userNamesOfReviews.length === product.reviews.length">
+      <div class="review-entry" *ngFor="let review of product.reviews; let i = index">
         <a class="review-username" href="user/{{review.userId}}">
-          <strong>{{fakeService.getUserById(review.userId).userName + ' #' + fakeService.getUserById(review.userId).userId}}</strong>
+          <strong>{{userNamesOfReviews[i] + ' #' + review.userId}}</strong>
         </a>
+        <div *ngIf="user && review.userId === user.userId" class="review-btn-container">
+          <button mat-stroked-button class="review-edit-btn" (click)="editReview(review)">Edit</button>
+          <button mat-stroked-button class="review-delete-btn red-btn" (click)="deleteReview(review)">Delete</button>
+        </div>
         <p class="review-content">{{review.review}}</p>
         <div class="review-rating">
           <app-star-rating value="{{review.rating}}" size="20"></app-star-rating>

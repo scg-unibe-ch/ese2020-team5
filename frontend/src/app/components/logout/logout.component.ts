@@ -7,12 +7,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent implements OnInit {
-
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.logout();
-    location.assign('home');
+    location.assign('catalog');
   }
-
 }

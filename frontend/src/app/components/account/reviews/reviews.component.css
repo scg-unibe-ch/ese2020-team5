@@ -1,0 +1,54 @@
+.review-list-content {
+  padding: 25px;
+  position: relative;
+  text-align: left;
+}
+
+.review-container {
+  width: 95%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+.btn-container {
+  float: right;
+}
+
+.review-btn {
+  margin: 3px;
+}
+
+.review-container > a {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  height: 30px;
+  color: #000000;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.review-container > a:hover {
+  text-decoration: underline;
+}
+
+.review-container h2 {
+  margin: 0;
+}
+
+.review-container p {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.star-rating {
+  position: relative;
+  top: -15px;
+  left: -5px;
+}
+
+.no-review h1 {
+  text-align: center;
+  margin-top: 50px;
+}
