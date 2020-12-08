@@ -7,7 +7,7 @@
         "JWT_SECRET":"not_secure",
         "VAPID_PUBLIC": "BFrv_fzSyNHqQymW7-FoT8WRJ2jsDUiNbpHSN1e9vM8xU5NEqazjXmpqK92bbZAcyjkbhDzHM0Kwh-pm5KiYrv4",
         "VAPID_PRIVATE": "_ssPRrSw_MEPDFtTAhvQGxsO7giw6IeLyqthli6290U",
-        "SMTP_USER_PASSWORD": "ASKDOMINIQUE",
+        "SMTP_USER_PASSWORD": "5xY2hnw6vRMwMGs6KTs8E7VPP2F6u!",
         "SMTP_USER_NAME": "team5@roux.li",
         "SMTP_SERVICE_NAME": "hoststar",
         "SMTP_SERVICE_HOST": "login-18.hoststar.ch",

@@ -148,7 +148,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             city: 'Bern',
             zipCode: '3000',
             phoneNr: '123 123 12 12',
-            credits: 1000,
+            credits: 10000,
             isAdmin: 1
         }).then(admin => Promise.resolve(admin)).catch(err => Promise.reject(err));
 
@@ -164,7 +164,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
             city: 'Fribourg',
             zipCode: '1700',
             phoneNr: '123 456 78 90',
-            credits: 10,
+            credits: 500,
             isAdmin: 0
         }).then(admin => Promise.resolve(admin)).catch(err => Promise.reject(err));
     }
