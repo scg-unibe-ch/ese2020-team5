@@ -46,11 +46,24 @@ Products can be added to the wishlist from the product page. In the wishlist pag
 ### Notifications:
 After a successful purchase, the buyer will reveive a notification in their inbox, listing the purchase details. The seller will also get a notification for each purchase, listing the order details and the buyer shipping details. In addition to the websites inbox, the notifications will also be sent as an email.
 
+## Tests
+To run the frontend tests, you need to go to the frontend folder
+````
+cd frontend
+````
+Then you can start the tests with the following command
+````
+ng test --browsers=Chrome
+````
+Or if you want to run the tests without the browser, and a single run
+````
+ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+````
 
-## **[models](./src/app/models)**  
-  Defined models for user, product, productImage, cartItem, review and notification
-## **[services](./src/app/services)**  
-  Defined services for auth, user, product, image, cart, review, preference and notification
+## **[Models](./src/app/models)**  
+  Defined models for user, product, productImage, cartItem, review and notification.
+## **[Services](./src/app/services)**  
+  Defined services for auth, user, product, image, cart, review, preference and notification.
 
 ## Resources
 - [Angular](https://angular.io/)  
