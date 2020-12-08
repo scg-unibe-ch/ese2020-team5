@@ -22,6 +22,7 @@ import { AccountComponent } from './components/account/account.component';
 import { ProfileComponent } from './components/account/profile/profile.component';
 import { ReviewsComponent } from './components/account/reviews/reviews.component';
 import { WishlistComponent } from './components/account/wishlist/wishlist.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'catalog', pathMatch: 'full'},
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: 'wishlist', component: WishlistComponent }
     ]
   },
+  { path: 'user/:id', component: UserComponent },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
   { path: 'signup', component: SignUpComponent, canActivate: [NotAuthGuard] },
