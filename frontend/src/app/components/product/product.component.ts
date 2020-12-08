@@ -127,6 +127,8 @@ export class ProductComponent implements OnInit {
       const item = cartItems.filter(cartItem => cartItem.productId === this.product.productId);
       if (item.length > 0 && this.product.type === 0 && this.product.sellOrLend === 0 && item[0].amountOrTime + 1 > this.product.amount) {
         return Promise.reject();
+      } else if (item.length > 0 && this.product.type === 1 && this.product.priceKind === 0) {
+        return Promise.reject();
       } else {
         return Promise.resolve();
       }
