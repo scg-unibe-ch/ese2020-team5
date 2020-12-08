@@ -2,14 +2,15 @@ import { Product } from '../models/product.model';
 import { ShoppingCartAttributes, ShoppingCart } from '../models/shoppingcart.model';
 import { User } from '../models/user.model';
 import { TransactionService } from './transaction.service';
+import { Address } from '../models/address.model';
+import { NotificationService } from './notification.service';
 
+const notificationService = new NotificationService();
 
 export class ShoppingCartService {
 
-    public get(buyerId: number): Promise<ShoppingCart[]> {
-        return ShoppingCart.findAll({where: {buyerId: buyerId}})
-            .then(shoppingCartEntries => Promise.resolve(shoppingCartEntries))
-            .catch(err => Promise.reject(err));
+    public get(buyerId: number): Promise<ShoppingCartAttributes[]> {
+        return ShoppingCart.findAll({where: {buyerId: buyerId}});
     }
 
     public create(shoppingCartItem: ShoppingCartAttributes, buyerId: number, productId: string): Promise<ShoppingCartAttributes> {
@@ -34,7 +35,7 @@ export class ShoppingCartService {
                 } else {
                     return ShoppingCart.findOne({where: {buyerId: buyerId, productId: productId}})
                         .then(found => {
-                            if (found !== null) {
+                            if (found) {
                                 // If there is already a shopping cart entry for this user and that product,
                                 // simply sum up the current amountOrTime and the send amountOrTime value
                                 const updateShoppingCartEntry = {
@@ -49,8 +50,7 @@ export class ShoppingCartService {
                                 return ShoppingCart.create(shoppingCartItem)
                                     .catch(err => Promise.reject(err));
                             }
-                        })
-                        .catch(err => Promise.reject(err));
+                        });
                 }
             })
             .then(created => Promise.resolve(created))
@@ -70,60 +70,81 @@ export class ShoppingCartService {
         } else {
             return ShoppingCart.findOne({where: { buyerId: buyerId, productId: productId}})
                 .then(shoppingCartEntry => shoppingCartEntry.update(shoppingCartItem))
-                .then(updated => Promise.resolve(updated))
-                .catch(err => Promise.reject(err));
+                .then(updated => Promise.resolve(updated));
         }
     }
 
-    public buy(buyerId: number): Promise<string> {
+    public buy(buyerId: number, deliveryAddress: Address): Promise<string> {
         const transactionService = new TransactionService();
         let totalPrice = 0;
-        let userCredits = 0;
+        let buyer: User;
 
         return User.findByPk(buyerId)
-            .then(user => {
-                userCredits = user.credits;
-                // Check if the user information is complete
-                if (user.firstName == null || user.lastName == null || user.city == null || user.country == null || user.street == null) {
-                    return Promise.reject('User information is incomplete, will not be able to deliver');
-                }
-            })
-            .then(() => ShoppingCart.findAll( {where: {buyerId: buyerId }}))
-            .then( async(shoppingCartEntries) => {
+            .then(user => buyer = user)
+            .then(() => ShoppingCart.findAll( { where: { buyerId: buyerId } }))
+            .then(async(shoppingCartEntries) => {
                 // Check if the shopping cart is empty, if yes buy will fail
                 if (shoppingCartEntries.length === 0) {
                     return Promise.reject('Shopping Cart is empty!');
                 }
 
                 // Calculate the total price of the shopping cart
-                for (let i = 0; i < shoppingCartEntries.length; i++) {
-                    totalPrice += await Product.findByPk(shoppingCartEntries[i].productId)
-                        .then(product => product.price * shoppingCartEntries[i].amountOrTime);
+                for (const shoppingCartEntry of shoppingCartEntries) {
+                    totalPrice += await Product.findByPk(shoppingCartEntry.productId)
+                        .then(product => product.price * shoppingCartEntry.amountOrTime);
                 }
 
                 // If the price of the shopping cart is higher than the credits of the user
                 // then the checkout should not proceed
-                if (totalPrice > userCredits) {
+                if (totalPrice > buyer.credits) {
                     return Promise.reject('You do not have enough credits!');
                 }
 
                 return Promise.resolve(shoppingCartEntries);
             })
-            .then( shoppingCartEntries => {
+            .then(async shoppingCartEntries => {
+                const successfulPurchases: ShoppingCartAttributes[] = [];
+                const failedPurchases: ShoppingCartAttributes[] = [];
                 // Go through every shopping cart entry and create a transaction
                 // This way, all transactions are stored in the database
-                for ( let i = 0; i < shoppingCartEntries.length; i++) {
-                    transactionService.add(shoppingCartEntries[i])
-                        .catch(err => Promise.reject(err));
+                for (const shoppingCartEntry of shoppingCartEntries) {
+                    await transactionService.add(shoppingCartEntry, deliveryAddress)
+                        .then(() => successfulPurchases.push(shoppingCartEntry))
+                        .catch(() => failedPurchases.push(shoppingCartEntry));
                 }
+
+                if (successfulPurchases.length > 0) {
+                    let successText = 'Successfully purchased these products: \n\n';
+                    for (const purchase of successfulPurchases) {
+                        try {
+                            const product = await Product.findByPk(purchase.productId);
+                            successText += '    - '
+                                + product.title + ', ' + purchase.amountOrTime
+                                + (product.priceKind === 2 ? ' Day(s)' : (product.priceKind === 1 ? ' Hour(s)' : ''))
+                                + '\n';
+                        } catch (e) {} // Ignore errors
+                    }
+                    notificationService.create(buyer.userId, successText);
+                }
+
+                if (failedPurchases.length > 0) {
+                    let failedText = 'Failed to purchase these products: \n\n';
+                    for (const purchase of failedPurchases) {
+                        try {
+                            const product = await Product.findByPk(purchase.productId);
+                            failedText += '    - ' + product.title;
+                        } catch (e) {} // Ignore errors
+                    }
+                    notificationService.create(buyer.userId, failedText);
+                }
+
                 return Promise.resolve(shoppingCartEntries);
             })
             .then(shoppingCartEntries => {
                 // Delete the shopping cart entries in the database
                 // e.g. clear the shopping cart
-                for ( let i = 0; i < shoppingCartEntries.length; i++) {
-                    shoppingCartEntries[i].destroy()
-                        .catch(err => Promise.reject(err));
+                for (const shoppingCartEntry of shoppingCartEntries) {
+                    shoppingCartEntry.destroy();
                 }
             })
             .then(() => Promise.resolve('OK!'))
