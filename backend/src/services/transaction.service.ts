@@ -87,7 +87,7 @@ export class TransactionService {
             })
             .then(async(transaction) => {
                 const userId = transaction.sellerId;
-                let buyerLastname = '', buyerFirstname = '', deliverable = 0;
+                let buyerLastname = '', buyerFirstname = '', buyerEmail = '', deliverable = 0;
                 let text: string;
                 const productName = transaction.productName;
 
@@ -99,13 +99,18 @@ export class TransactionService {
                     .then(user => {
                         buyerFirstname = user.firstName;
                         buyerLastname = user.lastName;
+                        buyerEmail = user.email;
                     })
                     .catch(() => {
                         buyerFirstname = 'Unknown';
                         buyerLastname = 'Unknown';
+                        buyerEmail = 'Unknown';
                     });
 
-                text = buyerFirstname + ' ' + buyerLastname + ' bought your product ' + productName + '. \n';
+                text =
+                    buyerFirstname + ' ' + buyerLastname + ' bought your product ' + productName + '. \n\n' +
+                    'Contact Information: \n' +
+                    '    Email: ' + buyerEmail + '\n';
                 if (deliverable === 1) {
                     text +=
                         '\n' +
