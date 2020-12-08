@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { RechargeCreditsComponent } from '../custom-components/dialog/recharge-credits/recharge-credits.component';
 
 @Component({
   selector: 'app-account',
@@ -33,7 +35,8 @@ export class AccountComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -43,5 +46,9 @@ export class AccountComponent implements OnInit {
 
   navigateTo(path: string): void {
     this.router.navigate(['account/' + path]).then(() => this.section = path);
+  }
+
+  openRechargeDialog(): void {
+    this.dialog.open(RechargeCreditsComponent);
   }
 }

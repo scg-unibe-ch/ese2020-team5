@@ -1,0 +1,9 @@
+.recharge-dialog {
+  text-align: center;
+}
+
+.recharge-btn {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+}

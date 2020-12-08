@@ -4,11 +4,27 @@
 
 .account-content-header {
   position: relative;
-  padding-top: 25px;
+  padding-top: 10px;
 }
 
 .account-content-header h1 {
   text-align: center;
+  margin: 0 0 10px;
+}
+
+.credits {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.account-content-header h2 {
+  margin: 3px 20px 0 0;
+  display: inline-block;
+}
+
+.recharge-btn {
+  display: inline-block;
 }
 
 .account-tab {
@@ -18,7 +34,7 @@
 .content {
   margin: 0 auto;
   width: calc(500px + 35%);
-  min-height: calc(100vh - 177px);
+  min-height: calc(100vh - 202px);
   border-left: 2px solid #000000;
   border-right: 2px solid #000000;
 }
