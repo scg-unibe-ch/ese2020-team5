@@ -85,7 +85,13 @@ export class ShoppingCartComponent implements OnInit {
 
   validateAmount(index: number): void {
     this.cartItems[index].amountOrTime = Math.floor(this.cartItems[index].amountOrTime);
-    if (this.cartItems[index].amountOrTime < 1 && this.products[index].amount > 0) {
+    if (
+      this.products[index]
+      && this.products[index].status === 1
+      && this.products[index].amount > 0
+      && this.cartItems[index].amountOrTime < 1
+      && this.products[index].amount > 0
+    ) {
       this.cartItems[index].amountOrTime = 1;
     } else if (
       this.products[index]
@@ -100,6 +106,12 @@ export class ShoppingCartComponent implements OnInit {
       && this.products[index].priceKind === 0
     ) {
       this.cartItems[index].amountOrTime = 1;
+    } else if (
+      this.products[index]
+      && (!this.products[index].status
+      || this.products[index].amount === 0)
+    ) {
+      this.cartItems[index].amountOrTime = 0;
     }
     this.calcTotal();
   }

@@ -29,7 +29,8 @@
       <div class="amount">
         <button class="amount-add-btn btn"
                 [disabled]="(product.type === 0 && product.sellOrLend === 0 && cartItems[i].amountOrTime >= product.amount)
-                            || (product.type === 1 && product.priceKind === 0 && cartItems[i].amountOrTime >= 1)"
+                            || (product.type === 1 && product.priceKind === 0 && cartItems[i].amountOrTime >= 1)
+                            || (product.status === 0 || product.amount === 0)"
                 (click)="addAmount(i)">
           <mat-icon>add</mat-icon>
         </button>
