@@ -5,12 +5,17 @@
 }
 
 .product-form-component-content h1 {
-  margin-bottom: 30px;
+  margin-bottom: 0;
   text-align: center;
   grid-column-start: 1;
   grid-column-end: 7;
-  font-weight: 700;
-  font-size: 2em;
+}
+
+.product-form-component-content hr {
+  margin: 10px 0 25px;
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 7;
 }
 
 .product-form-component-content mat-form-field {
@@ -19,7 +24,7 @@
 }
 
 .description textarea {
-  min-height: 120px;
+  min-height: 150px;
 }
 
 .input-mat-prefix {
@@ -55,10 +60,6 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  background-color: rgb(235, 235, 235);
-  z-index: 1;
-  padding: 30px;
-  border: 1px solid #e0e0e0;
 }
 
 .uploaded-image {
