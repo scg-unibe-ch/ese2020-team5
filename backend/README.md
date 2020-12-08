@@ -92,7 +92,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
     
     ```json
     {
-        "filename": "string"
+        "image": "file"
     }
     ```
     </details>
