@@ -6,7 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { ImageService } from '../../services/image.service';
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CheckoutComponent } from '../custom/dialog/checkout/checkout.component';
+import { CheckoutComponent } from '../custom-components/dialog/checkout/checkout.component';
 import { DataSharingService } from '../../services/data-sharing.service';
 
 @Component({
@@ -94,6 +94,12 @@ export class ShoppingCartComponent implements OnInit {
       && this.cartItems[index].amountOrTime > this.products[index].amount
     ) {
       this.cartItems[index].amountOrTime = this.products[index].amount;
+    } else if (
+      this.products[index]
+      && this.products[index].type
+      && this.products[index].priceKind === 0
+    ) {
+      this.cartItems[index].amountOrTime = 1;
     }
     this.calcTotal();
   }
@@ -115,13 +121,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   isMinOneProductDeliverable(): boolean {
-    let deliverable = false;
-    this.products.forEach(product => {
-      if (product.deliverable) {
-        deliverable = true;
-      }
-    });
-    return deliverable;
+    return this.products.some(product => product.deliverable);
   }
 
   checkout(): void {

@@ -4,8 +4,8 @@ import { Review } from '../../../models/review.model';
 import { Product } from '../../../models/product.model';
 import { ProductService } from '../../../services/product.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ReviewFormComponent } from '../../custom/dialog/review-form/review-form.component';
-import { DeleteReviewComponent } from '../../custom/dialog/delete-review/delete-review.component';
+import { ReviewFormComponent } from '../../custom-components/dialog/review-form/review-form.component';
+import { DeleteReviewComponent } from '../../custom-components/dialog/delete-review/delete-review.component';
 
 @Component({
   selector: 'app-reviews',
