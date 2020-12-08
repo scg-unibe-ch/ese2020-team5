@@ -40,6 +40,16 @@ export class UserService {
     });
   }
 
+  rechargeCredits(amount: number): Promise<User> {
+    return new Promise<User>((resolve, reject) => {
+      this.httpClient.put(environment.endpointURL + 'user/update', { credits: amount }).subscribe((user: User) => {
+        resolve(user);
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
   // ---Only for Admins--- //
   getAllUsers(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {

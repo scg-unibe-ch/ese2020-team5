@@ -1,31 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
-import { CreateProductComponent } from './components/create-product/create-product.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/not-auth.guard';
-import { LogoutComponent } from './components/logout/logout.component';
-import { MyProductsComponent } from './components/my-products/my-products.component';
-import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { LogoutComponent } from './pages/logout/logout.component';
+import { MyProductsComponent } from './pages/my-products/my-products.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { AdminGuard } from './guards/admin.guard';
-import { AdminUserPanelComponent } from './components/admin-user-panel/admin-user-panel.component';
-import { AdminProductPanelComponent } from './components/admin-product-panel/admin-product-panel.component';
-import { ProductComponent } from './components/product/product.component';
-import { CatalogComponent } from './components/catalog/catalog.component';
-import { InboxComponent } from './components/inbox/inbox.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { AccountComponent } from './components/account/account.component';
-import { ProfileComponent } from './components/account/profile/profile.component';
-import { ReviewsComponent } from './components/account/reviews/reviews.component';
-import { WishlistComponent } from './components/account/wishlist/wishlist.component';
+import { AdminUserPanelComponent } from './pages/admin-user-panel/admin-user-panel.component';
+import { AdminProductPanelComponent } from './pages/admin-product-panel/admin-product-panel.component';
+import { ProductComponent } from './pages/product/product.component';
+import { CatalogComponent } from './pages/catalog/catalog.component';
+import { InboxComponent } from './pages/inbox/inbox.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { AccountComponent } from './pages/account/account.component';
+import { ProfileComponent } from './pages/account/profile/profile.component';
+import { ReviewsComponent } from './pages/account/reviews/reviews.component';
+import { WishlistComponent } from './pages/account/wishlist/wishlist.component';
+import { UserComponent } from './pages/user/user.component';
+import { PurchasedProductsComponent } from './pages/account/purchased-products/purchased-products.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'catalog', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent },
   { path: 'profile', redirectTo: 'account/profile', pathMatch: 'full' },
   { path: 'wishlist', redirectTo: 'account/wishlist', pathMatch: 'full' },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard],
@@ -33,11 +32,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
       { path: 'reviews', component: ReviewsComponent },
-      { path: 'wishlist', component: WishlistComponent }
+      { path: 'wishlist', component: WishlistComponent },
+      { path: 'purchase-history', component: PurchasedProductsComponent}
     ]
   },
+  { path: 'user/:id', component: UserComponent },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
-  { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
   { path: 'signup', component: SignUpComponent, canActivate: [NotAuthGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'catalog', component: CatalogComponent },

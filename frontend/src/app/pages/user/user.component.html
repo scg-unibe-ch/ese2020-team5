@@ -1,0 +1,8 @@
+<div class="user-content" *ngIf="user">
+  <h1><strong>{{user.userName + ' #' +user.userId + ' - Overview'}}</strong></h1>
+  <h2><strong>Products</strong></h2>
+  <hr>
+  <div *ngIf="products">
+    <app-compact-product-list *ngFor="let product of products" [product]="product" [view]="'customer'"></app-compact-product-list>
+  </div>
+</div>

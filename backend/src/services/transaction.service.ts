@@ -78,7 +78,7 @@ export class TransactionService {
                                 productUpdate.status = 0;
                                 productUpdate.amount = 0;
                             } else {
-                                productUpdate.amount = productUpdate.amount - 1;
+                                productUpdate.amount = product.amount - 1;
                             }
                         }
                         return product.update(productUpdate)
