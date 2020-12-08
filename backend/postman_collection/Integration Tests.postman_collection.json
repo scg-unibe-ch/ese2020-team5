@@ -832,6 +832,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"city\":\"test city\",\n    \"country\": \"Test Country\",\n    \"zipCode\": \"1234\",\n    \"street\": \"test Street 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://{{uri}}/cart/buy",
 							"protocol": "http",
@@ -1232,6 +1241,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"city\":\"test city\",\n    \"country\": \"Test Country\",\n    \"zipCode\": \"1234\",\n    \"street\": \"test Street 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://{{uri}}/cart/buy",
 							"protocol": "http",
