@@ -13,8 +13,6 @@ Make sure the backend is running according to its [README](https://github.com/sc
 **If you encounter CORS errors within your browser, add the [Allow CORS](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) extension (version for Google Chrome) to your browser.**
 
 ## About
-
-
 We provide two default logins for testing, representing the two access levels:
 
 ### Admin:
@@ -37,7 +35,7 @@ As a general user, this login can browse the catalog, create/edit/submit their o
 Only the admin has access to this section of the website. This is where the admin manages the site's users and products. The admin-user-panel allows the admin to view all registered users and delete the ones violating the websites guidelines. The admin-product-panel allows the admin to approve and delete products submitted as new product listings by the sellers. It is also possible to see previously approved listings and delete them at any time.
 
 ### Catalog and Views:
-This is the main view of the website where the user can browse all the products. The catalog can be searched using the search field in the navigation bar. Products can be filtered by type (All, Items or Services), by price range, sales type (sell or lend), location, status and delivery. Furthermore, products can be sorted by recommended, rating or total reviews. Products can be displayed in two views: compact-product-card and compact-product-list. Product images have a orange circle in the upper left corner. This circle indicates if the product is deliverable (left half filled), available (right half) or both (full circle filled). 
+This is the main view of the website where the user can browse all the products. Only Products which have been approved by the admin are added to the catalog. The catalog can be searched using the search field in the navigation bar. Products can be filtered by type (All, Items or Services), by price range, sales type (sell or lend), location, status and delivery. Furthermore, products can be sorted by recommended, rating or total reviews. Products can be displayed in two views: compact-product-card and compact-product-list. Product images have a orange circle in the upper left corner. This circle indicates if the product is deliverable (left half filled), available (right half) or both (full circle filled). 
 
 ### Reviews:
 The Product pages contain a review section below the images and description. A seller's average rating, as well as the product's average rating in stars is also displayed for the potential buyer. Reviews can only be written by users who have purchased/lent the item or service in the past. A user can edit the reviews they have written/scored, but only the Admin can delete reviews written by someone else. 
