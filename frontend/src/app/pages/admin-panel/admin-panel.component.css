@@ -40,3 +40,17 @@
   font-size: 100px;
   padding: 30px;
 }
+
+@media only screen and (max-width: 400px) {
+  .card {
+    width: 20%;
+    min-width: 200px;
+    height: 80px;
+    padding: 50px;
+  }
+
+  .icon {
+    margin-top: -20px;
+  }
+  
+}
