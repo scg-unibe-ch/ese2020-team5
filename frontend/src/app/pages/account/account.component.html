@@ -1,6 +1,10 @@
 <div class="account-content">
   <div class="account-content-header">
     <h1><strong>Account Overview - {{user ? user.userName : ''}} #{{user ? user.userId : ''}}</strong></h1>
+    <div class="credits">
+      <h2>Credits: {{user ? user.credits.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : '$0.00'}}</h2>
+      <button mat-stroked-button class="black-btn recharge-btn" (click)="openRechargeDialog()">Recharge</button>
+    </div>
     <nav mat-tab-nav-bar mat-align-tabs="center">
       <a class="account-tab"
          mat-tab-link

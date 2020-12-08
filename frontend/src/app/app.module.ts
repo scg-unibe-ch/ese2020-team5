@@ -54,6 +54,7 @@ import { WishlistComponent } from './pages/account/wishlist/wishlist.component';
 import { DeleteReviewComponent } from './pages/custom-components/dialog/delete-review/delete-review.component';
 import { UserComponent } from './pages/user/user.component';
 import { PurchasedProductsComponent } from './pages/account/purchased-products/purchased-products.component';
+import { RechargeCreditsComponent } from './pages/custom-components/dialog/recharge-credits/recharge-credits.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { PurchasedProductsComponent } from './pages/account/purchased-products/p
     WishlistComponent,
     DeleteReviewComponent,
     UserComponent,
-    PurchasedProductsComponent
+    PurchasedProductsComponent,
+    RechargeCreditsComponent
   ],
   imports: [
     BrowserModule,

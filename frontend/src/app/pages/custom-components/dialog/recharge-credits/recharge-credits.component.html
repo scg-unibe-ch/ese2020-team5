@@ -1,0 +1,8 @@
+<div class="recharge-dialog">
+  <h1><strong>Recharge your Credits</strong></h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Recharge Amount</mat-label>
+    <input matInput type="number" [(ngModel)]="amount">
+  </mat-form-field>
+  <button mat-dialog-close mat-stroked-button class="black-btn recharge-btn" (click)="recharge()">Recharge</button>
+</div>
