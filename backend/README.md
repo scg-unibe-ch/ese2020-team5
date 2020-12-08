@@ -820,6 +820,22 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	</details>
 
 - POST `/buy`
+    <details>
+    	<summary>Request</summary>
+    
+    		Code: 200
+    		Body:
+    	```json
+    	{
+        "country": "string",
+        "city": "string",
+        "street": "string",
+        "zipCode": "string"
+    	}
+    
+    	```
+    </details>
+    
 	<details>
 		<summary>Response</summary>
 
