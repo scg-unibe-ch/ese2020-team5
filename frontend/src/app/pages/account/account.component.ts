@@ -22,6 +22,10 @@ export class AccountComponent implements OnInit {
     {
       url: 'wishlist',
       name: 'My Wishlist'
+    },
+    {
+      url: 'purchase-history',
+      name: 'Purchase History'
     }
   ];
   section = '';

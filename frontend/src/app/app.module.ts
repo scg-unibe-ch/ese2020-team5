@@ -16,7 +16,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ForgotPasswordComponent } from './pages/login/forgot-password/forgot-password.component';
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LogoutComponent } from './pages/logout/logout.component';
@@ -54,13 +53,13 @@ import { ReviewsComponent } from './pages/account/reviews/reviews.component';
 import { WishlistComponent } from './pages/account/wishlist/wishlist.component';
 import { DeleteReviewComponent } from './pages/custom-components/dialog/delete-review/delete-review.component';
 import { UserComponent } from './pages/user/user.component';
+import { PurchasedProductsComponent } from './pages/account/purchased-products/purchased-products.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    ForgotPasswordComponent,
     CreateProductComponent,
     LogoutComponent,
     MyProductsComponent,
@@ -87,7 +86,8 @@ import { UserComponent } from './pages/user/user.component';
     ReviewsComponent,
     WishlistComponent,
     DeleteReviewComponent,
-    UserComponent
+    UserComponent,
+    PurchasedProductsComponent
   ],
   imports: [
     BrowserModule,

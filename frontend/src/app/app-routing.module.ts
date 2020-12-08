@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './pages/login/forgot-password/forgot-password.component';
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/not-auth.guard';
@@ -22,6 +21,7 @@ import { ProfileComponent } from './pages/account/profile/profile.component';
 import { ReviewsComponent } from './pages/account/reviews/reviews.component';
 import { WishlistComponent } from './pages/account/wishlist/wishlist.component';
 import { UserComponent } from './pages/user/user.component';
+import { PurchasedProductsComponent } from './pages/account/purchased-products/purchased-products.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'catalog', pathMatch: 'full'},
@@ -32,12 +32,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
       { path: 'reviews', component: ReviewsComponent },
-      { path: 'wishlist', component: WishlistComponent }
+      { path: 'wishlist', component: WishlistComponent },
+      { path: 'purchase-history', component: PurchasedProductsComponent}
     ]
   },
   { path: 'user/:id', component: UserComponent },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
-  { path: 'login/forgot-password', component: ForgotPasswordComponent, canActivate: [NotAuthGuard] },
   { path: 'signup', component: SignUpComponent, canActivate: [NotAuthGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'catalog', component: CatalogComponent },
