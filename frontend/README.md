@@ -1,4 +1,4 @@
-# ESE2020 Scaffolding Frontend
+# Frontend
 
 ## Prerequisite
 You should have installed [NodeJS and npm](https://nodejs.org/en/download/) (they come as one) in order to run the application.  
@@ -13,49 +13,46 @@ Make sure the backend is running according to its [README](https://github.com/sc
 **If you encounter CORS errors within your browser, add the [Allow CORS](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en) extension (version for Google Chrome) to your browser.**
 
 ## About
-The frontend of the project scaffolding shows you a simple Angular application with some basic features.
 
-We have included a simple **todo checklist** to demonstrate how you can implement CRUD-operations (Create, Read, Update, Delete).
-The todo example allows you to create todo-lists whereas each list can have multiple todo-items assigned to it.
-Each list and item has a name and each item has a checkbox to keep track whether that task has been completed or not.
 
-The second main feature is a small **user login** component where you can try to access a secure endpoint.
-Since we have not included the option to register (this will be up to you), we will provide you a test user:
+We provide two default logins for testing, representing the two access levels:
+
+### Admin:
 ````
-Username: Nora
+Username: admin
 Password: notSecure12
 ````
-Once you are logged in, there should be a message displaying that you are signed in as 'Nora'.
-With the button 'Access Secure Endpoint', you can try to access a secure endpoint in the backend that can only be accessed by logged in users.
-It will display a message whether you were able to access it or not.
+The Admin has access to additional pages and has additional priviledges that the user does not have.
 
-## Podcast
-For a more detailed explanation of the frontend, watch the [podcast](https://tube.switch.ch/switchcast/unibe.ch/series/9a3d9eb3-d0cc-4993-9ac9-3e4c975b63bb) from the exercise hour.
+### User:
+````
+Username: user
+Password: notSecure12
+````
+As a general user, this login can browse the catalog, create/edit/submit their own product listings, save products in their wishlist, write reviews on previously bought/lent products, add products to their shopping cart and purchase these. 
 
-## Quick Links
-These are links to some of the files that we have implemented/modified when developing the frontend:
+## Features explained
 
-- **[package.json](./package.json)**  
-  Includes all required dependencies of the project
-- **[styles.css](./src/styles.css)**  
-  Few global style changes
-- **[environment](./src/environments/environment.ts)**  
-  Specified backend endpoint URL to use it throughout the frontend
-- **[models](./src/app/models)**  
-  Defined models for TodoList and TodoItem
-- **[AppModule](./src/app/app.module.ts)**  
-  Includes all the necessary modules and components
-- **AppComponent** | [TS](./src/app/app.component.ts), [HTML](./src/app/app.component.html)  
-  Main component of the frontend application
-- **TodoListComponent** | [TS](src/app/components/todo-list/todo-list.component.ts), [HTML](src/app/components/todo-list/todo-list.component.html)  
-  Represents a todo-list
-- **TodoItemComponent** | [TS](src/app/components/todo-list/todo-item.component.ts), [HTML](src/app/components/todo-list/todo-item.component.html)  
-  Represents a todo-item
-- **LoginComponent** | [TS](src/app/components/login/login.component.ts), [HTML](src/app/components/login/login.component.html)  
-  Represents the user login section
-- **[AuthInterceptor](./src/app/auth/auth.interceptor.ts)**  
-  Intercepts all HTTP requests to add the user token if a user is logged in.
-  Some backend requests can only be fulfilled if user is signed in and provides his user token for authentication.
+### Admin Panels:
+Only the admin has access to this section of the website. This is where the admin manages the site's users and products. The admin-user-panel allows the admin to view all registered users and delete the ones violating the websites guidelines. The admin-product-panel allows the admin to approve and delete products submitted as new product listings by the sellers. It is also possible to see previously approved listings and delete them at any time.
+
+### Catalog and Views:
+This is the main view of the website where the user can browse all the products. The catalog can be searched using the search field in the navigation bar. Products can be filtered by type (All, Items or Services), by price range, sales type (sell or lend), location, status and delivery. Furthermore, products can be sorted by recommended, rating or total reviews. Products can be displayed in two views: compact-product-card and compact-product-list. Product images have a orange circle in the upper left corner. This circle indicates if the product is deliverable (left half filled), available (right half) or both (full circle filled). 
+
+### Reviews:
+The Product pages contain a review section below the images and description. A seller's average rating, as well as the product's average rating in stars is also displayed for the potential buyer. Reviews can only be written by users who have purchased/lent the item or service in the past. A user can edit the reviews they have written/scored, but only the Admin can delete reviews written by someone else. 
+
+### Wishlist:
+Products can be added to the wishlist from the product page. In the wishlist page, users can delete the item from their wishlist or add them to the shopping cart. Unavailable products can always be added to the wishlist for a future purchase. Only Products which are currently available can be added to the shopping cart.
+
+### Notifications:
+After a successful purchase, the buyer will reveive a notification in their inbox, listing the purchase details. The seller will also get a notification for each purchase, listing the order details and the buyer shipping details. In addition to the websites inbox, the notifications will also be sent as an email.
+
+
+## **[models](./src/app/models)**  
+  Defined models for user, product, productImage, cartItem, review and notification
+## **[services](./src/app/services)**  
+  Defined services for auth, user, product, image, cart, review, preference and notification
 
 ## Resources
 - [Angular](https://angular.io/)  
