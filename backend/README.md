@@ -46,23 +46,22 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		<summary>Request</summary>
 
 	```json
-		{
-      "title": "string",
-      "type": "number",
-      "description": "string",
-      "location": "string",
-      "sellOrLend": "number",
-      "price": "number",
-      "priceKind": "number",
-      "status": "number",
-      "deliverable": "number",
-      "approved": "number",
-      "userId": "number"
-		}
+	{
+     "title": "string",
+     "type": "number",
+     "description": "string",
+     "location": "string",
+     "sellOrLend": "number",
+     "price": "number",
+     "priceKind": "number",
+     "status": "number",
+     "deliverable": "number",
+     "approved": "number",
+     "userId": "number"
+	}
 	```
 
 	</details>
-
 
 	<details>
 		<summary>Response</summary>
@@ -72,7 +71,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 
 	```json
 	{
-	"productId": "number",
+    "productId": "number",
     "title": "string",
     "type": "number",
     "description": "string",
@@ -95,13 +94,11 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		<summary>Request</summary>
 
 	```json
-		{
-      "filename": "string"
-		}
+	{
+    "filename": "string"
+	}
 	```
-
 	</details>
-
 
 	<details>
 		<summary>Response</summary>
@@ -111,9 +108,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 
 	```json
 	{
-	"imageId": "number",
-	"filename": "string",
-	"productId": "number"
+    "imageId": "number",
+    "filename": "string",
+    "productId": "number"
 	}
 	```
 </details>
@@ -124,7 +121,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		<summary>Request</summary>
 
 	```json
-		{
+	{
       "title": "string",
       "type": "number",
       "description": "string",
@@ -136,11 +133,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
       "deliverable": "number",
       "approved": "number",
       "userId": "number"
-		}
+	}
 	```
-
 	</details>
-
 
 	<details>
 		<summary>Response</summary>
@@ -150,7 +145,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 
 	```json
 	{
-	"productId": "number",
+    "productId": "number",
     "title": "string",
     "type": "number",
     "description": "string",
@@ -170,42 +165,44 @@ Here are some examples of the endpoints, please refer to the postman collection 
 - DELETE `/:id`<br/>
     <details>
     <summary>Response</summary>
+    
     	Code: 200
     	Body:
     	
-    		```json
-        	{
-        	"productId": "number",
-            "title": "string",
-            "type": "number",
-            "description": "string",
-            "location": "string",
-            "sellOrLend": "number",
-            "price": "number",
-            "priceKind": "number",
-            "amount": "number",
-            "status": "number",
-            "deliverable": "number",
-            "approved": "number",
-            "userId": "number"
-        	}
-        	```
+    ```json
+    {
+      "productId": "number",
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "amount": "number",
+      "status": "number",
+      "deliverable": "number",
+      "approved": "number",
+      "userId": "number"
+    }
+     ```
     </details>
     
 - DELETE `/image/:id`<br/>
     <details>
     <summary>Response</summary>
+    
     	Code: 200
     	Body:
     	
-    		```json
-        	{
-        	"imageId": "number",
-            "filename": "string",
-            "productId": "number"
-        	}
-        	```
-    </details>
+    ```json
+    {
+      "imageId": "number",
+      "filename": "string",
+      "productId": "number"
+   }
+    ```
+  </details>
     	
     	
 
@@ -218,7 +215,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	```json
     [
 	     {
-	          "productId": "number",
+	             "productId": "number",
               "title": "string",
               "type": "number",
               "description": "string",
@@ -246,26 +243,26 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Code: 200
 		Body:
 	```json
-	{
-	"productId": "number",
-    "title": "string",
-    "type": "number",
-    "description": "string",
-    "location": "string",
-    "sellOrLend": "number",
-    "price": "number",
-    "priceKind": "number",
-    "amount": "number",
-    "status": "number",
-    "deliverable": "number",
-    "approved": "number",
-    "userId": "number",
-    "reviews": "Review[]",
-    "images" : "Image[]" 
-	}       
-    {
-    ...
-    }  
+    [
+	     {
+	             "productId": "number",
+              "title": "string",
+              "type": "number",
+              "description": "string",
+              "location": "string",
+              "sellOrLend": "number",
+              "price": "number",
+              "priceKind": "number",
+              "amount": "number",
+              "status": "number",
+              "deliverable": "number",
+              "approved": "number",
+              "userId": "number",
+              "reviews": "Review[]",
+              "images" : "Image[]" 
+	     },
+         ...
+    ]
 	```
 	</details>
 
@@ -276,26 +273,26 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Code: 200
 		Body:
 	```json
-	{
-	"productId": "number",
-    "title": "string",
-    "type": "number",
-    "description": "string",
-    "location": "string",
-    "sellOrLend": "number",
-    "price": "number",
-    "priceKind": "number",
-    "amount": "number",
-    "status": "number",
-    "deliverable": "number",
-    "approved": "number",
-    "userId": "number",
-    "reviews": "Review[]",
-    "images" : "Image[]" 
-	}       
-    {
-    ...
-    }  
+    [
+	     {
+              "productId": "number",
+              "title": "string",
+              "type": "number",
+              "description": "string",
+              "location": "string",
+              "sellOrLend": "number",
+              "price": "number",
+              "priceKind": "number",
+              "amount": "number",
+              "status": "number",
+              "deliverable": "number",
+              "approved": "number",
+              "userId": "number",
+              "reviews": "Review[]",
+              "images" : "Image[]" 
+	     },
+         ...
+    ]
 	```
 	</details>
 
@@ -307,7 +304,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"productId": "number",
+    "productId": "number",
     "title": "string",
     "type": "number",
     "description": "string",
@@ -335,9 +332,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-    "review" : "string",
-    "rating" : "number",
-    "productId" : "number"
+    "review": "string",
+    "rating": "number",
+    "productId": "number"
 	}
 
 	```
@@ -350,7 +347,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"reviewId": "number",
+    "reviewId": "number",
     "review": "string",
     "rating": "number",
     "productId": "number",
@@ -381,7 +378,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"reviewId": "number",
+    "reviewId": "number",
     "review": "string",
     "rating": "number",
     "productId": "number",
@@ -394,11 +391,12 @@ Here are some examples of the endpoints, please refer to the postman collection 
 - DELETE `/:id`<br>
     <details>
         <summary>Response</summary>
+        
 	    Code: 200
 	    Body:
 	```json
 	{
-	"reviewId": "number",
+    "reviewId": "number",
     "review": "string",
     "rating": "number",
     "productId": "number",
@@ -440,12 +438,12 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"userId": "number",
-	"userName": "string",
+    "userId": "number",
+    "userName": "string",
     "password": "string (hashed)",
-    "email":"string",
-    "lastName":"string",
-    "firstName":"string",
+    "email": "string",
+    "lastName": "string",
+    "firstName": "string",
     "gender": "string",
     "country": "string",
     "city": "string",
@@ -467,8 +465,8 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-		"userNameOrEmail":"string",
-		"password":"string"
+    "userNameOrEmail": "string",
+    "password": "string"
 	}
 
 	```
@@ -481,12 +479,12 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	```json
 	{
 	"user": {
-		"userId": "number",
+        "userId": "number",
         "userName": "string",
         "password": "string (hashed)",
-        "email":"string",
-        "lastName":"string",
-        "firstName":"string",
+        "email": "string",
+        "lastName": "string",
+        "firstName": "string",
         "gender": "string",
         "country": "string",
         "city": "string",
@@ -496,7 +494,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
         "credits": "number",
         "isAdmin": "number"
 	},
-	"token":"string"
+	"token": "string"
 	}
 
 	```
@@ -510,26 +508,25 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	[
-    	     {
-    	          "productId": "number",
-                  "title": "string",
-                  "type": "number",
-                  "description": "string",
-                  "location": "string",
-                  "sellOrLend": "number",
-                  "price": "number",
-                  "priceKind": "number",
-                  "amount": "number",
-                  "status": "number",
-                  "deliverable": "number",
-                  "approved": "number",
-                  "userId": "number",
-                  "reviews": "Review[]",
-                  "images" : "Image[]" 
-    	     },
-             ...
+    {
+      "productId": "number",
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "amount": "number",
+      "status": "number",
+      "deliverable": "number",
+      "approved": "number",
+      "userId": "number",
+      "reviews": "Review[]",
+      "images" : "Image[]" 
+     },
+    ...
     ]
-
 	```
 	</details>
 
@@ -541,9 +538,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-		"userId": "number",
-        "userName": "string",
-        "isAdmin": "number"
+    "userId": "number",
+    "userName": "string",
+    "isAdmin": "number"
 	}
 	```
 	</details>
@@ -556,26 +553,25 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	[
-    	     {
-    	          "productId": "number",
-                  "title": "string",
-                  "type": "number",
-                  "description": "string",
-                  "location": "string",
-                  "sellOrLend": "number",
-                  "price": "number",
-                  "priceKind": "number",
-                  "amount": "number",
-                  "status": "number",
-                  "deliverable": "number",
-                  "approved": "number",
-                  "userId": "number",
-                  "reviews": "Review[]",
-                  "images" : "Image[]" 
-    	     },
-             ...
-    ]
-
+    {
+      "productId": "number",
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "amount": "number",
+      "status": "number",
+      "deliverable": "number",
+      "approved": "number",
+      "userId": "number",
+      "reviews": "Review[]",
+      "images" : "Image[]" 
+    },
+    ...
+  ]
 	```
 	</details>
 
@@ -587,23 +583,23 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	[
-		{
-		"userId": "number",
-        "userName": "string",
-        "password": "string (hashed)",
-        "email":"string",
-        "lastName":"string",
-        "firstName":"string",
-        "gender": "string",
-        "country": "string",
-        "city": "string",
-        "street": "string",
-        "zipCode": "string",
-        "phoneNr": "string",
-        "credits": "number",
-        "isAdmin": "number"
-		},
-		...
+	  {
+     "userId": "number",
+     "userName": "string",
+     "password": "string (hashed)",
+     "email":"string",
+     "lastName":"string",
+     "firstName":"string",
+     "gender": "string",
+     "country": "string",
+     "city": "string",
+     "street": "string",
+     "zipCode": "string",
+     "phoneNr": "string",
+     "credits": "number",
+     "isAdmin": "number"
+   },
+   ...
 	]
 
 	```
@@ -617,20 +613,20 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-		"userId": "number",
-        "userName": "string",
-        "password": "string (hashed)",
-        "email":"string",
-        "lastName":"string",
-        "firstName":"string",
-        "gender": "string",
-        "country": "string",
-        "city": "string",
-        "street": "string",
-        "zipCode": "string",
-        "phoneNr": "string",
-        "credits": "number",
-        "isAdmin": "number"
+    "userId": "number",
+    "userName": "string",
+    "password": "string (hashed)",
+    "email":"string",
+    "lastName":"string",
+    "firstName":"string",
+    "gender": "string",
+    "country": "string",
+    "city": "string",
+    "street": "string",
+    "zipCode": "string",
+    "phoneNr": "string",
+    "credits": "number",
+    "isAdmin": "number"
 	}
 	```
 	</details>
@@ -643,7 +639,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
         Body:
      ```json
      {
-     	"userId": "number",
+        "userId": "number",
          "userName": "string",
          "password": "string (hashed)",
          "email":"string",
@@ -670,7 +666,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
     ```json
     [
       {
-      	"reviewId": "number",
+        "reviewId": "number",
         "review": "string",
         "rating": "number",
         "productId": "number",
@@ -691,9 +687,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	{
     "userName": "string",
     "password": "string",
-    "email":"string",
-    "lastName":"string",
-    "firstName":"string",
+    "email": "string",
+    "lastName": "string",
+    "firstName": "string",
     "gender": "string",
     "country": "string",
     "city": "string",
@@ -715,9 +711,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	"userId": "number",
 	"userName": "string",
     "password": "string (hashed)",
-    "email":"string",
-    "lastName":"string",
-    "firstName":"string",
+    "email": "string",
+    "lastName": "string",
+    "firstName": "string",
     "gender": "string",
     "country": "string",
     "city": "string",
@@ -742,13 +738,13 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
     [
-	    {
-            "notificationId" : "number",
-            "userId" : "number",
-            "text" : "string",
-            "read" : "number"
-	    },
-        ...
+       {
+           "notificationId" : "number",
+           "userId" : "number",
+           "text" : "string",
+           "read" : "number"
+       },
+       ...
     ]
 	```
 	</details>
@@ -774,7 +770,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"notificationId" : "number",
+    "notificationId" : "number",
     "userId" : "number",
     "text" : "string",
     "read" : "number"
@@ -786,14 +782,15 @@ Here are some examples of the endpoints, please refer to the postman collection 
 - DELETE `/:id`<br>
     <details>
         <summary>Response</summary>
+        
 	    Code: 200
 	    Body:
 	```json
 	{
-	"notificationId" : "number",
-    "userId" : "number",
-    "text" : "string",
-    "read" : "number"
+    "notificationId": "number",
+    "userId"  "number",
+    "text": "string",
+    "read": "number"
 	}
 
 	```
@@ -808,13 +805,13 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
     [
-	    {
-            "id" : "number",
-            "buyerId" : "number",
-            "productId" : "number",
-            "amountOrTime" : "number"
-	    },
-        ...
+       {
+           "id" : "number",
+           "buyerId" : "number",
+           "productId" : "number",
+           "amountOrTime" : "number"
+       },
+       ...
     ]
 	```
 	</details>
@@ -823,17 +820,17 @@ Here are some examples of the endpoints, please refer to the postman collection 
     <details>
     	<summary>Request</summary>
     
-    		Code: 200
-    		Body:
-    	```json
-    	{
+    	Code: 200
+    	Body:
+    ```json
+    {
         "country": "string",
         "city": "string",
         "street": "string",
         "zipCode": "string"
-    	}
+    }
     
-    	```
+    ```
     </details>
     
 	<details>
@@ -866,10 +863,10 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"id" : "number",
-    "buyerId" : "number",
-    "productId" : "number",
-    "amountOrTime" : "number"
+    "id": "number",
+    "buyerId": "number",
+    "productId": "number",
+    "amountOrTime": "number"
 	}
 
 	```
@@ -895,10 +892,10 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"id" : "number",
-    "buyerId" : "number",
-    "productId" : "number",
-    "amountOrTime" : "number"
+    "id": "number",
+    "buyerId": "number",
+    "productId": "number",
+    "amountOrTime": "number"
 	}
 
 	```
@@ -907,14 +904,15 @@ Here are some examples of the endpoints, please refer to the postman collection 
 - DELETE `/:id`<br>
     <details>
         <summary>Response</summary>
+        
 	    Code: 200
 	    Body:
 	```json
 	{
-	"id" : "number",
-    "buyerId" : "number",
-    "productId" : "number",
-    "amountOrTime" : "number"
+    "id": "number",
+    "buyerId": "number",
+    "productId": "number",
+    "amountOrTime": "number"
 	}
 
 	```
@@ -929,12 +927,12 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
     [
-	    {
-            "id" : "number",
-            "buyerId" : "number",
-            "productId" : "number"
-	    },
-        ...
+       {
+           "id": "number",
+           "buyerId": "number",
+           "productId": "number"
+       },
+       ...
     ]
 	```
 	</details>
@@ -959,9 +957,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-	"id" : "number",
-    "buyerId" : "number",
-    "productId" : "number"
+    "id": "number",
+    "buyerId": "number",
+    "productId": "number"
 	}
 
 	```
@@ -970,13 +968,14 @@ Here are some examples of the endpoints, please refer to the postman collection 
 - DELETE `/:id`<br>
     <details>
         <summary>Response</summary>
+        
 	    Code: 200
 	    Body:
 	```json
 	{
-	"id" : "number",
-    "buyerId" : "number",
-    "productId" : "number"
+    "id": "number",
+    "buyerId": "number",
+    "productId": "number"
 	}
 
 	```
