@@ -12,7 +12,7 @@ shoppingCartController.get('/', verifyToken, (req: Request, res: Response) => {
 });
 
 shoppingCartController.post('/buy', verifyToken, (req: Request, res: Response) => {
-    shoppingCartService.buy(getUserId(req))
+    shoppingCartService.buy(getUserId(req), req.body)
         .then(bought => res.send(bought))
         .catch(err => res.status(500).send(err));
 });
