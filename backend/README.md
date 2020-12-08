@@ -72,7 +72,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 
 	```json
 	{
-		"productId": "number",
+	"productId": "number",
     "title": "string",
     "type": "number",
     "description": "string",
@@ -80,10 +80,40 @@ Here are some examples of the endpoints, please refer to the postman collection 
     "sellOrLend": "number",
     "price": "number",
     "priceKind": "number",
+    "amount": "number",
     "status": "number",
     "deliverable": "number",
     "approved": "number",
     "userId": "number"
+	}
+	```
+</details>
+
+- POST `/:id/image/`
+
+	<details>
+		<summary>Request</summary>
+
+	```json
+		{
+      "filename": "string"
+		}
+	```
+
+	</details>
+
+
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+	"imageId": "number",
+	"filename": "string",
+	"productId": "number"
 	}
 	```
 </details>
@@ -104,6 +134,8 @@ Here are some examples of the endpoints, please refer to the postman collection 
       "priceKind": "number",
       "status": "number",
       "deliverable": "number",
+      "approved": "number",
+      "userId": "number"
 		}
 	```
 
@@ -118,7 +150,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 
 	```json
 	{
-		"productId": "number",
+	"productId": "number",
     "title": "string",
     "type": "number",
     "description": "string",
@@ -126,6 +158,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
     "sellOrLend": "number",
     "price": "number",
     "priceKind": "number",
+    "amount": "number",
     "status": "number",
     "deliverable": "number",
     "approved": "number",
@@ -135,7 +168,46 @@ Here are some examples of the endpoints, please refer to the postman collection 
 </details>
 
 - DELETE `/:id`<br/>
-	Response: Status: 200
+    <details>
+    <summary>Response</summary>
+    	Code: 200
+    	Body:
+    	
+    		```json
+        	{
+        	"productId": "number",
+            "title": "string",
+            "type": "number",
+            "description": "string",
+            "location": "string",
+            "sellOrLend": "number",
+            "price": "number",
+            "priceKind": "number",
+            "amount": "number",
+            "status": "number",
+            "deliverable": "number",
+            "approved": "number",
+            "userId": "number"
+        	}
+        	```
+    </details>
+    
+- DELETE `/image/:id`<br/>
+    <details>
+    <summary>Response</summary>
+    	Code: 200
+    	Body:
+    	
+    		```json
+        	{
+        	"imageId": "number",
+            "filename": "string",
+            "productId": "number"
+        	}
+        	```
+    </details>
+    	
+    	
 
 - GET
 	<details>
@@ -144,8 +216,38 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Code: 200
 		Body:
 	```json
+    [
+	     {
+	          "productId": "number",
+              "title": "string",
+              "type": "number",
+              "description": "string",
+              "location": "string",
+              "sellOrLend": "number",
+              "price": "number",
+              "priceKind": "number",
+              "amount": "number",
+              "status": "number",
+              "deliverable": "number",
+              "approved": "number",
+              "userId": "number",
+              "reviews": "Review[]",
+              "images" : "Image[]" 
+	     },
+         ...
+    ]
+	```
+	</details>
+
+- GET `/catalog`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
 	{
-		"productId": "number",
+	"productId": "number",
     "title": "string",
     "type": "number",
     "description": "string",
@@ -153,12 +255,74 @@ Here are some examples of the endpoints, please refer to the postman collection 
     "sellOrLend": "number",
     "price": "number",
     "priceKind": "number",
+    "amount": "number",
     "status": "number",
     "deliverable": "number",
     "approved": "number",
     "userId": "number",
-    "reviews": "Review[]"
-	}
+    "reviews": "Review[]",
+    "images" : "Image[]" 
+	}       
+    {
+    ...
+    }  
+	```
+	</details>
+
+- GET `/admin-catalog`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+	"productId": "number",
+    "title": "string",
+    "type": "number",
+    "description": "string",
+    "location": "string",
+    "sellOrLend": "number",
+    "price": "number",
+    "priceKind": "number",
+    "amount": "number",
+    "status": "number",
+    "deliverable": "number",
+    "approved": "number",
+    "userId": "number",
+    "reviews": "Review[]",
+    "images" : "Image[]" 
+	}       
+    {
+    ...
+    }  
+	```
+	</details>
+
+- GET `/:id`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+	"productId": "number",
+    "title": "string",
+    "type": "number",
+    "description": "string",
+    "location": "string",
+    "sellOrLend": "number",
+    "price": "number",
+    "priceKind": "number",
+    "amount": "number",
+    "status": "number",
+    "deliverable": "number",
+    "approved": "number",
+    "userId": "number",
+    "reviews": "Review[]",
+    "images" : "Image[]" 
+	} 
 	```
 	</details>
 
@@ -171,8 +335,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-    "review": "string",
-    "productId": "number"
+    "review" : "string",
+    "rating" : "number",
+    "productId" : "number"
 	}
 
 	```
@@ -185,8 +350,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-		"reviewId": "number",
+	"reviewId": "number",
     "review": "string",
+    "rating": "number",
     "productId": "number",
     "userId": "number"
 	}
@@ -203,6 +369,7 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	```json
 	{
     "review": "string",
+    "rating": "number"
 	}
 
 	```
@@ -214,8 +381,9 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-		"reviewId": "number",
+	"reviewId": "number",
     "review": "string",
+    "rating": "number",
     "productId": "number",
     "userId": "number"
 	}
@@ -224,20 +392,19 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	</details>
 
 - DELETE `/:id`<br>
-	Response: Status: 200
-
-- GET
-	<details>
-		<summary>Response</summary>
-
-		Code: 200
-		Body:
+    <details>
+        <summary>Response</summary>
+	    Code: 200
+	    Body:
 	```json
 	{
-		"todoListId": "number",
-		"name":"string",
-		"todoItems":"TodoItem[]"
+	"reviewId": "number",
+    "review": "string",
+    "rating": "number",
+    "productId": "number",
+    "userId": "number"
 	}
+
 	```
 	</details>
 
@@ -255,6 +422,12 @@ Here are some examples of the endpoints, please refer to the postman collection 
     "email":"string",
     "lastName":"string",
     "firstName":"string",
+    "gender": "string",
+    "country": "string",
+    "city": "string",
+    "street": "string",
+    "zipCode": "string",
+    "phoneNr": "string",
     "isAdmin": "number"
 	}
 
@@ -267,12 +440,19 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-		"userId": "number",
-		"userName":"string",
-		"password":"string(hashed)"
+	"userId": "number",
+	"userName": "string",
+    "password": "string (hashed)",
     "email":"string",
     "lastName":"string",
     "firstName":"string",
+    "gender": "string",
+    "country": "string",
+    "city": "string",
+    "street": "string",
+    "zipCode": "string",
+    "phoneNr": "string",
+    "credits": "number",
     "isAdmin": "number"
 	}
 
@@ -300,22 +480,106 @@ Here are some examples of the endpoints, please refer to the postman collection 
 		Body:
 	```json
 	{
-		"user": {
-			"userId":"string",
-			"userName":"string",
-			"password":"stirng(hashed)"
-      "email":"string",
-      "lastName":"string",
-      "firstName":"string",
-      "isAdmin": "number"
-		},
-		"token":"string"
+	"user": {
+		"userId": "number",
+        "userName": "string",
+        "password": "string (hashed)",
+        "email":"string",
+        "lastName":"string",
+        "firstName":"string",
+        "gender": "string",
+        "country": "string",
+        "city": "string",
+        "street": "string",
+        "zipCode": "string",
+        "phoneNr": "string",
+        "credits": "number",
+        "isAdmin": "number"
+	},
+	"token":"string"
 	}
 
 	```
 	</details>
 
-- GET
+- GET `/purchased`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	[
+    	     {
+    	          "productId": "number",
+                  "title": "string",
+                  "type": "number",
+                  "description": "string",
+                  "location": "string",
+                  "sellOrLend": "number",
+                  "price": "number",
+                  "priceKind": "number",
+                  "amount": "number",
+                  "status": "number",
+                  "deliverable": "number",
+                  "approved": "number",
+                  "userId": "number",
+                  "reviews": "Review[]",
+                  "images" : "Image[]" 
+    	     },
+             ...
+    ]
+
+	```
+	</details>
+
+- GET `/:id/public`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+		"userId": "number",
+        "userName": "string",
+        "isAdmin": "number"
+	}
+	```
+	</details>
+
+- GET `/:id/products`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	[
+    	     {
+    	          "productId": "number",
+                  "title": "string",
+                  "type": "number",
+                  "description": "string",
+                  "location": "string",
+                  "sellOrLend": "number",
+                  "price": "number",
+                  "priceKind": "number",
+                  "amount": "number",
+                  "status": "number",
+                  "deliverable": "number",
+                  "approved": "number",
+                  "userId": "number",
+                  "reviews": "Review[]",
+                  "images" : "Image[]" 
+    	     },
+             ...
+    ]
+
+	```
+	</details>
+
+- GET `/all`
 	<details>
 		<summary>Response</summary>
 
@@ -324,25 +588,380 @@ Here are some examples of the endpoints, please refer to the postman collection 
 	```json
 	[
 		{
-			"userId":"string",
-			"userName":"string",
-			"password":"stirng(hashed)"
-      "email":"string",
-      "lastName":"string",
-      "firstName":"string",
-      "isAdmin": "number"
-		},
-		{
-			"userId":"string",
-			"userName":"string",
-			"password":"stirng(hashed)"
-      "email":"string",
-      "lastName":"string",
-      "firstName":"string",
-      "isAdmin": "number"
+		"userId": "number",
+        "userName": "string",
+        "password": "string (hashed)",
+        "email":"string",
+        "lastName":"string",
+        "firstName":"string",
+        "gender": "string",
+        "country": "string",
+        "city": "string",
+        "street": "string",
+        "zipCode": "string",
+        "phoneNr": "string",
+        "credits": "number",
+        "isAdmin": "number"
 		},
 		...
 	]
+
+	```
+	</details>
+
+- GET `/`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+		"userId": "number",
+        "userName": "string",
+        "password": "string (hashed)",
+        "email":"string",
+        "lastName":"string",
+        "firstName":"string",
+        "gender": "string",
+        "country": "string",
+        "city": "string",
+        "street": "string",
+        "zipCode": "string",
+        "phoneNr": "string",
+        "credits": "number",
+        "isAdmin": "number"
+	}
+	```
+	</details>
+
+- DELETE `/:id`
+    <deatails>
+        <summary>Response</summary>
+        
+        Code: 200
+        Body:
+     ```json
+     {
+     	"userId": "number",
+         "userName": "string",
+         "password": "string (hashed)",
+         "email":"string",
+         "lastName":"string",
+         "firstName":"string",
+         "gender": "string",
+         "country": "string",
+         "city": "string",
+         "street": "string",
+         "zipCode": "string",
+         "phoneNr": "string",
+         "credits": "number",
+         "isAdmin": "number"
+     }
+     ```
+    </details>
+
+- GET `/reviews`
+    <details>
+        <summary>Response</summary>
+        
+        Code: 200
+        Body:
+    ```json
+    [
+      {
+      	"reviewId": "number",
+        "review": "string",
+        "rating": "number",
+        "productId": "number",
+        "userId": "number"
+      },
+    ...
+    ] 
+    ```
+    </details>
+
+- PUT `/update`
+	<details>
+		<summary>Request</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+    "userName": "string",
+    "password": "string",
+    "email":"string",
+    "lastName":"string",
+    "firstName":"string",
+    "gender": "string",
+    "country": "string",
+    "city": "string",
+    "street": "string",
+    "zipCode": "string",
+    "phoneNr": "string",
+    "isAdmin": "number"
+	}
+
+	```
+	</details>
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+	"userId": "number",
+	"userName": "string",
+    "password": "string (hashed)",
+    "email":"string",
+    "lastName":"string",
+    "firstName":"string",
+    "gender": "string",
+    "country": "string",
+    "city": "string",
+    "street": "string",
+    "zipCode": "string",
+    "phoneNr": "string",
+    "credits": "number",
+    "isAdmin": "number"
+	}
+
+	```
+	</details>
+
+
+### `/notification`
+
+- GET
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+    [
+	    {
+            "notificationId" : "number",
+            "userId" : "number",
+            "text" : "string",
+            "read" : "number"
+	    },
+        ...
+    ]
+	```
+	</details>
+
+
+- PUT `/:id`
+	<details>
+		<summary>Request</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+    "read": "number"
+	}
+
+	```
+	</details>
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+	"notificationId" : "number",
+    "userId" : "number",
+    "text" : "string",
+    "read" : "number"
+	}
+
+	```
+	</details>
+
+- DELETE `/:id`<br>
+    <details>
+        <summary>Response</summary>
+	    Code: 200
+	    Body:
+	```json
+	{
+	"notificationId" : "number",
+    "userId" : "number",
+    "text" : "string",
+    "read" : "number"
+	}
+
+	```
+	</details>
+
+### `/cart`
+- GET
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+    [
+	    {
+            "id" : "number",
+            "buyerId" : "number",
+            "productId" : "number",
+            "amountOrTime" : "number"
+	    },
+        ...
+    ]
+	```
+	</details>
+
+- POST `/buy`
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```
+	OK
+	```
+	</details>
+
+- POST `/:id`
+	<details>
+		<summary>Request</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+    "amountOrTime": "number"
+	}
+
+	```
+	</details>
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+	"id" : "number",
+    "buyerId" : "number",
+    "productId" : "number",
+    "amountOrTime" : "number"
+	}
+
+	```
+	</details>
+
+- PUT `/:id`
+	<details>
+		<summary>Request</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+    "amountOrTime": "number"
+	}
+
+	```
+	</details>
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+	"id" : "number",
+    "buyerId" : "number",
+    "productId" : "number",
+    "amountOrTime" : "number"
+	}
+
+	```
+	</details>
+
+- DELETE `/:id`<br>
+    <details>
+        <summary>Response</summary>
+	    Code: 200
+	    Body:
+	```json
+	{
+	"id" : "number",
+    "buyerId" : "number",
+    "productId" : "number",
+    "amountOrTime" : "number"
+	}
+
+	```
+	</details>
+
+### `/wishlist`
+- GET
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+    [
+	    {
+            "id" : "number",
+            "buyerId" : "number",
+            "productId" : "number"
+	    },
+        ...
+    ]
+	```
+	</details>
+
+- POST `/:id`
+	<details>
+		<summary>Request</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+    "amountOrTime": "number"
+	}
+
+	```
+	</details>
+	<details>
+		<summary>Response</summary>
+
+		Code: 200
+		Body:
+	```json
+	{
+	"id" : "number",
+    "buyerId" : "number",
+    "productId" : "number"
+	}
+
+	```
+	</details>
+
+- DELETE `/:id`<br>
+    <details>
+        <summary>Response</summary>
+	    Code: 200
+	    Body:
+	```json
+	{
+	"id" : "number",
+    "buyerId" : "number",
+    "productId" : "number"
+	}
 
 	```
 	</details>
