@@ -521,14 +521,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{uri}}/notification/{{userId}}",
+							"raw": "http://{{uri}}/notification/{{notificationId}}",
 							"protocol": "http",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"notification",
-								"{{userId}}"
+								"{{notificationId}}"
 							]
 						}
 					},
