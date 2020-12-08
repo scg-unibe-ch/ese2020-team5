@@ -3,11 +3,16 @@
   padding: 25px;
   width: 50%;
   min-width: 431px;
-  border: 1px solid #a7a7a7;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.6);
 }
 
 .signup-form > h1 {
   text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 2em;
 }
 
 .signup-form mat-form-field {
@@ -44,27 +49,53 @@
   color: white;
 }
 
-.first-name {
+.first-name, .email {
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.last-name {
+.last-name, .phone-nr {
   grid-column-start: 3;
   grid-column-end: 5;
 }
 
-.email, .country, .street, .username, .password{
+.street, .username, .password{
   grid-column-start: 1;
   grid-column-end: 5;
 }
 
-.phone-nr, .city {
+.gender {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.city {
   grid-column-start: 1;
   grid-column-end: 4;
 }
 
-.gender, .zip-code {
+.country {
+  grid-column-start: 2;
+  grid-column-end: 5;
+}
+
+.zip-code {
   grid-column-start: 4;
   grid-column-end: 5;
+}
+
+@media only screen and (max-width: 400px) {
+  .signup-form {
+    padding: 25px;
+    width: 90%;
+    min-width: 231px;
+    border: none;
+    box-shadow: none;
+  }
+
+  .signup-form > h1 {
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 1.7em;
+  }
 }

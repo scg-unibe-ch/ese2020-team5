@@ -1,5 +1,5 @@
 <div class="profile">
-  <h1>Profile</h1>
+  <h1><strong>Profile</strong></h1>
   <button *ngIf="!editable" mat-stroked-button type="button" class="profile-edit-btn black-btn" (click)="edit()">Edit</button>
   <hr style="margin: 10px 0 25px;">
   <form *ngIf="user" [formGroup]="profileForm" (ngSubmit)="updateUser()" class="profile-form-fields">
