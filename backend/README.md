@@ -4,8 +4,8 @@
 You should have installed [NodeJS and npm](https://nodejs.org/en/download/) (they come as one) in order to start the backend server.
 
 ## Start
-- clone the ese2020-project-scaffolding repository
-- navigate to the backend folder `cd ese2020-project-scaffolding/backend`
+- clone the ese2020-team5 repository
+- navigate to the backend folder `cd ese2020-team5/backend`
 - run `npm install`
 - run `npm run dev`
 - open your browser with the url [http://localhost:3000](http://localhost:3000/)
@@ -17,40 +17,202 @@ You should have installed [NodeJS and npm](https://nodejs.org/en/download/) (the
 	- logic e.g. creating/authentication is done via [UserService](./src/services/user.service.ts)
 2. The controller itself is structured as a class.
 
+## Tests
 
-## Quick Links
-These are links to some of the files that we have implemented/modified when developing the backend:
+Run the postman backend test the following way:
 
-- Middleware
-	- [the function](./src/middlewares/checkAuth.ts)
-	- [how to use in express](./src/controllers/secured.controller.ts)
-- Login: 
-	- [service](./src/services/user.service.ts)
-	- [controller](./src/controllers/user.controller.ts)
-- Registration:
-	- [service](./src/services/user.service.ts)
-	- [controller](./src/controllers/user.controller.ts)
-- [typescript config](./src/tsconfig.json)
-- [routing](./src/controllers)
-- [API construction](./src/server.ts)
+```
+npm install newman
+npm run dev &
+newman run Integration\ Tests.postman_collection.json -e admin.postman_environment.json
+newman run Integration\ Tests.postman_collection.json -e User.postman_environment.json
+```
+
+or you can import the `Integration\ Tests.posman_collection.json` and the two environment files to postman and run it with the GUI.
 
 ## Database Diagram
 
-![database_diagram](../documentation/Database-v1.3.jpg)
+![database_diagram](../documentation/Database-v2.jpg)
 
 ## Endpoints
 Some endpoints can be called in a [browser](http://localhost:3000), others have to be called by a REST Client. [Here](./postman_collection) you can find a collection that contains all requests, which you can import into Postman. [Postman](https://www.postman.com/) is a REST Client.
 
-*TODO:* Finish the requests
+Here are some examples of the endpoints, please refer to the postman collection to see all kind of requests.
 
 ### `/products`
 - POST
 
-	<details>
-		<summary>Request</summary>
+    <details><summary>Request</summary>
 
-	```json
-		{
+    ```json
+    {
+        "title": "string",
+        "type": "number",
+        "description": "string",
+        "location": "string",
+        "sellOrLend": "number",
+        "price": "number",
+        "priceKind": "number",
+        "status": "number",
+        "deliverable": "number",
+        "approved": "number",
+        "userId": "number"
+    }
+    ```
+    </details>
+
+    <details><summary>Response</summary>
+
+        Code: 200
+        Body:
+        
+    ```json
+    {
+        "productId": "number",
+        "title": "string",
+        "type": "number",
+        "description": "string",
+        "location": "string",
+        "sellOrLend": "number",
+        "price": "number",
+        "priceKind": "number",
+        "amount": "number",
+        "status": "number",
+        "deliverable": "number",
+        "approved": "number",
+        "userId": "number"
+    }
+    ```
+    </details>
+
+
+- POST `/:id/image/`
+
+    <details><summary>Request</summary>
+    
+    ```json
+    {
+        "filename": "string"
+    }
+    ```
+    </details>
+
+    <details><summary>Response</summary>
+
+        Code: 200
+        Body:
+        
+    ```json
+    {
+        "imageId": "number",
+        "filename": "string",
+        "productId": "number"
+    }
+    ```
+    </details>
+
+
+- PUT `/:id`
+
+    <details><summary>Request</summary>
+
+    ```json
+    {
+        "title": "string",
+        "type": "number",
+        "description": "string",
+        "location": "string",
+        "sellOrLend": "number",
+        "price": "number",
+        "priceKind": "number",
+        "status": "number",
+        "deliverable": "number",
+        "approved": "number",
+        "userId": "number"
+    }
+    ```
+    </details>
+
+    <details><summary>Response</summary>
+
+        Code: 200
+        Body:
+        
+    ```json
+    {
+        "productId": "number",
+        "title": "string",
+        "type": "number",
+        "description": "string",
+        "location": "string",
+        "sellOrLend": "number",
+        "price": "number",
+        "priceKind": "number",
+        "amount": "number",
+        "status": "number",
+        "deliverable": "number",
+        "approved": "number",
+        "userId": "number"
+    }
+    ```
+    </details>
+
+
+- DELETE `/:id`
+
+    <details><summary>Response</summary>
+
+        Code: 200
+        Body:
+        
+    ```json
+    {
+        "productId": "number",
+        "title": "string",
+        "type": "number",
+        "description": "string",
+        "location": "string",
+        "sellOrLend": "number",
+        "price": "number",
+        "priceKind": "number",
+        "amount": "number",
+        "status": "number",
+        "deliverable": "number",
+        "approved": "number",
+        "userId": "number"
+    }
+    ```
+    </details>
+
+
+- DELETE `/image/:id`
+
+    <details><summary>Response</summary>
+    
+        Code: 200
+        Body:
+        
+    ```json
+    {
+        "imageId": "number",
+        "filename": "string",
+        "productId": "number"
+    }
+    ```
+    </details>
+
+
+- GET
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+		
+  ```json
+  [
+    {
+      "productId": "number",
       "title": "string",
       "type": "number",
       "description": "string",
@@ -58,47 +220,31 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
       "sellOrLend": "number",
       "price": "number",
       "priceKind": "number",
+      "amount": "number",
       "status": "number",
       "deliverable": "number",
       "approved": "number",
-      "userId": "number"
-		}
-	```
-
+      "userId": "number",
+      "reviews": "Review[]",
+      "images": "Image[]" 
+    },
+    ...
+  ]
+  ```
 	</details>
 
 
-	<details>
-		<summary>Response</summary>
+- GET `/catalog`
+
+    <details><summary>Response</summary>
 
 		Code: 200
 		Body:
-
-	```json
-	{
-		"productId": "number",
-    "title": "string",
-    "type": "number",
-    "description": "string",
-    "location": "string",
-    "sellOrLend": "number",
-    "price": "number",
-    "priceKind": "number",
-    "status": "number",
-    "deliverable": "number",
-    "approved": "number",
-    "userId": "number"
-	}
-	```
-</details>
-
-- PUT `/:id`
-
-	<details>
-		<summary>Request</summary>
-
-	```json
-		{
+		
+  ```json
+  [
+    {
+      "productId": "number",
       "title": "string",
       "type": "number",
       "description": "string",
@@ -106,259 +252,762 @@ Some endpoints can be called in a [browser](http://localhost:3000), others have 
       "sellOrLend": "number",
       "price": "number",
       "priceKind": "number",
+      "amount": "number",
       "status": "number",
       "deliverable": "number",
-		}
-	```
+      "approved": "number",
+      "userId": "number",
+      "reviews": "Review[]",
+      "images": "Image[]" 
+    },
+    ...
+  ]
+  ```
+    </details>
 
-	</details>
+
+- GET `/admin-catalog`
+
+    <details><summary>Response</summary>
+
+		Code: 200
+		Body:
+		
+  ```json
+  [
+    {
+      "productId": "number",
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "amount": "number",
+      "status": "number",
+      "deliverable": "number",
+      "approved": "number",
+      "userId": "number",
+      "reviews": "Review[]",
+      "images": "Image[]" 
+    },
+    ...
+  ]
+  ```
+    </details>
 
 
-	<details>
-		<summary>Response</summary>
+- GET `/:id`
+
+    <details><summary>Response</summary>
 
 		Code: 200
 		Body:
 
 	```json
 	{
-		"productId": "number",
-    "title": "string",
-    "type": "number",
-    "description": "string",
-    "location": "string",
-    "sellOrLend": "number",
-    "price": "number",
-    "priceKind": "number",
-    "status": "number",
-    "deliverable": "number",
-    "approved": "number",
-    "userId": "number"
-	}
+     "productId": "number",
+     "title": "string",
+     "type": "number",
+     "description": "string",
+     "location": "string",
+     "sellOrLend": "number",
+     "price": "number",
+     "priceKind": "number",
+     "amount": "number",
+     "status": "number",
+     "deliverable": "number",
+     "approved": "number",
+     "userId": "number",
+     "reviews": "Review[]",
+     "images" : "Image[]" 
+	} 
 	```
-</details>
+    </details>
 
-- DELETE `/:id`<br/>
-	Response: Status: 200
-
-- GET
-	<details>
-		<summary>Response</summary>
-
-		Code: 200
-		Body:
-	```json
-	{
-		"productId": "number",
-    "title": "string",
-    "type": "number",
-    "description": "string",
-    "location": "string",
-    "sellOrLend": "number",
-    "price": "number",
-    "priceKind": "number",
-    "status": "number",
-    "deliverable": "number",
-    "approved": "number",
-    "userId": "number",
-    "reviews": "Review[]"
-	}
-	```
-	</details>
 
 ### `/review`
+
 - POST
-	<details>
-		<summary>Request</summary>
+	<details><summary>Request</summary>
 
 		Code: 200
 		Body:
+		
 	```json
 	{
-    "review": "string",
-    "productId": "number"
+     "review" : "string",
+     "rating" : "number",
+     "productId" : "number"
 	}
-
 	```
 	</details>
 
-	<details>
-		<summary>Response</summary>
+	<details><summary>Response</summary>
 
 		Code: 200
 		Body:
+
 	```json
 	{
-		"reviewId": "number",
-    "review": "string",
-    "productId": "number",
-    "userId": "number"
+	    "reviewId": "number",
+     "review": "string",
+     "rating": "number",
+     "productId": "number",
+     "userId": "number"
 	}
-
 	```
 	</details>
+
 
 - PUT `/:id`
-	<details>
-		<summary>Request</summary>
+	<details><summary>Request</summary>
 
 		Code: 200
 		Body:
+		
 	```json
 	{
-    "review": "string",
+     "review": "string",
+     "rating": "number"
 	}
-
 	```
 	</details>
-	<details>
-		<summary>Response</summary>
+	
+	<details><summary>Response</summary>
 
 		Code: 200
 		Body:
+		
 	```json
 	{
-		"reviewId": "number",
-    "review": "string",
-    "productId": "number",
-    "userId": "number"
-	}
-
-	```
-	</details>
-
-- DELETE `/:id`<br>
-	Response: Status: 200
-
-- GET
-	<details>
-		<summary>Response</summary>
-
-		Code: 200
-		Body:
-	```json
-	{
-		"todoListId": "number",
-		"name":"string",
-		"todoItems":"TodoItem[]"
+	    "reviewId": "number",
+     "review": "string",
+     "rating": "number",
+     "productId": "number",
+     "userId": "number"
 	}
 	```
 	</details>
+
+
+- DELETE `/:id`
+
+    <details><summary>Response</summary>
+	    Code: 200
+	    Body:
+	    
+	```json
+	{
+	    "reviewId": "number",
+     "review": "string",
+     "rating": "number",
+     "productId": "number",
+     "userId": "number"
+	}
+	```
+	</details>
+
 
 ### `/user`
+
 - POST `/register`
-	<details>
-		<summary>Request</summary>
+	<details><summary>Request</summary>
 
 		Code: 200
 		Body:
+		
 	```json
 	{
-    "userName": "string",
-    "password": "string",
-    "email":"string",
-    "lastName":"string",
-    "firstName":"string",
-    "isAdmin": "number"
+     "userName": "string",
+     "password": "string",
+     "email":"string",
+     "lastName":"string",
+     "firstName":"string",
+     "gender": "string",
+     "country": "string",
+     "city": "string",
+     "street": "string",
+     "zipCode": "string",
+     "phoneNr": "string",
+     "isAdmin": "number"
 	}
-
 	```
 	</details>
-	<details>
-		<summary>Response</summary>
+	
+	<details><summary>Response</summary>
 
 		Code: 200
 		Body:
+		
 	```json
 	{
-		"userId": "number",
-		"userName":"string",
-		"password":"string(hashed)"
-    "email":"string",
-    "lastName":"string",
-    "firstName":"string",
-    "isAdmin": "number"
+	    "userId": "number",
+	    "userName": "string",
+     "password": "string (hashed)",
+     "email":"string",
+     "lastName":"string",
+     "firstName":"string",
+     "gender": "string",
+     "country": "string",
+     "city": "string",
+     "street": "string",
+     "zipCode": "string",
+     "phoneNr": "string",
+     "credits": "number",
+     "isAdmin": "number"
 	}
-
 	```
 	</details>
+
 
 - POST `/login`
-	<details>
-		<summary>Request</summary>
+	<details><summary>Request</summary>
 
 		Code: 200
 		Body:
+		
 	```json
 	{
-		"userNameOrEmail":"string",
-		"password":"string"
+	    "userNameOrEmail":"string",
+	    "password":"string"
 	}
-
 	```
 	</details>
-	<details>
-		<summary>Response</summary>
+	
+	<details><summary>Response</summary>
 
 		Code: 200 || 403
 		Body:
+		
 	```json
 	{
-		"user": {
-			"userId":"string",
-			"userName":"string",
-			"password":"stirng(hashed)"
-      "email":"string",
-      "lastName":"string",
-      "firstName":"string",
-      "isAdmin": "number"
-		},
-		"token":"string"
+	  "user": {
+		 "userId": "number",
+          "userName": "string",
+          "password": "string (hashed)",
+          "email":"string",
+          "lastName":"string",
+          "firstName":"string",
+          "gender": "string",
+          "country": "string",
+          "city": "string",
+          "street": "string",
+          "zipCode": "string",
+          "phoneNr": "string",
+          "credits": "number",
+          "isAdmin": "number"
+	  },
+	  "token":"string"
 	}
 
 	```
 	</details>
 
-- GET
-	<details>
-		<summary>Response</summary>
+
+- GET `/purchased`
+
+	<details><summary>Response</summary>
 
 		Code: 200
 		Body:
+		
+  ```json
+  [
+    {
+      "productId": "number",
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "amount": "number",
+      "status": "number",
+      "deliverable": "number",
+      "approved": "number",
+      "userId": "number",
+      "reviews": "Review[]",
+      "images": "Image[]" 
+    },
+    ...
+  ]
+  ```
+	</details>
+	
+	
+- GET `/:id/public`
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+		
 	```json
-	[
-		{
-			"userId":"string",
-			"userName":"string",
-			"password":"stirng(hashed)"
+	{
+	    "userId": "number",
+     "userName": "string",
+     "isAdmin": "number"
+	}
+	```
+	</details>
+
+
+- GET `/:id/products`
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+		
+  ```json
+  [
+    {
+      "productId": "number",
+      "title": "string",
+      "type": "number",
+      "description": "string",
+      "location": "string",
+      "sellOrLend": "number",
+      "price": "number",
+      "priceKind": "number",
+      "amount": "number",
+      "status": "number",
+      "deliverable": "number",
+      "approved": "number",
+      "userId": "number",
+      "reviews": "Review[]",
+      "images": "Image[]" 
+    },
+    ...
+  ]
+  ```
+	</details>
+
+
+- GET `/all`
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+		
+  ```json
+  [
+    {
+      "userId": "number",
+      "userName": "string",
+      "password": "string (hashed)",
       "email":"string",
       "lastName":"string",
       "firstName":"string",
+      "gender": "string",
+      "country": "string",
+      "city": "string",
+      "street": "string",
+      "zipCode": "string",
+      "phoneNr": "string",
+      "credits": "number",
       "isAdmin": "number"
-		},
-		{
-			"userId":"string",
-			"userName":"string",
-			"password":"stirng(hashed)"
-      "email":"string",
-      "lastName":"string",
-      "firstName":"string",
-      "isAdmin": "number"
-		},
-		...
-	]
+    },
+    ...
+  ]
+  ```
+	</details>
+
+
+- GET `/`
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+		
+	```json
+	{
+	    "userId": "number",
+     "userName": "string",
+     "password": "string (hashed)",
+     "email":"string",
+     "lastName":"string",
+     "firstName":"string",
+     "gender": "string",
+     "country": "string",
+     "city": "string",
+     "street": "string",
+     "zipCode": "string",
+     "phoneNr": "string",
+     "credits": "number",
+     "isAdmin": "number"
+	}
+	```
+	</details>
+
+
+- DELETE `/:id`
+    
+    <details><summary>Response</summary>
+        
+        Code: 200
+        Body:
+    ```json
+    {
+        "userId": "number",
+        "userName": "string",
+        "password": "string (hashed)",
+        "email":"string",
+        "lastName":"string",
+        "firstName":"string",
+        "gender": "string",
+        "country": "string",
+        "city": "string",
+        "street": "string",
+        "zipCode": "string",
+        "phoneNr": "string",
+        "credits": "number",
+        "isAdmin": "number"
+    }
+    ```
+    </details>
+  
+
+
+- GET `/reviews`
+
+    <details><summary>Response</summary>
+
+        Code: 200
+        Body:
+
+  ```json
+  [
+    {
+      "reviewId": "number",
+      "review": "string",
+      "rating": "number",
+      "productId": "number",
+      "userId": "number"
+    },
+    ...
+  ]
+  ```
+    </details>
+
+
+- PUT `/update`
+
+	<details><summary>Request</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+     "userName": "string",
+     "password": "string",
+     "email":"string",
+     "lastName":"string",
+     "firstName":"string",
+     "gender": "string",
+     "country": "string",
+     "city": "string",
+     "street": "string",
+     "zipCode": "string",
+     "phoneNr": "string",
+     "isAdmin": "number"
+	}
 
 	```
 	</details>
 
-### `/`
-- GET
-	<details>
-		<summary>Response</summary>
+	<details><summary>Response</summary>
 
 		Code: 200
 		Body:
-	```text
-	<h1>Welcome to the ESE-2020 Course</h1><span style=\"font-size:100px;\">&#127881;</span>
+
+	```json
+	{
+	    "userId": "number",
+	    "userName": "string",
+     "password": "string (hashed)",
+     "email":"string",
+     "lastName":"string",
+     "firstName":"string",
+     "gender": "string",
+     "country": "string",
+     "city": "string",
+     "street": "string",
+     "zipCode": "string",
+     "phoneNr": "string",
+     "credits": "number",
+     "isAdmin": "number"
+	}
+	```
+	</details>
+
+
+### `/notification`
+
+- GET
+    <details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+  ```json
+  [
+    {
+      "notificationId" : "number",
+      "userId" : "number",
+      "text" : "string",
+      "read" : "number"
+    },
+    ...
+  ]
+  ```
+    </details>
+
+
+- PUT `/:id`
+
+	<details><summary>Request</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+     "read": "number"
+	}
+	```
+	</details>
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+	    "notificationId" : "number",
+     "userId" : "number",
+     "text" : "string",
+     "read" : "number"
+	}
+	```
+	</details>
+
+
+- DELETE `/:id`
+
+    <details><summary>Response</summary>
+
+	    Code: 200
+	    Body:
+
+	```json
+	{
+	    "notificationId" : "number",
+     "userId" : "number",
+     "text" : "string",
+     "read" : "number"
+	}
+
+	```
+	</details>
+
+
+### `/cart`
+- GET
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+  ```json
+  [
+    {
+      "id" : "number",
+      "buyerId" : "number",
+      "productId" : "number",
+      "amountOrTime" : "number"
+    },
+    ...
+  ]
+  ```
+  </details>
+
+
+- POST `/buy`
+
+    <details><summary>Request</summary>
+
+        Code: 200
+    	Body:
+
+    ```json
+    {
+        "country": "string",
+        "city": "string",
+        "street": "string",
+        "zipCode": "string"
+    }
+    ```
+    </details>
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+	```
+	OK
+	```
+	</details>
+
+
+- POST `/:id`
+
+	<details><summary>Request</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+     "amountOrTime": "number"
+	}
+	```
+	</details>
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+	    "id" : "number",
+     "buyerId" : "number",
+     "productId" : "number",
+     "amountOrTime" : "number"
+	}
+	```
+	</details>
+
+
+- PUT `/:id`
+
+	<details><summary>Request</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+     "amountOrTime": "number"
+	}
+	```
+	</details>
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+	    "id" : "number",
+     "buyerId" : "number",
+     "productId" : "number",
+     "amountOrTime" : "number"
+	}
+	```
+	</details>
+
+
+- DELETE `/:id`
+
+    <details><summary>Response</summary>
+
+	    Code: 200
+	    Body:
+
+	```json
+	{
+	    "id" : "number",
+     "buyerId" : "number",
+     "productId" : "number",
+     "amountOrTime" : "number"
+	}
+	```
+	</details>
+
+
+### `/wishlist`
+- GET
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+  ```json
+  [
+    {
+      "id" : "number",
+      "buyerId" : "number",
+      "productId" : "number"
+    },
+    ...
+  ]
+  ```
+	</details>
+
+
+- POST `/:id`
+
+	<details><summary>Request</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+     "amountOrTime": "number"
+	}
+	```
+	</details>
+
+	<details><summary>Response</summary>
+
+		Code: 200
+		Body:
+
+	```json
+	{
+	    "id" : "number",
+     "buyerId" : "number",
+     "productId" : "number"
+	}
+	```
+	</details>
+
+- DELETE `/:id`
+
+    <details><summary>Response</summary>
+
+	    Code: 200
+	    Body:
+
+	```json
+	{
+	    "id" : "number",
+     "buyerId" : "number",
+     "productId" : "number"
+	}
 	```
 	</details>
